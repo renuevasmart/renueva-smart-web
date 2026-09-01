@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Página no encontrada — Renueva Smart</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#0b0c0e">
+<link rel="icon" href="assets/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;700;800&family=Fraunces:opsz,wght@9..144,700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --color-brand: #ff6a00;
+    --color-brand-hover: #ff7a1a;
+    --color-bg-primary: #0b0c0e;
+    --color-text-primary: #f5f3ee;
+    --color-text-muted: #92979d;
+    --color-border-strong: rgba(255, 255, 255, 0.18);
+    --font-display: "Fraunces", Georgia, serif;
+    --font-ui: "Plus Jakarta Sans", "Segoe UI", -apple-system, Roboto, Arial, sans-serif;
+    --radius-pill: 999px;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; min-height: 100svh;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 20px; text-align: center; padding: 40px 24px;
+    background: var(--color-bg-primary); color: var(--color-text-primary); font-family: var(--font-ui);
+  }
+  .code { font-family: var(--font-display); font-weight: 700; font-size: clamp(64px, 14vw, 120px); line-height: 1; color: var(--color-brand); }
+  h1 { font-family: var(--font-display); font-weight: 700; font-size: clamp(24px, 4vw, 34px); margin: 0; }
+  p { font-size: 16px; line-height: 1.6; color: var(--color-text-muted); margin: 0; max-width: 44ch; }
+  .acciones { display: flex; flex-wrap: wrap; gap: 14px; justify-content: center; margin-top: 8px; }
+  .btn-cta {
+    font-weight: 800; font-size: 15px; color: var(--color-bg-primary); background: var(--color-brand);
+    border: none; border-radius: var(--radius-pill); padding: 13px 26px; text-decoration: none; display: inline-block;
+  }
+  .btn-cta:hover { background: var(--color-brand-hover); }
+  .btn-sec {
+    font-weight: 700; font-size: 15px; color: var(--color-text-primary); background: transparent;
+    border: 1.5px solid var(--color-border-strong); border-radius: var(--radius-pill); padding: 12px 24px; text-decoration: none; display: inline-block;
+  }
+  .btn-sec:hover { border-color: var(--color-text-primary); }
+</style>
+</head>
+<body>
+  <div class="code">404</div>
+  <h1>Esta página no existe</h1>
+  <p>El enlace que seguiste puede estar roto o la página se movió.</p>
+  <div class="acciones">
+    <a href="/" class="btn-cta">Volver al inicio</a>
+    <a href="/contacto.html" class="btn-sec">Contacto</a>
+  </div>
+</body>
+</html>
