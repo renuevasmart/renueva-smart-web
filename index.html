@@ -302,8 +302,7 @@
   .titulo-seccion p { font-size: 16.5px; line-height: 1.6; color: var(--color-text-muted); margin: 0; max-width: 56ch; }
 
   /* ---------- Trabajos / Portafolio ---------- */
-  .trabajos-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
-  @media (max-width: 900px) { .trabajos-grid { grid-template-columns: 1fr; } }
+  .trabajos-grid { display: grid; grid-template-columns: minmax(0, 400px); justify-content: center; gap: 22px; }
   .trabajo-card {
     background: var(--color-bg-secondary); border: 1px solid var(--color-border-default); border-radius: var(--radius-2xl);
     overflow: hidden; display: flex; flex-direction: column; transition: transform 0.2s ease, border-color 0.2s ease;
@@ -467,26 +466,10 @@
     <div class="ancho">
       <div class="titulo-seccion">
         <span class="eyebrow-oscuro">Trabajos</span>
-        <h2>Así quedaron webs reales, no maquetas.</h2>
-        <p>Estos son negocios que ya trabajaron con nosotros y hoy tienen una web que representa lo que son.</p>
+        <h2>Así queda una web de verdad, no una maqueta.</h2>
+        <p>Un caso real: un despacho que ya trabajó con nosotros y hoy tiene una web que lo representa.</p>
       </div>
       <div class="trabajos-grid">
-        <div class="trabajo-card">
-          <div class="trabajo-img-wrap"><img src="assets/portfolio-tecnovivienda.jpg" alt="Web rediseñada de Tecno Vivienda" loading="lazy"></div>
-          <div class="trabajo-body">
-            <span class="trabajo-tag">Inmobiliaria · Rediseño completo</span>
-            <h3>Tecno Vivienda</h3>
-            <p>De una web genérica a un sitio con identidad propia, ordenado por comprar, vender y alquilar.</p>
-          </div>
-        </div>
-        <div class="trabajo-card">
-          <div class="trabajo-img-wrap"><img src="assets/portfolio-mhe.jpg" alt="Web rediseñada de My Home Eficiente" loading="lazy"></div>
-          <div class="trabajo-body">
-            <span class="trabajo-tag">Inmobiliaria · Rediseño completo</span>
-            <h3>My Home Eficiente</h3>
-            <p>Buscador de propiedades, sistema de venta y alquiler, y una imagen a la altura de su crecimiento.</p>
-          </div>
-        </div>
         <a class="trabajo-card" href="caso-acosta-pastore.html">
           <div class="trabajo-img-wrap"><img src="assets/portfolio-escribania.jpg" alt="Web rediseñada de la Escribanía Acosta Pastore" loading="lazy"></div>
           <div class="trabajo-body">
