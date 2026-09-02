@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>¿Cuánto cuesta renovar tu web? Precios orientativos — Renueva Smart</title>
-<meta name="description" content="Rediseño web: 600-1.100 € para webs de 1 a 5 páginas y 1.200-2.200 € para 6-10 páginas (aprox.). La estimación es orientativa; el precio cerrado te lo damos tras ver tu web. Antes/después gratis.">
+<meta name="description" content="Rediseño web: una landing desde 400 €, una web pequeña (2-5 páginas) 700-1.200 € y una mediana (6-10) 1.200-2.200 € (aprox.). La estimación es orientativa; el precio cerrado te lo damos tras ver tu web. Antes/después gratis.">
 <meta name="theme-color" content="#0b0c0e">
 <link rel="canonical" href="https://renuevasmart.com/precio-rediseno-web.html">
 <link rel="icon" href="assets/favicon.ico" sizes="any">
@@ -35,7 +35,7 @@
         {
           "@type": "Question",
           "name": "¿Cuánto cuesta renovar una web?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Como referencia orientativa: una web de 1 a 5 páginas ronda los 600-1.100 € y una de 6 a 10 páginas los 1.200-2.200 €. El precio exacto y cerrado te lo damos tras ver tu web." }
+          "acceptedAnswer": { "@type": "Answer", "text": "Como referencia orientativa: una landing (1 página) 400-650 €, una web pequeña de 2 a 5 páginas 700-1.200 €, y una de 6 a 10 páginas 1.200-2.200 €. El precio exacto y cerrado te lo damos tras ver tu web." }
         },
         {
           "@type": "Question",
@@ -69,7 +69,8 @@
         { "@type": "Country", "name": "Uruguay" }
       ],
       "offers": [
-        { "@type": "Offer", "name": "Web pequeña (1-5 páginas)", "priceSpecification": { "@type": "PriceSpecification", "minPrice": 600, "maxPrice": 1100, "priceCurrency": "EUR" } },
+        { "@type": "Offer", "name": "Landing (1 página)", "priceSpecification": { "@type": "PriceSpecification", "minPrice": 400, "maxPrice": 650, "priceCurrency": "EUR" } },
+        { "@type": "Offer", "name": "Web pequeña (2-5 páginas)", "priceSpecification": { "@type": "PriceSpecification", "minPrice": 700, "maxPrice": 1200, "priceCurrency": "EUR" } },
         { "@type": "Offer", "name": "Web mediana (6-10 páginas)", "priceSpecification": { "@type": "PriceSpecification", "minPrice": 1200, "maxPrice": 2200, "priceCurrency": "EUR" } }
       ]
     }
@@ -131,12 +132,12 @@
   .contenido p { font-size: 16px; line-height: 1.7; color: var(--color-text-secondary); }
   .contenido .entradilla { font-size: 18px; color: var(--color-text-primary); margin-top: 20px; }
 
-  .tabla-precios { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--color-border-default); border: 1px solid var(--color-border-default); border-radius: var(--radius-3xl); overflow: hidden; margin-top: 8px; }
+  .tabla-precios { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--color-border-default); border: 1px solid var(--color-border-default); border-radius: var(--radius-3xl); overflow: hidden; margin-top: 8px; }
   .precio-col { background: var(--color-bg-secondary); padding: 24px 22px; display: flex; flex-direction: column; gap: 6px; }
   .precio-col .etq { font-weight: 800; font-size: 12px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--color-text-muted); }
-  .precio-col .cifra { font-family: var(--font-display); font-weight: 700; font-size: 24px; color: var(--color-text-primary); }
+  .precio-col .cifra { font-family: var(--font-display); font-weight: 700; font-size: 22px; color: var(--color-text-primary); }
   .precio-col .detalle { font-size: 13.5px; line-height: 1.5; color: var(--color-text-muted); }
-  @media (max-width: 640px) { .tabla-precios { grid-template-columns: 1fr; } }
+  @media (max-width: 720px) { .tabla-precios { grid-template-columns: 1fr; } }
 
   .factores { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 1px; background: var(--color-border-default); border: 1px solid var(--color-border-default); border-radius: var(--radius-3xl); overflow: hidden; }
   .factores li { background: var(--color-bg-secondary); padding: 20px 24px; }
@@ -207,14 +208,19 @@
 
     <div class="tabla-precios">
       <div class="precio-col">
-        <span class="etq">Web pequeña · 1-5 páginas</span>
-        <span class="cifra" data-precio="chica">600-1.100 €</span>
-        <span class="detalle">Lo habitual para un despacho o estudio que quiere presencia clara y a medida.</span>
+        <span class="etq">Landing · 1 página</span>
+        <span class="cifra" data-precio="landing">400-650 €</span>
+        <span class="detalle">Una sola página larga: todo lo importante en un scroll. Para quien quiere presencia sencilla y directa.</span>
+      </div>
+      <div class="precio-col">
+        <span class="etq">Web pequeña · 2-5 páginas</span>
+        <span class="cifra" data-precio="pequena">700-1.200 €</span>
+        <span class="detalle">Micrositio con navegación: varias páginas cortas.</span>
       </div>
       <div class="precio-col">
         <span class="etq">Web mediana · 6-10 páginas</span>
         <span class="cifra" data-precio="mediana">1.200-2.200 €</span>
-        <span class="detalle">Varias secciones por servicio o área, con más contenido y estructura.</span>
+        <span class="detalle">El tamaño de un despacho: una página por área o servicio, equipo y contacto.</span>
       </div>
     </div>
     <p style="font-size:14.5px;color:var(--color-text-muted);margin-top:14px;">Ver el <strong>antes/después</strong> de tu web —cómo quedaría— es <strong>gratis y sin compromiso</strong>. Estos rangos son para el proyecto completo, ya publicado.</p>
@@ -223,7 +229,7 @@
     <ul class="factores">
       <li>
         <h3>El tamaño de la web</h3>
-        <p>Lo que más mueve el precio: cuántas páginas o secciones tiene. Dentro del rango se afina por el número exacto y si ya tienes logo y marca. No hacemos webs de más de 10 páginas.</p>
+        <p>Lo que más mueve el precio: una landing (1 página), una web pequeña (2-5) o una mediana (6-10). Dentro del rango se afina por el número exacto y si ya tienes logo y marca. No hacemos webs de más de 10 páginas.</p>
       </li>
       <li>
         <h3>Si partimos de cero o hay contenido que aprovechar</h3>
@@ -246,7 +252,8 @@
       <div class="pregunta">
         <span class="q">¿Cuántas páginas o secciones tendrá tu web, más o menos?</span>
         <div class="opciones">
-          <label><input type="radio" name="paginas" value="chica" checked> <span>Entre 1 y 5</span></label>
+          <label><input type="radio" name="paginas" value="landing" checked> <span>1 página (una landing)</span></label>
+          <label><input type="radio" name="paginas" value="pequena"> <span>Entre 2 y 5</span></label>
           <label><input type="radio" name="paginas" value="mediana"> <span>Entre 6 y 10</span></label>
           <label><input type="radio" name="paginas" value="grande"> <span>Más de 10</span></label>
         </div>
@@ -301,7 +308,7 @@
     <div class="faq-lista">
       <details class="faq-item">
         <summary>¿Cuánto cuesta renovar una web?<span class="faq-icono">+</span></summary>
-        <p>Como referencia orientativa: una web de 1 a 5 páginas ronda los 600-1.100 € y una de 6 a 10 páginas los 1.200-2.200 €. El precio exacto y cerrado te lo damos tras ver tu web.</p>
+        <p>Como referencia orientativa: una <strong>landing</strong> (1 página) 400-650 €, una <strong>web pequeña</strong> de 2 a 5 páginas 700-1.200 €, y una de 6 a 10 páginas 1.200-2.200 €. El precio exacto y cerrado te lo damos tras ver tu web.</p>
       </details>
       <details class="faq-item">
         <summary>¿Ver el antes/después tiene coste?<span class="faq-icono">+</span></summary>
@@ -351,13 +358,23 @@
          El precio = rango base por tamaño × (1 + 0,20·desde_cero − 0,15·lo_publica_su_proveedor).
          Misma fórmula que la lógica interna del plan de negocio (§3.3). */
       var BASE = {
-        eur: { chica: [600, 1100], mediana: [1200, 2200] },
-        usd: { chica: [350, 650],  mediana: [700, 1400] }
+        eur: { landing: [400, 650], pequena: [700, 1200], mediana: [1200, 2200] },
+        usd: { landing: [250, 400], pequena: [420, 700],  mediana: [700, 1400] }
       };
-      var PLAZOS = { chica: 'Listo para publicar en unas 2-3 semanas', mediana: 'Listo para publicar en unas 3-5 semanas' };
+      var PLAZOS = {
+        landing: 'Lista para publicar en 1-2 semanas',
+        pequena: 'Lista para publicar en unas 2-3 semanas',
+        mediana: 'Lista para publicar en unas 3-5 semanas'
+      };
       var TEXTOS = {
-        chica: 'Diseño e identidad a medida, adaptada al móvil y con formulario de contacto. Dentro del rango se afina por el número exacto de páginas y si ya tienes logo y marca.',
+        landing: 'Una sola página larga con todo lo importante en un scroll: diseño a medida, adaptada al móvil y con formulario de contacto.',
+        pequena: 'Diseño e identidad a medida, adaptada al móvil y con formulario de contacto. Dentro del rango se afina por el número exacto de páginas y si ya tienes logo y marca.',
         mediana: 'Varias secciones por servicio o área, identidad visual completa, tu contenido reorganizado, formulario y SEO básico.'
+      };
+      var TITULOS = {
+        landing: 'Landing (1 página)',
+        pequena: 'Web pequeña (2-5 páginas)',
+        mediana: 'Web mediana (6-10 páginas)'
       };
 
       var form = document.getElementById('estimador');
@@ -392,8 +409,7 @@
         }
         var base = BASE[moneda()][sel.paginas];
         var factor = 1 + (sel.contenido === 'cero' ? 0.20 : 0) - (sel.publicacion === 'proveedor' ? 0.15 : 0);
-        var titulos = { chica: 'Web pequeña (1-5 páginas)', mediana: 'Web mediana (6-10 páginas)' };
-        elTitulo.textContent = titulos[sel.paginas];
+        elTitulo.textContent = TITULOS[sel.paginas];
         elRango.textContent = pintarRango([base[0] * factor, base[1] * factor]) + ' aprox.';
         var plazo = PLAZOS[sel.paginas];
         if (sel.contenido === 'cero') plazo += ' (algo más si partimos de cero)';
