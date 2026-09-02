@@ -292,6 +292,10 @@
     color: var(--color-text-primary); font-variant-numeric: tabular-nums;
   }
   .metrica .etq { font-size: calc(15px + 4pt); color: var(--color-text-secondary); margin-top: 2px; max-width: 22ch; }
+  .hero-precio { margin: 22px auto 0; font-size: 14.5px; color: var(--color-text-secondary); }
+  .hero-precio strong { color: var(--color-text-primary); }
+  .hero-precio a { color: var(--color-brand); font-weight: 700; text-decoration: none; white-space: nowrap; }
+  .hero-precio a:hover { text-decoration: underline; }
 
   /* ---------- Marquee de servicios ---------- */
   .marquee { overflow: hidden; border-top: 1px solid var(--color-border-subtle); border-bottom: 1px solid var(--color-border-subtle); background: var(--color-bg-secondary); padding: 18px 0; }
@@ -414,7 +418,7 @@
       <a href="#resenas">Reseñas</a>
       <a href="#metodo">Cómo trabajamos</a>
       <a href="#que-hacemos">Servicios</a>
-      <a href="#sectores">Sectores</a>
+      <a href="precio-rediseno-web.html">Precios</a>
       <a href="#preguntas">Preguntas</a>
     </div>
     <a href="https://wa.me/34602555026?text=Hola%2C%20quiero%20m%C3%A1s%20informaci%C3%B3n" target="_blank" rel="noopener" class="btn-cta" data-i18n="cta_nav">Escríbenos ahora</a>
@@ -437,6 +441,7 @@
         <div class="metrica"><div class="num">Muestra <strong>gratis</strong></div><div class="etq"><strong>Sin</strong> letra chica</div></div>
         <div class="metrica"><div class="num" data-i18n="metrica2_num"><strong>$0</strong></div><div class="etq" data-i18n="metrica2_etq">para ver cómo quedaría <strong>tu web</strong></div></div>
       </div>
+      <p class="hero-precio"><span data-i18n="hero_precio">Rediseño web <strong>desde 600 €</strong>. El antes/después, gratis.</span> <a href="precio-rediseno-web.html">Ver precios →</a></p>
     </div>
   </header>
 
@@ -676,6 +681,7 @@
        mismo criterio que usa la app Publica Smart (copy_dialectos.py). */
     const TEXTO_VOSEO = {
       cta_nav: 'Escribinos ahora',
+      hero_precio: 'Rediseño web <strong>desde US$ 350</strong>. El antes/después, gratis.',
       problema_03: 'Publicás contenido en tus redes, pero la web no es atractiva.',
       reencuadre: 'No es que necesites más marketing. Es que <em>tu web no está trabajando para vos.</em>',
       metodo04_h3: 'Ajustamos con vos',
