@@ -111,6 +111,14 @@
     box-shadow: 0 1px 0 var(--color-border-subtle);
   }
   .nav-logo { height: 52px; }
+  .nav-links { display: flex; align-items: center; gap: 28px; }
+  .nav-links a {
+    font-weight: 600; font-size: calc(14px + 2pt); text-decoration: none; color: var(--color-text-secondary);
+  }
+  .nav-links a:hover { color: var(--color-text-primary); }
+  @media (max-width: 720px) {
+    .nav-links { display: none; }
+  }
   .btn-cta {
     font-weight: 800; font-size: 14.5px; color: var(--color-bg-primary); background: var(--color-brand);
     border: none; border-radius: var(--radius-pill); padding: 11px 22px; text-decoration: none;
@@ -197,6 +205,13 @@
 
   <nav class="nav">
     <a href="index.html"><img class="nav-logo" src="assets/logo.png" alt="Renueva Smart"></a>
+    <div class="nav-links">
+      <a href="index.html#resenas">Reseñas</a>
+      <a href="index.html#metodo">Cómo trabajamos</a>
+      <a href="index.html#que-hacemos">Servicios</a>
+      <a href="index.html#sectores">Sectores</a>
+      <a href="index.html#preguntas">Preguntas</a>
+    </div>
     <a href="https://wa.me/34602555026?text=Hola%2C%20quiero%20un%20presupuesto%20para%20renovar%20mi%20web" target="_blank" rel="noopener" class="btn-cta" data-i18n="cta_nav">Escríbenos ahora</a>
   </nav>
 
