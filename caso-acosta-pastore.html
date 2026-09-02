@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rediseño de la web de la Escribanía Acosta Pastore — Renueva Smart</title>
+<meta name="description" content="Cómo rediseñamos la web de la Escribanía Acosta Pastore: de un blog de plantilla genérica a un sitio propio con identidad notarial. Antes y después.">
+<meta name="theme-color" content="#0b0c0e">
+<link rel="canonical" href="https://renuevasmart.com/caso-acosta-pastore.html">
+<link rel="icon" href="assets/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<script src="assets/consent.js"></script>
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Renueva Smart">
+<meta property="og:locale" content="es_ES">
+<meta property="og:locale:alternate" content="es_UY">
+<meta property="og:title" content="Rediseño de la web de la Escribanía Acosta Pastore">
+<meta property="og:description" content="De un blog de plantilla genérica a un sitio propio con identidad notarial. Antes y después.">
+<meta property="og:image" content="https://renuevasmart.com/assets/portfolio-escribania.jpg">
+<meta property="og:url" content="https://renuevasmart.com/caso-acosta-pastore.html">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,700;0,800;1,500;1,600&family=Fraunces:ital,opsz,wght@0,9..144,600;0,9..144,700;1,9..144,500&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CreativeWork",
+  "name": "Rediseño de la web de la Escribanía Acosta Pastore",
+  "about": "Rediseño web para una escribanía / notaría",
+  "url": "https://renuevasmart.com/caso-acosta-pastore.html",
+  "inLanguage": "es",
+  "image": "https://renuevasmart.com/assets/portfolio-escribania.jpg",
+  "creator": { "@type": "Organization", "name": "Renueva Smart", "url": "https://renuevasmart.com/" },
+  "review": {
+    "@type": "Review",
+    "reviewBody": "Me encontré admirado por lo que Renueva Smart hizo con total liberalidad. Su diseño es superior a lo que yo tenía publicado.",
+    "author": { "@type": "Person", "name": "Bruno Acosta Pastore" },
+    "itemReviewed": { "@type": "Organization", "name": "Renueva Smart" }
+  }
+}
+</script>
+<style>
+  :root {
+    --color-brand: #ff6a00;
+    --color-brand-hover: #ff7a1a;
+    --color-bg-primary: #0b0c0e;
+    --color-bg-secondary: #151719;
+    --color-bg-tertiary: #25282c;
+    --color-text-primary: #f5f3ee;
+    --color-text-secondary: #d9dce0;
+    --color-text-muted: #92979d;
+    --color-border-subtle: rgba(255, 255, 255, 0.08);
+    --color-border-default: rgba(255, 255, 255, 0.12);
+    --color-border-strong: rgba(255, 255, 255, 0.18);
+    --font-display: "Fraunces", Georgia, "Iowan Old Style", serif;
+    --font-ui: "Plus Jakarta Sans", "Segoe UI", -apple-system, Roboto, Arial, sans-serif;
+    --radius-2xl: 16px;
+    --radius-3xl: 24px;
+    --radius-pill: 999px;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: var(--color-bg-primary); color: var(--color-text-primary); font-family: var(--font-ui); }
+  a { color: inherit; }
+  img, video { max-width: 100%; display: block; }
+
+  .nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 40;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 18px clamp(20px, 4vw, 56px);
+    background: rgba(11,12,14,0.92); backdrop-filter: blur(8px);
+    box-shadow: 0 1px 0 var(--color-border-subtle);
+  }
+  .nav-logo { height: 52px; }
+  .btn-cta {
+    font-weight: 800; font-size: 14.5px; color: var(--color-bg-primary); background: var(--color-brand);
+    border: none; border-radius: var(--radius-pill); padding: 11px 22px; text-decoration: none;
+    display: inline-block; transition: background 0.15s ease, transform 0.15s ease; white-space: nowrap;
+  }
+  .btn-cta:hover { background: var(--color-brand-hover); transform: translateY(-1px); }
+  .btn-cta-lg { font-size: 16px; padding: 15px 28px; }
+  .btn-secundario {
+    font-weight: 700; font-size: 15px; color: var(--color-text-primary);
+    background: transparent; border: 1.5px solid var(--color-border-strong); border-radius: var(--radius-pill);
+    padding: 13px 24px; text-decoration: none; display: inline-block; text-align: center;
+  }
+  .btn-secundario:hover { border-color: var(--color-text-primary); background: rgba(255,255,255,0.06); }
+
+  .contenido { max-width: 780px; margin: 0 auto; padding: clamp(130px, 17vw, 170px) clamp(20px, 4vw, 56px) 40px; }
+  .eyebrow-oscuro { font-weight: 800; font-size: 12.5px; letter-spacing: 0.09em; text-transform: uppercase; color: var(--color-brand); }
+  .contenido h1 { font-family: var(--font-display); font-weight: 700; font-size: clamp(30px, 4.6vw, 48px); line-height: 1.12; margin: 12px 0 0; text-wrap: balance; }
+  .contenido h2 { font-family: var(--font-display); font-weight: 700; font-size: clamp(22px, 2.8vw, 30px); margin: 44px 0 14px; text-wrap: balance; }
+  .contenido p { font-size: 16px; line-height: 1.7; color: var(--color-text-secondary); }
+  .contenido .entradilla { font-size: 18px; color: var(--color-text-primary); margin-top: 20px; }
+
+  .comparacion { margin: 28px 0 8px; display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+  .comparacion figure { margin: 0; }
+  .comparacion figcaption { font-size: 11.5px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-text-muted); margin-bottom: 8px; }
+  .comparacion .marco { border-radius: var(--radius-2xl); overflow: hidden; border: 1px solid var(--color-border-default); background: var(--color-bg-primary); aspect-ratio: 1830 / 806; }
+  .comparacion video { width: 100%; height: 100%; object-fit: cover; }
+  @media (max-width: 640px) { .comparacion { grid-template-columns: 1fr; } }
+
+  .cita-bloque {
+    margin: 28px 0 0; padding: 26px 28px; background: var(--color-bg-secondary);
+    border: 1px solid var(--color-border-default); border-radius: var(--radius-3xl);
+  }
+  .cita-bloque p { font-family: var(--font-display); font-style: italic; font-weight: 500; font-size: clamp(17px, 2vw, 21px); line-height: 1.45; color: var(--color-text-primary); margin: 0 0 14px; }
+  .cita-bloque p::before { content: "“"; color: var(--color-brand); }
+  .cita-bloque p::after { content: "”"; color: var(--color-brand); }
+  .cita-autor { font-size: 14px; color: var(--color-text-muted); }
+  .cita-autor strong { color: var(--color-text-primary); font-weight: 800; }
+
+  .caso-cta { margin-top: 44px; padding-top: 32px; border-top: 1px solid var(--color-border-subtle); }
+  .caso-cta p { font-size: 16.5px; color: var(--color-text-primary); margin: 0 0 20px; }
+  .caso-cta-acciones { display: flex; flex-wrap: wrap; gap: 14px; }
+
+  .footer { background: var(--color-bg-secondary); color: var(--color-text-secondary); padding: 48px clamp(20px, 4vw, 56px) 40px; border-top: 1px solid var(--color-border-subtle); margin-top: 56px; }
+  .footer-fila { max-width: 1120px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 20px; }
+  .footer-logo { height: 52px; opacity: 0.9; }
+  .footer-links { display: flex; justify-content: center; gap: 22px; flex-wrap: wrap; }
+  .footer-links a { font-size: 13.5px; text-decoration: none; color: var(--color-text-secondary); }
+  .footer-links a:hover { color: var(--color-text-primary); }
+  .footer-copy { font-size: 12.5px; margin-top: 22px; text-align: center; color: var(--color-text-muted); }
+</style>
+</head>
+<body>
+
+  <nav class="nav">
+    <a href="index.html"><img class="nav-logo" src="assets/logo.png" alt="Renueva Smart"></a>
+    <a href="https://wa.me/34602555026?text=Hola%2C%20quiero%20m%C3%A1s%20informaci%C3%B3n" target="_blank" rel="noopener" class="btn-cta" data-i18n="cta_nav">Escríbenos ahora</a>
+  </nav>
+
+  <article class="contenido">
+    <span class="eyebrow-oscuro">Caso</span>
+    <h1 data-i18n="caso_h1">Le hicimos una web propia a la Escribanía Acosta Pastore</h1>
+
+    <p class="entradilla" data-i18n="caso_entradilla">La Escribanía Acosta Pastore tenía toda su presencia online en un blog de plantilla genérica: sin identidad propia y difícil de leer en el móvil.</p>
+
+    <h2>Qué hicimos</h2>
+    <p data-i18n="caso_quehicimos">Rehicimos el sitio desde cero: una web de varias páginas con su propia identidad —tipografías con carácter, una paleta sobria— y el contenido real reorganizado por temas: quiénes son, la ética profesional, la profesión y la propuesta de servicios. No inventamos nada; reordenamos y presentamos mejor lo que el estudio ya decía sobre sí mismo.</p>
+
+    <h2 data-i18n="caso_antesdespues_h2">Antes y después</h2>
+    <div class="comparacion">
+      <figure>
+        <figcaption>Antes</figcaption>
+        <div class="marco">
+          <video autoplay muted loop playsinline preload="none" poster="assets/resena-antes-poster.jpg">
+            <source src="assets/resena-antes.mp4" type="video/mp4">
+          </video>
+        </div>
+      </figure>
+      <figure>
+        <figcaption>Después</figcaption>
+        <div class="marco">
+          <video autoplay muted loop playsinline preload="none" poster="assets/resena-despues-poster.jpg">
+            <source src="assets/resena-despues.mp4" type="video/mp4">
+          </video>
+        </div>
+      </figure>
+    </div>
+
+    <h2 data-i18n="caso_resultado_h2">El resultado, en palabras del propio escribano</h2>
+    <div class="cita-bloque">
+      <p>Me encontré admirado por lo que Renueva Smart hizo con total liberalidad. Su diseño es superior a lo que yo tenía publicado.</p>
+      <span class="cita-autor">— <strong>Bruno Acosta Pastore</strong>, <span data-i18n="resena_rol">Escribano</span></span>
+    </div>
+
+    <div class="caso-cta">
+      <p data-i18n="caso_cta_p">¿Tienes un despacho o un estudio con una web que no le hace justicia? Te armamos el antes/después gratis, sin compromiso.</p>
+      <div class="caso-cta-acciones">
+        <a href="https://wa.me/34602555026?text=Hola%2C%20quiero%20ver%20c%C3%B3mo%20quedar%C3%ADa%20mi%20web" target="_blank" rel="noopener" class="btn-cta btn-cta-lg" data-i18n="cta_pedir">Quiero ver mi web</a>
+        <a href="contacto.html" class="btn-secundario">Ir a contacto</a>
+      </div>
+    </div>
+  </article>
+
+  <footer class="footer">
+    <div class="footer-fila">
+      <a href="index.html"><img class="footer-logo" src="assets/logo.png" alt="Renueva Smart"></a>
+      <div class="footer-links">
+        <a href="index.html#trabajos">Trabajos</a>
+        <a href="index.html#metodo">Cómo trabajamos</a>
+        <a href="index.html#sectores">Sectores</a>
+        <a href="index.html#preguntas">Preguntas</a>
+        <a href="contacto.html">Contacto</a>
+      </div>
+    </div>
+    <p class="footer-copy">© 2026 Renueva Smart — Alejandro Vidal Voglino</p>
+  </footer>
+
+  <script>
+    /* Variantes de español según el país del visitante — mismo criterio que index.html.
+       El HTML está en neutro (tuteo, "escribanía/escribano"). Estos mapas solo llevan
+       las claves que cambian en voseo (AR/UY/PY) o en español peninsular (ES). */
+    const TEXTO_VOSEO = {
+      cta_nav: 'Escribinos ahora',
+      caso_cta_p: '¿Tenés un despacho o un estudio con una web que no le hace justicia? Te armamos el antes/después gratis, sin compromiso.',
+    };
+    const TEXTO_ESPANA = {
+      cta_nav: 'Escríbenos ahora',
+      resena_rol: 'Notario',
+      caso_h1: 'Le hicimos una web propia a la Notaría Acosta Pastore',
+      caso_entradilla: 'La Notaría Acosta Pastore tenía toda su presencia online en un blog de plantilla genérica: sin identidad propia y difícil de leer en el móvil.',
+      caso_quehicimos: 'Rehicimos el sitio desde cero: una web de varias páginas con su propia identidad —tipografías con carácter, una paleta sobria— y el contenido real reorganizado por temas: quiénes son, la ética profesional, la profesión y la propuesta de servicios. No inventamos nada; reordenamos y presentamos mejor lo que el despacho ya decía sobre sí mismo.',
+      caso_resultado_h2: 'El resultado, en palabras del propio notario',
+    };
+
+    function aplicarVariante(mapa) {
+      Object.keys(mapa).forEach((clave) => {
+        document.querySelectorAll('[data-i18n="' + clave + '"]').forEach((el) => { el.innerHTML = mapa[clave]; });
+      });
+    }
+    function variantePorPais(pais) {
+      if (!pais) return null;
+      if (pais === 'ES') return 'espana';
+      if (['AR', 'UY', 'PY'].includes(pais)) return 'voseo';
+      return 'neutro';
+    }
+    function variantePorNavegador() {
+      const lang = (navigator.language || '').toLowerCase();
+      if (lang.includes('es-es')) return 'espana';
+      if (lang.includes('es-ar') || lang.includes('es-uy') || lang.includes('es-py')) return 'voseo';
+      return 'neutro';
+    }
+    function aplicarSegun(variante) {
+      if (variante === 'voseo') aplicarVariante(TEXTO_VOSEO);
+      else if (variante === 'espana') aplicarVariante(TEXTO_ESPANA);
+    }
+    (function detectarVarianteDeLead() {
+      const controlador = new AbortController();
+      const limite = setTimeout(() => controlador.abort(), 2500);
+      fetch('https://ipapi.co/json/', { signal: controlador.signal })
+        .then((r) => r.json())
+        .then((datos) => { clearTimeout(limite); aplicarSegun(variantePorPais(datos && datos.country_code) || variantePorNavegador()); })
+        .catch(() => { clearTimeout(limite); aplicarSegun(variantePorNavegador()); });
+    })();
+  </script>
+</body>
+</html>
