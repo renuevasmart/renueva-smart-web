@@ -89,7 +89,7 @@
     banner.innerHTML =
       '<p class="rs-cookie-texto">Usamos cookies de análisis para entender desde dónde nos visitan (por ejemplo, el país). ' +
       'Puedes aceptarlas o rechazarlas — no cambia nada más en la web. ' +
-      '<a href="' + privacidadHref + '">Más información</a>.</p>' +
+      '<a href="' + privacidadHref + '">Más información sobre cookies</a>.</p>' +
       '<div class="rs-cookie-acciones">' +
       '<button type="button" class="rs-cookie-btn rs-cookie-rechazar">Rechazar</button>' +
       '<button type="button" class="rs-cookie-btn rs-cookie-aceptar">Aceptar</button>' +

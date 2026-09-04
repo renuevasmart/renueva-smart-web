@@ -12,7 +12,7 @@
 <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
-<script src="assets/consent.js"></script>
+<script src="assets/consent.js" defer></script>
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Renueva Smart">
 <meta property="og:locale" content="es_ES">
@@ -373,7 +373,8 @@
 
   /* ---------- Sectores ---------- */
   .sectores-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: var(--color-border-default); border: 1px solid var(--color-border-default); border-radius: var(--radius-3xl); overflow: hidden; }
-  .sector-tarjeta { background: var(--color-bg-secondary); padding: clamp(26px, 3vw, 34px); display: flex; flex-direction: column; gap: 10px; }
+  .sector-tarjeta { background: var(--color-bg-secondary); padding: clamp(26px, 3vw, 34px); display: flex; flex-direction: column; gap: 10px; text-decoration: none; transition: background 0.15s ease; }
+  .sector-tarjeta:hover { background: var(--color-bg-tertiary); }
   .sector-tarjeta h3 { font-family: var(--font-display); font-weight: 700; font-size: 20px; margin: 0; }
   .sector-tarjeta p { font-size: 14.5px; line-height: 1.6; color: var(--color-text-secondary); margin: 0; }
   @media (max-width: 640px) { .sectores-grid { grid-template-columns: 1fr; } }
@@ -426,7 +427,7 @@
   </nav>
 
   <header class="hero">
-    <video class="hero-video" autoplay muted loop playsinline preload="auto" poster="assets/hero-bg-poster.jpg" aria-hidden="true">
+    <video class="hero-video" autoplay muted loop playsinline preload="metadata" poster="assets/hero-bg-poster.jpg" aria-hidden="true">
       <source src="assets/hero-bg.mp4" type="video/mp4">
     </video>
     <div class="hero-overlay" aria-hidden="true"></div>
@@ -482,8 +483,8 @@
   </section>
 
   <section class="banner">
-    <video class="banner-video" autoplay muted loop playsinline preload="none" poster="assets/banner-bg-poster.jpg" aria-hidden="true">
-      <source src="assets/banner-bg.mp4" type="video/mp4">
+    <video class="banner-video" muted loop playsinline preload="none" poster="assets/banner-bg-poster.jpg" aria-hidden="true">
+      <source data-src="assets/banner-bg.mp4" type="video/mp4">
     </video>
     <div class="banner-overlay" aria-hidden="true"></div>
     <div class="ancho">
@@ -493,8 +494,8 @@
   </section>
 
   <section id="metodo">
-    <video class="metodo-video" autoplay muted loop playsinline preload="none" poster="assets/metodo-bg-poster.jpg" aria-hidden="true">
-      <source src="assets/metodo-bg.mp4" type="video/mp4">
+    <video class="metodo-video" muted loop playsinline preload="none" poster="assets/metodo-bg-poster.jpg" aria-hidden="true">
+      <source data-src="assets/metodo-bg.mp4" type="video/mp4">
     </video>
     <div class="metodo-overlay" aria-hidden="true"></div>
     <div class="ancho">
@@ -523,14 +524,14 @@
 
       <div class="resena-comparacion">
         <div class="comparacion-item">
-          <video class="comparacion-video" autoplay muted loop playsinline preload="none" poster="assets/resena-antes-poster.jpg">
-            <source src="assets/resena-antes.mp4" type="video/mp4">
+          <video class="comparacion-video" muted loop playsinline preload="none" poster="assets/resena-antes-poster.jpg">
+            <source data-src="assets/resena-antes.mp4" type="video/mp4">
           </video>
         </div>
         <img class="comparacion-flecha" src="assets/flecha-comparacion.png" alt="" aria-hidden="true">
         <div class="comparacion-item">
-          <video class="comparacion-video" autoplay muted loop playsinline preload="none" poster="assets/resena-despues-poster.jpg">
-            <source src="assets/resena-despues.mp4" type="video/mp4">
+          <video class="comparacion-video" muted loop playsinline preload="none" poster="assets/resena-despues-poster.jpg">
+            <source data-src="assets/resena-despues.mp4" type="video/mp4">
           </video>
         </div>
       </div>
@@ -570,29 +571,29 @@
         <p><strong>Trabajamos sobre todo con despachos y estudios donde la web es la primera impresión: tiene que transmitir criterio antes de que nadie levante el teléfono.</strong></p>
       </div>
       <div class="sectores-grid">
-        <div class="sector-tarjeta">
+        <a class="sector-tarjeta" href="abogados.html">
           <h3>Abogados y estudios jurídicos</h3>
           <p>Una web que ordena las áreas de práctica y transmite solvencia desde la primera pantalla, lejos de la plantilla genérica que usa medio sector.</p>
-        </div>
-        <div class="sector-tarjeta">
+        </a>
+        <a class="sector-tarjeta" href="notarias.html">
           <h3>Notarías y escribanías</h3>
           <p>Un sitio propio, con la seriedad que exige la función notarial. Es nuestro terreno más trabajado.</p>
-        </div>
-        <div class="sector-tarjeta">
+        </a>
+        <a class="sector-tarjeta" href="gestorias.html">
           <h3>Gestorías y asesorías</h3>
           <p>Los servicios presentados con claridad, para que un cliente entienda en segundos qué puede resolver y cómo empezar.</p>
-        </div>
-        <div class="sector-tarjeta">
+        </a>
+        <a class="sector-tarjeta" href="inmobiliarias.html">
           <h3>Inmobiliarias</h3>
           <p>El sector con el que empezamos: webs ordenadas por comprar, vender y alquilar y pensadas para el móvil, donde busca casi todo el mundo.</p>
-        </div>
+        </a>
       </div>
     </div>
   </section>
 
   <section id="preguntas">
-    <video class="preguntas-video" autoplay muted loop playsinline preload="none" poster="assets/faq-bg-poster.jpg" aria-hidden="true">
-      <source src="assets/faq-bg.mp4" type="video/mp4">
+    <video class="preguntas-video" muted loop playsinline preload="none" poster="assets/faq-bg-poster.jpg" aria-hidden="true">
+      <source data-src="assets/faq-bg.mp4" type="video/mp4">
     </video>
     <div class="preguntas-overlay" aria-hidden="true"></div>
     <div class="ancho">
@@ -634,8 +635,8 @@
   </section>
 
   <section class="cta-final">
-    <video class="cta-final-video" autoplay muted loop playsinline preload="none" poster="assets/cta-final-bg-poster.jpg" aria-hidden="true">
-      <source src="assets/cta-final-bg.mp4" type="video/mp4">
+    <video class="cta-final-video" muted loop playsinline preload="none" poster="assets/cta-final-bg-poster.jpg" aria-hidden="true">
+      <source data-src="assets/cta-final-bg.mp4" type="video/mp4">
     </video>
     <div class="cta-final-overlay" aria-hidden="true"></div>
     <div class="ancho">
@@ -643,7 +644,7 @@
       <p data-i18n="cta_final_p">Mándanos el link de tu web actual y armamos tu antes/después, sin costo ni compromiso.</p>
       <div class="cta-final-acciones">
         <a href="https://wa.me/34602555026?text=Hola%2C%20quiero%20ver%20c%C3%B3mo%20quedar%C3%ADa%20mi%20web" target="_blank" rel="noopener" class="btn-cta btn-cta-lg" data-i18n="cta_pedir">Quiero ver mi web</a>
-        <a href="mailto:contacto@renuevasmart.com" class="btn-secundario" data-i18n="cta_final_secondary">Enviar un mail</a>
+        <a href="mailto:contacto@publicasmart.com" class="btn-secundario" data-i18n="cta_final_secondary">Enviar un mail</a>
       </div>
       <p class="cta-final-nota">Muestra <strong>gratis</strong>. <strong>Sin</strong> compromiso y <strong>sin</strong> letra chica.</p>
     </div>
@@ -672,6 +673,37 @@
       if (window.scrollY > 40) nav.classList.add('solida');
       else nav.classList.remove('solida');
     });
+  </script>
+
+  <script>
+    /* Carga perezosa de los vídeos de fondo bajo el pliegue: en vez de que el
+       navegador los descubra y compita por ancho de banda con el vídeo del hero
+       y las fuentes desde el primer instante, solo se cargan cuando están a punto
+       de entrar en el viewport. Reduce el payload inicial en móvil (era el
+       principal responsable del LCP alto detectado en la auditoría SEO). */
+    (function () {
+      const videosPerezosos = document.querySelectorAll('video[preload="none"]');
+      function activar(video) {
+        const fuente = video.querySelector('source[data-src]');
+        if (!fuente) return;
+        fuente.src = fuente.getAttribute('data-src');
+        video.load();
+        video.setAttribute('autoplay', '');
+        video.play().catch(() => {});
+      }
+      if (!('IntersectionObserver' in window)) {
+        videosPerezosos.forEach(activar);
+        return;
+      }
+      const observador = new IntersectionObserver((entradas, obs) => {
+        entradas.forEach((entrada) => {
+          if (!entrada.isIntersecting) return;
+          activar(entrada.target);
+          obs.unobserve(entrada.target);
+        });
+      }, { rootMargin: '400px 0px' });
+      videosPerezosos.forEach((video) => observador.observe(video));
+    })();
   </script>
 
   <script>
