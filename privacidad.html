@@ -68,20 +68,20 @@
     <h1>Política de privacidad</h1>
     <p class="fecha">Última actualización: agosto de 2026</p>
 
-    <p>En Renueva Smart usamos los datos que nos dejás en el formulario de contacto (nombre, email, teléfono y mensaje) únicamente para responder tu consulta. No los usamos con ningún otro fin, ni los vendemos ni los compartimos con terceros para publicidad.</p>
+    <p>En Renueva Smart usamos los datos que nos <span data-i18n="pp_dejas">dejas</span> en el formulario de contacto (nombre, email, teléfono y mensaje) únicamente para responder tu consulta. No los usamos con ningún otro fin, ni los vendemos ni los compartimos con terceros para publicidad.</p>
 
     <h2>Cómo se envía tu mensaje</h2>
-    <p>El formulario de contacto usa <a href="https://formsubmit.co" target="_blank" rel="noopener">FormSubmit</a>, un servicio externo que reenvía por correo lo que completás en el formulario a nuestra casilla. FormSubmit procesa esos datos únicamente para hacer esa entrega — no los usamos para ningún otro propósito.</p>
+    <p>El formulario de contacto usa <a href="https://formsubmit.co" target="_blank" rel="noopener">FormSubmit</a>, un servicio externo que reenvía por correo lo que <span data-i18n="pp_completas">completas</span> en el formulario a nuestra casilla. FormSubmit procesa esos datos únicamente para hacer esa entrega — no los usamos para ningún otro propósito.</p>
 
     <h2>Cuánto tiempo se guardan</h2>
-    <p>Guardamos tu consulta solo el tiempo necesario para responderte y, si seguimos trabajando juntos, para dar seguimiento al proyecto. Si querés que eliminemos tus datos, escribinos a <a href="mailto:contacto@publicasmart.com">contacto@publicasmart.com</a> y lo hacemos.</p>
+    <p>Guardamos tu consulta solo el tiempo necesario para responderte y, si seguimos trabajando juntos, para dar seguimiento al proyecto. Si <span data-i18n="pp_quieres">quieres</span> que eliminemos tus datos, <span data-i18n="pp_escribinos">escríbenos</span> a <a href="mailto:contacto@publicasmart.com">contacto@publicasmart.com</a> y lo hacemos.</p>
 
     <h2>Cookies y análisis de visitas</h2>
-    <p>Usamos <a href="https://marketingplatform.google.com/about/analytics/" target="_blank" rel="noopener">Google Analytics</a> para entender de forma general desde dónde nos visitan (por ejemplo, el país o la ciudad) y qué páginas se ven más. Esta herramienta solo se activa si aceptás las cookies en el aviso que aparece al entrar al sitio; si las rechazás, no se activa. Podés cambiar tu elección en cualquier momento borrando las cookies de tu navegador para este sitio.</p>
+    <p>Usamos <a href="https://marketingplatform.google.com/about/analytics/" target="_blank" rel="noopener">Google Analytics</a> para entender de forma general desde dónde nos visitan (por ejemplo, el país o la ciudad) y qué páginas se ven más. Esta herramienta solo se activa si <span data-i18n="pp_aceptas">aceptas</span> las cookies en el aviso que aparece al entrar al sitio; si las <span data-i18n="pp_rechazas">rechazas</span>, no se activa. <span data-i18n="pp_puedes">Puedes</span> cambiar tu elección en cualquier momento borrando las cookies de tu navegador para este sitio.</p>
     <p>Google Analytics puede procesar estos datos en servidores fuera de tu país, según las <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">políticas de privacidad de Google</a>.</p>
 
     <h2>Contacto</h2>
-    <p>Cualquier duda sobre esta política, escribinos a <a href="mailto:contacto@publicasmart.com">contacto@publicasmart.com</a>.</p>
+    <p>Cualquier duda sobre esta política, <span data-i18n="pp_escribinos">escríbenos</span> a <a href="mailto:contacto@publicasmart.com">contacto@publicasmart.com</a>.</p>
   </div>
 
   <footer class="footer">
@@ -100,5 +100,62 @@
     </div>
     <p class="footer-copy">© 2026 Renueva Smart — Alejandro Vidal Voglino</p>
   </footer>
+
+  <script>
+    /* ---------- Variantes de español según el país del visitante ----------
+       El HTML ya está escrito en "neutro" (tuteo, vocabulario neutro).
+       Este mapa solo lleva las claves cuyo texto cambia en voseo
+       (Argentina/Uruguay/Paraguay), mismo criterio que usa index.html. */
+    const TEXTO_VOSEO = {
+      pp_dejas: 'dejás',
+      pp_completas: 'completás',
+      pp_quieres: 'querés',
+      pp_escribinos: 'escribinos',
+      pp_aceptas: 'aceptás',
+      pp_rechazas: 'rechazás',
+      pp_puedes: 'Podés',
+    };
+
+    function aplicarVariante(mapa) {
+      Object.keys(mapa).forEach((clave) => {
+        document.querySelectorAll('[data-i18n="' + clave + '"]').forEach((el) => {
+          el.innerHTML = mapa[clave];
+        });
+      });
+    }
+
+    function variantePorPais(pais) {
+      if (!pais) return null;
+      if (['AR', 'UY', 'PY'].includes(pais)) return 'voseo';
+      return 'neutro';
+    }
+
+    function variantePorNavegador() {
+      const lang = (navigator.language || '').toLowerCase();
+      if (lang.includes('es-ar') || lang.includes('es-uy') || lang.includes('es-py')) return 'voseo';
+      return 'neutro';
+    }
+
+    function aplicarSegun(variante) {
+      if (variante === 'voseo') aplicarVariante(TEXTO_VOSEO);
+      /* "neutro" y "espana": no hace falta nada, es el texto ya presente en el HTML */
+    }
+
+    (function detectarVarianteDeLead() {
+      const controlador = new AbortController();
+      const limite = setTimeout(() => controlador.abort(), 2500);
+      fetch('https://ipapi.co/json/', { signal: controlador.signal })
+        .then((r) => r.json())
+        .then((datos) => {
+          clearTimeout(limite);
+          const variante = variantePorPais(datos && datos.country_code) || variantePorNavegador();
+          aplicarSegun(variante);
+        })
+        .catch(() => {
+          clearTimeout(limite);
+          aplicarSegun(variantePorNavegador());
+        });
+    })();
+  </script>
 </body>
 </html>
