@@ -111,6 +111,14 @@
   .campo textarea { min-height: 120px; }
   .campo-hint { font-size: 12.5px; color: var(--color-text-muted); margin: 6px 0 0; line-height: 1.5; }
 
+  .adelanta { border: 1px solid var(--color-border-default); border-radius: var(--radius-xl); padding: 16px 18px; margin-bottom: 22px; background: rgba(255,255,255,0.02); }
+  .adelanta > summary { display: flex; align-items: center; justify-content: space-between; gap: 12px; cursor: pointer; list-style: none; font-size: 11.5px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-text-secondary); }
+  .adelanta > summary::-webkit-details-marker { display: none; }
+  .adelanta-icono { color: var(--color-brand); font-size: 18px; font-weight: 400; line-height: 1; transition: transform 0.2s ease; }
+  .adelanta[open] .adelanta-icono { transform: rotate(45deg); }
+  .adelanta[open] > summary { margin-bottom: 14px; }
+  .adelanta .campo:last-child { margin-bottom: 4px; }
+
   .preferencia-opciones { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
   .preferencia-btn {
     display: flex; align-items: center; justify-content: center; gap: 8px;
@@ -258,6 +266,23 @@
             <textarea id="mensaje" name="Mensaje" required></textarea>
           </div>
 
+          <details class="adelanta">
+            <summary>Adelanta trabajo: 3 preguntas rápidas (opcional)<span class="adelanta-icono">+</span></summary>
+            <p class="campo-hint" style="margin: 0 0 14px;">Con esto empezamos a preparar tu borrador antes incluso de hablar. Si prefieres, lo dejamos para la primera conversación.</p>
+            <div class="campo">
+              <label for="tamano">¿Qué tamaño tendrá tu web?</label>
+              <input type="text" id="tamano" name="Tamaño previsto" placeholder="Nº de páginas o servicios que ofreces">
+            </div>
+            <div class="campo">
+              <label for="dominio">Dominio y publicación</label>
+              <textarea id="dominio" name="Dominio y publicación" rows="2" placeholder="¿Tienes dominio propio? ¿Publicamos nosotros o tu proveedor actual? ¿Hay una fecha que corra prisa?"></textarea>
+            </div>
+            <div class="campo">
+              <label for="extra">¿Algo más que debamos saber?</label>
+              <textarea id="extra" name="Algo más" rows="2"></textarea>
+            </div>
+          </details>
+
           <div class="campo-check">
             <input type="checkbox" id="privacidad" required>
             <label for="privacidad">He leído y acepto la <a href="privacidad.html">política de privacidad</a></label>
@@ -329,8 +354,14 @@
         const telefono = inputTelefono.value.trim();
         const webactual = document.getElementById('webactual').value.trim();
         const mensaje = document.getElementById('mensaje').value.trim();
+        const tamano = document.getElementById('tamano').value.trim();
+        const dominio = document.getElementById('dominio').value.trim();
+        const extra = document.getElementById('extra').value.trim();
         let texto = 'Hola, soy ' + nombre + '. ' + mensaje;
         if (webactual) texto += '\nMi web actual: ' + webactual;
+        if (tamano) texto += '\nTamaño previsto: ' + tamano;
+        if (dominio) texto += '\nDominio/publicación: ' + dominio;
+        if (extra) texto += '\nOtros: ' + extra;
         texto += '\nMi WhatsApp: ' + telefono;
         window.open('https://wa.me/34602555026?text=' + encodeURIComponent(texto), '_blank', 'noopener');
         document.getElementById('formGracias').classList.add('visible');
