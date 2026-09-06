@@ -297,13 +297,17 @@
     const botonesPreferencia = document.querySelectorAll('.preferencia-btn');
     const campoTelefono = document.getElementById('campoTelefono');
     const inputTelefono = document.getElementById('telefono');
+    const inputEmail = document.getElementById('email');
     const inputPrefiereContacto = document.getElementById('prefiereContacto');
+    let metodoActual = 'email';
 
     function elegirPreferencia(metodo) {
+      metodoActual = metodo;
       botonesPreferencia.forEach((btn) => btn.setAttribute('aria-pressed', String(btn.dataset.metodo === metodo)));
       const esWhatsapp = metodo === 'whatsapp';
       campoTelefono.classList.toggle('visible', esWhatsapp);
       inputTelefono.required = esWhatsapp;
+      inputEmail.required = !esWhatsapp;
       inputPrefiereContacto.value = esWhatsapp ? 'WhatsApp' : 'Email';
     }
     botonesPreferencia.forEach((btn) => btn.addEventListener('click', () => elegirPreferencia(btn.dataset.metodo)));
@@ -315,8 +319,22 @@
       if (respuesta !== a + b) {
         e.preventDefault();
         error.classList.add('visible');
-      } else {
-        error.classList.remove('visible');
+        return;
+      }
+      error.classList.remove('visible');
+
+      if (metodoActual === 'whatsapp') {
+        e.preventDefault();
+        const nombre = document.getElementById('nombre').value.trim();
+        const telefono = inputTelefono.value.trim();
+        const webactual = document.getElementById('webactual').value.trim();
+        const mensaje = document.getElementById('mensaje').value.trim();
+        let texto = 'Hola, soy ' + nombre + '. ' + mensaje;
+        if (webactual) texto += '\nMi web actual: ' + webactual;
+        texto += '\nMi WhatsApp: ' + telefono;
+        window.open('https://wa.me/34602555026?text=' + encodeURIComponent(texto), '_blank', 'noopener');
+        document.getElementById('formGracias').classList.add('visible');
+        document.getElementById('formContacto').style.display = 'none';
       }
     });
 
