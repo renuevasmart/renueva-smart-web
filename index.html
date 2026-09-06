@@ -343,6 +343,16 @@
   @media (max-width: 900px) { .pasos-tira { grid-template-columns: 1fr 1fr; } }
   @media (max-width: 560px) { .pasos-tira { grid-template-columns: 1fr; } }
 
+  /* ---------- Sin letra chica (garantías) ---------- */
+  #garantias .titulo-seccion { margin-bottom: clamp(30px, 4vw, 44px); }
+  .garantias-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+  @media (max-width: 900px) { .garantias-grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 520px) { .garantias-grid { grid-template-columns: 1fr; } }
+  .garantia { background: var(--color-bg-secondary); border: 1px solid var(--color-border-default); border-radius: var(--radius-2xl); padding: clamp(20px, 2.6vw, 28px); }
+  .garantia h3 { font-family: var(--font-display); font-weight: 700; font-size: 18px; margin: 0 0 10px; }
+  .garantia h3::before { content: "✓"; color: var(--color-brand); font-weight: 800; margin-right: 8px; }
+  .garantia p { font-size: 14px; line-height: 1.55; color: var(--color-text-secondary); margin: 0; }
+
   /* ---------- Reseñas de cliente ---------- */
   .resena { text-align: center; background: var(--color-bg-secondary); border-top: 1px solid var(--color-border-subtle); border-bottom: 1px solid var(--color-border-subtle); padding-top: clamp(32px, 4vw, 56px); padding-bottom: clamp(32px, 4vw, 56px); }
   .resena .ancho { max-width: 980px; }
@@ -445,8 +455,8 @@
     <div class="hero-overlay" aria-hidden="true"></div>
     <div class="hero-contenido">
       <p class="eyebrow">Diseño web para tu negocio</p>
-      <h1>Rediseñamos <strong>tu web</strong> para que no solo se vea mejor, sino <em>que refleje tu trabajo.</em></h1>
-      <p class="lead" data-i18n="hero_lead">Rediseñamos la web de tu negocio y te mostramos el resultado antes de que gastes un solo dólar. Si te gusta lo que ves, la publicamos.</p>
+      <h1>Rediseñamos <strong>tu web</strong> y ves el resultado <em>antes de pagar nada.</em></h1>
+      <p class="lead" data-i18n="hero_lead">Para negocios que viven de la confianza —notarías, abogados, gestorías, inmobiliarias—: hacemos una versión nueva de tu web con tu contenido real y te la mostramos. Si te convence, la publicamos.</p>
       <div class="hero-acciones">
         <a href="https://wa.me/34602555026?text=Hola%2C%20quiero%20ver%20c%C3%B3mo%20quedar%C3%ADa%20mi%20web" target="_blank" rel="noopener" class="btn-cta btn-cta-lg" data-i18n="cta_pedir">Quiero ver mi web</a>
         <a href="#resenas" class="link-secundario">Ver una reseña real ↓</a>
@@ -523,6 +533,34 @@
         <li class="paso-tarjeta"><span class="paso-num">04</span><h3 data-i18n="metodo04_h3">Ajustamos contigo</h3><p data-i18n="metodo04_p">Si te gusta pero quieres cambios, los hacemos antes de publicar nada.</p></li>
         <li class="paso-tarjeta"><span class="paso-num">05</span><h3>Publicamos y acompañamos</h3><p>Ponemos la web en línea y seguimos disponibles para ajustes y soporte.</p></li>
       </ol>
+    </div>
+  </section>
+
+  <section id="garantias">
+    <div class="ancho">
+      <div class="titulo-seccion">
+        <span class="eyebrow-oscuro">Sin letra chica</span>
+        <h2>Lo que incluye, dicho de frente</h2>
+        <p>Las condiciones, claras desde el principio. Sin sorpresas al final.</p>
+      </div>
+      <div class="garantias-grid">
+        <div class="garantia">
+          <h3>La muestra es gratis</h3>
+          <p>Ves tu web rediseñada con tu contenido real antes de decidir. Sin compromiso de compra.</p>
+        </div>
+        <div class="garantia">
+          <h3>Pago único</h3>
+          <p>Un solo pago cuando publicamos. Sin cuotas mensuales ni permanencia.</p>
+        </div>
+        <div class="garantia">
+          <h3>Alojamiento incluido</h3>
+          <p>Dejamos el sitio publicado y funcionando, con el alojamiento cubierto.</p>
+        </div>
+        <div class="garantia">
+          <h3>Plazos que cumplimos</h3>
+          <p>2 a 3 semanas una web pequeña; 3 a 5 una mediana. Lo acordamos antes de empezar.</p>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -774,7 +812,6 @@
     const TEXTO_ESPANA = {
       resena_rol: 'Notario',
       metrica2_num: '<strong>0€</strong>',
-      hero_lead: 'Diseñamos la web de tu negocio y te mostramos el resultado antes de que gastes un solo euro. Si te gusta lo que ves, la publicamos.',
       problema_02: 'En el móvil se ve rota — y ahí te busca casi todo el mundo.',
       metodo02_h3: 'Diseñamos, sin coste',
       hacemos_rendimiento_p: 'Sitios rápidos, 100% adaptados a móvil, hechos para tus clientes.',
