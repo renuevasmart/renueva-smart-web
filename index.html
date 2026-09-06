@@ -70,7 +70,7 @@
           "availableLanguage": "Spanish"
         }
       ],
-      "sameAs": [],
+      "sameAs": ["https://www.google.com/maps?cid=1924034399895286532"],
       "review": {
         "@type": "Review",
         "reviewBody": "Me encontré admirado por lo que Renueva Smart hizo con total liberalidad. Su diseño es superior a lo que yo tenía publicado.",
@@ -348,7 +348,8 @@
   .resena .ancho { max-width: 980px; }
   .resena .eyebrow-oscuro { display: block; margin-bottom: 10px; }
   .resena-titulo { font-family: var(--font-display); font-weight: 700; font-size: clamp(24px, 3.2vw, 36px); line-height: 1.15; margin: 0 0 32px; text-wrap: balance; }
-  .resena-vermas { display: inline-block; margin-top: 30px; font-weight: 700; font-size: 15px; color: var(--color-text-primary); text-decoration: none; border-bottom: 1px solid var(--color-border-strong); padding-bottom: 2px; }
+  .resena-enlaces { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px 28px; margin-top: 30px; }
+  .resena-vermas { display: inline-block; font-weight: 700; font-size: 15px; color: var(--color-text-primary); text-decoration: none; border-bottom: 1px solid var(--color-border-strong); padding-bottom: 2px; }
   .resena-vermas:hover { border-color: var(--color-text-primary); }
   .resena-cita { font-family: var(--font-display); font-style: italic; font-weight: 500; font-size: clamp(17px, 2.1vw, 22px); line-height: 1.45; color: var(--color-text-primary); margin: 0 auto 22px; max-width: 660px; text-wrap: balance; }
   .resena-cita::before { content: "“"; color: var(--color-brand); }
@@ -536,7 +537,10 @@
         </div>
       </div>
 
-      <a href="caso-acosta-pastore.html" class="resena-vermas">Ver el caso completo →</a>
+      <div class="resena-enlaces">
+        <a href="caso-acosta-pastore.html" class="resena-vermas">Ver el caso completo →</a>
+        <a href="https://www.google.com/maps?cid=1924034399895286532" target="_blank" rel="noopener" class="resena-vermas">Renueva Smart en Google →</a>
+      </div>
     </div>
   </section>
 
