@@ -57,7 +57,24 @@
           "@type": "Question",
           "name": "¿Qué pasa con el contenido de mi web actual?",
           "acceptedAnswer": { "@type": "Answer", "text": "Reutilizamos tus textos, fotos y datos reales. No inventamos información sobre tu negocio: solo la presentamos mejor." }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Podéis mover la web de mi notaría desde Blogger o desde el portal del Colegio?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Sí. Montamos un sitio propio con tu contenido y, cuando lo apruebas, lo publicamos con tu dominio. Si hoy dependes del portal del Colegio o de un blog de plantilla, pasas a tener una web que controlas tú." }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Trabajáis con escribanías de Uruguay y notarías de España?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Con las dos. Nuestro caso publicado es la Escribanía Acosta Pastore, en Uruguay, y trabajamos también con notarías en España." }
         }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://renuevasmart.com/" },
+        { "@type": "ListItem", "position": 2, "name": "Notarías y escribanías", "item": "https://renuevasmart.com/notarias.html" }
       ]
     }
   ]
@@ -171,8 +188,8 @@
     <div class="nav-links">
       <a href="index.html#resenas">Reseñas</a>
       <a href="index.html#metodo">Cómo trabajamos</a>
+      <a href="index.html#que-hacemos">Servicios</a>
       <a href="precio-rediseno-web.html">Precios</a>
-      <a href="index.html#sectores">Sectores</a>
     </div>
     <a href="https://wa.me/34602555026?text=Hola%2C%20quiero%20ver%20c%C3%B3mo%20quedar%C3%ADa%20la%20web%20de%20mi%20notar%C3%ADa" target="_blank" rel="noopener" class="btn-cta" data-i18n="cta_nav">Escríbenos ahora</a>
   </nav>
@@ -183,6 +200,10 @@
 
     <p class="entradilla">Un sitio propio, con la seriedad que exige la función notarial. Es nuestro terreno más trabajado.</p>
     <p>Rediseñamos la web de tu notaría o escribanía y te mostramos el antes/después gratis, sin compromiso. Si te gusta, la publicamos.</p>
+
+    <h2>Qué necesita la web de una notaría o escribanía</h2>
+    <p>La web de una notaría no vende: da confianza. Quien busca un notario o un escribano compara pocas opciones y decide en buena parte por lo que transmite el sitio. Lo que sí tiene que resolver: quién es el titular y su trayectoria, dónde está el despacho y en qué horario atiende, qué trámites cubre —compraventas, préstamos hipotecarios, herencias, poderes, actas, constitución de sociedades— y cómo pedir cita. Sin jerga de más, pero con el tono serio que espera alguien que va a firmar algo importante.</p>
+    <p>La mayoría de las notarías y escribanías que revisamos están en una de estas tres situaciones: una ficha dentro del portal del Colegio que no controlan, un blog de plantilla montado hace años, o una web que no se lee bien en el móvil. En Uruguay se habla de escribanía y escribano; en España, de notaría y notario. Trabajamos con las dos.</p>
 
     <h2>Un caso real del sector</h2>
     <p>La Escribanía Acosta Pastore tenía toda su presencia online en un blog de plantilla genérica. Esto es lo que quedó:</p>
@@ -206,7 +227,7 @@
     </div>
     <div class="cita-bloque">
       <p>Me encontré admirado por lo que Renueva Smart hizo con total liberalidad. Su diseño es superior a lo que yo tenía publicado.</p>
-      <span class="cita-autor">— <strong>Bruno Acosta Pastore</strong>, Escribano</span>
+      <span class="cita-autor">— <strong>Bruno Acosta Pastore</strong>, <span data-i18n="rol_ap">Escribano</span></span>
     </div>
     <p><a href="caso-acosta-pastore.html" class="btn-secundario">Ver el caso completo →</a></p>
 
@@ -220,7 +241,7 @@
     </ol>
 
     <h2>Precio orientativo</h2>
-    <p>La mayoría de las notarías y escribanías con las que trabajamos encajan en el rango de landing o web pequeña. Los rangos y cómo se calculan están en la <a href="precio-rediseno-web.html">página de precios</a>; el número cerrado te lo damos tras ver tu web actual.</p>
+    <p>La mayoría de las notarías y escribanías con las que trabajamos encajan en el rango de web pequeña —1 a 5 páginas—, desde 600 €. Los rangos completos y cómo se calculan están en la <a href="precio-rediseno-web.html">página de precios</a>; el número cerrado te lo damos tras ver tu web actual.</p>
 
     <h2>Preguntas frecuentes</h2>
     <div class="faq-lista">
@@ -237,6 +258,9 @@
         <p>Reutilizamos tus textos, fotos y datos reales. No inventamos información sobre tu negocio: solo la presentamos mejor.</p>
       </details>
     </div>
+
+    <h2>Otros sectores</h2>
+    <p>También rediseñamos webs de <a href="abogados.html">abogados y estudios jurídicos</a>, <a href="gestorias.html">gestorías y asesorías</a> e <a href="inmobiliarias.html">inmobiliarias</a> — mismo método y mismo sistema de diseño.</p>
 
     <div class="caso-cta">
       <p>¿Tienes una notaría o escribanía con una web que no le hace justicia? Te armamos el antes/después gratis, sin compromiso.</p>
@@ -290,6 +314,7 @@
   <script>
     /* Variantes de español según el país del visitante — mismo criterio que index.html. */
     const TEXTO_VOSEO = { cta_nav: 'Escribinos ahora' };
+    const TEXTO_ESPANA = { rol_ap: 'Notario' };
     function aplicarVariante(mapa) {
       Object.keys(mapa).forEach((clave) => {
         document.querySelectorAll('[data-i18n="' + clave + '"]').forEach((el) => { el.innerHTML = mapa[clave]; });
@@ -308,6 +333,7 @@
     }
     function aplicarSegun(variante) {
       if (variante === 'voseo') aplicarVariante(TEXTO_VOSEO);
+      else if (variante === 'espana') aplicarVariante(TEXTO_ESPANA);
     }
     (function detectarVarianteDeLead() {
       const controlador = new AbortController();
