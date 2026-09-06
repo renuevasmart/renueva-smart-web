@@ -380,6 +380,17 @@
   .sector-tarjeta p { font-size: 14.5px; line-height: 1.6; color: var(--color-text-secondary); margin: 0; }
   @media (max-width: 640px) { .sectores-grid { grid-template-columns: 1fr; } }
 
+  /* ---------- ¿Es para ti? ---------- */
+  .encaje-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+  @media (max-width: 720px) { .encaje-grid { grid-template-columns: 1fr; } }
+  .encaje-col { background: var(--color-bg-secondary); border: 1px solid var(--color-border-default); border-radius: var(--radius-2xl); padding: clamp(24px, 3vw, 32px); }
+  .encaje-col h3 { font-family: var(--font-display); font-weight: 700; font-size: 20px; margin: 0 0 16px; }
+  .encaje-col.no h3 { color: var(--color-text-muted); }
+  .encaje-col ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 12px; }
+  .encaje-col li { font-size: 14.5px; line-height: 1.55; color: var(--color-text-secondary); padding-left: 24px; position: relative; }
+  .encaje-col.si li::before { content: "✓"; position: absolute; left: 0; color: var(--color-brand); font-weight: 800; }
+  .encaje-col.no li::before { content: "×"; position: absolute; left: 0; color: var(--color-text-muted); font-weight: 800; }
+
   /* ---------- FAQ ---------- */
   #preguntas { position: relative; overflow: hidden; }
   .preguntas-video { position: absolute; inset: 0; z-index: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; }
@@ -591,6 +602,36 @@
           <h3>Inmobiliarias</h3>
           <p>El sector con el que empezamos: webs ordenadas por comprar, vender y alquilar y pensadas para el móvil, donde busca casi todo el mundo.</p>
         </a>
+      </div>
+    </div>
+  </section>
+
+  <section id="encaje">
+    <div class="ancho">
+      <div class="titulo-seccion">
+        <span class="eyebrow-oscuro">¿Es para ti?</span>
+        <h2>Lo que hacemos y lo que no</h2>
+        <p>Preferimos decirlo claro antes de que pierdas el tiempo.</p>
+      </div>
+      <div class="encaje-grid">
+        <div class="encaje-col si">
+          <h3>Encajamos si…</h3>
+          <ul>
+            <li>Tu web tiene años, con incoherencias entre páginas o mala lectura en el teléfono, y ya no representa tu forma de trabajar.</li>
+            <li>Tu negocio vende confianza —un despacho, una notaría, una gestoría, una inmobiliaria— y el cliente te juzga por la web antes de llamar.</li>
+            <li>Tienes tu contenido real (textos, fotos, datos) o quieres repasarlo con nosotros.</li>
+            <li>Buscas una web de hasta 10 páginas, bien hecha y sin cuotas mensuales.</li>
+          </ul>
+        </div>
+        <div class="encaje-col no">
+          <h3>No encajamos si…</h3>
+          <ul>
+            <li>Necesitas una tienda online, un portal con miles de fichas o funciones a medida complejas.</li>
+            <li>Lo único que te importa es que sea lo más barato posible.</li>
+            <li>Quieres la web para mañana: los plazos son de 2 a 3 semanas para una web pequeña y de 3 a 5 para una mediana.</li>
+            <li>Todavía no tienes claro qué ofreces ni a quién. Eso lo defines tú; nosotros lo presentamos mejor.</li>
+          </ul>
+        </div>
       </div>
     </div>
   </section>
