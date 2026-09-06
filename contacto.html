@@ -88,6 +88,22 @@
 
   .contacto-info h2 { font-family: var(--font-display); font-weight: 700; font-size: 26px; margin: 0 0 14px; }
   .contacto-info > p.lead { font-size: 15.5px; line-height: 1.65; color: var(--color-text-secondary); margin: 0 0 32px; max-width: 40ch; }
+
+  .pasos-ahora { list-style: none; margin: 22px 0 0; padding: 0; counter-reset: pa; }
+  .pasos-ahora li { display: flex; gap: 14px; padding: 16px 0; border-top: 1px solid var(--color-border-subtle); }
+  .pasos-ahora li:first-child { border-top: none; padding-top: 0; }
+  .pasos-ahora li::before { counter-increment: pa; content: counter(pa); font-family: var(--font-display); font-style: italic; font-weight: 500; font-size: 18px; color: var(--color-brand); flex-shrink: 0; line-height: 1.4; }
+  .pasos-ahora h3 { font-family: var(--font-ui); font-weight: 800; font-size: 14.5px; margin: 0 0 4px; color: var(--color-text-primary); }
+  .pasos-ahora p { margin: 0; font-size: 13.5px; line-height: 1.55; color: var(--color-text-secondary); }
+
+  .datos-banda { display: flex; flex-wrap: wrap; gap: 18px 26px; margin: 24px 0 0; padding: 22px 0 0; border-top: 1px solid var(--color-border-strong); }
+  .dato .n { font-family: var(--font-display); font-weight: 700; font-size: 22px; color: var(--color-text-primary); line-height: 1; white-space: nowrap; }
+  .dato .t { font-size: 11.5px; color: var(--color-text-muted); margin-top: 6px; max-width: 15ch; }
+
+  .info-final { margin: 24px 0 32px; padding-top: 20px; border-top: 1px solid var(--color-border-subtle); font-size: 13.5px; line-height: 1.6; color: var(--color-text-secondary); }
+  .info-final a { color: var(--color-brand); font-weight: 700; text-decoration: none; white-space: nowrap; }
+  .info-final a:hover { text-decoration: underline; }
+
   .contacto-item { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 24px; }
   .contacto-item svg { flex-shrink: 0; margin-top: 3px; color: var(--color-brand); }
   .contacto-item span { display: block; font-size: 11.5px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-text-muted); margin-bottom: 4px; }
@@ -190,8 +206,20 @@
   <section>
     <div class="ancho contacto-grid">
       <div class="contacto-info">
-        <h2>Hablemos</h2>
-        <p class="lead">Escribinos o llamanos directamente — respondemos a la brevedad.</p>
+        <h2>¿Qué pasa cuando escribes?</h2>
+        <ol class="pasos-ahora">
+          <li><div><h3>Nos escribes</h3><p>Por aquí o por WhatsApp. Si quieres adelantar trabajo, respondes el cuestionario de 4 preguntas — es opcional y a tu ritmo.</p></div></li>
+          <li><div><h3>Preparamos tu web</h3><p>Te confirmamos en menos de 24 h y, en pocos días, tienes tu web nueva con tu contenido en un enlace privado que puedes recorrer.</p></div></li>
+          <li><div><h3>Decides</h3><p>Si te convence, ajustamos y la publicamos con tu dominio. Si no, no pasa nada y no pagas.</p></div></li>
+        </ol>
+
+        <div class="datos-banda">
+          <div class="dato"><div class="n">0 €</div><div class="t">ver el antes/después</div></div>
+          <div class="dato"><div class="n">&lt; 24 h</div><div class="t">te confirmamos</div></div>
+          <div class="dato"><div class="n">desde 400 €</div><div class="t">el rediseño, ya publicado</div></div>
+        </div>
+
+        <p class="info-final">El antes/después es gratis y sin compromiso de compra. Solo pagas si decides publicar la web nueva. <a href="como-empezar.html">Ver el proceso completo →</a></p>
 
         <div class="contacto-item">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4 4h16v16H4z" stroke="currentColor" stroke-width="1.6"/><path d="M4 6l8 7 8-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
