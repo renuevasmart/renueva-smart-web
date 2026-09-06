@@ -109,6 +109,7 @@
   }
   .campo input:focus, .campo textarea:focus { outline: 2px solid var(--color-brand); outline-offset: 1px; }
   .campo textarea { min-height: 120px; }
+  .campo-hint { font-size: 12.5px; color: var(--color-text-muted); margin: 6px 0 0; line-height: 1.5; }
 
   .campo-check { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 22px; }
   .campo-check input { margin-top: 3px; accent-color: var(--color-brand); }
@@ -212,6 +213,11 @@
           <div class="campo">
             <label for="telefono">Teléfono</label>
             <input type="tel" id="telefono" name="Teléfono">
+          </div>
+          <div class="campo">
+            <label for="webactual">Dirección de tu web actual</label>
+            <input type="url" id="webactual" name="Web actual" placeholder="https://...">
+            <p class="campo-hint">Si nos la dejás, preparamos el antes/después de tu web —gratis y sin compromiso— antes de responderte.</p>
           </div>
           <div class="campo">
             <label for="mensaje">Mensaje</label>
