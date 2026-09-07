@@ -306,24 +306,10 @@
   @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
   /* ---------- Título de sección ---------- */
-  .titulo-seccion { position: relative; display: flex; flex-direction: column; gap: 14px; max-width: 640px; margin-bottom: clamp(44px, 6vw, 64px); }
+  .titulo-seccion { display: flex; flex-direction: column; gap: 14px; max-width: 640px; margin-bottom: clamp(44px, 6vw, 64px); }
   .eyebrow-oscuro { font-weight: 800; font-size: 12.5px; letter-spacing: 0.09em; text-transform: uppercase; color: var(--color-brand); }
   .titulo-seccion h2 { font-family: var(--font-display); font-weight: 700; font-size: clamp(28px, 3.4vw, 42px); line-height: 1.12; margin: 0; text-wrap: balance; }
   .titulo-seccion p { font-size: 16.5px; line-height: 1.6; color: var(--color-text-secondary); margin: 0; max-width: 56ch; }
-
-  /* Numeración fantasma detrás del título de cada sección */
-  .titulo-seccion[data-num]::before {
-    content: attr(data-num);
-    position: absolute; top: -0.25em; right: 0;
-    font-family: var(--font-display); font-weight: 700;
-    font-size: clamp(72px, 11vw, 150px); line-height: 1; letter-spacing: -0.04em;
-    color: rgba(245, 243, 238, 0.05);
-    pointer-events: none; user-select: none; z-index: 0;
-  }
-  .titulo-seccion > * { position: relative; z-index: 1; }
-  @media (max-width: 600px) {
-    .titulo-seccion[data-num]::before { font-size: 64px; top: -0.15em; }
-  }
 
   /* Ritmo visual entre secciones planas */
   #garantias { border-top: 1px solid var(--color-border-subtle); }
@@ -508,7 +494,7 @@
 
   <section id="problema">
     <div class="ancho">
-      <div class="titulo-seccion" data-num="01">
+      <div class="titulo-seccion">
         <h2>Seguro te suena esto...</h2>
         <p>Cuando la web deja de acompañar al negocio, empiezan a aparecer estas señales.</p>
       </div>
@@ -543,7 +529,7 @@
     </video>
     <div class="metodo-overlay" aria-hidden="true"></div>
     <div class="ancho">
-      <div class="titulo-seccion" data-num="02">
+      <div class="titulo-seccion">
         <span class="eyebrow-oscuro">Cómo trabajamos</span>
         <h2>El proceso completo, sin que arriesgues nada</h2>
         <p><strong>Antes de pedirte nada, te mostramos el resultado. Así funciona:</strong></p>
@@ -561,7 +547,7 @@
 
   <section id="garantias">
     <div class="ancho">
-      <div class="titulo-seccion" data-num="03">
+      <div class="titulo-seccion">
         <span class="eyebrow-oscuro">Sin letra chica</span>
         <h2>Lo que incluye, dicho de frente</h2>
         <p>Las condiciones, claras desde el principio. Sin sorpresas al final.</p>
@@ -618,7 +604,7 @@
 
   <section id="que-hacemos">
     <div class="ancho">
-      <div class="titulo-seccion" data-num="04">
+      <div class="titulo-seccion">
         <span class="eyebrow-oscuro">Qué hacemos</span>
         <h2>Diseño web para que tu profesionalismo también se vea en el ámbito digital.</h2>
       </div>
@@ -641,7 +627,7 @@
 
   <section id="sectores">
     <div class="ancho">
-      <div class="titulo-seccion" data-num="05">
+      <div class="titulo-seccion">
         <span class="eyebrow-oscuro">Sectores</span>
         <h2>Diseño web para servicios profesionales que venden confianza</h2>
         <p><strong>Trabajamos sobre todo con despachos, estudios y clínicas donde la web es la primera impresión: tiene que transmitir criterio antes de que nadie pida cita ni levante el teléfono.</strong></p>
@@ -677,7 +663,7 @@
 
   <section id="encaje">
     <div class="ancho">
-      <div class="titulo-seccion" data-num="06">
+      <div class="titulo-seccion">
         <span class="eyebrow-oscuro">¿Es para ti?</span>
         <h2>Lo que hacemos y lo que no</h2>
         <p>Preferimos decirlo claro antes de que pierdas el tiempo.</p>
@@ -711,7 +697,7 @@
     </video>
     <div class="preguntas-overlay" aria-hidden="true"></div>
     <div class="ancho">
-      <div class="titulo-seccion" data-num="07">
+      <div class="titulo-seccion">
         <span class="eyebrow-oscuro">Preguntas</span>
         <h2>Todo lo que necesitas saber antes de empezar</h2>
       </div>
