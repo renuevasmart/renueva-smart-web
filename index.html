@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>document.documentElement.classList.add('js');</script>
 <meta name="google-site-verification" content="a4xFOlFWB7yQRaatr0V8hngRRJCjDcCEqYQNgN5K4Zg">
 <title>Renueva Smart — Diseño y rediseño web para tu negocio</title>
 <meta name="description" content="Rediseñamos la web de tu negocio y te mostramos el antes/después gratis, sin compromiso. Si te gusta, la publicamos.">
@@ -203,6 +204,14 @@
   img { max-width: 100%; display: block; }
   section { padding: clamp(40px, 5vw, 72px) clamp(20px, 4vw, 56px); }
   .ancho { max-width: 1120px; margin: 0 auto; }
+
+  /* Aparición al entrar en viewport. Solo se activa con JS (.js en <html>);
+     sin JS todo se ve normal. Se desactiva con prefers-reduced-motion. */
+  .js .reveal { opacity: 0; transform: translateY(16px); transition: opacity 0.5s ease-out, transform 0.5s ease-out; }
+  .js .reveal.visible { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) {
+    .js .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
+  }
 
   /* ---------- Nav ---------- */
   .nav {
@@ -505,18 +514,18 @@
 
   <section id="problema">
     <div class="ancho">
-      <div class="titulo-seccion">
+      <div class="titulo-seccion reveal">
         <h2>Seguro te suena esto...</h2>
         <p>Cuando la web deja de acompañar al negocio, empiezan a aparecer estas señales.</p>
       </div>
-      <div class="problema-lista">
+      <div class="problema-lista reveal">
         <div class="problema-item"><div class="txt"><span class="n">01</span><p>Tu web se ve igual que hace 10 años, y se nota.</p></div><span class="flecha">→</span></div>
         <div class="problema-item"><div class="txt"><span class="n">02</span><p data-i18n="problema_02">En el celular se ve rota — y ahí te busca casi todo el mundo.</p></div><span class="flecha">→</span></div>
         <div class="problema-item"><div class="txt"><span class="n">03</span><p data-i18n="problema_03">Publicas contenido en tus redes, pero la web no es atractiva.</p></div><span class="flecha">→</span></div>
         <div class="problema-item"><div class="txt"><span class="n">04</span><p>Sientes que nuestra web no es acorde al profesionalismo con el que trabajamos.</p></div><span class="flecha">→</span></div>
         <div class="problema-item"><div class="txt"><span class="n">05</span><p>Nuestra web es una más del montón.</p></div><span class="flecha">→</span></div>
       </div>
-      <div class="reencuadre">
+      <div class="reencuadre reveal">
         <p data-i18n="reencuadre">No es que necesites más marketing. Es que <em>tu web no está trabajando para ti.</em></p>
         <a href="#metodo" class="link-secundario">Ver cómo lo resolvemos ↓</a>
       </div>
@@ -540,12 +549,12 @@
     </video>
     <div class="metodo-overlay" aria-hidden="true"></div>
     <div class="ancho">
-      <div class="titulo-seccion">
+      <div class="titulo-seccion reveal">
         <span class="eyebrow-oscuro">Cómo trabajamos</span>
         <h2>El proceso completo, sin que arriesgues nada</h2>
         <p><strong>Antes de pedirte nada, te mostramos el resultado. Así funciona:</strong></p>
       </div>
-      <ol class="pasos-tira">
+      <ol class="pasos-tira reveal">
         <li class="paso-tarjeta"><span class="paso-num">01</span><h3>Analizamos tu web actual</h3><p>Rediseñamos la estética para que sea visualmente atractiva.</p></li>
         <li class="paso-tarjeta"><span class="paso-num">02</span><h3 data-i18n="metodo02_h3">Diseñamos, sin costo</h3><p>Hacemos una versión nueva completa, con tu contenido real, sin que te tengas que preocupar por nada.</p></li>
         <li class="paso-tarjeta"><span class="paso-num">03</span><h3>Te mostramos el cambio</h3><p>Te pasamos un enlace privado con tu web ya rediseñada y navegable. Ese es tu antes/después.</p></li>
@@ -558,12 +567,12 @@
 
   <section id="garantias">
     <div class="ancho">
-      <div class="titulo-seccion">
+      <div class="titulo-seccion reveal">
         <span class="eyebrow-oscuro">Sin letra chica</span>
         <h2>Lo que incluye, dicho de frente</h2>
         <p>Las condiciones, claras desde el principio. Sin sorpresas al final.</p>
       </div>
-      <div class="garantias-grid">
+      <div class="garantias-grid reveal">
         <div class="garantia">
           <h3>La muestra es gratis</h3>
           <p>Ves tu web rediseñada con tu contenido real antes de decidir. Sin compromiso de compra.</p>
@@ -589,10 +598,10 @@
       <span class="eyebrow-oscuro">Reseñas</span>
       <h2 class="resena-titulo">Lo que dicen los clientes</h2>
 
-      <p class="resena-cita">Me encontré admirado por lo que Renueva Smart hizo con total liberalidad. Su diseño es superior a lo que yo tenía publicado.</p>
+      <p class="resena-cita reveal">Me encontré admirado por lo que Renueva Smart hizo con total liberalidad. Su diseño es superior a lo que yo tenía publicado.</p>
       <p class="resena-autor">— <strong>Bruno Acosta Pastore</strong>, <span data-i18n="resena_rol">Escribano</span></p>
 
-      <div class="resena-comparacion">
+      <div class="resena-comparacion reveal">
         <div class="comparacion-item">
           <video class="comparacion-video" muted loop playsinline preload="none" poster="assets/resena-antes-poster.jpg">
             <source data-src="assets/resena-antes.mp4" type="video/mp4">
@@ -615,11 +624,11 @@
 
   <section id="que-hacemos">
     <div class="ancho">
-      <div class="titulo-seccion">
+      <div class="titulo-seccion reveal">
         <span class="eyebrow-oscuro">Qué hacemos</span>
         <h2>Diseño web para que tu profesionalismo también se vea en el ámbito digital.</h2>
       </div>
-      <div class="valores-grid">
+      <div class="valores-grid reveal">
         <div class="valor-tarjeta">
           <h3>Diseño</h3>
           <p data-i18n="hacemos_diseno_p">Identidad visual, estructura y contenido ordenados para que el visitante entienda en segundos qué ofreces y por qué elegirte.</p>
@@ -638,12 +647,12 @@
 
   <section id="sectores">
     <div class="ancho">
-      <div class="titulo-seccion">
+      <div class="titulo-seccion reveal">
         <span class="eyebrow-oscuro">Sectores</span>
         <h2>Diseño web para servicios profesionales que venden confianza</h2>
         <p><strong>Trabajamos sobre todo con despachos, estudios y clínicas donde la web es la primera impresión: tiene que transmitir criterio antes de que nadie pida cita ni levante el teléfono.</strong></p>
       </div>
-      <div class="sectores-grid">
+      <div class="sectores-grid reveal">
         <a class="sector-tarjeta" href="abogados.html">
           <h3>Abogados y estudios jurídicos</h3>
           <p>Una web que ordena las áreas de práctica y transmite solvencia desde la primera pantalla, lejos de la plantilla genérica que usa medio sector.</p>
@@ -674,12 +683,12 @@
 
   <section id="encaje">
     <div class="ancho">
-      <div class="titulo-seccion">
+      <div class="titulo-seccion reveal">
         <span class="eyebrow-oscuro">¿Es para ti?</span>
         <h2>Lo que hacemos y lo que no</h2>
         <p>Preferimos decirlo claro antes de que pierdas el tiempo.</p>
       </div>
-      <div class="encaje-grid">
+      <div class="encaje-grid reveal">
         <div class="encaje-col si">
           <h3>Encajamos si…</h3>
           <ul>
@@ -708,11 +717,11 @@
     </video>
     <div class="preguntas-overlay" aria-hidden="true"></div>
     <div class="ancho">
-      <div class="titulo-seccion">
+      <div class="titulo-seccion reveal">
         <span class="eyebrow-oscuro">Preguntas</span>
         <h2>Todo lo que necesitas saber antes de empezar</h2>
       </div>
-      <div class="faq-lista">
+      <div class="faq-lista reveal">
         <details class="faq-item">
           <summary>¿Cómo hacen el antes/después sin que se los pida?<span class="faq-icono">+</span></summary>
           <p data-i18n="faq1_answer">Elegimos negocios cuya web creemos que podemos mejorar mucho, y armamos la propuesta nosotros, sin compromiso de tu parte. Tú solo ves el resultado y decides.</p>
@@ -784,6 +793,29 @@
       if (window.scrollY > 40) nav.classList.add('solida');
       else nav.classList.remove('solida');
     });
+  </script>
+
+  <script>
+    /* Aparición al entrar en viewport. Cada elemento .reveal se anima una
+       sola vez (se deja de observar tras aparecer). Si no hay soporte de
+       IntersectionObserver o el usuario pide menos movimiento, se muestra
+       todo de golpe. */
+    (function () {
+      const objetivos = document.querySelectorAll('.reveal');
+      const sinMovimiento = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (sinMovimiento || !('IntersectionObserver' in window)) {
+        objetivos.forEach((el) => el.classList.add('visible'));
+        return;
+      }
+      const observador = new IntersectionObserver((entradas, obs) => {
+        entradas.forEach((entrada) => {
+          if (!entrada.isIntersecting) return;
+          entrada.target.classList.add('visible');
+          obs.unobserve(entrada.target);
+        });
+      }, { threshold: 0, rootMargin: '0px 0px -12% 0px' });
+      objetivos.forEach((el) => observador.observe(el));
+    })();
   </script>
 
   <script>
