@@ -277,6 +277,7 @@
     margin: 0 0 22px; text-wrap: balance;
   }
   .hero h1 em, .banner h2 em { font-style: italic; font-weight: 500; color: var(--color-brand); }
+  .h1-rota { display: inline-block; text-align: center; transition: opacity 0.4s ease; }
   .hero p.lead {
     font-size: clamp(16px, 1.7vw, 19px); line-height: 1.55; color: var(--color-text-secondary);
     max-width: 50ch; margin: 0 auto 34px;
@@ -492,7 +493,7 @@
     <div class="hero-overlay" aria-hidden="true"></div>
     <div class="hero-contenido">
       <p class="eyebrow">Diseño web para tu negocio</p>
-      <h1>Rediseñamos <strong>tu web</strong> y ves el resultado <em>antes de pagar nada.</em></h1>
+      <h1>Rediseñamos <strong>tu web</strong> y ves el resultado antes de <em class="h1-rota" data-alts="decidir.|comprometerte.">pagar nada.</em></h1>
       <p class="lead" data-i18n="hero_lead">Para negocios que viven de la confianza —notarías, abogados, gestorías, inmobiliarias—: hacemos una versión nueva de tu web con tu contenido real y te la pasamos en un enlace privado, navegable. Si te convence, la publicamos.</p>
       <div class="hero-acciones">
         <a href="https://wa.me/34602555026?text=Hola%2C%20quiero%20ver%20c%C3%B3mo%20quedar%C3%ADa%20mi%20web" target="_blank" rel="noopener" class="btn-cta btn-cta-lg" data-i18n="cta_pedir">Quiero ver mi web</a>
@@ -818,6 +819,48 @@
       if (window.scrollY > 40) nav.classList.add('solida');
       else nav.classList.remove('solida');
     });
+  </script>
+
+  <script>
+    /* Rotación sutil del final del H1. Mejora progresiva: si el JS no carga,
+       el titular queda como "…antes de pagar nada.". Se desactiva con
+       prefers-reduced-motion. El ancho se fija al de la frase más larga
+       para que no haya salto de layout al cambiar de palabra. */
+    (function () {
+      const el = document.querySelector('.h1-rota');
+      if (!el || !el.dataset.alts) return;
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      const frases = [el.textContent.trim()].concat(
+        el.dataset.alts.split('|').map((s) => s.trim())
+      );
+      const cs = getComputedStyle(el);
+      const medidor = document.createElement('span');
+      medidor.style.position = 'absolute';
+      medidor.style.visibility = 'hidden';
+      medidor.style.whiteSpace = 'nowrap';
+      medidor.style.fontSize = cs.fontSize;
+      medidor.style.fontFamily = cs.fontFamily;
+      medidor.style.fontWeight = cs.fontWeight;
+      medidor.style.fontStyle = cs.fontStyle;
+      medidor.style.letterSpacing = cs.letterSpacing;
+      document.body.appendChild(medidor);
+      let ancho = 0;
+      frases.forEach((f) => {
+        medidor.textContent = f;
+        ancho = Math.max(ancho, medidor.getBoundingClientRect().width);
+      });
+      medidor.remove();
+      el.style.minWidth = Math.ceil(ancho) + 'px';
+      let i = 0;
+      setInterval(() => {
+        i = (i + 1) % frases.length;
+        el.style.opacity = '0';
+        setTimeout(() => {
+          el.textContent = frases[i];
+          el.style.opacity = '1';
+        }, 400);
+      }, 3000);
+    })();
   </script>
 
   <script>
