@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Autorización de Accesos y Permisos — Renueva Smart</title>
+<meta name="description" content="Autorización digital de accesos y permisos para el desarrollo de un sitio web: completá los datos, firmá en pantalla y recibí una copia en PDF.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="assets/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<script src="assets/consent.js" defer></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,700;0,800;1,500;1,600&family=Fraunces:ital,opsz,wght@0,9..144,600;0,9..144,700;1,9..144,500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --color-brand: #ff6a00;
+    --color-brand-hover: #ff7a1a;
+    --color-bg-primary: #0b0c0e;
+    --color-bg-secondary: #151719;
+    --color-bg-tertiary: #25282c;
+    --color-text-primary: #f5f3ee;
+    --color-text-secondary: #d9dce0;
+    --color-text-muted: #92979d;
+    --color-border-subtle: rgba(255, 255, 255, 0.08);
+    --color-border-default: rgba(255, 255, 255, 0.12);
+    --color-border-strong: rgba(255, 255, 255, 0.18);
+    --font-display: "Fraunces", Georgia, "Iowan Old Style", serif;
+    --font-ui: "Plus Jakarta Sans", "Segoe UI", -apple-system, Roboto, Arial, sans-serif;
+    --radius-lg: 8px;
+    --radius-xl: 12px;
+    --radius-2xl: 16px;
+    --radius-3xl: 24px;
+    --radius-pill: 999px;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--color-bg-primary); color: var(--color-text-primary); font-family: var(--font-ui); }
+  a { color: inherit; }
+  img { max-width: 100%; display: block; }
+
+  .nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 40;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 18px clamp(20px, 4vw, 56px);
+    background: rgba(11,12,14,0.92); backdrop-filter: blur(8px);
+    box-shadow: 0 1px 0 var(--color-border-subtle);
+  }
+  .nav-logo { height: 44px; }
+
+  .contenido { max-width: 780px; margin: 0 auto; padding: clamp(110px, 15vw, 150px) clamp(20px, 4vw, 56px) 60px; }
+  .eyebrow-oscuro { font-weight: 800; font-size: 12.5px; letter-spacing: 0.09em; text-transform: uppercase; color: var(--color-brand); }
+  .contenido h1 { font-family: var(--font-display); font-weight: 700; font-size: clamp(26px, 4vw, 38px); line-height: 1.15; margin: 10px 0 14px; text-wrap: balance; }
+  .contenido > p.lead { font-size: 15.5px; line-height: 1.65; color: var(--color-text-secondary); margin: 0 0 30px; }
+
+  .campo-proyecto { margin-bottom: 30px; }
+  .campo-proyecto label { display: block; font-size: 11.5px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-text-muted); margin-bottom: 8px; }
+
+  .campo label { display: block; font-size: 11.5px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-text-muted); margin-bottom: 8px; }
+  .campo input, .campo textarea {
+    width: 100%; font-family: inherit; font-size: 15px; color: var(--color-text-primary);
+    background: var(--color-bg-tertiary); border: 1px solid var(--color-border-default);
+    border-radius: var(--radius-lg); padding: 12px 14px;
+  }
+  .campo input:focus { outline: 2px solid var(--color-brand); outline-offset: 1px; }
+  .campo-hint { font-size: 12.5px; color: var(--color-text-muted); margin: 6px 0 0; line-height: 1.5; }
+
+  .partes {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1px;
+    background: var(--color-border-default); border: 1px solid var(--color-border-default);
+    border-radius: var(--radius-2xl); overflow: hidden; margin-bottom: 30px;
+  }
+  .parte { background: var(--color-bg-secondary); padding: 22px clamp(18px, 3vw, 26px); display: flex; flex-direction: column; gap: 16px; }
+  .parte h2 { font-size: 12px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-brand); margin: 0; }
+  .parte .campo { margin: 0; }
+  .parte-estatica p { margin: 0; font-size: 15px; }
+  .parte-estatica .n { font-weight: 700; }
+  .parte-estatica .t { color: var(--color-text-muted); font-size: 13px; margin-top: 2px; }
+  @media (max-width: 620px) { .partes { grid-template-columns: 1fr; } }
+
+  .intro-autoriza { font-size: 15px; line-height: 1.7; color: var(--color-text-secondary); margin: 0 0 28px; }
+  .intro-autoriza strong { color: var(--color-text-primary); }
+
+  .seccion-accesos { margin-bottom: 26px; }
+  .seccion-accesos h3 { font-family: var(--font-display); font-weight: 700; font-size: 18px; margin: 0 0 10px; }
+  .lista-accesos { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 1px; background: var(--color-border-subtle); border: 1px solid var(--color-border-subtle); border-radius: var(--radius-xl); overflow: hidden; }
+  .lista-accesos li { background: var(--color-bg-secondary); }
+  .lista-accesos label { display: flex; align-items: flex-start; gap: 12px; padding: 12px 16px; font-size: 14.5px; line-height: 1.5; color: var(--color-text-secondary); cursor: pointer; }
+  .lista-accesos input { margin-top: 3px; width: 17px; height: 17px; flex-shrink: 0; accent-color: var(--color-brand); }
+
+  .callout {
+    margin: 30px 0; padding: 20px 22px; background: rgba(255,106,0,0.08);
+    border: 1px solid rgba(255,106,0,0.35); border-radius: var(--radius-xl);
+    font-size: 14px; line-height: 1.6; color: var(--color-text-secondary);
+  }
+  .callout strong { color: var(--color-brand); }
+
+  .campo-check { display: flex; align-items: flex-start; gap: 10px; margin: 26px 0; }
+  .campo-check input { margin-top: 3px; width: 18px; height: 18px; flex-shrink: 0; accent-color: var(--color-brand); }
+  .campo-check label { font-size: 14.5px; color: var(--color-text-primary); line-height: 1.5; font-weight: 600; }
+
+  .fila-lugar-fecha { display: grid; grid-template-columns: 2fr 1fr; gap: 16px; margin-bottom: 30px; }
+  @media (max-width: 480px) { .fila-lugar-fecha { grid-template-columns: 1fr; } }
+
+  .firmas { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(20px, 3vw, 34px); margin-bottom: 30px; }
+  @media (max-width: 620px) { .firmas { grid-template-columns: 1fr; } }
+  .firma-bloque h2 { font-size: 12px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-text-muted); margin: 0 0 10px; }
+  .firma-lienzo {
+    width: 100%; height: 150px; background: var(--color-bg-tertiary);
+    border: 1px solid var(--color-border-default); border-radius: var(--radius-lg);
+    touch-action: none; cursor: crosshair;
+  }
+  .firma-borrar { margin-top: 8px; font-size: 12.5px; font-weight: 700; color: var(--color-text-muted); background: none; border: none; cursor: pointer; padding: 0; text-decoration: underline; }
+  .firma-borrar:hover { color: var(--color-text-primary); }
+  .firma-aclaracion { margin-top: 10px; font-size: 13.5px; color: var(--color-text-secondary); border-top: 1px solid var(--color-border-strong); padding-top: 8px; }
+  .firma-preescrita {
+    height: 150px; display: flex; align-items: center; justify-content: center;
+    background: var(--color-bg-tertiary); border: 1px solid var(--color-border-default); border-radius: var(--radius-lg);
+  }
+  .firma-preescrita span { font-family: var(--font-display); font-style: italic; font-weight: 500; font-size: 30px; color: var(--color-text-primary); }
+
+  .error-envio { color: #ff8a65; font-size: 13.5px; margin: -18px 0 20px; display: none; }
+  .error-envio.visible { display: block; }
+
+  .btn-enviar {
+    font-weight: 800; font-size: 15.5px; color: var(--color-bg-primary); background: var(--color-brand);
+    border: none; border-radius: var(--radius-pill); padding: 15px 30px; cursor: pointer; width: 100%;
+    transition: background 0.15s ease, transform 0.15s ease;
+  }
+  .btn-enviar:hover { background: var(--color-brand-hover); transform: translateY(-1px); }
+  .btn-enviar:disabled { opacity: 0.6; cursor: wait; transform: none; }
+
+  .form-gracias {
+    display: none; text-align: center; padding: 34px 26px; background: var(--color-bg-secondary);
+    border: 1px solid var(--color-border-default); border-radius: var(--radius-2xl); margin-bottom: 24px; font-size: 15.5px; line-height: 1.6;
+  }
+  .form-gracias.visible { display: block; }
+  .form-gracias strong { color: var(--color-brand); }
+
+  .footer-copy { text-align: center; font-size: 12.5px; color: var(--color-text-muted); padding: 30px 20px; border-top: 1px solid var(--color-border-subtle); }
+
+  /* ---------- Hoja usada solo para generar el PDF ----------
+     Envuelta en un contenedor con height:0 + overflow:hidden en vez de display:none/visibility:hidden:
+     html2canvas mide mal (altura 0) los elementos ocultos por esas dos propiedades. */
+  #envoltorioHojaPdf { height: 0; overflow: hidden; }
+  /* word-spacing explícito: sin esto html2canvas "come" espacios al rasterizar este texto (bug conocido de su motor de texto) */
+  #hojaPdf { width: 780px; background: var(--color-bg-primary); color: var(--color-text-primary); font-family: var(--font-ui); padding: 40px; word-spacing: 1.8px; }
+  #hojaPdf .hoja-logo { height: 40px; margin-bottom: 24px; }
+  #hojaPdf h1 { font-family: var(--font-display); font-size: 28px; margin: 8px 0 10px; }
+  #hojaPdf .eyebrow-oscuro { display: block; margin-bottom: 6px; }
+  #hojaPdf p { font-size: 13.5px; line-height: 1.6; color: var(--color-text-secondary); }
+  #hojaPdf .partes-pdf { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--color-border-default); border: 1px solid var(--color-border-default); border-radius: 16px; overflow: hidden; margin: 20px 0; }
+  #hojaPdf .parte-pdf { background: var(--color-bg-secondary); padding: 18px 20px; }
+  #hojaPdf .parte-pdf h2 { font-size: 11px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-brand); margin: 0 0 10px; }
+  #hojaPdf .parte-pdf p { margin: 0 0 8px; font-size: 13.5px; color: var(--color-text-primary); }
+  #hojaPdf .parte-pdf .t { color: var(--color-text-muted); font-size: 11.5px; }
+  #hojaPdf h3 { font-family: var(--font-display); font-size: 15px; margin: 20px 0 8px; }
+  #hojaPdf ul { list-style: none; margin: 0 0 4px; padding: 0; }
+  #hojaPdf li { font-size: 12.5px; line-height: 1.5; color: var(--color-text-secondary); padding: 3px 0; }
+  #hojaPdf li b { color: var(--color-brand); margin-right: 6px; }
+  #hojaPdf li b.no-autorizado { color: #ff5252; }
+  #hojaPdf .callout-pdf { margin: 20px 0; padding: 14px 16px; background: rgba(255,106,0,0.08); border: 1px solid rgba(255,106,0,0.35); border-radius: 10px; font-size: 12px; line-height: 1.6; color: var(--color-text-secondary); word-spacing: 4px; }
+  #hojaPdf .firmas-pdf { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 28px; }
+  #hojaPdf .firmas-pdf img, #hojaPdf .firmas-pdf .firma-preescrita-pdf { height: 60px; object-fit: contain; }
+  #hojaPdf .firma-preescrita-pdf { font-family: var(--font-display); font-style: italic; font-size: 24px; display: flex; align-items: center; }
+  #hojaPdf .firmas-pdf .linea { border-top: 1px solid var(--color-border-strong); margin-top: 6px; padding-top: 6px; font-size: 11.5px; color: var(--color-text-muted); word-spacing: 3px; }
+  #hojaPdf .pie-pdf { margin-top: 30px; padding-top: 14px; border-top: 1px solid var(--color-border-subtle); font-size: 10.5px; color: var(--color-text-muted); display: flex; justify-content: space-between; }
+</style>
+</head>
+<body>
+
+  <nav class="nav">
+    <a href="index.html"><img class="nav-logo" src="assets/logo.png" alt="Renueva Smart"></a>
+  </nav>
+
+  <div class="contenido">
+    <span class="eyebrow-oscuro">Autorización de accesos y permisos</span>
+    <h1 id="tituloDoc">Desarrollo del sitio web de tu proyecto</h1>
+    <p class="lead">Documento de autorización de acceso a servicios, cuentas y recursos necesarios para construir y publicar el sitio. Completalo, firmalo en la pantalla y te queda una copia en PDF — a nosotros y a tu email.</p>
+
+    <div class="form-gracias" id="formGracias">
+      ¡Gracias! Recibimos tu autorización firmada. Te descargamos una copia en PDF y también te va a llegar por email.
+    </div>
+
+    <form id="formAutorizacion" action="https://formsubmit.co/contacto@publicasmart.com" method="POST" enctype="multipart/form-data">
+      <input type="hidden" name="_subject" value="Autorización de accesos firmada">
+      <input type="hidden" name="_template" value="table">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_next" value="autorizacion-accesos.html?enviado=1">
+      <input type="hidden" name="_cc" id="ccCliente" value="">
+      <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
+      <input type="file" name="Autorización firmada (PDF)" id="adjuntoPdf" style="display:none">
+      <input type="hidden" name="Proyecto" id="proyectoOculto">
+      <input type="hidden" name="Resumen de accesos autorizados" id="resumenOculto">
+
+      <div class="campo-proyecto">
+        <label for="proyecto">Nombre del proyecto / movimiento / empresa</label>
+        <input type="text" id="proyecto" placeholder="Ej: Movimiento Nacional Artiguista">
+      </div>
+
+      <div class="partes">
+        <div class="parte">
+          <h2>El cliente (quien autoriza)</h2>
+          <div class="campo">
+            <label for="clienteNombre">Nombre completo</label>
+            <input type="text" id="clienteNombre" name="Nombre completo" required>
+          </div>
+          <div class="campo">
+            <label for="clienteCedula">Cédula de identidad</label>
+            <input type="text" id="clienteCedula" name="Cédula de identidad" required>
+          </div>
+          <div class="campo">
+            <label for="clienteEmail">Email</label>
+            <input type="email" id="clienteEmail" name="Email" required>
+          </div>
+        </div>
+        <div class="parte parte-estatica">
+          <h2>El proveedor / desarrollador</h2>
+          <div>
+            <p class="n">Alejandro Vidal Voglino</p>
+            <p class="t">Renueva Smart — renuevasmart.com</p>
+          </div>
+        </div>
+      </div>
+
+      <p class="intro-autoriza">Por medio del presente documento, <strong>EL CLIENTE</strong> autoriza a <strong>EL PROVEEDOR</strong> a acceder y gestionar, en su nombre y durante el desarrollo del proyecto, los siguientes servicios y recursos necesarios para la construcción, configuración y puesta en funcionamiento del sitio web. Desmarcá cualquier punto que no quieras autorizar.</p>
+
+      <div class="seccion-accesos">
+        <h3>1. Dominio</h3>
+        <ul class="lista-accesos">
+          <li><label><input type="checkbox" data-acceso="Acceso al panel del registrador (o autorización para gestionarlo en su nombre)" checked> Acceso al panel del registrador (o autorización para gestionarlo en su nombre)</label></li>
+          <li><label><input type="checkbox" data-acceso="Modificación de registros DNS (A, CNAME, MX, TXT)" checked> Modificación de registros DNS (A, CNAME, MX, TXT)</label></li>
+        </ul>
+      </div>
+
+      <div class="seccion-accesos">
+        <h3>2. Hosting / alojamiento</h3>
+        <ul class="lista-accesos">
+          <li><label><input type="checkbox" data-acceso="Acceso al panel de hosting (GitHub Pages, Netlify, Vercel, cPanel, etc.)" checked> Acceso al panel de hosting (GitHub Pages, Netlify, Vercel, cPanel, etc.)</label></li>
+          <li><label><input type="checkbox" data-acceso="Subida de archivos (FTP/SFTP o despliegue por Git)" checked> Subida de archivos (FTP/SFTP o despliegue por Git)</label></li>
+          <li><label><input type="checkbox" data-acceso="Configuración de certificado SSL" checked> Configuración de certificado SSL</label></li>
+        </ul>
+      </div>
+
+      <div class="seccion-accesos">
+        <h3>3. Backend / base de datos</h3>
+        <ul class="lista-accesos">
+          <li><label><input type="checkbox" data-acceso="Creación y administración de la cuenta del servicio de base de datos (ej. Supabase)" checked> Creación y administración de la cuenta del servicio de base de datos (ej. Supabase)</label></li>
+          <li><label><input type="checkbox" data-acceso="Configuración de tablas, reglas de permisos y almacenamiento" checked> Configuración de tablas, reglas de permisos y almacenamiento</label></li>
+        </ul>
+      </div>
+
+      <div class="seccion-accesos">
+        <h3>4. Cuentas de servicios de terceros</h3>
+        <ul class="lista-accesos">
+          <li><label><input type="checkbox" data-acceso="Google (Workspace/Gmail del sitio, Analytics, Search Console, OAuth)" checked> Google (Workspace/Gmail del sitio, Analytics, Search Console, OAuth)</label></li>
+          <li><label><input type="checkbox" data-acceso="Servicio de envío de correo transaccional (Resend, Brevo, etc.)" checked> Servicio de envío de correo transaccional (Resend, Brevo, etc.)</label></li>
+          <li><label><input type="checkbox" data-acceso="Redes sociales del movimiento (Instagram, Facebook, Twitter/X)" checked> Redes sociales del movimiento (Instagram, Facebook, Twitter/X)</label></li>
+        </ul>
+      </div>
+
+      <div class="seccion-accesos">
+        <h3>5. Claves API y secretos</h3>
+        <ul class="lista-accesos">
+          <li><label><input type="checkbox" data-acceso="Generación y uso de claves API (Google Maps, reCAPTCHA, etc.)" checked> Generación y uso de claves API (Google Maps, reCAPTCHA, etc.)</label></li>
+          <li><label><input type="checkbox" data-acceso="Gestión de variables de entorno y tokens" checked> Gestión de variables de entorno y tokens</label></li>
+        </ul>
+      </div>
+
+      <div class="seccion-accesos">
+        <h3>6. Acceso remoto al equipo del cliente</h3>
+        <ul class="lista-accesos">
+          <li><label><input type="checkbox" data-acceso="Autorización puntual por AnyDesk/TeamViewer, con alcance y horario definidos, preferentemente con el cliente delante del trabajo que se está realizando." checked> Autorización puntual por AnyDesk/TeamViewer, con alcance y horario definidos, preferentemente con el cliente delante del trabajo que se está realizando.</label></li>
+        </ul>
+      </div>
+
+      <div class="seccion-accesos">
+        <h3>7. Contenido y datos</h3>
+        <ul class="lista-accesos">
+          <li><label><input type="checkbox" data-acceso="Autorización de uso de logo, textos, imágenes y videos que aporte el cliente" checked> Autorización de uso de logo, textos, imágenes y videos que aporte el cliente</label></li>
+          <li><label><input type="checkbox" data-acceso="Tratamiento de datos de usuarios del sitio (cuentas, formularios) conforme a la normativa vigente" checked> Tratamiento de datos de usuarios del sitio (cuentas, formularios) conforme a la normativa vigente</label></li>
+        </ul>
+      </div>
+
+      <div class="seccion-accesos">
+        <h3>8. Alcance y responsabilidad</h3>
+        <ul class="lista-accesos">
+          <li><label><input type="checkbox" data-acceso="Esta autorización rige mientras dure el desarrollo del proyecto y puede ser revocada por EL CLIENTE en cualquier momento" checked> Esta autorización rige mientras dure el desarrollo del proyecto y puede ser revocada por EL CLIENTE en cualquier momento</label></li>
+          <li><label><input type="checkbox" data-acceso="Las credenciales compartidas son de uso exclusivo para este proyecto y serán tratadas de forma confidencial" checked> Las credenciales compartidas son de uso exclusivo para este proyecto y serán tratadas de forma confidencial</label></li>
+        </ul>
+      </div>
+
+      <div class="callout">
+        <strong>Importante:</strong> este documento autoriza el alcance del acceso concedido; no reemplaza el intercambio seguro de contraseñas o claves. Las credenciales reales (contraseñas, claves API, tokens) no deben escribirse en este documento — se recomienda compartirlas mediante un gestor de contraseñas o un canal seguro.
+      </div>
+
+      <div class="campo-check">
+        <input type="checkbox" id="consentimiento" required>
+        <label for="consentimiento">He leído este documento y autorizo a EL PROVEEDOR los accesos marcados arriba para este proyecto.</label>
+      </div>
+
+      <div class="fila-lugar-fecha">
+        <div class="campo">
+          <label for="lugar">Lugar</label>
+          <input type="text" id="lugar" name="Lugar" placeholder="Ciudad, país" required>
+        </div>
+        <div class="campo">
+          <label for="fecha">Fecha</label>
+          <input type="date" id="fecha" name="Fecha" required>
+        </div>
+      </div>
+
+      <div class="firmas">
+        <div class="firma-bloque">
+          <h2>Firma del cliente</h2>
+          <canvas class="firma-lienzo" id="lienzoFirma"></canvas>
+          <button type="button" class="firma-borrar" id="borrarFirma">Borrar firma</button>
+          <p class="firma-aclaracion">Aclaración: <span id="aclaracionCliente">—</span></p>
+        </div>
+        <div class="firma-bloque">
+          <h2>Firma del proveedor</h2>
+          <div class="firma-preescrita"><span>Alejandro Vidal Voglino</span></div>
+          <p class="firma-aclaracion">Aclaración: Alejandro Vidal Voglino — Renueva Smart</p>
+        </div>
+      </div>
+
+      <p class="error-envio" id="errorEnvio">Completá todos los campos obligatorios y firmá antes de enviar.</p>
+
+      <button type="submit" class="btn-enviar" id="btnEnviar">Firmar y enviar</button>
+    </form>
+  </div>
+
+  <p class="footer-copy">© 2026 Renueva Smart — Alejandro Vidal Voglino</p>
+
+  <!-- Hoja usada solo para generar el PDF: se llena con los mismos datos justo antes de firmar -->
+  <div id="envoltorioHojaPdf"><div id="hojaPdf">
+    <img class="hoja-logo" src="assets/logo.png" alt="Renueva Smart">
+    <span class="eyebrow-oscuro">Autorización de accesos y permisos</span>
+    <h1 id="pdfTitulo">Desarrollo del sitio web</h1>
+    <p>Documento de autorización de acceso a servicios, cuentas y recursos necesarios para construir y publicar el sitio.</p>
+    <div class="partes-pdf">
+      <div class="parte-pdf">
+        <h2>El cliente (quien autoriza)</h2>
+        <p id="pdfClienteNombre"></p>
+        <p class="t" id="pdfClienteCedula"></p>
+        <p class="t" id="pdfClienteEmail"></p>
+      </div>
+      <div class="parte-pdf">
+        <h2>El proveedor / desarrollador</h2>
+        <p>Alejandro Vidal Voglino</p>
+        <p class="t">Renueva Smart — renuevasmart.com</p>
+      </div>
+    </div>
+    <p>Por medio del presente documento, EL CLIENTE autoriza a EL PROVEEDOR a acceder y gestionar, en su nombre y durante el desarrollo del proyecto, los siguientes servicios y recursos:</p>
+    <div id="pdfListaAccesos"></div>
+    <div class="callout-pdf"><strong>Importante:</strong> este documento autoriza el alcance del acceso concedido; no reemplaza el intercambio seguro de contraseñas o claves. Las credenciales reales no deben escribirse en este documento.</div>
+    <p id="pdfLugarFecha"></p>
+    <div class="firmas-pdf">
+      <div>
+        <img id="pdfFirmaCliente" alt="Firma del cliente">
+        <div class="linea">Firma del cliente<br><span id="pdfAclaracionCliente"></span></div>
+      </div>
+      <div>
+        <div class="firma-preescrita-pdf">Alejandro Vidal Voglino</div>
+        <div class="linea">Firma del proveedor<br>Alejandro Vidal Voglino — Renueva Smart</div>
+      </div>
+    </div>
+    <div class="pie-pdf"><span>RENUEVA SMART — RENUEVASMART.COM</span><span>Página 1/1</span></div>
+  </div></div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <script>
+    const params = new URLSearchParams(window.location.search);
+
+    const inputProyecto = document.getElementById('proyecto');
+    const tituloDoc = document.getElementById('tituloDoc');
+    function actualizarTitulo() {
+      const nombre = inputProyecto.value.trim();
+      tituloDoc.textContent = 'Desarrollo del sitio web de ' + (nombre || 'tu proyecto');
+    }
+    inputProyecto.value = params.get('cliente') || '';
+    actualizarTitulo();
+    inputProyecto.addEventListener('input', actualizarTitulo);
+
+    const inputNombre = document.getElementById('clienteNombre');
+    const aclaracionCliente = document.getElementById('aclaracionCliente');
+    inputNombre.addEventListener('input', () => {
+      aclaracionCliente.textContent = inputNombre.value.trim() || '—';
+    });
+
+    document.getElementById('fecha').value = new Date().toISOString().slice(0, 10);
+
+    // ---------- Firma en pantalla (canvas) ----------
+    const lienzo = document.getElementById('lienzoFirma');
+    const ctx = lienzo.getContext('2d');
+    let firmaDibujada = false;
+    let dibujando = false;
+
+    function ajustarLienzo() {
+      const rect = lienzo.getBoundingClientRect();
+      const dpr = window.devicePixelRatio || 1;
+      lienzo.width = rect.width * dpr;
+      lienzo.height = rect.height * dpr;
+      ctx.scale(dpr, dpr);
+      ctx.lineWidth = 2.2;
+      ctx.lineCap = 'round';
+      ctx.strokeStyle = '#f5f3ee';
+    }
+    ajustarLienzo();
+    window.addEventListener('resize', () => { const d = lienzo.toDataURL(); ajustarLienzo(); });
+
+    function posicion(e) {
+      const rect = lienzo.getBoundingClientRect();
+      const punto = e.touches ? e.touches[0] : e;
+      return { x: punto.clientX - rect.left, y: punto.clientY - rect.top };
+    }
+    function empezar(e) {
+      dibujando = true; firmaDibujada = true;
+      const p = posicion(e);
+      ctx.beginPath();
+      ctx.moveTo(p.x, p.y);
+      e.preventDefault();
+    }
+    function trazar(e) {
+      if (!dibujando) return;
+      const p = posicion(e);
+      ctx.lineTo(p.x, p.y);
+      ctx.stroke();
+      e.preventDefault();
+    }
+    function terminar() { dibujando = false; }
+
+    lienzo.addEventListener('mousedown', empezar);
+    lienzo.addEventListener('mousemove', trazar);
+    window.addEventListener('mouseup', terminar);
+    lienzo.addEventListener('touchstart', empezar, { passive: false });
+    lienzo.addEventListener('touchmove', trazar, { passive: false });
+    lienzo.addEventListener('touchend', terminar);
+
+    document.getElementById('borrarFirma').addEventListener('click', () => {
+      ctx.clearRect(0, 0, lienzo.width, lienzo.height);
+      firmaDibujada = false;
+    });
+
+    // ---------- Envío ----------
+    const form = document.getElementById('formAutorizacion');
+    const errorEnvio = document.getElementById('errorEnvio');
+    const btnEnviar = document.getElementById('btnEnviar');
+
+    function slug(texto) {
+      return (texto || 'proyecto').toLowerCase()
+        .normalize('NFD').replace(/[̀-ͯ]/g, '')
+        .replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '') || 'proyecto';
+    }
+
+    function poblarHojaPdf() {
+      document.getElementById('pdfTitulo').textContent = tituloDoc.textContent;
+      document.getElementById('pdfClienteNombre').textContent = inputNombre.value.trim();
+      document.getElementById('pdfClienteCedula').textContent = 'CI: ' + document.getElementById('clienteCedula').value.trim();
+      document.getElementById('pdfClienteEmail').textContent = document.getElementById('clienteEmail').value.trim();
+      document.getElementById('pdfLugarFecha').textContent = 'Lugar y fecha: ' + document.getElementById('lugar').value.trim() + ', ' + document.getElementById('fecha').value;
+      document.getElementById('pdfAclaracionCliente').textContent = aclaracionCliente.textContent;
+      document.getElementById('pdfFirmaCliente').src = lienzo.toDataURL('image/png');
+
+      const contenedor = document.getElementById('pdfListaAccesos');
+      contenedor.innerHTML = '';
+      let resumen = [];
+      document.querySelectorAll('.seccion-accesos').forEach((seccion) => {
+        const titulo = seccion.querySelector('h3').textContent;
+        const h3 = document.createElement('h3');
+        h3.textContent = titulo;
+        contenedor.appendChild(h3);
+        const ul = document.createElement('ul');
+        seccion.querySelectorAll('input[type="checkbox"]').forEach((chk) => {
+          const li = document.createElement('li');
+          const marca = chk.checked ? '✓' : '✗ (no autorizado)';
+          li.innerHTML = '<b class="' + (chk.checked ? '' : 'no-autorizado') + '">' + marca + '</b>' + chk.dataset.acceso;
+          ul.appendChild(li);
+          resumen.push((chk.checked ? '✓ ' : '✗ NO autorizado — ') + chk.dataset.acceso);
+        });
+        contenedor.appendChild(ul);
+      });
+      document.getElementById('resumenOculto').value = resumen.join('\n');
+    }
+
+    async function generarPdfYAdjuntar(nombreArchivo) {
+      poblarHojaPdf();
+      await document.fonts.ready; // evita que html2canvas rasterice con la fuente de reemplazo y apriete el espaciado
+      const hoja = document.getElementById('hojaPdf');
+      const opciones = {
+        margin: 8,
+        image: { type: 'jpeg', quality: 0.95 },
+        html2canvas: { scale: 2, backgroundColor: '#0b0c0e', letterRendering: true },
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+      };
+      const pdf = await html2pdf().set(opciones).from(hoja).toPdf().get('pdf');
+      const blob = pdf.output('blob');
+
+      const url = URL.createObjectURL(blob);
+      const enlace = document.createElement('a');
+      enlace.href = url;
+      enlace.download = nombreArchivo;
+      enlace.click();
+      URL.revokeObjectURL(url);
+
+      const archivo = new File([blob], nombreArchivo, { type: 'application/pdf' });
+      const dt = new DataTransfer();
+      dt.items.add(archivo);
+      document.getElementById('adjuntoPdf').files = dt.files;
+    }
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const valido = form.checkValidity() && firmaDibujada;
+      if (!valido) {
+        form.reportValidity();
+        errorEnvio.classList.toggle('visible', form.checkValidity() && !firmaDibujada);
+        return;
+      }
+      errorEnvio.classList.remove('visible');
+
+      btnEnviar.disabled = true;
+      btnEnviar.textContent = 'Generando PDF...';
+
+      const nombreProyecto = inputProyecto.value.trim() || 'proyecto';
+      document.getElementById('proyectoOculto').value = nombreProyecto;
+      document.getElementById('ccCliente').value = document.getElementById('clienteEmail').value.trim();
+
+      const nombreArchivo = 'autorizacion-accesos-' + slug(nombreProyecto) + '.pdf';
+      await generarPdfYAdjuntar(nombreArchivo);
+
+      btnEnviar.textContent = 'Enviando...';
+      HTMLFormElement.prototype.submit.call(form);
+    });
+
+    if (params.get('enviado') === '1') {
+      document.getElementById('formGracias').classList.add('visible');
+      form.style.display = 'none';
+    }
+  </script>
+</body>
+</html>
