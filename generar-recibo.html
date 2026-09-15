@@ -25,6 +25,17 @@
     --color-border-subtle: rgba(255, 255, 255, 0.08);
     --color-border-default: rgba(255, 255, 255, 0.12);
     --color-border-strong: rgba(255, 255, 255, 0.18);
+    /* variables aparte para el PDF (fondo blanco): un bug de html2canvas-pro
+       ignora los colores hexadecimales puestos directo en "color" y los
+       reemplaza por el color de texto heredado del body — usar var() lo evita. */
+    --pdf-texto-oscuro: #1a1a1a;
+    --pdf-texto-cuerpo: #444444;
+    --pdf-texto-tenue: #767676;
+    --pdf-texto-pie: #999999;
+    --pdf-borde-claro: #cccccc;
+    --pdf-borde-suave: #e5e5e5;
+    --pdf-borde-tenue: #ececec;
+    --pdf-fondo-tarjeta: #f7f7f7;
     --font-display: "Fraunces", Georgia, "Iowan Old Style", serif;
     --font-ui: "Plus Jakarta Sans", "Segoe UI", -apple-system, Roboto, Arial, sans-serif;
     --radius-lg: 8px;
@@ -114,29 +125,29 @@
 
   /* ---------- Hoja usada solo para generar el PDF (fondo blanco, paleta propia) ---------- */
   #envoltorioHojaPdf { position: absolute; top: 0; left: 0; width: 0; height: 0; overflow: hidden; }
-  #hojaPdf { width: 780px; background: #ffffff; color: #1a1a1a; font-family: var(--font-ui); padding: 40px; word-spacing: 1.8px; }
+  #hojaPdf { width: 780px; background: #ffffff; color: var(--pdf-texto-oscuro); font-family: var(--font-ui); padding: 40px; word-spacing: 1.8px; }
   #hojaPdf .marca-pdf { display: flex; align-items: baseline; gap: 5px; font-family: var(--font-display); font-weight: 700; font-size: 22px; margin-bottom: 24px; }
-  #hojaPdf .marca-pdf .n1 { color: #1a1a1a; }
+  #hojaPdf .marca-pdf .n1 { color: var(--pdf-texto-oscuro); }
   #hojaPdf .marca-pdf .n2 { color: var(--color-brand); }
-  #hojaPdf h1 { font-family: var(--font-display); font-size: 26px; margin: 8px 0 4px; color: #1a1a1a; }
+  #hojaPdf h1 { font-family: var(--font-display); font-size: 26px; margin: 8px 0 4px; color: var(--pdf-texto-oscuro); }
   #hojaPdf .eyebrow-oscuro { display: block; margin-bottom: 6px; color: var(--color-brand); }
-  #hojaPdf .numero-pdf { font-size: 13px; color: #767676; margin: 0 0 20px; }
-  #hojaPdf p { font-size: 13.5px; line-height: 1.6; color: #444444; }
-  #hojaPdf .partes-pdf { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: #e5e5e5; border: 1px solid #e5e5e5; border-radius: 16px; overflow: hidden; margin: 10px 0 24px; }
-  #hojaPdf .parte-pdf { background: #f7f7f7; padding: 18px 20px; }
+  #hojaPdf .numero-pdf { font-size: 13px; color: var(--pdf-texto-tenue); margin: 0 0 20px; }
+  #hojaPdf p { font-size: 13.5px; line-height: 1.6; color: var(--pdf-texto-cuerpo); }
+  #hojaPdf .partes-pdf { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--pdf-borde-suave); border: 1px solid var(--pdf-borde-suave); border-radius: 16px; overflow: hidden; margin: 10px 0 24px; }
+  #hojaPdf .parte-pdf { background: var(--pdf-fondo-tarjeta); padding: 18px 20px; }
   #hojaPdf .parte-pdf h2 { font-size: 11px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-brand); margin: 0 0 10px; }
-  #hojaPdf .parte-pdf p { margin: 0 0 8px; font-size: 13.5px; color: #1a1a1a; }
-  #hojaPdf .parte-pdf .t { color: #767676; font-size: 11.5px; }
+  #hojaPdf .parte-pdf p { margin: 0 0 8px; font-size: 13.5px; color: var(--pdf-texto-oscuro); }
+  #hojaPdf .parte-pdf .t { color: var(--pdf-texto-tenue); font-size: 11.5px; }
   #hojaPdf table.detalle-pdf { width: 100%; border-collapse: collapse; margin: 4px 0 22px; }
-  #hojaPdf table.detalle-pdf th { text-align: left; font-size: 11px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: #767676; padding: 0 0 8px; border-bottom: 1px solid #cccccc; }
-  #hojaPdf table.detalle-pdf td { font-size: 13.5px; padding: 10px 0; border-bottom: 1px solid #ececec; word-spacing: 2px; color: #1a1a1a; }
+  #hojaPdf table.detalle-pdf th { text-align: left; font-size: 11px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: var(--pdf-texto-tenue); padding: 0 0 8px; border-bottom: 1px solid var(--pdf-borde-claro); }
+  #hojaPdf table.detalle-pdf td { font-size: 13.5px; padding: 10px 0; border-bottom: 1px solid var(--pdf-borde-tenue); word-spacing: 2px; color: var(--pdf-texto-oscuro); }
   #hojaPdf table.detalle-pdf td.monto { text-align: right; white-space: nowrap; }
   #hojaPdf .resumen-pdf { margin: 0 0 6px; }
-  #hojaPdf .resumen-pdf .linea { display: flex; justify-content: space-between; font-size: 13px; padding: 4px 0; color: #444444; word-spacing: 2px; }
-  #hojaPdf .resumen-pdf .linea.destacada { color: #1a1a1a; font-weight: 700; border-top: 1px solid #cccccc; margin-top: 4px; padding-top: 8px; }
-  #hojaPdf .total-pdf { display: flex; justify-content: flex-end; gap: 14px; font-size: 16px; font-weight: 800; margin: 4px 0 24px; color: #1a1a1a; }
+  #hojaPdf .resumen-pdf .linea { display: flex; justify-content: space-between; font-size: 13px; padding: 4px 0; color: var(--pdf-texto-cuerpo); word-spacing: 2px; }
+  #hojaPdf .resumen-pdf .linea.destacada { color: var(--pdf-texto-oscuro); font-weight: 700; border-top: 1px solid var(--pdf-borde-claro); margin-top: 4px; padding-top: 8px; }
+  #hojaPdf .total-pdf { display: flex; justify-content: flex-end; gap: 14px; font-size: 16px; font-weight: 800; margin: 4px 0 24px; color: var(--pdf-texto-oscuro); }
   #hojaPdf .total-pdf .num { color: var(--color-brand); }
-  #hojaPdf .pie-pdf { margin-top: 10px; padding-top: 14px; border-top: 1px solid #ececec; font-size: 10.5px; color: #999999; display: flex; justify-content: space-between; }
+  #hojaPdf .pie-pdf { margin-top: 10px; padding-top: 14px; border-top: 1px solid var(--pdf-borde-tenue); font-size: 10.5px; color: var(--pdf-texto-pie); display: flex; justify-content: space-between; }
 </style>
 </head>
 <body>
@@ -467,6 +478,34 @@
     actualizarPorPais();
     calcularYMostrar();
 
+    // html2canvas-pro no respeta los colores que llegan por hoja de estilos dentro de
+    // #hojaPdf (ni literales ni var()): hay que ponerlos como estilo inline justo antes
+    // de capturar. Solo funciona así — inline + var() — probado a mano, no es capricho.
+    function aplicarColoresInlinePdf(hoja) {
+      const set = (el, prop, valor) => { if (el) el.style.setProperty(prop, valor, 'important'); };
+      set(hoja, 'color', 'var(--pdf-texto-oscuro)');
+      set(hoja.querySelector('.marca-pdf .n1'), 'color', 'var(--pdf-texto-oscuro)');
+      set(hoja.querySelector('.marca-pdf .n2'), 'color', 'var(--color-brand)');
+      set(hoja.querySelector('h1'), 'color', 'var(--pdf-texto-oscuro)');
+      set(hoja.querySelector('.eyebrow-oscuro'), 'color', 'var(--color-brand)');
+      set(hoja.querySelector('.numero-pdf'), 'color', 'var(--pdf-texto-tenue)');
+      hoja.querySelectorAll(':scope > p').forEach((el) => set(el, 'color', 'var(--pdf-texto-cuerpo)'));
+      const partes = hoja.querySelector('.partes-pdf');
+      set(partes, 'background', 'var(--pdf-borde-suave)');
+      set(partes, 'border-color', 'var(--pdf-borde-suave)');
+      hoja.querySelectorAll('.parte-pdf').forEach((el) => set(el, 'background', 'var(--pdf-fondo-tarjeta)'));
+      hoja.querySelectorAll('.parte-pdf h2').forEach((el) => set(el, 'color', 'var(--color-brand)'));
+      hoja.querySelectorAll('.parte-pdf p').forEach((el) => set(el, 'color', 'var(--pdf-texto-oscuro)'));
+      hoja.querySelectorAll('.parte-pdf .t').forEach((el) => set(el, 'color', 'var(--pdf-texto-tenue)'));
+      hoja.querySelectorAll('table.detalle-pdf th').forEach((el) => { set(el, 'color', 'var(--pdf-texto-tenue)'); set(el, 'border-bottom-color', 'var(--pdf-borde-claro)'); });
+      hoja.querySelectorAll('table.detalle-pdf td').forEach((el) => { set(el, 'color', 'var(--pdf-texto-oscuro)'); set(el, 'border-bottom-color', 'var(--pdf-borde-tenue)'); });
+      hoja.querySelectorAll('.resumen-pdf .linea').forEach((el) => set(el, 'color', 'var(--pdf-texto-cuerpo)'));
+      hoja.querySelectorAll('.resumen-pdf .linea.destacada').forEach((el) => { set(el, 'color', 'var(--pdf-texto-oscuro)'); set(el, 'border-top-color', 'var(--pdf-borde-claro)'); });
+      hoja.querySelectorAll('.total-pdf').forEach((el) => set(el, 'color', 'var(--pdf-texto-oscuro)'));
+      hoja.querySelectorAll('.total-pdf .num').forEach((el) => set(el, 'color', 'var(--color-brand)'));
+      hoja.querySelectorAll('.pie-pdf').forEach((el) => { set(el, 'color', 'var(--pdf-texto-pie)'); set(el, 'border-top-color', 'var(--pdf-borde-tenue)'); });
+    }
+
     function poblarHojaPdf() {
       const pais = paisActual();
       const numero = inputNumero.value.trim();
@@ -576,6 +615,7 @@
       estado.className = 'estado';
 
       poblarHojaPdf();
+      aplicarColoresInlinePdf(document.getElementById('hojaPdf'));
       await document.fonts.ready;
       const hoja = document.getElementById('hojaPdf');
       const canvas = await html2canvas(hoja, {
