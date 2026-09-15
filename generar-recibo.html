@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Generar comprobante de pago — Renueva Smart</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="assets/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,700;0,800;1,500;1,600&family=Fraunces:ital,opsz,wght@0,9..144,600;0,9..144,700;1,9..144,500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --color-brand: #ff6a00;
+    --color-brand-hover: #ff7a1a;
+    --color-bg-primary: #0b0c0e;
+    --color-bg-secondary: #151719;
+    --color-bg-tertiary: #25282c;
+    --color-text-primary: #f5f3ee;
+    --color-text-secondary: #d9dce0;
+    --color-text-muted: #92979d;
+    --color-border-subtle: rgba(255, 255, 255, 0.08);
+    --color-border-default: rgba(255, 255, 255, 0.12);
+    --color-border-strong: rgba(255, 255, 255, 0.18);
+    --font-display: "Fraunces", Georgia, "Iowan Old Style", serif;
+    --font-ui: "Plus Jakarta Sans", "Segoe UI", -apple-system, Roboto, Arial, sans-serif;
+    --radius-lg: 8px;
+    --radius-xl: 12px;
+    --radius-2xl: 16px;
+    --radius-pill: 999px;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--color-bg-primary); color: var(--color-text-primary); font-family: var(--font-ui); }
+  a { color: inherit; }
+  img { max-width: 100%; display: block; }
+
+  .nav { padding: 18px clamp(20px, 4vw, 56px); }
+  .nav-logo { height: 44px; }
+
+  .contenido { max-width: 680px; margin: 0 auto; padding: 20px clamp(20px, 4vw, 56px) 70px; }
+  .eyebrow-oscuro { font-weight: 800; font-size: 12.5px; letter-spacing: 0.09em; text-transform: uppercase; color: var(--color-brand); }
+  .contenido h1 { font-family: var(--font-display); font-weight: 700; font-size: clamp(24px, 3.4vw, 32px); line-height: 1.15; margin: 10px 0 14px; }
+  .contenido > p.lead { font-size: 15px; line-height: 1.6; color: var(--color-text-secondary); margin: 0 0 30px; }
+
+  .pais-pills { display: flex; gap: 10px; margin-bottom: 28px; }
+  .pais-pills input { position: absolute; opacity: 0; pointer-events: none; }
+  .pais-pills label {
+    flex: 1; text-align: center; padding: 12px 10px; font-weight: 700; font-size: 14.5px; cursor: pointer;
+    background: var(--color-bg-tertiary); border: 1px solid var(--color-border-default); border-radius: var(--radius-lg);
+    transition: border-color 0.15s ease, color 0.15s ease;
+  }
+  .pais-pills input:checked + label { border-color: var(--color-brand); color: var(--color-brand); }
+
+  .campo { margin-bottom: 20px; }
+  .campo label { display: block; font-size: 11.5px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-text-muted); margin-bottom: 8px; }
+  .campo input, .campo textarea, .campo select {
+    width: 100%; font-family: inherit; font-size: 15px; color: var(--color-text-primary);
+    background: var(--color-bg-tertiary); border: 1px solid var(--color-border-default);
+    border-radius: var(--radius-lg); padding: 12px 14px;
+  }
+  .campo textarea { resize: vertical; min-height: 70px; }
+  .campo input:focus, .campo textarea:focus, .campo select:focus { outline: 2px solid var(--color-brand); outline-offset: 1px; }
+  .campo-hint { font-size: 12.5px; color: var(--color-text-muted); margin: 6px 0 0; line-height: 1.5; }
+
+  .fila { display: grid; grid-template-columns: 2fr 1fr; gap: 16px; }
+  .fila3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+  @media (max-width: 560px) { .fila, .fila3 { grid-template-columns: 1fr; } }
+
+  .callout {
+    margin: 8px 0 28px; padding: 16px 18px; background: rgba(255,106,0,0.08);
+    border: 1px solid rgba(255,106,0,0.35); border-radius: var(--radius-xl);
+    font-size: 13.5px; line-height: 1.6; color: var(--color-text-secondary);
+  }
+  .callout strong { color: var(--color-brand); }
+
+  .btn-generar {
+    font-weight: 800; font-size: 15.5px; color: var(--color-bg-primary); background: var(--color-brand);
+    border: none; border-radius: var(--radius-pill); padding: 15px 30px; cursor: pointer; width: 100%;
+    transition: background 0.15s ease, transform 0.15s ease;
+  }
+  .btn-generar:hover { background: var(--color-brand-hover); transform: translateY(-1px); }
+  .btn-generar:disabled { opacity: 0.6; cursor: wait; transform: none; }
+
+  .estado { margin-top: 14px; font-size: 13.5px; text-align: center; color: var(--color-text-muted); min-height: 18px; }
+  .estado.ok { color: #6fcf97; }
+  .estado.error { color: #ff8a65; }
+
+  /* ---------- Hoja usada solo para generar el PDF ---------- */
+  #envoltorioHojaPdf { height: 0; overflow: hidden; }
+  #hojaPdf { width: 780px; background: var(--color-bg-primary); color: var(--color-text-primary); font-family: var(--font-ui); padding: 40px; word-spacing: 1.8px; }
+  #hojaPdf .hoja-logo { height: 40px; margin-bottom: 24px; }
+  #hojaPdf h1 { font-family: var(--font-display); font-size: 26px; margin: 8px 0 4px; }
+  #hojaPdf .eyebrow-oscuro { display: block; margin-bottom: 6px; }
+  #hojaPdf .numero-pdf { font-size: 13px; color: var(--color-text-muted); margin: 0 0 20px; }
+  #hojaPdf p { font-size: 13.5px; line-height: 1.6; color: var(--color-text-secondary); }
+  #hojaPdf .partes-pdf { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--color-border-default); border: 1px solid var(--color-border-default); border-radius: 16px; overflow: hidden; margin: 10px 0 24px; }
+  #hojaPdf .parte-pdf { background: var(--color-bg-secondary); padding: 18px 20px; }
+  #hojaPdf .parte-pdf h2 { font-size: 11px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-brand); margin: 0 0 10px; }
+  #hojaPdf .parte-pdf p { margin: 0 0 8px; font-size: 13.5px; color: var(--color-text-primary); }
+  #hojaPdf .parte-pdf .t { color: var(--color-text-muted); font-size: 11.5px; }
+  #hojaPdf table.detalle-pdf { width: 100%; border-collapse: collapse; margin: 4px 0 22px; }
+  #hojaPdf table.detalle-pdf th { text-align: left; font-size: 11px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-text-muted); padding: 0 0 8px; border-bottom: 1px solid var(--color-border-strong); }
+  #hojaPdf table.detalle-pdf td { font-size: 13.5px; padding: 10px 0; border-bottom: 1px solid var(--color-border-subtle); word-spacing: 2px; }
+  #hojaPdf table.detalle-pdf td.monto { text-align: right; white-space: nowrap; }
+  #hojaPdf .total-pdf { display: flex; justify-content: flex-end; gap: 14px; font-size: 16px; font-weight: 800; margin: 4px 0 24px; }
+  #hojaPdf .total-pdf .num { color: var(--color-brand); }
+  #hojaPdf .callout-pdf { margin: 0 0 24px; padding: 14px 16px; background: rgba(255,106,0,0.08); border: 1px solid rgba(255,106,0,0.35); border-radius: 10px; font-size: 12px; line-height: 1.6; color: var(--color-text-secondary); word-spacing: 4px; }
+  #hojaPdf .pie-pdf { margin-top: 10px; padding-top: 14px; border-top: 1px solid var(--color-border-subtle); font-size: 10.5px; color: var(--color-text-muted); display: flex; justify-content: space-between; }
+</style>
+</head>
+<body>
+
+  <nav class="nav">
+    <a href="index.html"><img class="nav-logo" src="assets/logo.png" alt="Renueva Smart"></a>
+  </nav>
+
+  <div class="contenido">
+    <span class="eyebrow-oscuro">Herramienta interna</span>
+    <h1>Generar comprobante de pago</h1>
+    <p class="lead">Completá los datos y te genera el PDF listo — con el formato ajustado al país del cliente (Uruguay o España). Es de uso interno tuyo, no lo compartas.</p>
+
+    <div class="pais-pills">
+      <input type="radio" name="pais" id="paisUY" value="UY" checked>
+      <label for="paisUY">Cliente en Uruguay</label>
+      <input type="radio" name="pais" id="paisES" value="ES">
+      <label for="paisES">Cliente en España</label>
+    </div>
+
+    <div class="campo">
+      <label for="clienteNombre">Nombre del cliente / empresa</label>
+      <input type="text" id="clienteNombre" placeholder="Ej: Movimiento Nacional Artiguista">
+    </div>
+
+    <div class="fila">
+      <div class="campo">
+        <label for="clienteDoc" id="labelDoc">Cédula o RUT</label>
+        <input type="text" id="clienteDoc">
+      </div>
+      <div class="campo">
+        <label for="clienteEmail">Email del cliente (opcional)</label>
+        <input type="email" id="clienteEmail" placeholder="para enviarle copia">
+      </div>
+    </div>
+
+    <div class="campo">
+      <label for="concepto">Concepto / descripción del servicio</label>
+      <textarea id="concepto" placeholder="Ej: Diseño y desarrollo de sitio web — pago único">Diseño y desarrollo de sitio web</textarea>
+    </div>
+
+    <div class="fila3">
+      <div class="campo">
+        <label for="monto">Monto</label>
+        <input type="number" id="monto" step="0.01" min="0" placeholder="0.00">
+      </div>
+      <div class="campo">
+        <label for="moneda">Moneda</label>
+        <select id="moneda"></select>
+      </div>
+      <div class="campo">
+        <label for="numero">N° de comprobante</label>
+        <input type="text" id="numero">
+      </div>
+    </div>
+
+    <div class="fila">
+      <div class="campo">
+        <label for="lugar">Lugar</label>
+        <input type="text" id="lugar" placeholder="Ciudad, país">
+      </div>
+      <div class="campo">
+        <label for="fecha">Fecha</label>
+        <input type="date" id="fecha">
+      </div>
+    </div>
+
+    <div class="callout">
+      <strong>Nota:</strong> este comprobante no es una factura fiscal (todavía no tenés registro tributario formal). El PDF lo aclara para que quede claro tanto para vos como para el cliente.
+    </div>
+
+    <button type="button" class="btn-generar" id="btnGenerar">Descargar comprobante en PDF</button>
+    <p class="estado" id="estado"></p>
+  </div>
+
+  <!-- Hoja usada solo para generar el PDF -->
+  <div id="envoltorioHojaPdf"><div id="hojaPdf">
+    <img class="hoja-logo" src="assets/logo.png" alt="Renueva Smart">
+    <span class="eyebrow-oscuro">Comprobante de pago</span>
+    <h1 id="pdfTitulo">Comprobante de pago</h1>
+    <p class="numero-pdf" id="pdfNumeroFecha"></p>
+    <div class="partes-pdf">
+      <div class="parte-pdf">
+        <h2>Emisor</h2>
+        <p>Alejandro Vidal Voglino</p>
+        <p class="t">CI: 4.680.863-6</p>
+        <p class="t">Renueva Smart — renuevasmart.com</p>
+      </div>
+      <div class="parte-pdf">
+        <h2>Cliente</h2>
+        <p id="pdfClienteNombre"></p>
+        <p class="t" id="pdfClienteDoc"></p>
+        <p class="t" id="pdfClienteEmail"></p>
+      </div>
+    </div>
+    <table class="detalle-pdf">
+      <thead><tr><th>Concepto</th><th style="text-align:right">Monto</th></tr></thead>
+      <tbody><tr><td id="pdfConcepto"></td><td class="monto" id="pdfMonto"></td></tr></tbody>
+    </table>
+    <div class="total-pdf"><span>Total</span><span class="num" id="pdfTotal"></span></div>
+    <div class="callout-pdf"><strong>Nota:</strong> este documento es un comprobante de pago por servicios prestados. No constituye una factura fiscal, dado que el emisor no se encuentra actualmente inscripto ante ningún organismo tributario.</div>
+    <p id="pdfLugar"></p>
+    <div class="pie-pdf"><span>RENUEVA SMART — RENUEVASMART.COM</span><span id="pdfPagina">Página 1/1</span></div>
+  </div></div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <script>
+    const CONFIG_PAIS = {
+      UY: { labelDoc: 'Cédula o RUT', monedas: ['UYU', 'USD'], lugarDefault: '' },
+      ES: { labelDoc: 'DNI / NIF', monedas: ['EUR', 'USD'], lugarDefault: '' },
+    };
+
+    const radiosPais = document.querySelectorAll('input[name="pais"]');
+    const labelDoc = document.getElementById('labelDoc');
+    const selectMoneda = document.getElementById('moneda');
+    const inputNumero = document.getElementById('numero');
+
+    function paisActual() {
+      return document.querySelector('input[name="pais"]:checked').value;
+    }
+
+    function claveContador(pais) { return 'renueva_comprobante_num_' + pais; }
+
+    function sugerirNumero(pais) {
+      const guardado = parseInt(localStorage.getItem(claveContador(pais)) || '0', 10);
+      const siguiente = guardado + 1;
+      const anio = new Date().getFullYear();
+      return pais + '-' + anio + '-' + String(siguiente).padStart(3, '0');
+    }
+
+    function actualizarPorPais() {
+      const pais = paisActual();
+      const cfg = CONFIG_PAIS[pais];
+      labelDoc.textContent = cfg.labelDoc;
+      selectMoneda.innerHTML = cfg.monedas.map((m) => '<option value="' + m + '">' + m + '</option>').join('');
+      inputNumero.value = sugerirNumero(pais);
+    }
+    radiosPais.forEach((r) => r.addEventListener('change', actualizarPorPais));
+    actualizarPorPais();
+
+    document.getElementById('fecha').value = new Date().toISOString().slice(0, 10);
+
+    function formatoMonto(monto, moneda) {
+      const num = parseFloat(monto || '0');
+      return moneda + ' ' + num.toLocaleString('es-UY', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+
+    function poblarHojaPdf() {
+      const pais = paisActual();
+      const moneda = selectMoneda.value;
+      const monto = document.getElementById('monto').value;
+      const numero = inputNumero.value.trim();
+      const fecha = document.getElementById('fecha').value;
+      const lugar = document.getElementById('lugar').value.trim();
+      const nombreCliente = document.getElementById('clienteNombre').value.trim();
+      const doc = document.getElementById('clienteDoc').value.trim();
+      const email = document.getElementById('clienteEmail').value.trim();
+      const concepto = document.getElementById('concepto').value.trim();
+
+      document.getElementById('pdfNumeroFecha').textContent = 'N° ' + numero + '  ·  ' + fecha;
+      document.getElementById('pdfClienteNombre').textContent = nombreCliente || '—';
+      document.getElementById('pdfClienteDoc').textContent = (CONFIG_PAIS[pais].labelDoc + ': ' + (doc || '—'));
+      document.getElementById('pdfClienteEmail').textContent = email || '';
+      document.getElementById('pdfConcepto').textContent = concepto;
+      document.getElementById('pdfMonto').textContent = formatoMonto(monto, moneda);
+      document.getElementById('pdfTotal').textContent = formatoMonto(monto, moneda);
+      document.getElementById('pdfLugar').textContent = 'Lugar y fecha: ' + (lugar || '—') + ', ' + fecha;
+    }
+
+    function slug(texto) {
+      return (texto || 'cliente').toLowerCase()
+        .normalize('NFD').replace(/[̀-ͯ]/g, '')
+        .replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '') || 'cliente';
+    }
+
+    const btnGenerar = document.getElementById('btnGenerar');
+    const estado = document.getElementById('estado');
+
+    btnGenerar.addEventListener('click', async () => {
+      const nombreCliente = document.getElementById('clienteNombre').value.trim();
+      const monto = document.getElementById('monto').value;
+      if (!nombreCliente || !monto) {
+        estado.textContent = 'Completá al menos el nombre del cliente y el monto.';
+        estado.className = 'estado error';
+        return;
+      }
+
+      btnGenerar.disabled = true;
+      btnGenerar.textContent = 'Generando...';
+      estado.textContent = '';
+      estado.className = 'estado';
+
+      poblarHojaPdf();
+      await document.fonts.ready;
+      const hoja = document.getElementById('hojaPdf');
+      const opciones = {
+        margin: 8,
+        image: { type: 'jpeg', quality: 0.95 },
+        html2canvas: { scale: 2, backgroundColor: '#0b0c0e', letterRendering: true },
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+      };
+      const pdf = await html2pdf().set(opciones).from(hoja).toPdf().get('pdf');
+      const blob = pdf.output('blob');
+      const nombreArchivo = 'comprobante-' + slug(nombreCliente) + '-' + inputNumero.value.trim() + '.pdf';
+
+      const url = URL.createObjectURL(blob);
+      const enlace = document.createElement('a');
+      enlace.href = url;
+      enlace.download = nombreArchivo;
+      enlace.click();
+      URL.revokeObjectURL(url);
+
+      const pais = paisActual();
+      const guardado = parseInt(localStorage.getItem(claveContador(pais)) || '0', 10);
+      localStorage.setItem(claveContador(pais), String(guardado + 1));
+
+      btnGenerar.disabled = false;
+      btnGenerar.textContent = 'Descargar comprobante en PDF';
+      estado.textContent = 'Comprobante descargado.';
+      estado.className = 'estado ok';
+    });
+  </script>
+</body>
+</html>
