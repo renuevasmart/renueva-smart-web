@@ -615,6 +615,8 @@
         const titulo = seccion.querySelector('h3').textContent;
         const h3 = document.createElement('h3');
         h3.textContent = titulo;
+        // pedido explícito: del punto 6 en adelante siempre va en la página 2 del PDF
+        if (titulo.trim().startsWith('6.')) h3.dataset.saltoForzado = 'true';
         contenedor.appendChild(h3);
         const ul = document.createElement('ul');
         seccion.querySelectorAll('input[type="checkbox"]').forEach((chk) => {
@@ -704,12 +706,15 @@
       return c;
     }
 
-    function dividirEnPaginasSeguras(canvasCompleto, altoUtilPx) {
-      if (canvasCompleto.height <= altoUtilPx) return [canvasCompleto];
+    function dividirEnPaginasSeguras(canvasCompleto, altoUtilPx, corteForzado) {
+      if (canvasCompleto.height <= altoUtilPx && !corteForzado) return [canvasCompleto];
       const ctx = canvasCompleto.getContext('2d');
       const ventana = Math.max(20, Math.round(altoUtilPx * 0.1));
-      const cortes = [0];
-      let y = 0;
+      // corteForzado: pedido explícito de que todo lo que venga después arranque en una
+      // página nueva (p. ej. "del punto 6 en adelante"), en vez de dejarlo a la búsqueda
+      // automática del corte más parejo.
+      const cortes = corteForzado && corteForzado > 0 && corteForzado < canvasCompleto.height ? [0, corteForzado] : [0];
+      let y = cortes[cortes.length - 1];
       while (canvasCompleto.height - y > altoUtilPx) {
         const ideal = y + altoUtilPx;
         const real = elegirCorteSeguro(ctx, canvasCompleto.width, ideal, ventana);
@@ -731,8 +736,9 @@
       await Promise.all(imgs.map((img) => (img.complete && img.naturalWidth > 0) ? Promise.resolve() : img.decode().catch(() => {})));
       const hoja = document.getElementById('hojaPdf');
       aplicarColoresInlinePdf(hoja);
+      const escalaCanvas = 0.75;
       const canvas = await html2canvas(hoja, {
-        scale: 0.75,
+        scale: escalaCanvas,
         backgroundColor: '#ffffff',
         letterRendering: true,
         width: hoja.scrollWidth,
@@ -741,12 +747,22 @@
         windowHeight: hoja.scrollHeight,
       });
 
+      // pedido explícito: del punto 6 en adelante siempre en la página 2, marcado en
+      // poblarHojaPdf() con data-salto-forzado en el h3 correspondiente.
+      const marcadorSalto = hoja.querySelector('[data-salto-forzado]');
+      let corteForzado = null;
+      if (marcadorSalto) {
+        const hojaRect = hoja.getBoundingClientRect();
+        const marcadorRect = marcadorSalto.getBoundingClientRect();
+        corteForzado = Math.round((marcadorRect.top - hojaRect.top) * escalaCanvas);
+      }
+
       const margenMm = 8;
       const anchoPaginaMm = 210;
       const altoPaginaMm = 297;
       const mmPorPx = (anchoPaginaMm - margenMm * 2) / canvas.width;
       const altoUtilPx = Math.floor((altoPaginaMm - margenMm * 2) / mmPorPx);
-      const paginas = dividirEnPaginasSeguras(canvas, altoUtilPx);
+      const paginas = dividirEnPaginasSeguras(canvas, altoUtilPx, corteForzado);
 
       const opciones = {
         margin: margenMm,
