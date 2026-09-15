@@ -690,10 +690,15 @@
       const hasta = corteIdeal + ventana;
       let mejorY = corteIdeal;
       let mejorVariacion = Infinity;
+      let mejorDistancia = Infinity;
+      // recorre toda la ventana (sin cortar apenas encuentra la primera fila "en blanco"):
+      // así, entre varias filas igual de parejas, se queda con la más cercana al corte ideal.
       for (let y = desde; y < hasta; y++) {
         const variacion = medirVariacionFila(ctx.getImageData(0, y, ancho, 1).data);
-        if (variacion < mejorVariacion) { mejorVariacion = variacion; mejorY = y; }
-        if (variacion === 0) break;
+        const distancia = Math.abs(y - corteIdeal);
+        if (variacion < mejorVariacion || (variacion === mejorVariacion && distancia < mejorDistancia)) {
+          mejorVariacion = variacion; mejorY = y; mejorDistancia = distancia;
+        }
       }
       return mejorY;
     }
@@ -737,7 +742,7 @@
       const hoja = document.getElementById('hojaPdf');
       aplicarColoresInlinePdf(hoja);
       const escalaCanvas = 0.75;
-      const canvas = await html2canvas(hoja, {
+      const opcionesCanvas = {
         scale: escalaCanvas,
         backgroundColor: '#ffffff',
         letterRendering: true,
@@ -745,16 +750,40 @@
         height: hoja.scrollHeight,
         windowWidth: hoja.scrollWidth,
         windowHeight: hoja.scrollHeight,
-      });
+      };
 
       // pedido explícito: del punto 6 en adelante siempre en la página 2, marcado en
-      // poblarHojaPdf() con data-salto-forzado en el h3 correspondiente.
+      // poblarHojaPdf() con data-salto-forzado en el h3 correspondiente. Medir su
+      // posición por el DOM (getBoundingClientRect) no alcanza: el clon interno de
+      // html2canvas-pro puede acomodar el texto unos 25-30px distinto, y ese desvío
+      // ya alcanzaba para que el corte cayera en medio del punto anterior. Para tener
+      // la posición REAL en el canvas, se pinta el título con un color que no aparece
+      // en ningún otro lado del documento, se renderiza una vez para encontrar en qué
+      // fila del canvas aparece ese color, y recién ahí se saca el color y se renderiza
+      // el canvas definitivo (limpio) para el PDF.
       const marcadorSalto = hoja.querySelector('[data-salto-forzado]');
       let corteForzado = null;
       if (marcadorSalto) {
-        const hojaRect = hoja.getBoundingClientRect();
-        const marcadorRect = marcadorSalto.getBoundingClientRect();
-        corteForzado = Math.round((marcadorRect.top - hojaRect.top) * escalaCanvas);
+        const colorSonda = 'rgb(1, 2, 3)';
+        marcadorSalto.style.setProperty('background-color', colorSonda, 'important');
+        const canvasSonda = await html2canvas(hoja, opcionesCanvas);
+        marcadorSalto.style.removeProperty('background-color');
+        const ctxSonda = canvasSonda.getContext('2d');
+        let filaReal = null;
+        for (let y = 0; y < canvasSonda.height && filaReal === null; y++) {
+          const fila = ctxSonda.getImageData(0, y, canvasSonda.width, 1).data;
+          for (let i = 0; i < fila.length; i += 4) {
+            if (fila[i] === 1 && fila[i + 1] === 2 && fila[i + 2] === 3) { filaReal = y; break; }
+          }
+        }
+        if (filaReal !== null) corteForzado = filaReal;
+      }
+
+      const canvas = await html2canvas(hoja, opcionesCanvas);
+      if (marcadorSalto && corteForzado !== null) {
+        // afinar contra el canvas definitivo (por si algo cambió entre las dos capturas)
+        // y dejar un pequeño margen en blanco arriba del título en vez de pegarlo al borde.
+        corteForzado = elegirCorteSeguro(canvas.getContext('2d'), canvas.width, Math.max(1, corteForzado - 6), 20);
       }
 
       const margenMm = 8;
