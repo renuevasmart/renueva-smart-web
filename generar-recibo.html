@@ -217,8 +217,8 @@
 
     <div class="fila">
       <div class="campo">
-        <label for="lugar">Lugar</label>
-        <input type="text" id="lugar" placeholder="Ciudad, país">
+        <label for="lugar" id="labelLugar">Departamento</label>
+        <select id="lugar"></select>
       </div>
       <div class="campo">
         <label for="fecha">Fecha</label>
@@ -267,8 +267,16 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
   <script>
     const CONFIG_PAIS = {
-      UY: { labelDoc: 'Cédula o RUT', monedas: ['UYU', 'USD'], ivaDefault: 22 },
-      ES: { labelDoc: 'DNI / NIF', monedas: ['EUR', 'USD'], ivaDefault: 21 },
+      UY: {
+        labelDoc: 'Cédula o RUT', monedas: ['UYU', 'USD'], ivaDefault: 22,
+        labelLugar: 'Departamento', lugarDefault: 'Montevideo',
+        regiones: ['Artigas', 'Canelones', 'Cerro Largo', 'Colonia', 'Durazno', 'Flores', 'Florida', 'Lavalleja', 'Maldonado', 'Montevideo', 'Paysandú', 'Río Negro', 'Rivera', 'Rocha', 'Salto', 'San José', 'Soriano', 'Tacuarembó', 'Treinta y Tres'],
+      },
+      ES: {
+        labelDoc: 'DNI / NIF', monedas: ['EUR', 'USD'], ivaDefault: 21,
+        labelLugar: 'Comunidad autónoma', lugarDefault: 'Comunidad de Madrid',
+        regiones: ['Andalucía', 'Aragón', 'Asturias', 'Baleares', 'Canarias', 'Cantabria', 'Castilla-La Mancha', 'Castilla y León', 'Cataluña', 'Comunidad de Madrid', 'Comunidad Valenciana', 'Extremadura', 'Galicia', 'La Rioja', 'Murcia', 'Navarra', 'País Vasco', 'Ceuta', 'Melilla'],
+      },
     };
 
     const radiosPais = document.querySelectorAll('input[name="pais"]');
@@ -283,6 +291,7 @@
     const inputPorcentajePago = document.getElementById('porcentajePago');
     const avisoPorcentaje = document.getElementById('avisoPorcentaje');
     const resumenVivo = document.getElementById('resumenVivo');
+    const selectLugar = document.getElementById('lugar');
 
     function paisActual() {
       return document.querySelector('input[name="pais"]:checked').value;
@@ -318,6 +327,9 @@
       inputNumero.value = sugerirNumero(pais);
       numeroEditadoManualmente = false;
       if (!ivaEditadoManualmente) inputIvaPorcentaje.value = cfg.ivaDefault;
+      document.getElementById('labelLugar').textContent = cfg.labelLugar;
+      selectLugar.innerHTML = cfg.regiones.map((r) => '<option value="' + r + '">' + r + '</option>').join('');
+      selectLugar.value = cfg.lugarDefault;
       calcularYMostrar();
     }
     radiosPais.forEach((r) => r.addEventListener('change', actualizarPorPais));
