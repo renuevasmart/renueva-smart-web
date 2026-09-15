@@ -258,9 +258,8 @@
     <div class="partes-pdf">
       <div class="parte-pdf">
         <h2>Emisor</h2>
-        <p>Alejandro Vidal Voglino</p>
-        <p class="t">CI: 4.680.863-6</p>
-        <p class="t">Renueva Smart — renuevasmart.com</p>
+        <p>Renueva Smart</p>
+        <p class="t">renuevasmart.com</p>
       </div>
       <div class="parte-pdf">
         <h2>Cliente</h2>
@@ -627,10 +626,23 @@
         windowWidth: hoja.scrollWidth,
         windowHeight: hoja.scrollHeight,
       });
+      const margenMm = 8;
+      const anchoPaginaMm = 210; // ancho A4, para que se vea como una hoja normal
+      const anchoImagenMm = anchoPaginaMm - margenMm * 2;
+      const altoImagenMm = anchoImagenMm * (canvas.height / canvas.width);
+      // el comprobante es corto: en vez de A4 completo (que deja un enorme
+      // espacio en blanco abajo), la página se ajusta al contenido real —
+      // algunos visores/previews recortan la vista a una altura fija y
+      // "cortaban" el pie de página en medio de esa zona en blanco.
+      const altoPaginaMm = altoImagenMm + margenMm * 2;
+      // jsPDF "endereza" el formato [ancho, alto] para que coincida con orientation
+      // (invirtiéndolo si hace falta) — si el recibo es más bajo que ancho hay que
+      // pedir landscape, si no jsPDF lo invierte solo y deforma la página.
+      const orientacion = altoPaginaMm >= anchoPaginaMm ? 'portrait' : 'landscape';
       const opciones = {
-        margin: 8,
+        margin: margenMm,
         image: { type: 'png' },
-        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+        jsPDF: { unit: 'mm', format: [anchoPaginaMm, altoPaginaMm], orientation: orientacion },
       };
       const pdf = await html2pdf().set(opciones).from(canvas, 'canvas').toPdf().get('pdf');
       const blob = pdf.output('blob');
