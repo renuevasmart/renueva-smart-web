@@ -643,6 +643,9 @@
       const partes = hoja.querySelector('.partes-pdf');
       set(partes, 'background', 'var(--pdf-borde-suave)');
       set(partes, 'border-color', 'var(--pdf-borde-suave)');
+      set(partes, 'display', 'grid');
+      set(partes, 'grid-template-columns', '1fr 1fr');
+      set(partes, 'gap', '1px');
       hoja.querySelectorAll('.parte-pdf').forEach((el) => set(el, 'background', 'var(--pdf-fondo-tarjeta)'));
       hoja.querySelectorAll('.parte-pdf h2').forEach((el) => set(el, 'color', 'var(--color-brand)'));
       hoja.querySelectorAll('.parte-pdf p').forEach((el) => set(el, 'color', 'var(--pdf-texto-oscuro)'));
@@ -652,8 +655,13 @@
       hoja.querySelectorAll('li b').forEach((el) => set(el, 'color', 'var(--color-brand)'));
       hoja.querySelectorAll('li b.no-autorizado').forEach((el) => set(el, 'color', 'var(--pdf-rojo-no-autorizado)'));
       hoja.querySelectorAll('.callout-pdf').forEach((el) => set(el, 'color', 'var(--pdf-texto-cuerpo)'));
+      const firmas = hoja.querySelector('.firmas-pdf');
+      set(firmas, 'display', 'grid');
+      set(firmas, 'grid-template-columns', '1fr 1fr');
+      set(firmas, 'gap', '24px');
+      hoja.querySelectorAll('.firmas-pdf img').forEach((el) => { set(el, 'height', '60px'); set(el, 'width', 'auto'); });
       hoja.querySelectorAll('.firmas-pdf .linea').forEach((el) => { set(el, 'color', 'var(--pdf-texto-tenue)'); set(el, 'border-top-color', 'var(--pdf-borde-claro)'); });
-      hoja.querySelectorAll('.pie-pdf').forEach((el) => { set(el, 'color', 'var(--pdf-texto-pie)'); set(el, 'border-top-color', 'var(--pdf-borde-tenue)'); });
+      hoja.querySelectorAll('.pie-pdf').forEach((el) => { set(el, 'color', 'var(--pdf-texto-pie)'); set(el, 'border-top-color', 'var(--pdf-borde-tenue)'); set(el, 'display', 'flex'); set(el, 'justify-content', 'space-between'); });
     }
 
     async function generarPdfYAdjuntar(nombreArchivo) {

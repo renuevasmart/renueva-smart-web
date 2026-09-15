@@ -490,17 +490,24 @@
       const partes = hoja.querySelector('.partes-pdf');
       set(partes, 'background', 'var(--pdf-borde-suave)');
       set(partes, 'border-color', 'var(--pdf-borde-suave)');
+      set(partes, 'display', 'grid');
+      set(partes, 'grid-template-columns', '1fr 1fr');
+      set(partes, 'gap', '1px');
       hoja.querySelectorAll('.parte-pdf').forEach((el) => set(el, 'background', 'var(--pdf-fondo-tarjeta)'));
       hoja.querySelectorAll('.parte-pdf h2').forEach((el) => set(el, 'color', 'var(--color-brand)'));
       hoja.querySelectorAll('.parte-pdf p').forEach((el) => set(el, 'color', 'var(--pdf-texto-oscuro)'));
       hoja.querySelectorAll('.parte-pdf .t').forEach((el) => set(el, 'color', 'var(--pdf-texto-tenue)'));
-      hoja.querySelectorAll('table.detalle-pdf th').forEach((el) => { set(el, 'color', 'var(--pdf-texto-tenue)'); set(el, 'border-bottom-color', 'var(--pdf-borde-claro)'); });
+      // el mismo bug ignora "display:flex"/"width:100%" puestos por hoja de estilos en esta
+      // hoja: sin forzarlos inline, las columnas y las filas etiqueta/valor quedan pegadas.
+      set(hoja.querySelector('table.detalle-pdf'), 'width', '100%');
+      hoja.querySelectorAll('table.detalle-pdf th').forEach((el) => { set(el, 'color', 'var(--pdf-texto-tenue)'); set(el, 'border-bottom-color', 'var(--pdf-borde-claro)'); set(el, 'text-align', 'left'); });
       hoja.querySelectorAll('table.detalle-pdf td').forEach((el) => { set(el, 'color', 'var(--pdf-texto-oscuro)'); set(el, 'border-bottom-color', 'var(--pdf-borde-tenue)'); });
-      hoja.querySelectorAll('.resumen-pdf .linea').forEach((el) => set(el, 'color', 'var(--pdf-texto-cuerpo)'));
+      hoja.querySelectorAll('table.detalle-pdf td.monto').forEach((el) => { set(el, 'text-align', 'right'); set(el, 'white-space', 'nowrap'); });
+      hoja.querySelectorAll('.resumen-pdf .linea').forEach((el) => { set(el, 'color', 'var(--pdf-texto-cuerpo)'); set(el, 'display', 'flex'); set(el, 'justify-content', 'space-between'); });
       hoja.querySelectorAll('.resumen-pdf .linea.destacada').forEach((el) => { set(el, 'color', 'var(--pdf-texto-oscuro)'); set(el, 'border-top-color', 'var(--pdf-borde-claro)'); });
-      hoja.querySelectorAll('.total-pdf').forEach((el) => set(el, 'color', 'var(--pdf-texto-oscuro)'));
+      hoja.querySelectorAll('.total-pdf').forEach((el) => { set(el, 'color', 'var(--pdf-texto-oscuro)'); set(el, 'display', 'flex'); set(el, 'justify-content', 'flex-end'); set(el, 'gap', '14px'); });
       hoja.querySelectorAll('.total-pdf .num').forEach((el) => set(el, 'color', 'var(--color-brand)'));
-      hoja.querySelectorAll('.pie-pdf').forEach((el) => { set(el, 'color', 'var(--pdf-texto-pie)'); set(el, 'border-top-color', 'var(--pdf-borde-tenue)'); });
+      hoja.querySelectorAll('.pie-pdf').forEach((el) => { set(el, 'color', 'var(--pdf-texto-pie)'); set(el, 'border-top-color', 'var(--pdf-borde-tenue)'); set(el, 'display', 'flex'); set(el, 'justify-content', 'space-between'); });
     }
 
     function poblarHojaPdf() {
