@@ -69,6 +69,29 @@
   .fila3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
   @media (max-width: 560px) { .fila, .fila3 { grid-template-columns: 1fr; } }
 
+  .campo-check-iva { display: flex; align-items: center; gap: 10px; margin: 4px 0 20px; }
+  .campo-check-iva input { width: 18px; height: 18px; accent-color: var(--color-brand); }
+  .campo-check-iva label { font-size: 14.5px; font-weight: 600; color: var(--color-text-primary); text-transform: none; letter-spacing: normal; }
+
+  .tipo-pago-pills { display: flex; gap: 10px; margin-bottom: 20px; }
+  .tipo-pago-pills input { position: absolute; opacity: 0; pointer-events: none; }
+  .tipo-pago-pills label {
+    flex: 1; text-align: center; padding: 12px 10px; font-weight: 700; font-size: 14.5px; cursor: pointer;
+    background: var(--color-bg-tertiary); border: 1px solid var(--color-border-default); border-radius: var(--radius-lg);
+    transition: border-color 0.15s ease, color 0.15s ease;
+  }
+  .tipo-pago-pills input:checked + label { border-color: var(--color-brand); color: var(--color-brand); }
+
+  .aviso-porcentaje { font-size: 12.5px; color: #ff8a65; margin: 6px 0 0; min-height: 16px; }
+
+  .resumen-vivo {
+    background: var(--color-bg-secondary); border: 1px solid var(--color-border-default);
+    border-radius: var(--radius-xl); padding: 16px 18px; margin: 4px 0 20px; font-size: 14px; line-height: 1.9;
+  }
+  .resumen-vivo .fila-resumen { display: flex; justify-content: space-between; gap: 12px; }
+  .resumen-vivo .fila-resumen.total { font-weight: 800; color: var(--color-brand); border-top: 1px solid var(--color-border-strong); margin-top: 6px; padding-top: 8px; }
+  .resumen-vivo .fila-resumen .k { color: var(--color-text-muted); }
+
   .callout {
     margin: 8px 0 28px; padding: 16px 18px; background: rgba(255,106,0,0.08);
     border: 1px solid rgba(255,106,0,0.35); border-radius: var(--radius-xl);
@@ -105,6 +128,9 @@
   #hojaPdf table.detalle-pdf th { text-align: left; font-size: 11px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-text-muted); padding: 0 0 8px; border-bottom: 1px solid var(--color-border-strong); }
   #hojaPdf table.detalle-pdf td { font-size: 13.5px; padding: 10px 0; border-bottom: 1px solid var(--color-border-subtle); word-spacing: 2px; }
   #hojaPdf table.detalle-pdf td.monto { text-align: right; white-space: nowrap; }
+  #hojaPdf .resumen-pdf { margin: 0 0 6px; }
+  #hojaPdf .resumen-pdf .linea { display: flex; justify-content: space-between; font-size: 13px; padding: 4px 0; color: var(--color-text-secondary); word-spacing: 2px; }
+  #hojaPdf .resumen-pdf .linea.destacada { color: var(--color-text-primary); font-weight: 700; border-top: 1px solid var(--color-border-strong); margin-top: 4px; padding-top: 8px; }
   #hojaPdf .total-pdf { display: flex; justify-content: flex-end; gap: 14px; font-size: 16px; font-weight: 800; margin: 4px 0 24px; }
   #hojaPdf .total-pdf .num { color: var(--color-brand); }
   #hojaPdf .callout-pdf { margin: 0 0 24px; padding: 14px 16px; background: rgba(255,106,0,0.08); border: 1px solid rgba(255,106,0,0.35); border-radius: 10px; font-size: 12px; line-height: 1.6; color: var(--color-text-secondary); word-spacing: 4px; }
@@ -152,7 +178,7 @@
 
     <div class="fila3">
       <div class="campo">
-        <label for="monto">Monto</label>
+        <label for="monto">Monto del proyecto (base, sin IVA)</label>
         <input type="number" id="monto" step="0.01" min="0" placeholder="0.00">
       </div>
       <div class="campo">
@@ -164,6 +190,31 @@
         <input type="text" id="numero">
       </div>
     </div>
+
+    <div class="campo-check-iva">
+      <input type="checkbox" id="incluirIva">
+      <label for="incluirIva">Incluir IVA</label>
+    </div>
+    <div class="fila" id="filaIva" style="display:none">
+      <div class="campo">
+        <label for="ivaPorcentaje">Porcentaje de IVA</label>
+        <input type="number" id="ivaPorcentaje" step="0.5" min="0" max="100" value="21">
+      </div>
+    </div>
+
+    <div class="tipo-pago-pills">
+      <input type="radio" name="tipoPago" id="pagoTotal" value="total" checked>
+      <label for="pagoTotal">Cobro total</label>
+      <input type="radio" name="tipoPago" id="pagoParcial" value="parcial">
+      <label for="pagoParcial">Primer pago (a cuenta)</label>
+    </div>
+    <div class="campo" id="filaPorcentajePago" style="display:none">
+      <label for="porcentajePago">Porcentaje del primer pago (mínimo 50%)</label>
+      <input type="number" id="porcentajePago" min="50" max="100" step="5" value="50">
+      <p class="aviso-porcentaje" id="avisoPorcentaje"></p>
+    </div>
+
+    <div class="resumen-vivo" id="resumenVivo"></div>
 
     <div class="fila">
       <div class="campo">
@@ -205,10 +256,11 @@
       </div>
     </div>
     <table class="detalle-pdf">
-      <thead><tr><th>Concepto</th><th style="text-align:right">Monto</th></tr></thead>
+      <thead><tr><th>Concepto</th><th style="text-align:right">Importe</th></tr></thead>
       <tbody><tr><td id="pdfConcepto"></td><td class="monto" id="pdfMonto"></td></tr></tbody>
     </table>
-    <div class="total-pdf"><span>Total</span><span class="num" id="pdfTotal"></span></div>
+    <div class="resumen-pdf" id="resumenPdf"></div>
+    <div class="total-pdf"><span id="pdfTotalLabel">Total</span><span class="num" id="pdfTotal"></span></div>
     <div class="callout-pdf"><strong>Nota:</strong> este documento es un comprobante de pago por servicios prestados. No constituye una factura fiscal, dado que el emisor no se encuentra actualmente inscripto ante ningún organismo tributario.</div>
     <p id="pdfLugar"></p>
     <div class="pie-pdf"><span>RENUEVA SMART — RENUEVASMART.COM</span><span id="pdfPagina">Página 1/1</span></div>
@@ -217,17 +269,28 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
   <script>
     const CONFIG_PAIS = {
-      UY: { labelDoc: 'Cédula o RUT', monedas: ['UYU', 'USD'], lugarDefault: '' },
-      ES: { labelDoc: 'DNI / NIF', monedas: ['EUR', 'USD'], lugarDefault: '' },
+      UY: { labelDoc: 'Cédula o RUT', monedas: ['UYU', 'USD'], ivaDefault: 22 },
+      ES: { labelDoc: 'DNI / NIF', monedas: ['EUR', 'USD'], ivaDefault: 21 },
     };
 
     const radiosPais = document.querySelectorAll('input[name="pais"]');
     const labelDoc = document.getElementById('labelDoc');
     const selectMoneda = document.getElementById('moneda');
     const inputNumero = document.getElementById('numero');
+    const checkIva = document.getElementById('incluirIva');
+    const filaIva = document.getElementById('filaIva');
+    const inputIvaPorcentaje = document.getElementById('ivaPorcentaje');
+    const radiosTipoPago = document.querySelectorAll('input[name="tipoPago"]');
+    const filaPorcentajePago = document.getElementById('filaPorcentajePago');
+    const inputPorcentajePago = document.getElementById('porcentajePago');
+    const avisoPorcentaje = document.getElementById('avisoPorcentaje');
+    const resumenVivo = document.getElementById('resumenVivo');
 
     function paisActual() {
       return document.querySelector('input[name="pais"]:checked').value;
+    }
+    function tipoPagoActual() {
+      return document.querySelector('input[name="tipoPago"]:checked').value;
     }
 
     function claveContador(pais) { return 'renueva_comprobante_num_' + pais; }
@@ -239,15 +302,41 @@
       return pais + '-' + anio + '-' + String(siguiente).padStart(3, '0');
     }
 
+    let ivaEditadoManualmente = false;
+    inputIvaPorcentaje.addEventListener('input', () => { ivaEditadoManualmente = true; calcularYMostrar(); });
+
     function actualizarPorPais() {
       const pais = paisActual();
       const cfg = CONFIG_PAIS[pais];
       labelDoc.textContent = cfg.labelDoc;
       selectMoneda.innerHTML = cfg.monedas.map((m) => '<option value="' + m + '">' + m + '</option>').join('');
       inputNumero.value = sugerirNumero(pais);
+      if (!ivaEditadoManualmente) inputIvaPorcentaje.value = cfg.ivaDefault;
+      calcularYMostrar();
     }
     radiosPais.forEach((r) => r.addEventListener('change', actualizarPorPais));
-    actualizarPorPais();
+
+    checkIva.addEventListener('change', () => {
+      filaIva.style.display = checkIva.checked ? 'grid' : 'none';
+      calcularYMostrar();
+    });
+    radiosTipoPago.forEach((r) => r.addEventListener('change', () => {
+      filaPorcentajePago.style.display = tipoPagoActual() === 'parcial' ? 'block' : 'none';
+      calcularYMostrar();
+    }));
+    inputPorcentajePago.addEventListener('input', () => {
+      const v = parseFloat(inputPorcentajePago.value);
+      avisoPorcentaje.textContent = (inputPorcentajePago.value !== '' && v < 50) ? 'El primer pago no puede ser menor al 50%.' : '';
+      calcularYMostrar();
+    });
+    inputPorcentajePago.addEventListener('blur', () => {
+      const v = parseFloat(inputPorcentajePago.value);
+      if (isNaN(v) || v < 50) inputPorcentajePago.value = 50;
+      avisoPorcentaje.textContent = '';
+      calcularYMostrar();
+    });
+    document.getElementById('monto').addEventListener('input', calcularYMostrar);
+    selectMoneda.addEventListener('change', calcularYMostrar);
 
     document.getElementById('fecha').value = new Date().toISOString().slice(0, 10);
 
@@ -256,10 +345,40 @@
       return moneda + ' ' + num.toLocaleString('es-UY', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     }
 
+    function calcular() {
+      const base = parseFloat(document.getElementById('monto').value) || 0;
+      const moneda = selectMoneda.value;
+      const ivaIncluido = checkIva.checked;
+      const ivaRate = ivaIncluido ? (parseFloat(inputIvaPorcentaje.value) || 0) : 0;
+      const ivaMonto = base * ivaRate / 100;
+      const totalProyecto = base + ivaMonto;
+      const esParcial = tipoPagoActual() === 'parcial';
+      const porcentajePago = esParcial ? Math.max(50, parseFloat(inputPorcentajePago.value) || 50) : 100;
+      const importeComprobante = totalProyecto * porcentajePago / 100;
+      const saldoPendiente = totalProyecto - importeComprobante;
+      return { base, moneda, ivaIncluido, ivaRate, ivaMonto, totalProyecto, esParcial, porcentajePago, importeComprobante, saldoPendiente };
+    }
+
+    function calcularYMostrar() {
+      const c = calcular();
+      let html = '';
+      html += '<div class="fila-resumen"><span class="k">Subtotal</span><span>' + formatoMonto(c.base, c.moneda) + '</span></div>';
+      if (c.ivaIncluido) {
+        html += '<div class="fila-resumen"><span class="k">IVA (' + c.ivaRate + '%)</span><span>' + formatoMonto(c.ivaMonto, c.moneda) + '</span></div>';
+      }
+      html += '<div class="fila-resumen"><span class="k">Total del proyecto</span><span>' + formatoMonto(c.totalProyecto, c.moneda) + '</span></div>';
+      if (c.esParcial) {
+        html += '<div class="fila-resumen"><span class="k">Saldo pendiente</span><span>' + formatoMonto(c.saldoPendiente, c.moneda) + '</span></div>';
+      }
+      html += '<div class="fila-resumen total"><span>' + (c.esParcial ? 'A cobrar ahora (' + c.porcentajePago + '%)' : 'A cobrar ahora') + '</span><span>' + formatoMonto(c.importeComprobante, c.moneda) + '</span></div>';
+      resumenVivo.innerHTML = html;
+    }
+
+    actualizarPorPais();
+    calcularYMostrar();
+
     function poblarHojaPdf() {
       const pais = paisActual();
-      const moneda = selectMoneda.value;
-      const monto = document.getElementById('monto').value;
       const numero = inputNumero.value.trim();
       const fecha = document.getElementById('fecha').value;
       const lugar = document.getElementById('lugar').value.trim();
@@ -267,14 +386,30 @@
       const doc = document.getElementById('clienteDoc').value.trim();
       const email = document.getElementById('clienteEmail').value.trim();
       const concepto = document.getElementById('concepto').value.trim();
+      const c = calcular();
 
       document.getElementById('pdfNumeroFecha').textContent = 'N° ' + numero + '  ·  ' + fecha;
       document.getElementById('pdfClienteNombre').textContent = nombreCliente || '—';
       document.getElementById('pdfClienteDoc').textContent = (CONFIG_PAIS[pais].labelDoc + ': ' + (doc || '—'));
       document.getElementById('pdfClienteEmail').textContent = email || '';
       document.getElementById('pdfConcepto').textContent = concepto;
-      document.getElementById('pdfMonto').textContent = formatoMonto(monto, moneda);
-      document.getElementById('pdfTotal').textContent = formatoMonto(monto, moneda);
+      document.getElementById('pdfMonto').textContent = formatoMonto(c.base, c.moneda);
+
+      let resumen = '';
+      if (c.ivaIncluido) {
+        resumen += '<div class="linea"><span>IVA (' + c.ivaRate + '%)</span><span>' + formatoMonto(c.ivaMonto, c.moneda) + '</span></div>';
+      }
+      resumen += '<div class="linea destacada"><span>Total del proyecto</span><span>' + formatoMonto(c.totalProyecto, c.moneda) + '</span></div>';
+      if (c.esParcial) {
+        resumen += '<div class="linea"><span>Tipo de pago</span><span>Primer pago (' + c.porcentajePago + '%)</span></div>';
+        resumen += '<div class="linea"><span>Saldo pendiente</span><span>' + formatoMonto(c.saldoPendiente, c.moneda) + '</span></div>';
+      } else {
+        resumen += '<div class="linea"><span>Tipo de pago</span><span>Pago total</span></div>';
+      }
+      document.getElementById('resumenPdf').innerHTML = resumen;
+
+      document.getElementById('pdfTotalLabel').textContent = c.esParcial ? 'Importe de este comprobante' : 'Total a pagar';
+      document.getElementById('pdfTotal').textContent = formatoMonto(c.importeComprobante, c.moneda);
       document.getElementById('pdfLugar').textContent = 'Lugar y fecha: ' + (lugar || '—') + ', ' + fecha;
     }
 
@@ -312,7 +447,8 @@
       };
       const pdf = await html2pdf().set(opciones).from(hoja).toPdf().get('pdf');
       const blob = pdf.output('blob');
-      const nombreArchivo = 'comprobante-' + slug(nombreCliente) + '-' + inputNumero.value.trim() + '.pdf';
+      const c = calcular();
+      const nombreArchivo = 'comprobante-' + slug(nombreCliente) + '-' + inputNumero.value.trim() + (c.esParcial ? '-1erpago' : '') + '.pdf';
 
       const url = URL.createObjectURL(blob);
       const enlace = document.createElement('a');
