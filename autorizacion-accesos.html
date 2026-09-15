@@ -392,6 +392,9 @@
   </div></div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <!-- html2canvas-pro reemplaza el renderer viejo que trae html2pdf.bundle: en navegadores actualizados
+       ese renderer viejo devuelve un canvas en blanco (fondo sólido, sin nada del contenido real). -->
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas-pro@1.5.8/dist/html2canvas-pro.min.js"></script>
   <script>
     const params = new URLSearchParams(window.location.search);
 
@@ -621,21 +624,21 @@
       // (p. ej. la firma recién generada como data URL) — si ya está lista, no hace falta esperar.
       await Promise.all(imgs.map((img) => (img.complete && img.naturalWidth > 0) ? Promise.resolve() : img.decode().catch(() => {})));
       const hoja = document.getElementById('hojaPdf');
+      const canvas = await html2canvas(hoja, {
+        scale: 0.75,
+        backgroundColor: '#ffffff',
+        letterRendering: true,
+        width: hoja.scrollWidth,
+        height: hoja.scrollHeight,
+        windowWidth: hoja.scrollWidth,
+        windowHeight: hoja.scrollHeight,
+      });
       const opciones = {
         margin: 8,
         image: { type: 'png' },
-        html2canvas: {
-          scale: 0.75,
-          backgroundColor: '#ffffff',
-          letterRendering: true,
-          width: hoja.scrollWidth,
-          height: hoja.scrollHeight,
-          windowWidth: hoja.scrollWidth,
-          windowHeight: hoja.scrollHeight,
-        },
         jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
       };
-      const pdf = await html2pdf().set(opciones).from(hoja).toPdf().get('pdf');
+      const pdf = await html2pdf().set(opciones).from(canvas, 'canvas').toPdf().get('pdf');
       const blob = pdf.output('blob');
 
       const url = URL.createObjectURL(blob);
