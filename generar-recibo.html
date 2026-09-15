@@ -296,6 +296,10 @@
     function claveContador(pais) { return 'renueva_comprobante_num_' + pais; }
 
     function sugerirNumero(pais) {
+      if (pais === 'UY') {
+        const fechaVal = document.getElementById('fecha').value || new Date().toISOString().slice(0, 10);
+        return 'UY-' + fechaVal.replace(/-/g, '');
+      }
       const guardado = parseInt(localStorage.getItem(claveContador(pais)) || '0', 10);
       const siguiente = guardado + 1;
       const anio = new Date().getFullYear();
@@ -305,16 +309,26 @@
     let ivaEditadoManualmente = false;
     inputIvaPorcentaje.addEventListener('input', () => { ivaEditadoManualmente = true; calcularYMostrar(); });
 
+    let numeroEditadoManualmente = false;
+    inputNumero.addEventListener('input', () => { numeroEditadoManualmente = true; });
+
     function actualizarPorPais() {
       const pais = paisActual();
       const cfg = CONFIG_PAIS[pais];
       labelDoc.textContent = cfg.labelDoc;
       selectMoneda.innerHTML = cfg.monedas.map((m) => '<option value="' + m + '">' + m + '</option>').join('');
       inputNumero.value = sugerirNumero(pais);
+      numeroEditadoManualmente = false;
       if (!ivaEditadoManualmente) inputIvaPorcentaje.value = cfg.ivaDefault;
       calcularYMostrar();
     }
     radiosPais.forEach((r) => r.addEventListener('change', actualizarPorPais));
+
+    document.getElementById('fecha').addEventListener('change', () => {
+      if (paisActual() === 'UY' && !numeroEditadoManualmente) {
+        inputNumero.value = sugerirNumero('UY');
+      }
+    });
 
     checkIva.addEventListener('change', () => {
       filaIva.style.display = checkIva.checked ? 'grid' : 'none';
@@ -458,8 +472,10 @@
       URL.revokeObjectURL(url);
 
       const pais = paisActual();
-      const guardado = parseInt(localStorage.getItem(claveContador(pais)) || '0', 10);
-      localStorage.setItem(claveContador(pais), String(guardado + 1));
+      if (pais !== 'UY') {
+        const guardado = parseInt(localStorage.getItem(claveContador(pais)) || '0', 10);
+        localStorage.setItem(claveContador(pais), String(guardado + 1));
+      }
 
       btnGenerar.disabled = false;
       btnGenerar.textContent = 'Descargar comprobante en PDF';
