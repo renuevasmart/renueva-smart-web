@@ -495,9 +495,9 @@
       const hoja = document.getElementById('hojaPdf');
       const opciones = {
         margin: 8,
-        image: { type: 'jpeg', quality: 0.95 },
+        image: { type: 'png' },
         html2canvas: {
-          scale: 2,
+          scale: 0.75,
           backgroundColor: '#0b0c0e',
           letterRendering: true,
           width: hoja.scrollWidth,
