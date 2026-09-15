@@ -655,6 +655,9 @@
       hoja.querySelectorAll('.parte-pdf p').forEach((el) => set(el, 'color', 'var(--pdf-texto-oscuro)'));
       hoja.querySelectorAll('.parte-pdf .t').forEach((el) => set(el, 'color', 'var(--pdf-texto-tenue)'));
       hoja.querySelectorAll('h3').forEach((el) => set(el, 'color', 'var(--pdf-texto-oscuro)'));
+      // mismo bug otra vez: "list-style:none" puesto por hoja de estilos no se aplica,
+      // así que el puntito de la lista queda dibujado encima del tilde ✓.
+      hoja.querySelectorAll('ul').forEach((el) => { set(el, 'list-style', 'none'); set(el, 'list-style-type', 'none'); });
       hoja.querySelectorAll('li').forEach((el) => set(el, 'color', 'var(--pdf-texto-cuerpo)'));
       hoja.querySelectorAll('li b').forEach((el) => set(el, 'color', 'var(--color-brand)'));
       hoja.querySelectorAll('li b.no-autorizado').forEach((el) => set(el, 'color', 'var(--pdf-rojo-no-autorizado)'));
