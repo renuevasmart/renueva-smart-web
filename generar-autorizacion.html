@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Generar link de autorización — Renueva Smart</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="assets/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,700;0,800;1,500;1,600&family=Fraunces:ital,opsz,wght@0,9..144,600;0,9..144,700;1,9..144,500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --color-brand: #ff6a00;
+    --color-brand-hover: #ff7a1a;
+    --color-bg-primary: #0b0c0e;
+    --color-bg-secondary: #151719;
+    --color-bg-tertiary: #25282c;
+    --color-text-primary: #f5f3ee;
+    --color-text-secondary: #d9dce0;
+    --color-text-muted: #92979d;
+    --color-border-subtle: rgba(255, 255, 255, 0.08);
+    --color-border-default: rgba(255, 255, 255, 0.12);
+    --font-display: "Fraunces", Georgia, "Iowan Old Style", serif;
+    --font-ui: "Plus Jakarta Sans", "Segoe UI", -apple-system, Roboto, Arial, sans-serif;
+    --radius-lg: 8px;
+    --radius-2xl: 16px;
+    --radius-pill: 999px;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; min-height: 100svh; background: var(--color-bg-primary); color: var(--color-text-primary); font-family: var(--font-ui); }
+  a { color: inherit; }
+  img { max-width: 100%; display: block; }
+
+  .nav { padding: 18px clamp(20px, 4vw, 56px); }
+  .nav-logo { height: 44px; }
+
+  .contenido { max-width: 560px; margin: 0 auto; padding: 40px clamp(20px, 4vw, 56px) 60px; }
+  .eyebrow-oscuro { font-weight: 800; font-size: 12.5px; letter-spacing: 0.09em; text-transform: uppercase; color: var(--color-brand); }
+  .contenido h1 { font-family: var(--font-display); font-weight: 700; font-size: clamp(24px, 3.4vw, 32px); line-height: 1.15; margin: 10px 0 14px; }
+  .contenido > p.lead { font-size: 15px; line-height: 1.6; color: var(--color-text-secondary); margin: 0 0 30px; }
+
+  .campo { margin-bottom: 22px; }
+  .campo label { display: block; font-size: 11.5px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-text-muted); margin-bottom: 8px; }
+  .campo input {
+    width: 100%; font-family: inherit; font-size: 15px; color: var(--color-text-primary);
+    background: var(--color-bg-tertiary); border: 1px solid var(--color-border-default);
+    border-radius: var(--radius-lg); padding: 12px 14px;
+  }
+  .campo input:focus { outline: 2px solid var(--color-brand); outline-offset: 1px; }
+
+  .resultado {
+    background: var(--color-bg-secondary); border: 1px solid var(--color-border-default);
+    border-radius: var(--radius-2xl); padding: 20px 22px; margin-top: 8px;
+  }
+  .resultado label { display: block; font-size: 11.5px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-text-muted); margin-bottom: 8px; }
+  .fila-link { display: flex; gap: 10px; }
+  .fila-link input {
+    flex: 1; font-family: inherit; font-size: 13.5px; color: var(--color-text-secondary);
+    background: var(--color-bg-tertiary); border: 1px solid var(--color-border-default);
+    border-radius: var(--radius-lg); padding: 10px 12px;
+  }
+  .btn-copiar {
+    font-weight: 800; font-size: 14px; color: var(--color-bg-primary); background: var(--color-brand);
+    border: none; border-radius: var(--radius-pill); padding: 0 20px; cursor: pointer; white-space: nowrap;
+  }
+  .btn-copiar:hover { background: var(--color-brand-hover); }
+  .btn-copiar.copiado { background: #2ecc71; }
+  .resultado a.abrir { display: inline-block; margin-top: 12px; font-size: 13.5px; font-weight: 700; color: var(--color-text-primary); text-decoration: underline; }
+</style>
+</head>
+<body>
+
+  <nav class="nav">
+    <a href="index.html"><img class="nav-logo" src="assets/logo.png" alt="Renueva Smart"></a>
+  </nav>
+
+  <div class="contenido">
+    <span class="eyebrow-oscuro">Herramienta interna</span>
+    <h1>Generar link de autorización</h1>
+    <p class="lead">Escribí el nombre del cliente o proyecto y te arma el link listo para mandar — con el nombre ya precargado en el formulario.</p>
+
+    <div class="campo">
+      <label for="nombre">Nombre del proyecto / persona / empresa</label>
+      <input type="text" id="nombre" placeholder="Ej: Movimiento Nacional Artiguista" autofocus>
+    </div>
+
+    <div class="resultado">
+      <label>Link para mandar</label>
+      <div class="fila-link">
+        <input type="text" id="link" readonly>
+        <button type="button" class="btn-copiar" id="btnCopiar">Copiar</button>
+      </div>
+      <a class="abrir" id="enlaceAbrir" href="autorizacion-accesos.html" target="_blank" rel="noopener">Abrir para revisar →</a>
+    </div>
+  </div>
+
+  <script>
+    const base = location.href.replace(/generar-autorizacion\.html.*$/, 'autorizacion-accesos.html');
+    const inputNombre = document.getElementById('nombre');
+    const inputLink = document.getElementById('link');
+    const enlaceAbrir = document.getElementById('enlaceAbrir');
+    const btnCopiar = document.getElementById('btnCopiar');
+
+    function actualizar() {
+      const nombre = inputNombre.value.trim();
+      const url = nombre ? base + '?cliente=' + encodeURIComponent(nombre) : base;
+      inputLink.value = url;
+      enlaceAbrir.href = url;
+    }
+    inputNombre.addEventListener('input', actualizar);
+    actualizar();
+
+    btnCopiar.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(inputLink.value);
+      } catch (e) {
+        inputLink.select();
+        document.execCommand('copy');
+      }
+      btnCopiar.textContent = '¡Copiado!';
+      btnCopiar.classList.add('copiado');
+      setTimeout(() => { btnCopiar.textContent = 'Copiar'; btnCopiar.classList.remove('copiado'); }, 1800);
+    });
+  </script>
+</body>
+</html>
