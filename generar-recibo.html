@@ -436,9 +436,30 @@
     const btnGenerar = document.getElementById('btnGenerar');
     const estado = document.getElementById('estado');
 
+    async function enviarPorCorreo(archivo, nombreArchivo, datos) {
+      const fd = new FormData();
+      fd.append('_subject', 'Comprobante de pago generado — ' + datos.nombreCliente);
+      fd.append('_template', 'table');
+      fd.append('_captcha', 'false');
+      fd.append('_cc', datos.email);
+      fd.append('Cliente', datos.nombreCliente);
+      fd.append('Documento', datos.doc || '—');
+      fd.append('Concepto', datos.concepto);
+      fd.append('N° de comprobante', datos.numero);
+      fd.append('Importe de este comprobante', datos.importe);
+      fd.append(nombreArchivo, archivo, nombreArchivo);
+      const resp = await fetch('https://formsubmit.co/ajax/contacto@publicasmart.com', {
+        method: 'POST',
+        body: fd,
+        headers: { Accept: 'application/json' },
+      });
+      if (!resp.ok) throw new Error('Envío fallido');
+    }
+
     btnGenerar.addEventListener('click', async () => {
       const nombreCliente = document.getElementById('clienteNombre').value.trim();
       const monto = document.getElementById('monto').value;
+      const email = document.getElementById('clienteEmail').value.trim();
       if (!nombreCliente || !monto) {
         estado.textContent = 'Completá al menos el nombre del cliente y el monto.';
         estado.className = 'estado error';
@@ -471,6 +492,27 @@
       enlace.click();
       URL.revokeObjectURL(url);
 
+      let envioOk = false;
+      let envioIntentado = false;
+      if (email) {
+        envioIntentado = true;
+        btnGenerar.textContent = 'Enviando por correo...';
+        try {
+          const archivo = new File([blob], nombreArchivo, { type: 'application/pdf' });
+          await enviarPorCorreo(archivo, nombreArchivo, {
+            nombreCliente,
+            doc: document.getElementById('clienteDoc').value.trim(),
+            concepto: document.getElementById('concepto').value.trim(),
+            numero: inputNumero.value.trim(),
+            importe: formatoMonto(c.importeComprobante, c.moneda),
+            email,
+          });
+          envioOk = true;
+        } catch (e) {
+          envioOk = false;
+        }
+      }
+
       const pais = paisActual();
       if (pais !== 'UY') {
         const guardado = parseInt(localStorage.getItem(claveContador(pais)) || '0', 10);
@@ -479,8 +521,16 @@
 
       btnGenerar.disabled = false;
       btnGenerar.textContent = 'Descargar comprobante en PDF';
-      estado.textContent = 'Comprobante descargado.';
-      estado.className = 'estado ok';
+      if (!envioIntentado) {
+        estado.textContent = 'Comprobante descargado. No se envió por correo (no completaste el email del cliente).';
+        estado.className = 'estado ok';
+      } else if (envioOk) {
+        estado.textContent = 'Comprobante descargado y enviado a ' + email + '.';
+        estado.className = 'estado ok';
+      } else {
+        estado.textContent = 'Comprobante descargado, pero el envío por correo falló. Mandalo manualmente.';
+        estado.className = 'estado error';
+      }
     });
   </script>
 </body>
