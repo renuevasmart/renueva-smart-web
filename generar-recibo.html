@@ -133,7 +133,6 @@
   #hojaPdf .resumen-pdf .linea.destacada { color: var(--color-text-primary); font-weight: 700; border-top: 1px solid var(--color-border-strong); margin-top: 4px; padding-top: 8px; }
   #hojaPdf .total-pdf { display: flex; justify-content: flex-end; gap: 14px; font-size: 16px; font-weight: 800; margin: 4px 0 24px; }
   #hojaPdf .total-pdf .num { color: var(--color-brand); }
-  #hojaPdf .callout-pdf { margin: 0 0 24px; padding: 14px 16px; background: rgba(255,106,0,0.08); border: 1px solid rgba(255,106,0,0.35); border-radius: 10px; font-size: 12px; line-height: 1.6; color: var(--color-text-secondary); word-spacing: 4px; }
   #hojaPdf .pie-pdf { margin-top: 10px; padding-top: 14px; border-top: 1px solid var(--color-border-subtle); font-size: 10.5px; color: var(--color-text-muted); display: flex; justify-content: space-between; }
 </style>
 </head>
@@ -228,7 +227,7 @@
     </div>
 
     <div class="callout">
-      <strong>Nota:</strong> este comprobante no es una factura fiscal (todavía no tenés registro tributario formal). El PDF lo aclara para que quede claro tanto para vos como para el cliente.
+      <strong>Nota:</strong> este comprobante no es una factura fiscal (todavía no tenés registro tributario formal).
     </div>
 
     <button type="button" class="btn-generar" id="btnGenerar">Descargar comprobante en PDF</button>
@@ -261,7 +260,6 @@
     </table>
     <div class="resumen-pdf" id="resumenPdf"></div>
     <div class="total-pdf"><span id="pdfTotalLabel">Total</span><span class="num" id="pdfTotal"></span></div>
-    <div class="callout-pdf"><strong>Nota:</strong> este documento es un comprobante de pago por servicios prestados. No constituye una factura fiscal, dado que el emisor no se encuentra actualmente inscripto ante ningún organismo tributario.</div>
     <p id="pdfLugar"></p>
     <div class="pie-pdf"><span>RENUEVA SMART — RENUEVASMART.COM</span><span id="pdfPagina">Página 1/1</span></div>
   </div></div>
