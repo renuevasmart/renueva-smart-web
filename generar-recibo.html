@@ -129,7 +129,6 @@
   #hojaPdf .marca-pdf { margin-bottom: 24px; }
   #hojaPdf .marca-pdf img { height: 26px; }
   #hojaPdf h1 { font-family: var(--font-display); font-size: 26px; margin: 8px 0 4px; color: var(--pdf-texto-oscuro); }
-  #hojaPdf .eyebrow-oscuro { display: block; margin-bottom: 6px; color: var(--color-brand); }
   #hojaPdf .numero-pdf { font-size: 13px; color: var(--pdf-texto-tenue); margin: 0 0 20px; }
   #hojaPdf p { font-size: 13.5px; line-height: 1.6; color: var(--pdf-texto-cuerpo); }
   #hojaPdf .partes-pdf { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--pdf-borde-suave); border: 1px solid var(--pdf-borde-suave); border-radius: 16px; overflow: hidden; margin: 10px 0 24px; }
@@ -251,7 +250,6 @@
   <!-- Hoja usada solo para generar el PDF -->
   <div id="envoltorioHojaPdf"><div id="hojaPdf">
     <div class="marca-pdf"><img src="assets/logo-pdf-oscuro.png" alt="Renueva Smart"></div>
-    <span class="eyebrow-oscuro">Comprobante de pago</span>
     <h1 id="pdfTitulo">Comprobante de pago</h1>
     <p class="numero-pdf" id="pdfNumeroFecha"></p>
     <div class="partes-pdf">
@@ -487,7 +485,6 @@
       set(hoja.querySelector('.marca-pdf img'), 'height', '26px');
       set(hoja.querySelector('.marca-pdf img'), 'width', 'auto');
       set(hoja.querySelector('h1'), 'color', 'var(--pdf-texto-oscuro)');
-      set(hoja.querySelector('.eyebrow-oscuro'), 'color', 'var(--color-brand)');
       set(hoja.querySelector('.numero-pdf'), 'color', 'var(--pdf-texto-tenue)');
       hoja.querySelectorAll(':scope > p').forEach((el) => set(el, 'color', 'var(--pdf-texto-cuerpo)'));
       const partes = hoja.querySelector('.partes-pdf');
