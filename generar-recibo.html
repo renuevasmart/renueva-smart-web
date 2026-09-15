@@ -126,9 +126,8 @@
   /* ---------- Hoja usada solo para generar el PDF (fondo blanco, paleta propia) ---------- */
   #envoltorioHojaPdf { position: absolute; top: 0; left: 0; width: 0; height: 0; overflow: hidden; }
   #hojaPdf { width: 780px; background: #ffffff; color: var(--pdf-texto-oscuro); font-family: var(--font-ui); padding: 40px; word-spacing: 1.8px; }
-  #hojaPdf .marca-pdf { display: flex; align-items: baseline; gap: 5px; font-family: var(--font-display); font-weight: 700; font-size: 22px; margin-bottom: 24px; }
-  #hojaPdf .marca-pdf .n1 { color: var(--pdf-texto-oscuro); }
-  #hojaPdf .marca-pdf .n2 { color: var(--color-brand); }
+  #hojaPdf .marca-pdf { margin-bottom: 24px; }
+  #hojaPdf .marca-pdf img { height: 26px; }
   #hojaPdf h1 { font-family: var(--font-display); font-size: 26px; margin: 8px 0 4px; color: var(--pdf-texto-oscuro); }
   #hojaPdf .eyebrow-oscuro { display: block; margin-bottom: 6px; color: var(--color-brand); }
   #hojaPdf .numero-pdf { font-size: 13px; color: var(--pdf-texto-tenue); margin: 0 0 20px; }
@@ -251,7 +250,7 @@
 
   <!-- Hoja usada solo para generar el PDF -->
   <div id="envoltorioHojaPdf"><div id="hojaPdf">
-    <div class="marca-pdf"><span class="n1">Renueva</span><span class="n2">Smart</span></div>
+    <div class="marca-pdf"><img src="assets/logo-pdf-oscuro.png" alt="Renueva Smart"></div>
     <span class="eyebrow-oscuro">Comprobante de pago</span>
     <h1 id="pdfTitulo">Comprobante de pago</h1>
     <p class="numero-pdf" id="pdfNumeroFecha"></p>
@@ -483,8 +482,10 @@
     function aplicarColoresInlinePdf(hoja) {
       const set = (el, prop, valor) => { if (el) el.style.setProperty(prop, valor, 'important'); };
       set(hoja, 'color', 'var(--pdf-texto-oscuro)');
-      set(hoja.querySelector('.marca-pdf .n1'), 'color', 'var(--pdf-texto-oscuro)');
-      set(hoja.querySelector('.marca-pdf .n2'), 'color', 'var(--color-brand)');
+      // el mismo bug de html2canvas-pro afecta al alto del logo puesto por CSS:
+      // sin esto lo dibuja a su tamaño natural (enorme) en vez de 26px.
+      set(hoja.querySelector('.marca-pdf img'), 'height', '26px');
+      set(hoja.querySelector('.marca-pdf img'), 'width', 'auto');
       set(hoja.querySelector('h1'), 'color', 'var(--pdf-texto-oscuro)');
       set(hoja.querySelector('.eyebrow-oscuro'), 'color', 'var(--color-brand)');
       set(hoja.querySelector('.numero-pdf'), 'color', 'var(--pdf-texto-tenue)');

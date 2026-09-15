@@ -170,9 +170,8 @@
   #envoltorioHojaPdf { position: absolute; top: 0; left: 0; width: 0; height: 0; overflow: hidden; }
   /* word-spacing explícito: sin esto html2canvas "come" espacios al rasterizar este texto (bug conocido de su motor de texto) */
   #hojaPdf { width: 780px; background: #ffffff; color: var(--pdf-texto-oscuro); font-family: var(--font-ui); padding: 40px; word-spacing: 1.8px; }
-  #hojaPdf .marca-pdf { display: flex; align-items: baseline; gap: 5px; font-family: var(--font-display); font-weight: 700; font-size: 22px; margin-bottom: 24px; }
-  #hojaPdf .marca-pdf .n1 { color: var(--pdf-texto-oscuro); }
-  #hojaPdf .marca-pdf .n2 { color: var(--color-brand); }
+  #hojaPdf .marca-pdf { margin-bottom: 24px; }
+  #hojaPdf .marca-pdf img { height: 26px; }
   #hojaPdf h1 { font-family: var(--font-display); font-size: 28px; margin: 8px 0 10px; color: var(--pdf-texto-oscuro); }
   #hojaPdf .eyebrow-oscuro { display: block; margin-bottom: 6px; color: var(--color-brand); }
   #hojaPdf p { font-size: 13.5px; line-height: 1.6; color: var(--pdf-texto-cuerpo); }
@@ -368,7 +367,7 @@
 
   <!-- Hoja usada solo para generar el PDF: se llena con los mismos datos justo antes de firmar -->
   <div id="envoltorioHojaPdf"><div id="hojaPdf">
-    <div class="marca-pdf"><span class="n1">Renueva</span><span class="n2">Smart</span></div>
+    <div class="marca-pdf"><img src="assets/logo-pdf-oscuro.png" alt="Renueva Smart"></div>
     <span class="eyebrow-oscuro">Autorización de accesos y permisos</span>
     <h1 id="pdfTitulo">Desarrollo del sitio web</h1>
     <p>Documento de autorización de acceso a servicios, cuentas y recursos necesarios para construir y publicar el sitio.</p>
@@ -634,8 +633,10 @@
     function aplicarColoresInlinePdf(hoja) {
       const set = (el, prop, valor) => { if (el) el.style.setProperty(prop, valor, 'important'); };
       set(hoja, 'color', 'var(--pdf-texto-oscuro)');
-      set(hoja.querySelector('.marca-pdf .n1'), 'color', 'var(--pdf-texto-oscuro)');
-      set(hoja.querySelector('.marca-pdf .n2'), 'color', 'var(--color-brand)');
+      // el mismo bug de html2canvas-pro afecta al alto del logo puesto por CSS:
+      // sin esto lo dibuja a su tamaño natural (enorme) en vez de 26px.
+      set(hoja.querySelector('.marca-pdf img'), 'height', '26px');
+      set(hoja.querySelector('.marca-pdf img'), 'width', 'auto');
       set(hoja.querySelector('h1'), 'color', 'var(--pdf-texto-oscuro)');
       set(hoja.querySelector('.eyebrow-oscuro'), 'color', 'var(--color-brand)');
       hoja.querySelectorAll(':scope > p').forEach((el) => set(el, 'color', 'var(--pdf-texto-cuerpo)'));
