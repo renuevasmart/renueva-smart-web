@@ -668,6 +668,60 @@
       hoja.querySelectorAll('.cierre-pdf img').forEach((el) => { set(el, 'height', '52px'); set(el, 'width', 'auto'); });
     }
 
+    // Al pasarle un canvas ya renderizado a html2pdf (en vez de un elemento HTML) se pierde
+    // su sistema de salto de página "inteligente": corta cada hoja a una altura fija en píxeles,
+    // sin fijarse si eso parte un renglón de texto al medio. Para evitarlo, antes de cortar cada
+    // página buscamos la fila más "pareja" cerca del corte ideal (sin texto, sin bordes) y
+    // cortamos ahí en vez de en el punto exacto.
+    function medirVariacionFila(datosFila) {
+      let min = 255, max = 0;
+      for (let i = 0; i < datosFila.length; i += 4) {
+        const r = datosFila[i];
+        if (r < min) min = r;
+        if (r > max) max = r;
+      }
+      return max - min;
+    }
+
+    function elegirCorteSeguro(ctx, ancho, corteIdeal, ventana) {
+      const desde = Math.max(1, corteIdeal - ventana);
+      const hasta = corteIdeal + ventana;
+      let mejorY = corteIdeal;
+      let mejorVariacion = Infinity;
+      for (let y = desde; y < hasta; y++) {
+        const variacion = medirVariacionFila(ctx.getImageData(0, y, ancho, 1).data);
+        if (variacion < mejorVariacion) { mejorVariacion = variacion; mejorY = y; }
+        if (variacion === 0) break;
+      }
+      return mejorY;
+    }
+
+    function recortarCanvas(origen, y0, y1) {
+      const c = document.createElement('canvas');
+      c.width = origen.width;
+      c.height = y1 - y0;
+      c.getContext('2d').drawImage(origen, 0, y0, origen.width, y1 - y0, 0, 0, origen.width, y1 - y0);
+      return c;
+    }
+
+    function dividirEnPaginasSeguras(canvasCompleto, altoUtilPx) {
+      if (canvasCompleto.height <= altoUtilPx) return [canvasCompleto];
+      const ctx = canvasCompleto.getContext('2d');
+      const ventana = Math.max(20, Math.round(altoUtilPx * 0.1));
+      const cortes = [0];
+      let y = 0;
+      while (canvasCompleto.height - y > altoUtilPx) {
+        const ideal = y + altoUtilPx;
+        const real = elegirCorteSeguro(ctx, canvasCompleto.width, ideal, ventana);
+        cortes.push(real > y ? real : ideal);
+        y = cortes[cortes.length - 1];
+      }
+      cortes.push(canvasCompleto.height);
+      const paginas = [];
+      for (let i = 0; i < cortes.length - 1; i++) paginas.push(recortarCanvas(canvasCompleto, cortes[i], cortes[i + 1]));
+      return paginas;
+    }
+
     async function generarPdfYAdjuntar(nombreArchivo) {
       poblarHojaPdf();
       await document.fonts.ready; // evita que html2canvas rasterice con la fuente de reemplazo y apriete el espaciado
@@ -686,12 +740,26 @@
         windowWidth: hoja.scrollWidth,
         windowHeight: hoja.scrollHeight,
       });
+
+      const margenMm = 8;
+      const anchoPaginaMm = 210;
+      const altoPaginaMm = 297;
+      const mmPorPx = (anchoPaginaMm - margenMm * 2) / canvas.width;
+      const altoUtilPx = Math.floor((altoPaginaMm - margenMm * 2) / mmPorPx);
+      const paginas = dividirEnPaginasSeguras(canvas, altoUtilPx);
+
       const opciones = {
-        margin: 8,
+        margin: margenMm,
         image: { type: 'png' },
         jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
       };
-      const pdf = await html2pdf().set(opciones).from(canvas, 'canvas').toPdf().get('pdf');
+      const pdf = await html2pdf().set(opciones).from(paginas[0], 'canvas').toPdf().get('pdf');
+      const anchoImgMm = anchoPaginaMm - margenMm * 2;
+      for (let i = 1; i < paginas.length; i++) {
+        const alturaImgMm = anchoImgMm * (paginas[i].height / paginas[i].width);
+        pdf.addPage();
+        pdf.addImage(paginas[i].toDataURL('image/png'), 'PNG', margenMm, margenMm, anchoImgMm, alturaImgMm);
+      }
       const blob = pdf.output('blob');
 
       const url = URL.createObjectURL(blob);
