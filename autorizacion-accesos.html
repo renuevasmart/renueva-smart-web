@@ -190,6 +190,8 @@
   #hojaPdf .firmas-pdf img { height: 60px; object-fit: contain; }
   #hojaPdf .firmas-pdf .linea { border-top: 1px solid var(--pdf-borde-claro); margin-top: 6px; padding-top: 6px; font-size: 11.5px; color: var(--pdf-texto-tenue); word-spacing: 3px; }
   #hojaPdf .pie-pdf { margin-top: 30px; padding-top: 14px; border-top: 1px solid var(--pdf-borde-tenue); font-size: 10.5px; color: var(--pdf-texto-pie); display: flex; justify-content: space-between; }
+  #hojaPdf .cierre-pdf { margin-top: 70px; display: flex; justify-content: center; opacity: 0.6; }
+  #hojaPdf .cierre-pdf img { height: 34px; }
 </style>
 </head>
 <body>
@@ -400,6 +402,7 @@
       </div>
     </div>
     <div class="pie-pdf"><span>RENUEVA SMART — RENUEVASMART.COM</span><span>Página 1/1</span></div>
+    <div class="cierre-pdf"><img src="assets/logo-pdf-oscuro.png" alt="Renueva Smart"></div>
   </div></div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
@@ -662,6 +665,8 @@
       hoja.querySelectorAll('.firmas-pdf img').forEach((el) => { set(el, 'height', '60px'); set(el, 'width', 'auto'); });
       hoja.querySelectorAll('.firmas-pdf .linea').forEach((el) => { set(el, 'color', 'var(--pdf-texto-tenue)'); set(el, 'border-top-color', 'var(--pdf-borde-claro)'); });
       hoja.querySelectorAll('.pie-pdf').forEach((el) => { set(el, 'color', 'var(--pdf-texto-pie)'); set(el, 'border-top-color', 'var(--pdf-borde-tenue)'); set(el, 'display', 'flex'); set(el, 'justify-content', 'space-between'); });
+      hoja.querySelectorAll('.cierre-pdf').forEach((el) => { set(el, 'display', 'flex'); set(el, 'justify-content', 'center'); set(el, 'opacity', '0.6'); });
+      hoja.querySelectorAll('.cierre-pdf img').forEach((el) => { set(el, 'height', '34px'); set(el, 'width', 'auto'); });
     }
 
     async function generarPdfYAdjuntar(nombreArchivo) {
