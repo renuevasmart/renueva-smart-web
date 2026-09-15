@@ -120,6 +120,8 @@
   }
   .firma-preescrita span { font-family: var(--font-display); font-style: italic; font-weight: 500; font-size: 30px; color: var(--color-text-primary); }
 
+  .nota-legal { font-size: 12.5px; line-height: 1.6; color: var(--color-text-muted); text-align: center; margin: 18px 0 0; }
+
   .error-envio { color: #ff8a65; font-size: 13.5px; margin: -18px 0 20px; display: none; }
   .error-envio.visible { display: block; }
 
@@ -195,7 +197,7 @@
       <input type="hidden" name="Resumen de accesos autorizados" id="resumenOculto">
 
       <div class="campo-proyecto">
-        <label for="proyecto">Nombre del proyecto / movimiento / empresa</label>
+        <label for="proyecto">Nombre del proyecto / persona / empresa</label>
         <input type="text" id="proyecto" placeholder="Ej: Movimiento Nacional Artiguista">
       </div>
 
@@ -328,6 +330,7 @@
       <p class="error-envio" id="errorEnvio">Completá todos los campos obligatorios y firmá antes de enviar.</p>
 
       <button type="submit" class="btn-enviar" id="btnEnviar">Firmar y enviar</button>
+      <p class="nota-legal">Al firmar y enviar, autorizás a que te enviemos por correo el documento completado. Renueva Smart envía y archiva este documento como registro de la autorización. Si no pudiste descargarlo o no te llegó el correo, avisanos.</p>
     </form>
   </div>
 
