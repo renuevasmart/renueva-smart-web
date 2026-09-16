@@ -144,7 +144,7 @@
     <p>Una web armada alrededor de ofertas y descuentos deja de tener sentido en cuanto cambia la promoción, y no dice nada sobre el criterio médico detrás de los tratamientos. Es el patrón más común del sector, y el que menos distingue a una clínica seria.</p>
 
     <h2>3. No hay fotos reales del equipo ni de las instalaciones</h2>
-    <p>La confianza en estética se construye con las personas y las instalaciones, no con stock. Fotos genéricas de bancos de imágenes no transmiten nada sobre quién sos ni dónde vas a atender al paciente.</p>
+    <p>La confianza en estética se construye con las personas y las instalaciones, no con stock. Fotos genéricas de bancos de imágenes no transmiten nada sobre <span data-i18n="quien_sos">quién eres</span> ni dónde vas a atender al paciente.</p>
 
     <h2>4. No queda clara la autorización sanitaria del centro</h2>
     <p>La autorización sanitaria a la vista es una señal de confianza concreta, y su ausencia genera la duda contraria: si no se menciona, el paciente no sabe si el centro cumple con lo que exige la ley.</p>
@@ -173,7 +173,7 @@
     </div>
 
     <div class="caso-cta">
-      <p>¿Tenés una clínica de estética con una web que no le hace justicia? Te armamos el antes/después gratis, sin compromiso.</p>
+      <p>¿<span data-i18n="cta_tenes">Tienes</span> una clínica de estética con una web que no le hace justicia? Te armamos el antes/después gratis, sin compromiso.</p>
       <div class="caso-cta-acciones">
         <a href="https://wa.me/34602555026?text=Hola%2C%20quiero%20ver%20c%C3%B3mo%20quedar%C3%ADa%20la%20web%20de%20mi%20cl%C3%ADnica%20de%20est%C3%A9tica" target="_blank" rel="noopener" class="btn-cta btn-cta-lg">Quiero ver mi web</a>
         <a href="../clinicas-esteticas.html" class="btn-secundario">Ver diseño web para clínicas de estética</a>
@@ -200,7 +200,11 @@
   </footer>
 
   <script>
-    const TEXTO_VOSEO = { cta_nav: 'Escribinos ahora' };
+    const TEXTO_VOSEO = {
+      cta_nav: 'Escribinos ahora',
+      cta_tenes: 'Tenés',
+      quien_sos: 'quién sos'
+    };
     function aplicarVariante(mapa) { Object.keys(mapa).forEach((clave) => { document.querySelectorAll('[data-i18n="' + clave + '"]').forEach((el) => { el.innerHTML = mapa[clave]; }); }); }
     function variantePorPais(pais) { if (!pais) return null; if (['AR', 'UY', 'PY'].includes(pais)) return 'voseo'; return 'neutro'; }
     function variantePorNavegador() { const lang = (navigator.language || '').toLowerCase(); if (lang.includes('es-ar') || lang.includes('es-uy') || lang.includes('es-py')) return 'voseo'; return 'neutro'; }

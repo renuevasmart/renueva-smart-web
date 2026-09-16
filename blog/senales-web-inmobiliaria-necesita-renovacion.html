@@ -173,7 +173,7 @@
     </div>
 
     <div class="caso-cta">
-      <p>¿Tenés una inmobiliaria con una web que no le hace justicia? Te armamos el antes/después gratis, sin compromiso.</p>
+      <p>¿<span data-i18n="cta_tenes">Tienes</span> una inmobiliaria con una web que no le hace justicia? Te armamos el antes/después gratis, sin compromiso.</p>
       <div class="caso-cta-acciones">
         <a href="https://wa.me/34602555026?text=Hola%2C%20quiero%20ver%20c%C3%B3mo%20quedar%C3%ADa%20la%20web%20de%20mi%20inmobiliaria" target="_blank" rel="noopener" class="btn-cta btn-cta-lg">Quiero ver mi web</a>
         <a href="../inmobiliarias.html" class="btn-secundario">Ver diseño web para inmobiliarias</a>
@@ -200,7 +200,7 @@
   </footer>
 
   <script>
-    const TEXTO_VOSEO = { cta_nav: 'Escribinos ahora' };
+    const TEXTO_VOSEO = { cta_nav: 'Escribinos ahora', cta_tenes: 'Tenés' };
     function aplicarVariante(mapa) { Object.keys(mapa).forEach((clave) => { document.querySelectorAll('[data-i18n="' + clave + '"]').forEach((el) => { el.innerHTML = mapa[clave]; }); }); }
     function variantePorPais(pais) { if (!pais) return null; if (['AR', 'UY', 'PY'].includes(pais)) return 'voseo'; return 'neutro'; }
     function variantePorNavegador() { const lang = (navigator.language || '').toLowerCase(); if (lang.includes('es-ar') || lang.includes('es-uy') || lang.includes('es-py')) return 'voseo'; return 'neutro'; }

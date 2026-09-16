@@ -140,8 +140,8 @@
 
     <p class="entradilla">Una inmobiliaria suele encajar en el rango de web pequeña o mediana de Renueva Smart: desde 600 € una web de 1 a 5 páginas, y desde 1.200 € una de 6 a 10. El antes/después, antes de pagar nada, es gratis. Así se calcula el número exacto.</p>
 
-    <h2>Por qué el tamaño depende de cómo ordenás comprar, vender y alquilar</h2>
-    <p>Una inmobiliaria que resuelve las tres rutas —comprar, vender y alquilar— con páginas claras y un listado integrado suele encajar en el rango de web pequeña, de 1 a 5 páginas, desde 600 €. Si además sumás páginas por zona, por tipo de propiedad o un equipo numeroso, entra en el rango de web mediana, de 6 a 10 páginas, desde 1.200 €.</p>
+    <h2>Por qué el tamaño depende de cómo <span data-i18n="h2_verbo">ordenas</span> comprar, vender y alquilar</h2>
+    <p>Una inmobiliaria que resuelve las tres rutas —comprar, vender y alquilar— con páginas claras y un listado integrado suele encajar en el rango de web pequeña, de 1 a 5 páginas, desde 600 €. Si además <span data-i18n="p_sumas">sumas</span> páginas por zona, por tipo de propiedad o un equipo numeroso, entra en el rango de web mediana, de 6 a 10 páginas, desde 1.200 €.</p>
     <p>Esos números están dentro de los tres rangos generales que maneja Renueva Smart para cualquier proyecto:</p>
     <ul>
       <li><strong>Landing · 1 página:</strong> 400-650 €. Todo en un solo scroll.</li>
@@ -151,9 +151,9 @@
 
     <h2>Qué mueve el precio dentro del rango</h2>
     <ul>
-      <li><strong>El tamaño exacto de la web</strong> — cuántas páginas o secciones necesitás, y si ya tenés logo y marca definidos.</li>
-      <li><strong>Si hay contenido para reaprovechar o si se parte de cero</strong> — si ya tenés textos y fotos, se reordenan y el proyecto va sobre el rango base. Si hay que estructurar todo desde el principio, sube alrededor de un 20 %.</li>
-      <li><strong>Quién publica la web nueva</strong> — si la publica Renueva Smart en tu dominio, va incluido en el precio. Si preferís que la implemente tu proveedor habitual, se entrega el diseño y los archivos, y el precio baja alrededor de un 15 %.</li>
+      <li><strong>El tamaño exacto de la web</strong> — cuántas páginas o secciones <span data-i18n="li1_necesitas">necesitas</span>, y si ya <span data-i18n="li1_tenes">tienes</span> logo y marca definidos.</li>
+      <li><strong>Si hay contenido para reaprovechar o si se parte de cero</strong> — si ya <span data-i18n="li2_tenes">tienes</span> textos y fotos, se reordenan y el proyecto va sobre el rango base. Si hay que estructurar todo desde el principio, sube alrededor de un 20 %.</li>
+      <li><strong>Quién publica la web nueva</strong> — si la publica Renueva Smart en tu dominio, va incluido en el precio. Si <span data-i18n="li3_preferis">prefieres</span> que la implemente tu proveedor habitual, se entrega el diseño y los archivos, y el precio baja alrededor de un 15 %.</li>
     </ul>
     <p>Lo que <strong>no</strong> cambia el precio: los retoques puntuales de una foto o un video —van dentro de las dos rondas de ajustes incluidas— y el alojamiento, cuando publica Renueva Smart, que va sin cuotas mensuales.</p>
 
@@ -191,7 +191,7 @@
     </div>
 
     <div class="caso-cta">
-      <p>¿Querés saber el número exacto para la web de tu inmobiliaria? Te armamos el antes/después gratis, sin compromiso.</p>
+      <p>¿<span data-i18n="cta_queres">Quieres</span> saber el número exacto para la web de tu inmobiliaria? Te armamos el antes/después gratis, sin compromiso.</p>
       <div class="caso-cta-acciones">
         <a href="https://wa.me/34602555026?text=Hola%2C%20quiero%20un%20presupuesto%20para%20la%20web%20de%20mi%20inmobiliaria" target="_blank" rel="noopener" class="btn-cta btn-cta-lg">Quiero ver mi web</a>
         <a href="../inmobiliarias.html" class="btn-secundario">Ver diseño web para inmobiliarias</a>
@@ -218,7 +218,16 @@
   </footer>
 
   <script>
-    const TEXTO_VOSEO = { cta_nav: 'Escribinos ahora' };
+    const TEXTO_VOSEO = {
+      cta_nav: 'Escribinos ahora',
+      cta_queres: 'Querés',
+      h2_verbo: 'ordenás',
+      p_sumas: 'sumás',
+      li1_necesitas: 'necesitás',
+      li1_tenes: 'tenés',
+      li2_tenes: 'tenés',
+      li3_preferis: 'preferís'
+    };
     function aplicarVariante(mapa) { Object.keys(mapa).forEach((clave) => { document.querySelectorAll('[data-i18n="' + clave + '"]').forEach((el) => { el.innerHTML = mapa[clave]; }); }); }
     function variantePorPais(pais) { if (!pais) return null; if (['AR', 'UY', 'PY'].includes(pais)) return 'voseo'; return 'neutro'; }
     function variantePorNavegador() { const lang = (navigator.language || '').toLowerCase(); if (lang.includes('es-ar') || lang.includes('es-uy') || lang.includes('es-py')) return 'voseo'; return 'neutro'; }

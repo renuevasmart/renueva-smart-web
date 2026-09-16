@@ -135,7 +135,7 @@
     <h1>5 señales de que la web de tu clínica dental necesita una renovación</h1>
     <p class="fecha">Última actualización: septiembre de 2026</p>
 
-    <p class="entradilla">Si tu web no deja claro qué tratamientos hacés, usa fotos de archivo en vez de tu equipo real, o pedir cita no se resuelve en un toque, estás perdiendo al paciente justo en el momento en que compara pocas clínicas y decide. Estas son las cinco señales más comunes — y qué hacer con cada una.</p>
+    <p class="entradilla">Si tu web no deja claro qué tratamientos <span data-i18n="entradilla_haces">haces</span>, usa fotos de archivo en vez de tu equipo real, o pedir cita no se resuelve en un toque, estás perdiendo al paciente justo en el momento en que compara pocas clínicas y decide. Estas son las cinco señales más comunes — y qué hacer con cada una.</p>
 
     <h2>1. No queda claro qué tratamientos ofrece la clínica</h2>
     <p>Implantología, ortodoncia e Invisalign, estética dental, endodoncia, periodoncia, odontopediatría, prótesis: si estos servicios no están bien separados y explicados, el paciente no sabe si tu clínica resuelve lo que necesita, y sigue buscando.</p>
@@ -144,7 +144,7 @@
     <p>Un paciente que busca dentista decide en buena parte por lo que transmite la web. Las fotos de archivo y la falta de datos sobre quién forma el equipo —y su colegiación— restan justo la confianza que hace falta para pedir una cita.</p>
 
     <h2>3. Pedir cita no es de un toque</h2>
-    <p>Si conseguir una cita implica llamar en horario de oficina o llenar un formulario largo, muchos pacientes potenciales abandonan antes de terminar. Pedir cita tiene que resolverse en un toque, con el canal que ya usás.</p>
+    <p>Si conseguir una cita implica llamar en horario de oficina o llenar un formulario largo, muchos pacientes potenciales abandonan antes de terminar. Pedir cita tiene que resolverse en un toque, con el canal que ya <span data-i18n="canal_usas">usas</span>.</p>
 
     <h2>4. No dice si hay financiación</h2>
     <p>La financiación es una de las dos cosas que más pesan en la decisión de un paciente dental, junto con cómo es la primera visita. Si la web no lo menciona, el paciente asume que no existe y sigue mirando otras opciones.</p>
@@ -173,7 +173,7 @@
     </div>
 
     <div class="caso-cta">
-      <p>¿Tenés una clínica dental con una web que no le hace justicia? Te armamos el antes/después gratis, sin compromiso.</p>
+      <p>¿<span data-i18n="cta_tenes">Tienes</span> una clínica dental con una web que no le hace justicia? Te armamos el antes/después gratis, sin compromiso.</p>
       <div class="caso-cta-acciones">
         <a href="https://wa.me/34602555026?text=Hola%2C%20quiero%20ver%20c%C3%B3mo%20quedar%C3%ADa%20la%20web%20de%20mi%20cl%C3%ADnica%20dental" target="_blank" rel="noopener" class="btn-cta btn-cta-lg">Quiero ver mi web</a>
         <a href="../clinicas-dentales.html" class="btn-secundario">Ver diseño web para clínicas dentales</a>
@@ -200,7 +200,12 @@
   </footer>
 
   <script>
-    const TEXTO_VOSEO = { cta_nav: 'Escribinos ahora' };
+    const TEXTO_VOSEO = {
+      cta_nav: 'Escribinos ahora',
+      cta_tenes: 'Tenés',
+      entradilla_haces: 'hacés',
+      canal_usas: 'usás'
+    };
     function aplicarVariante(mapa) { Object.keys(mapa).forEach((clave) => { document.querySelectorAll('[data-i18n="' + clave + '"]').forEach((el) => { el.innerHTML = mapa[clave]; }); }); }
     function variantePorPais(pais) { if (!pais) return null; if (['AR', 'UY', 'PY'].includes(pais)) return 'voseo'; return 'neutro'; }
     function variantePorNavegador() { const lang = (navigator.language || '').toLowerCase(); if (lang.includes('es-ar') || lang.includes('es-uy') || lang.includes('es-py')) return 'voseo'; return 'neutro'; }
