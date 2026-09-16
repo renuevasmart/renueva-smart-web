@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blog — Renueva Smart</title>
+<meta name="description" content="Guías prácticas sobre presencia digital y confianza para notarías, escribanías y demás negocios de servicios profesionales.">
+<meta name="theme-color" content="#0b0c0e">
+<link rel="canonical" href="https://renuevasmart.com/blog/">
+<link rel="icon" href="../assets/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../assets/favicon-16.png">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+<script src="../assets/consent.js" defer></script>
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Renueva Smart">
+<meta property="og:locale" content="es_ES">
+<meta property="og:locale:alternate" content="es_UY">
+<meta property="og:title" content="Blog — Renueva Smart">
+<meta property="og:description" content="Guías prácticas sobre presencia digital y confianza para notarías, escribanías y demás negocios de servicios profesionales.">
+<meta property="og:image" content="https://renuevasmart.com/assets/og-image.jpg">
+<meta property="og:url" content="https://renuevasmart.com/blog/">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,700;0,800;1,500;1,600&family=Fraunces:ital,opsz,wght@0,9..144,600;0,9..144,700;1,9..144,500&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Blog",
+      "@id": "https://renuevasmart.com/blog/#blog",
+      "name": "Blog de Renueva Smart",
+      "url": "https://renuevasmart.com/blog/",
+      "publisher": { "@id": "https://renuevasmart.com/#negocio" },
+      "blogPost": [
+        { "@id": "https://renuevasmart.com/blog/senales-web-notaria-necesita-renovacion.html#articulo" },
+        { "@id": "https://renuevasmart.com/blog/cuanto-cuesta-web-notaria-escribania.html#articulo" }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://renuevasmart.com/" },
+        { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://renuevasmart.com/blog/" }
+      ]
+    }
+  ]
+}
+</script>
+<style>
+  :root {
+    --color-brand: #ff6a00;
+    --color-brand-hover: #ff7a1a;
+    --color-bg-primary: #0b0c0e;
+    --color-bg-secondary: #151719;
+    --color-bg-tertiary: #25282c;
+    --color-text-primary: #f5f3ee;
+    --color-text-secondary: #d9dce0;
+    --color-text-muted: #92979d;
+    --color-border-subtle: rgba(255, 255, 255, 0.08);
+    --color-border-default: rgba(255, 255, 255, 0.12);
+    --color-border-strong: rgba(255, 255, 255, 0.18);
+    --font-display: "Fraunces", Georgia, "Iowan Old Style", serif;
+    --font-ui: "Plus Jakarta Sans", "Segoe UI", -apple-system, Roboto, Arial, sans-serif;
+    --radius-2xl: 16px;
+    --radius-3xl: 24px;
+    --radius-pill: 999px;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: var(--color-bg-primary); color: var(--color-text-primary); font-family: var(--font-ui); }
+  a { color: inherit; }
+  img, video { max-width: 100%; display: block; }
+
+  .nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 40;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 18px clamp(20px, 4vw, 56px);
+    background: rgba(11,12,14,0.92); backdrop-filter: blur(8px);
+    box-shadow: 0 1px 0 var(--color-border-subtle);
+  }
+  .nav-logo { height: 52px; }
+  .nav-links { display: flex; align-items: center; gap: 28px; }
+  .nav-links a { font-weight: 600; font-size: calc(14px + 2pt); text-decoration: none; color: var(--color-text-secondary); }
+  .nav-links a:hover { color: var(--color-text-primary); }
+  @media (max-width: 960px) { .nav-links { display: none; } }
+  .btn-cta {
+    font-weight: 800; font-size: 14.5px; color: var(--color-bg-primary); background: var(--color-brand);
+    border: none; border-radius: var(--radius-pill); padding: 11px 22px; text-decoration: none;
+    display: inline-block; transition: background 0.15s ease, transform 0.15s ease; white-space: nowrap;
+  }
+  .btn-cta:hover { background: var(--color-brand-hover); transform: translateY(-1px); }
+
+  .contenido { max-width: 780px; margin: 0 auto; padding: clamp(130px, 17vw, 170px) clamp(20px, 4vw, 56px) 40px; }
+  .eyebrow-oscuro { font-weight: 800; font-size: 12.5px; letter-spacing: 0.09em; text-transform: uppercase; color: var(--color-brand); }
+  .contenido h1 { font-family: var(--font-display); font-weight: 700; font-size: clamp(30px, 4.6vw, 48px); line-height: 1.12; margin: 12px 0 0; text-wrap: balance; }
+  .contenido h2 { font-family: var(--font-display); font-weight: 700; font-size: clamp(20px, 2.4vw, 26px); margin: 44px 0 18px; text-wrap: balance; }
+  .contenido p { font-size: 16px; line-height: 1.7; color: var(--color-text-secondary); }
+  .contenido .entradilla { font-size: 18px; color: var(--color-text-primary); margin-top: 20px; }
+
+  .lista-articulos { display: flex; flex-direction: column; gap: 1px; background: var(--color-border-default); border: 1px solid var(--color-border-default); border-radius: var(--radius-3xl); overflow: hidden; }
+  .articulo-item { background: var(--color-bg-secondary); padding: 26px 28px; text-decoration: none; display: block; transition: background 0.15s ease; }
+  .articulo-item:hover { background: var(--color-bg-tertiary); }
+  .articulo-eyebrow { font-weight: 800; font-size: 11.5px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-brand); }
+  .articulo-item h3 { font-family: var(--font-display); font-weight: 700; font-size: 21px; color: var(--color-text-primary); margin: 8px 0 8px; text-wrap: balance; }
+  .articulo-item p { margin: 0; font-size: 14.5px; color: var(--color-text-secondary); }
+
+  .footer { background: var(--color-bg-secondary); color: var(--color-text-secondary); padding: 48px clamp(20px, 4vw, 56px) 40px; border-top: 1px solid var(--color-border-subtle); margin-top: 56px; }
+  .footer-fila { max-width: 1120px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 20px; }
+  .footer-logo { height: 52px; opacity: 0.9; }
+  .footer-links { display: flex; justify-content: center; gap: 22px; flex-wrap: wrap; }
+  .footer-links a { font-size: 13.5px; text-decoration: none; color: var(--color-text-secondary); }
+  .footer-links a:hover { color: var(--color-text-primary); }
+  .footer-copy { font-size: 12.5px; margin-top: 22px; text-align: center; color: var(--color-text-muted); }
+</style>
+</head>
+<body>
+
+  <nav class="nav">
+    <a href="../index.html"><img class="nav-logo" src="../assets/logo.png" alt="Renueva Smart"></a>
+    <div class="nav-links">
+      <a href="../index.html#resenas">Reseñas</a>
+      <a href="../como-empezar.html">Cómo trabajamos</a>
+      <a href="../index.html#que-hacemos">Servicios</a>
+      <a href="../precio-rediseno-web.html">Precios</a>
+      <a href="../contacto.html">Contacto</a>
+      <a href="index.html">Blog</a>
+    </div>
+    <a href="https://wa.me/34602555026?text=Hola%2C%20quiero%20m%C3%A1s%20informaci%C3%B3n" target="_blank" rel="noopener" class="btn-cta" data-i18n="cta_nav">Escríbenos ahora</a>
+  </nav>
+
+  <article class="contenido">
+    <span class="eyebrow-oscuro">Blog</span>
+    <h1>Presencia digital y confianza para negocios de servicios profesionales</h1>
+    <p class="entradilla">Guías prácticas para dueños de notarías, despachos, gestorías, inmobiliarias y clínicas que quieren que su web transmita lo mismo que transmiten en persona.</p>
+
+    <h2>Notarías y escribanías</h2>
+    <div class="lista-articulos">
+      <a class="articulo-item" href="senales-web-notaria-necesita-renovacion.html">
+        <span class="articulo-eyebrow">Notarías y escribanías</span>
+        <h3>5 señales de que la web de tu notaría o escribanía necesita una renovación</h3>
+        <p>Ficha del Colegio, blog de plantilla, web rota en el móvil: las cinco señales más comunes, y qué hacer con cada una.</p>
+      </a>
+      <a class="articulo-item" href="cuanto-cuesta-web-notaria-escribania.html">
+        <span class="articulo-eyebrow">Notarías y escribanías</span>
+        <h3>Cuánto cuesta una web para notaría o escribanía en 2026</h3>
+        <p>Rangos reales de precio, qué mueve el número dentro de cada rango y qué incluye siempre el rediseño.</p>
+      </a>
+    </div>
+  </article>
+
+  <footer class="footer">
+    <div class="footer-fila">
+      <a href="../index.html"><img class="footer-logo" src="../assets/logo.png" alt="Renueva Smart"></a>
+      <div class="footer-links">
+        <a href="../index.html#resenas">Reseñas</a>
+        <a href="../index.html#problema">¿Qué falla en mi web?</a>
+        <a href="../como-empezar.html">Cómo trabajamos</a>
+        <a href="../index.html#que-hacemos">Servicios</a>
+        <a href="../index.html#sectores">Sectores</a>
+        <a href="../index.html#preguntas">Preguntas</a>
+        <a href="../precio-rediseno-web.html">Precios</a>
+        <a href="../contacto.html">Contacto</a>
+        <a href="index.html">Blog</a>
+      </div>
+    </div>
+    <p class="footer-copy">© 2026 Renueva Smart — Alejandro Vidal Voglino</p>
+  </footer>
+
+  <script>
+    const TEXTO_VOSEO = { cta_nav: 'Escribinos ahora' };
+    function aplicarVariante(mapa) {
+      Object.keys(mapa).forEach((clave) => {
+        document.querySelectorAll('[data-i18n="' + clave + '"]').forEach((el) => { el.innerHTML = mapa[clave]; });
+      });
+    }
+    function variantePorPais(pais) {
+      if (!pais) return null;
+      if (['AR', 'UY', 'PY'].includes(pais)) return 'voseo';
+      return 'neutro';
+    }
+    function variantePorNavegador() {
+      const lang = (navigator.language || '').toLowerCase();
+      if (lang.includes('es-ar') || lang.includes('es-uy') || lang.includes('es-py')) return 'voseo';
+      return 'neutro';
+    }
+    function aplicarSegun(variante) {
+      if (variante === 'voseo') aplicarVariante(TEXTO_VOSEO);
+    }
+    (function detectarVarianteDeLead() {
+      const controlador = new AbortController();
+      const limite = setTimeout(() => controlador.abort(), 2500);
+      fetch('https://ipapi.co/json/', { signal: controlador.signal })
+        .then((r) => r.json())
+        .then((datos) => { clearTimeout(limite); aplicarSegun(variantePorPais(datos && datos.country_code) || variantePorNavegador()); })
+        .catch(() => { clearTimeout(limite); aplicarSegun(variantePorNavegador()); });
+    })();
+  </script>
+</body>
+</html>
