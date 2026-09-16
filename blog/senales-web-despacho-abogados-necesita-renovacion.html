@@ -147,16 +147,16 @@
     <h1>5 señales de que la web de tu despacho necesita una renovación</h1>
     <p class="fecha">Última actualización: septiembre de 2026</p>
 
-    <p class="entradilla">Si la web de tu despacho parece la de cualquier otro estudio jurídico, no deja claro en qué áreas trabajás, o no se ve quién forma el equipo, está fallando justo donde un cliente decide si te llama. Estas son las cinco señales más comunes que vemos al revisar webs de despachos — y qué hacer con cada una.</p>
+    <p class="entradilla">Si la web de tu despacho parece la de cualquier otro estudio jurídico, no deja claro en qué áreas <span data-i18n="entradilla_trabajas">trabajas</span>, o no se ve quién forma el equipo, está fallando justo donde un cliente decide si te llama. Estas son las cinco señales más comunes que vemos al revisar webs de despachos — y qué hacer con cada una.</p>
 
     <h2>1. Tu web es una plantilla de directorio jurídico</h2>
     <p>El patrón más común en el sector: una web de plantilla de directorio jurídico, con fotos de archivo y textos que podrían ser de cualquier despacho. No hay nada que distinga tu forma de trabajar de la del estudio de la cuadra de al lado.</p>
 
-    <h2>2. No queda claro en qué áreas de práctica trabajás</h2>
-    <p>Civil, penal, laboral, mercantil, familia, extranjería, administrativo: un despacho puede cubrir varias, pero si no están bien separadas y explicadas, el visitante no sabe si vos sos quien necesita. Ordenar bien las áreas de práctica es la mitad del trabajo — es lo que busca el visitante y lo que Google necesita para mostrarte en los resultados.</p>
+    <h2>2. No queda claro en qué áreas de práctica <span data-i18n="h2_trabajas">trabajas</span></h2>
+    <p>Civil, penal, laboral, mercantil, familia, extranjería, administrativo: un despacho puede cubrir varias, pero si no están bien separadas y explicadas, el visitante no sabe si <span data-i18n="vos_sos">tú eres</span> quien necesita. Ordenar bien las áreas de práctica es la mitad del trabajo — es lo que busca el visitante y lo que Google necesita para mostrarte en los resultados.</p>
 
     <h2>3. No se ve quién forma el equipo ni su experiencia</h2>
-    <p>Un cliente que busca abogado juzga la solvencia del despacho por su web antes de descolgar el teléfono. Si no hay nombres, trayectoria ni criterio detrás de cada área, no tiene de qué agarrarse para elegirte a vos y no al estudio de al lado.</p>
+    <p>Un cliente que busca abogado juzga la solvencia del despacho por su web antes de descolgar el teléfono. Si no hay nombres, trayectoria ni criterio detrás de cada área, no tiene de qué agarrarse para elegirte <span data-i18n="elegirte_a">a ti</span> y no al estudio de al lado.</p>
 
     <h2>4. No está claro cómo es el primer contacto</h2>
     <p>Alguien con un problema legal no quiere adivinar si tiene que llamar, escribir o completar un formulario perdido en una página de contacto. La web tiene que resolver en un paso cómo pedir una consulta.</p>
@@ -185,7 +185,7 @@
     </div>
 
     <div class="caso-cta">
-      <p>¿Tenés un despacho o estudio jurídico con una web que no le hace justicia? Te armamos el antes/después gratis, sin compromiso.</p>
+      <p>¿<span data-i18n="cta_tenes">Tienes</span> un despacho o estudio jurídico con una web que no le hace justicia? Te armamos el antes/después gratis, sin compromiso.</p>
       <div class="caso-cta-acciones">
         <a href="https://wa.me/34602555026?text=Hola%2C%20quiero%20ver%20c%C3%B3mo%20quedar%C3%ADa%20la%20web%20de%20mi%20despacho" target="_blank" rel="noopener" class="btn-cta btn-cta-lg">Quiero ver mi web</a>
         <a href="../abogados.html" class="btn-secundario">Ver diseño web para despachos</a>
@@ -212,7 +212,14 @@
   </footer>
 
   <script>
-    const TEXTO_VOSEO = { cta_nav: 'Escribinos ahora' };
+    const TEXTO_VOSEO = {
+      cta_nav: 'Escribinos ahora',
+      cta_tenes: 'Tenés',
+      entradilla_trabajas: 'trabajás',
+      h2_trabajas: 'trabajás',
+      vos_sos: 'vos sos',
+      elegirte_a: 'a vos'
+    };
     function aplicarVariante(mapa) { Object.keys(mapa).forEach((clave) => { document.querySelectorAll('[data-i18n="' + clave + '"]').forEach((el) => { el.innerHTML = mapa[clave]; }); }); }
     function variantePorPais(pais) { if (!pais) return null; if (['AR', 'UY', 'PY'].includes(pais)) return 'voseo'; return 'neutro'; }
     function variantePorNavegador() { const lang = (navigator.language || '').toLowerCase(); if (lang.includes('es-ar') || lang.includes('es-uy') || lang.includes('es-py')) return 'voseo'; return 'neutro'; }

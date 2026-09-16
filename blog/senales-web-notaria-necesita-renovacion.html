@@ -177,16 +177,16 @@
     <p class="entradilla">Si tu notaría o escribanía aparece solo en la ficha del Colegio, usa un blog de plantilla que nadie tocó en años, o no se lee bien en el móvil, tu web ya no está transmitiendo la seriedad que exige la función notarial. Estas son las cinco señales más comunes que vemos al revisar webs del sector — y qué hacer con cada una.</p>
 
     <h2>1. Tu única presencia digital es la ficha del Colegio de Escribanos o Notarios</h2>
-    <p>Estar listado en el portal del Colegio te hace encontrable, pero no te hace elegible. Es una ficha que no controlás vos: mismo formato que el resto del listado, sin espacio para explicar tu trayectoria, tus áreas de práctica o por qué alguien debería elegirte a vos y no a la escribanía de al lado. Quien busca un notario o un escribano compara pocas opciones y decide en buena parte por lo que transmite lo que encuentra online. Si lo único que hay es esa ficha, estás compitiendo con las manos atadas.</p>
+    <p>Estar listado en el portal del Colegio te hace encontrable, pero no te hace elegible. Es una ficha que <span data-i18n="ficha_controlas">no controlas tú</span>: mismo formato que el resto del listado, sin espacio para explicar tu trayectoria, tus áreas de práctica o por qué alguien debería elegirte <span data-i18n="elegirte_a">a ti</span> y no a la escribanía de al lado. Quien busca un notario o un escribano compara pocas opciones y decide en buena parte por lo que transmite lo que encuentra online. Si lo único que hay es esa ficha, estás compitiendo con las manos atadas.</p>
 
-    <h2>2. Tenés un blog o una web de plantilla, montada hace años</h2>
+    <h2>2. <span data-i18n="h2_tenes">Tienes</span> un blog o una web de plantilla, montada hace años</h2>
     <p>Es la situación más común en el sector: una web armada alguna vez sobre una plantilla genérica, que en su momento cumplió pero que hoy no se distingue de la de cualquier otro despacho. No transmite nada propio, y si no se actualizó en un tiempo, probablemente tampoco carga rápido ni sigue las convenciones que un visitante espera hoy de un sitio profesional.</p>
 
     <h2>3. En el móvil se ve rota — y ahí te busca casi todo el mundo</h2>
     <p>Textos que no entran en la pantalla, botones que hay que buscar con el dedo, menús que no despliegan bien: son las fallas más frecuentes en webs que se diseñaron pensando solo en el escritorio. El problema es que la mayoría de las búsquedas de "notario cerca de mí" o "escribano en [ciudad]" pasan por el teléfono. Una web que no funciona ahí pierde al visitante antes de que llegue a leer una palabra sobre tu trayectoria.</p>
 
-    <h2>4. No queda claro qué trámites cubrís ni cómo pedir cita</h2>
-    <p>Alguien que llega a la web de una notaría busca resolver algo puntual: una compraventa, un préstamo hipotecario, una herencia, un poder, una constitución de sociedad. Si esa información está enterrada, repartida sin orden, o directamente no está, el visitante no se va a poner a buscarla — va a cerrar la pestaña y probar con otro resultado de Google. La web tiene que resolver en segundos: quién sos, qué trámites hacés, dónde estás y cómo pedir cita.</p>
+    <h2>4. No queda claro qué trámites <span data-i18n="h2_cubris">cubres</span> ni cómo pedir cita</h2>
+    <p>Alguien que llega a la web de una notaría busca resolver algo puntual: una compraventa, un préstamo hipotecario, una herencia, un poder, una constitución de sociedad. Si esa información está enterrada, repartida sin orden, o directamente no está, el visitante no se va a poner a buscarla — va a cerrar la pestaña y probar con otro resultado de Google. La web tiene que resolver en segundos: <span data-i18n="quien_sos">quién eres</span>, qué trámites <span data-i18n="hacer_haces">haces</span>, dónde estás y cómo pedir cita.</p>
 
     <h2>5. La estética no está a la altura de la seriedad de tu función</h2>
     <p>Alguien que va a firmar una escritura, un poder o una herencia busca criterio y solvencia antes que nada. Si la web se ve genérica, anticuada o descuidada, transmite lo contrario de lo que hace la función notarial — aunque el trabajo detrás sea impecable. La mayoría de los clientes descarta un despacho por la web antes de levantar el teléfono.</p>
@@ -212,7 +212,7 @@
     </div>
 
     <div class="caso-cta">
-      <p>¿Tenés una notaría o escribanía con una web que no le hace justicia? Te armamos el antes/después gratis, sin compromiso.</p>
+      <p>¿<span data-i18n="cta_tenes">Tienes</span> una notaría o escribanía con una web que no le hace justicia? Te armamos el antes/después gratis, sin compromiso.</p>
       <div class="caso-cta-acciones">
         <a href="https://wa.me/34602555026?text=Hola%2C%20quiero%20ver%20c%C3%B3mo%20quedar%C3%ADa%20la%20web%20de%20mi%20notar%C3%ADa" target="_blank" rel="noopener" class="btn-cta btn-cta-lg">Quiero ver mi web</a>
         <a href="../notarias.html" class="btn-secundario">Ver diseño web para notarías</a>
@@ -240,7 +240,16 @@
 
   <script>
     /* Variante de CTA según el país del visitante — mismo criterio que el resto del sitio. */
-    const TEXTO_VOSEO = { cta_nav: 'Escribinos ahora' };
+    const TEXTO_VOSEO = {
+      cta_nav: 'Escribinos ahora',
+      cta_tenes: 'Tenés',
+      ficha_controlas: 'no controlás vos',
+      elegirte_a: 'a vos',
+      h2_tenes: 'Tenés',
+      h2_cubris: 'cubrís',
+      quien_sos: 'quién sos',
+      hacer_haces: 'hacés'
+    };
     function aplicarVariante(mapa) {
       Object.keys(mapa).forEach((clave) => {
         document.querySelectorAll('[data-i18n="' + clave + '"]').forEach((el) => { el.innerHTML = mapa[clave]; });

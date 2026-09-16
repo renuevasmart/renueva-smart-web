@@ -135,19 +135,19 @@
     <h1>5 señales de que la web de tu gestoría o asesoría necesita una renovación</h1>
     <p class="fecha">Última actualización: septiembre de 2026</p>
 
-    <p class="entradilla">Si tu web todavía lista servicios que ya no ofrecés, usa epígrafes que solo entiende alguien del gremio, o no deja claro cómo empezar a trabajar con vos, está perdiendo al cliente que llega con un problema concreto y busca a alguien que se lo resuelva. Estas son las cinco señales más comunes — y qué hacer con cada una.</p>
+    <p class="entradilla">Si tu web todavía lista servicios que ya no <span data-i18n="entradilla_ofreces">ofreces</span>, usa epígrafes que solo entiende alguien del gremio, o no deja claro cómo empezar a trabajar <span data-i18n="entradilla_contigo">contigo</span>, está perdiendo al cliente que llega con un problema concreto y busca a alguien que se lo resuelva. Estas son las cinco señales más comunes — y qué hacer con cada una.</p>
 
-    <h2>1. Los servicios en tu web ya no coinciden con lo que ofrecés hoy</h2>
+    <h2>1. Los servicios en tu web ya no coinciden con lo que <span data-i18n="h2_ofreces">ofreces</span> hoy</h2>
     <p>Muchas gestorías arrastran una web de hace años, armada cuando el estudio era más chico o cubría menos áreas. Si un cliente potencial lee servicios que ya no das —o no encuentra los que sí— la web está trabajando en contra tuya.</p>
 
     <h2>2. Es una lista de epígrafes que no dice nada a quien no es del gremio</h2>
-    <p>"IAE", "modelo 036" o "régimen de estimación objetiva" tienen sentido para vos, no para el cliente que llega buscando ayuda. Si la web habla en la jerga del gremio en vez de en el problema del cliente, lo pierde antes de que entienda que podés ayudarlo.</p>
+    <p>"IAE", "modelo 036" o "régimen de estimación objetiva" tienen sentido <span data-i18n="para_vos">para ti</span>, no para el cliente que llega buscando ayuda. Si la web habla en la jerga del gremio en vez de en el problema del cliente, lo pierde antes de que entienda que <span data-i18n="podes_ayudarlo1">puedes</span> ayudarlo.</p>
 
     <h2>3. No traduce tus servicios al lenguaje del cliente</h2>
     <p>El cliente de una gestoría casi nunca sabe con exactitud qué necesita: sabe que tiene un asunto —darse de alta como autónomo, un impuesto, una nómina, una herencia, constituir una sociedad— y quiere que alguien se lo resuelva. La web tiene que traducir fiscal, laboral, contable y mercantil a esos problemas concretos.</p>
 
-    <h2>4. No queda claro cómo se empieza a trabajar con vos</h2>
-    <p>Después de entender que podés ayudarlo, el cliente necesita saber el siguiente paso: ¿llama, escribe, pide una reunión? Si eso no está claro, se va a buscar a otra gestoría que sí se lo diga.</p>
+    <h2>4. No queda claro cómo se empieza a trabajar <span data-i18n="h2_contigo">contigo</span></h2>
+    <p>Después de entender que <span data-i18n="podes_ayudarlo2">puedes</span> ayudarlo, el cliente necesita saber el siguiente paso: ¿llama, escribe, pide una reunión? Si eso no está claro, se va a buscar a otra gestoría que sí se lo diga.</p>
 
     <h2>5. En el móvil, donde te busca la mayoría, la información queda desordenada</h2>
     <p>Quien busca gestoría lo hace casi siempre desde el teléfono, muchas veces con apuro por un trámite con fecha límite. Un menú que no despliega bien o un texto que no entra en la pantalla lo empuja al siguiente resultado de Google.</p>
@@ -173,7 +173,7 @@
     </div>
 
     <div class="caso-cta">
-      <p>¿Tenés una gestoría o asesoría con una web que no le hace justicia? Te armamos el antes/después gratis, sin compromiso.</p>
+      <p>¿<span data-i18n="cta_tenes">Tienes</span> una gestoría o asesoría con una web que no le hace justicia? Te armamos el antes/después gratis, sin compromiso.</p>
       <div class="caso-cta-acciones">
         <a href="https://wa.me/34602555026?text=Hola%2C%20quiero%20ver%20c%C3%B3mo%20quedar%C3%ADa%20la%20web%20de%20mi%20gestor%C3%ADa" target="_blank" rel="noopener" class="btn-cta btn-cta-lg">Quiero ver mi web</a>
         <a href="../gestorias.html" class="btn-secundario">Ver diseño web para gestorías</a>
@@ -200,7 +200,17 @@
   </footer>
 
   <script>
-    const TEXTO_VOSEO = { cta_nav: 'Escribinos ahora' };
+    const TEXTO_VOSEO = {
+      cta_nav: 'Escribinos ahora',
+      cta_tenes: 'Tenés',
+      entradilla_ofreces: 'ofrecés',
+      entradilla_contigo: 'con vos',
+      h2_ofreces: 'ofrecés',
+      para_vos: 'para vos',
+      podes_ayudarlo1: 'podés',
+      h2_contigo: 'con vos',
+      podes_ayudarlo2: 'podés'
+    };
     function aplicarVariante(mapa) { Object.keys(mapa).forEach((clave) => { document.querySelectorAll('[data-i18n="' + clave + '"]').forEach((el) => { el.innerHTML = mapa[clave]; }); }); }
     function variantePorPais(pais) { if (!pais) return null; if (['AR', 'UY', 'PY'].includes(pais)) return 'voseo'; return 'neutro'; }
     function variantePorNavegador() { const lang = (navigator.language || '').toLowerCase(); if (lang.includes('es-ar') || lang.includes('es-uy') || lang.includes('es-py')) return 'voseo'; return 'neutro'; }
