@@ -110,6 +110,13 @@
   .contenido p { font-size: 16px; line-height: 1.7; color: var(--color-text-secondary); }
   .contenido .entradilla { font-size: 18px; color: var(--color-text-primary); margin-top: 20px; }
 
+  .sectores-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: var(--color-border-default); border: 1px solid var(--color-border-default); border-radius: var(--radius-3xl); overflow: hidden; margin: 32px 0 8px; }
+  .sector-tarjeta { background: var(--color-bg-secondary); padding: clamp(20px, 3vw, 26px); display: flex; flex-direction: column; gap: 4px; text-decoration: none; transition: background 0.15s ease; }
+  .sector-tarjeta:hover { background: var(--color-bg-tertiary); }
+  .sector-tarjeta h3 { font-family: var(--font-display); font-weight: 700; font-size: 17px; margin: 0; color: var(--color-text-primary); }
+  .sector-tarjeta span { font-size: 13px; color: var(--color-text-muted); }
+  @media (max-width: 560px) { .sectores-grid { grid-template-columns: 1fr; } }
+
   .lista-articulos { display: flex; flex-direction: column; gap: 1px; background: var(--color-border-default); border: 1px solid var(--color-border-default); border-radius: var(--radius-3xl); overflow: hidden; }
   .articulo-item { background: var(--color-bg-secondary); padding: 26px 28px; text-decoration: none; display: block; transition: background 0.15s ease; }
   .articulo-item:hover { background: var(--color-bg-tertiary); }
@@ -146,7 +153,34 @@
     <h1>Presencia digital y confianza para negocios de servicios profesionales</h1>
     <p class="entradilla">Guías prácticas para dueños de notarías, despachos, gestorías, inmobiliarias y clínicas que quieren que su web transmita lo mismo que transmiten en persona.</p>
 
-    <h2>Notarías y escribanías</h2>
+    <div class="sectores-grid">
+      <a class="sector-tarjeta" href="#notarias">
+        <h3>Notarías y escribanías</h3>
+        <span>2 artículos</span>
+      </a>
+      <a class="sector-tarjeta" href="../abogados.html">
+        <h3>Abogados y estudios jurídicos</h3>
+        <span>Ver cómo trabajamos →</span>
+      </a>
+      <a class="sector-tarjeta" href="../gestorias.html">
+        <h3>Gestorías y asesorías</h3>
+        <span>Ver cómo trabajamos →</span>
+      </a>
+      <a class="sector-tarjeta" href="../inmobiliarias.html">
+        <h3>Inmobiliarias</h3>
+        <span>Ver cómo trabajamos →</span>
+      </a>
+      <a class="sector-tarjeta" href="../clinicas-dentales.html">
+        <h3>Clínicas dentales</h3>
+        <span>Ver cómo trabajamos →</span>
+      </a>
+      <a class="sector-tarjeta" href="../clinicas-esteticas.html">
+        <h3>Clínicas de estética</h3>
+        <span>Ver cómo trabajamos →</span>
+      </a>
+    </div>
+
+    <h2 id="notarias">Notarías y escribanías</h2>
     <div class="lista-articulos">
       <a class="articulo-item" href="senales-web-notaria-necesita-renovacion.html">
         <span class="articulo-eyebrow">Notarías y escribanías</span>
