@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Autorización de uso de caso y datos — Renueva Smart</title>
+<meta name="description" content="Consentimiento digital para que Renueva Smart pueda presentar tu proyecto como caso de éxito en su web y redes sociales: elegí qué autorizás, firmá en pantalla y recibí una copia en PDF.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="assets/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<script src="assets/consent.js" defer></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,700;0,800;1,500;1,600&family=Fraunces:ital,opsz,wght@0,9..144,600;0,9..144,700;1,9..144,500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --color-brand: #ff6a00;
+    --color-brand-hover: #ff7a1a;
+    --color-bg-primary: #0b0c0e;
+    --color-bg-secondary: #151719;
+    --color-bg-tertiary: #25282c;
+    --color-text-primary: #f5f3ee;
+    --color-text-secondary: #d9dce0;
+    --color-text-muted: #92979d;
+    --color-border-subtle: rgba(255, 255, 255, 0.08);
+    --color-border-default: rgba(255, 255, 255, 0.12);
+    --color-border-strong: rgba(255, 255, 255, 0.18);
+    /* variables aparte para el PDF (fondo blanco): un bug de html2canvas-pro
+       ignora los colores hexadecimales puestos directo en "color" y los
+       reemplaza por el color de texto heredado del body — usar var() lo evita. */
+    --pdf-texto-oscuro: #1a1a1a;
+    --pdf-texto-cuerpo: #444444;
+    --pdf-texto-tenue: #767676;
+    --pdf-borde-claro: #cccccc;
+    --pdf-borde-suave: #e5e5e5;
+    --pdf-fondo-tarjeta: #f7f7f7;
+    --pdf-rojo-no-autorizado: #d32f2f;
+    --font-display: "Fraunces", Georgia, "Iowan Old Style", serif;
+    --font-ui: "Plus Jakarta Sans", "Segoe UI", -apple-system, Roboto, Arial, sans-serif;
+    --radius-lg: 8px;
+    --radius-xl: 12px;
+    --radius-2xl: 16px;
+    --radius-pill: 999px;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--color-bg-primary); color: var(--color-text-primary); font-family: var(--font-ui); }
+  a { color: inherit; }
+  img { max-width: 100%; display: block; }
+
+  .nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 40;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 18px clamp(20px, 4vw, 56px);
+    background: rgba(11,12,14,0.92); backdrop-filter: blur(8px);
+    box-shadow: 0 1px 0 var(--color-border-subtle);
+  }
+  .nav-logo { height: 44px; }
+
+  .contenido { max-width: 780px; margin: 0 auto; padding: clamp(110px, 15vw, 150px) clamp(20px, 4vw, 56px) 60px; }
+  .eyebrow-oscuro { font-weight: 800; font-size: 12.5px; letter-spacing: 0.09em; text-transform: uppercase; color: var(--color-brand); }
+  .contenido h1 { font-family: var(--font-display); font-weight: 700; font-size: clamp(26px, 4vw, 38px); line-height: 1.15; margin: 10px 0 14px; text-wrap: balance; }
+  .contenido > p.lead { font-size: 15.5px; line-height: 1.65; color: var(--color-text-secondary); margin: 0 0 30px; }
+
+  .campo-proyecto { margin-bottom: 30px; }
+  .campo-proyecto label, .campo label { display: block; font-size: 11.5px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-text-muted); margin-bottom: 8px; }
+  .campo input, .campo textarea, .campo select, .campo-proyecto input {
+    width: 100%; font-family: inherit; font-size: 15px; color: var(--color-text-primary);
+    background: var(--color-bg-tertiary); border: 1px solid var(--color-border-default);
+    border-radius: var(--radius-lg); padding: 12px 14px;
+  }
+  .campo input:focus, .campo select:focus, .campo-proyecto input:focus { outline: 2px solid var(--color-brand); outline-offset: 1px; }
+  .campo-error { font-size: 12.5px; color: #ff8a65; margin: 6px 0 0; min-height: 16px; }
+
+  .pais-pills { display: flex; gap: 10px; }
+  .pais-pills input { position: absolute; opacity: 0; pointer-events: none; }
+  .pais-pills label {
+    flex: 1; text-align: center; padding: 10px 8px; font-weight: 700; font-size: 13.5px; cursor: pointer;
+    background: var(--color-bg-tertiary); border: 1px solid var(--color-border-default); border-radius: var(--radius-lg);
+    transition: border-color 0.15s ease, color 0.15s ease;
+  }
+  .pais-pills input:checked + label { border-color: var(--color-brand); color: var(--color-brand); }
+
+  .partes {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1px;
+    background: var(--color-border-default); border: 1px solid var(--color-border-default);
+    border-radius: var(--radius-2xl); overflow: hidden; margin-bottom: 30px;
+  }
+  .parte { background: var(--color-bg-secondary); padding: 22px clamp(18px, 3vw, 26px); display: flex; flex-direction: column; gap: 16px; }
+  .parte h2 { font-size: 12px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-brand); margin: 0; }
+  .parte .campo { margin: 0; }
+  .parte-estatica p { margin: 0; font-size: 15px; }
+  .parte-estatica .n { font-weight: 700; }
+  .parte-estatica .t { color: var(--color-text-muted); font-size: 13px; margin-top: 2px; }
+  @media (max-width: 620px) { .partes { grid-template-columns: 1fr; } }
+
+  .intro-autoriza { font-size: 15px; line-height: 1.7; color: var(--color-text-secondary); margin: 0 0 28px; }
+  .intro-autoriza strong { color: var(--color-text-primary); }
+
+  .seccion-items { margin-bottom: 26px; }
+  .seccion-items h3 { font-family: var(--font-display); font-weight: 700; font-size: 18px; margin: 0 0 6px; }
+  .seccion-items .sub { font-size: 13px; color: var(--color-text-muted); margin: 0 0 10px; }
+  .lista-items { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 1px; background: var(--color-border-subtle); border: 1px solid var(--color-border-subtle); border-radius: var(--radius-xl); overflow: hidden; }
+  .lista-items li { background: var(--color-bg-secondary); }
+  .lista-items label { display: flex; align-items: flex-start; gap: 12px; padding: 12px 16px; font-size: 14.5px; line-height: 1.5; color: var(--color-text-secondary); cursor: pointer; }
+  .lista-items input { margin-top: 3px; width: 17px; height: 17px; flex-shrink: 0; accent-color: var(--color-brand); }
+
+  .clausulas { margin: 30px 0; padding: 6px 22px; background: var(--color-bg-secondary); border: 1px solid var(--color-border-subtle); border-radius: var(--radius-xl); }
+  .clausulas h2 { font-family: var(--font-display); font-size: 18px; margin: 20px 0 4px; }
+  .clausula { padding: 12px 0; border-top: 1px solid var(--color-border-subtle); }
+  .clausula:first-of-type { border-top: none; }
+  .clausula h4 { font-size: 13.5px; font-weight: 800; margin: 0 0 4px; color: var(--color-text-primary); }
+  .clausula p { font-size: 13.5px; line-height: 1.65; color: var(--color-text-secondary); margin: 0; }
+
+  .callout {
+    margin: 30px 0; padding: 20px 22px; background: rgba(255,106,0,0.08);
+    border: 1px solid rgba(255,106,0,0.35); border-radius: var(--radius-xl);
+    font-size: 14px; line-height: 1.6; color: var(--color-text-secondary);
+  }
+  .callout strong { color: var(--color-brand); }
+
+  .campo-check { display: flex; align-items: flex-start; gap: 10px; margin: 18px 0; }
+  .campo-check input { margin-top: 3px; width: 18px; height: 18px; flex-shrink: 0; accent-color: var(--color-brand); }
+  .campo-check label { font-size: 14.5px; color: var(--color-text-primary); line-height: 1.5; font-weight: 600; }
+
+  .fila-lugar-fecha { display: grid; grid-template-columns: 2fr 1fr; gap: 16px; margin: 26px 0 30px; }
+  @media (max-width: 480px) { .fila-lugar-fecha { grid-template-columns: 1fr; } }
+
+  .firmas { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(20px, 3vw, 34px); margin-bottom: 30px; }
+  @media (max-width: 620px) { .firmas { grid-template-columns: 1fr; } }
+  .firma-bloque h2 { font-size: 12px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-text-muted); margin: 0 0 10px; }
+  .firma-lienzo {
+    width: 100%; height: 150px; background: var(--color-bg-tertiary);
+    border: 1px solid var(--color-border-default); border-radius: var(--radius-lg);
+    touch-action: none; cursor: crosshair;
+  }
+  .firma-borrar { margin-top: 8px; font-size: 12.5px; font-weight: 700; color: var(--color-text-muted); background: none; border: none; cursor: pointer; padding: 0; text-decoration: underline; }
+  .firma-borrar:hover { color: var(--color-text-primary); }
+  .firma-aclaracion { margin-top: 10px; font-size: 13.5px; color: var(--color-text-secondary); border-top: 1px solid var(--color-border-strong); padding-top: 8px; }
+  .firma-preescrita {
+    height: 150px; display: flex; align-items: center; justify-content: center;
+    background: var(--color-bg-tertiary); border: 1px solid var(--color-border-default); border-radius: var(--radius-lg);
+  }
+  .firma-preescrita img { max-width: 70%; max-height: 70%; object-fit: contain; }
+
+  .nota-legal { font-size: 12.5px; line-height: 1.6; color: var(--color-text-muted); text-align: center; margin: 18px 0 0; }
+
+  .error-envio { color: #ff8a65; font-size: 13.5px; margin: -18px 0 20px; display: none; }
+  .error-envio.visible { display: block; }
+
+  .btn-enviar {
+    font-weight: 800; font-size: 15.5px; color: var(--color-bg-primary); background: var(--color-brand);
+    border: none; border-radius: var(--radius-pill); padding: 15px 30px; cursor: pointer; width: 100%;
+    transition: background 0.15s ease, transform 0.15s ease;
+  }
+  .btn-enviar:hover { background: var(--color-brand-hover); transform: translateY(-1px); }
+  .btn-enviar:disabled { opacity: 0.6; cursor: wait; transform: none; }
+
+  .form-gracias {
+    display: none; text-align: center; padding: 34px 26px; background: var(--color-bg-secondary);
+    border: 1px solid var(--color-border-default); border-radius: var(--radius-2xl); margin-bottom: 24px; font-size: 15.5px; line-height: 1.6;
+  }
+  .form-gracias.visible { display: block; }
+  .form-gracias strong { color: var(--color-brand); }
+
+  .footer-copy { text-align: center; font-size: 12.5px; color: var(--color-text-muted); padding: 30px 20px; border-top: 1px solid var(--color-border-subtle); }
+
+  /* ---------- Hoja usada solo para generar el PDF (fondo blanco, paleta propia) ----------
+     Envuelta en un contenedor con height:0 + overflow:hidden en vez de display:none/visibility:hidden:
+     html2canvas mide mal (altura 0) los elementos ocultos por esas dos propiedades. */
+  #envoltorioHojaPdf { position: absolute; top: 0; left: 0; width: 0; height: 0; overflow: hidden; }
+  /* word-spacing explícito: sin esto html2canvas "come" espacios al rasterizar este texto (bug conocido de su motor de texto) */
+  #hojaPdf { width: 780px; background: #ffffff; color: var(--pdf-texto-oscuro); font-family: var(--font-ui); padding: 40px; word-spacing: 1.8px; }
+  #hojaPdf .marca-pdf { margin-bottom: 24px; }
+  #hojaPdf .marca-pdf img { height: 26px; }
+  #hojaPdf h1 { font-family: var(--font-display); font-size: 26px; margin: 8px 0 10px; color: var(--pdf-texto-oscuro); }
+  #hojaPdf .eyebrow-oscuro { display: block; margin-bottom: 6px; color: var(--color-brand); }
+  #hojaPdf p { font-size: 13px; line-height: 1.6; color: var(--pdf-texto-cuerpo); }
+  #hojaPdf .partes-pdf { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--pdf-borde-suave); border: 1px solid var(--pdf-borde-suave); border-radius: 16px; overflow: hidden; margin: 20px 0; }
+  #hojaPdf .parte-pdf { background: var(--pdf-fondo-tarjeta); padding: 18px 20px; }
+  #hojaPdf .parte-pdf h2 { font-size: 11px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-brand); margin: 0 0 10px; }
+  #hojaPdf .parte-pdf p { margin: 0 0 8px; font-size: 13px; color: var(--pdf-texto-oscuro); }
+  #hojaPdf .parte-pdf .t { color: var(--pdf-texto-tenue); font-size: 11.5px; }
+  #hojaPdf h3 { font-family: var(--font-display); font-size: 15px; margin: 20px 0 8px; color: var(--pdf-texto-oscuro); }
+  #hojaPdf ul { list-style: none; margin: 0 0 4px; padding: 0; }
+  #hojaPdf li { font-size: 12.5px; line-height: 1.5; color: var(--pdf-texto-cuerpo); padding: 3px 0; }
+  #hojaPdf li b { color: var(--color-brand); margin-right: 6px; }
+  #hojaPdf li b.no-autorizado { color: var(--pdf-rojo-no-autorizado); }
+  #hojaPdf .clausula-pdf { margin: 0 0 10px; }
+  #hojaPdf .clausula-pdf h4 { font-size: 12px; margin: 0 0 2px; color: var(--pdf-texto-oscuro); }
+  #hojaPdf .clausula-pdf p { font-size: 11.5px; line-height: 1.55; margin: 0; color: var(--pdf-texto-cuerpo); word-spacing: 4px; }
+  #hojaPdf > p, #hojaPdf li, #hojaPdf .parte-pdf p { word-spacing: 3.5px; }
+  #hojaPdf .firmas-pdf { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 28px; }
+  #hojaPdf .firmas-pdf img { height: 60px; object-fit: contain; }
+  #hojaPdf .firmas-pdf .linea { border-top: 1px solid var(--pdf-borde-claro); margin-top: 6px; padding-top: 6px; font-size: 11.5px; color: var(--pdf-texto-tenue); word-spacing: 3px; }
+  #hojaPdf .registro-pdf { margin-top: 22px; font-size: 10.5px; color: var(--pdf-texto-tenue); }
+</style>
+</head>
+<body>
+
+  <nav class="nav">
+    <a href="index.html"><img class="nav-logo" src="assets/logo.png" alt="Renueva Smart"></a>
+  </nav>
+
+  <div class="contenido">
+    <span class="eyebrow-oscuro">Autorización de uso de caso y datos</span>
+    <h1 id="tituloDoc">Presentar el caso de tu proyecto en la web y redes de Renueva Smart</h1>
+    <p class="lead">Nos gustaría mostrar tu proyecto como caso de éxito. Es totalmente voluntario: vos elegís qué contenidos y en qué canales — todo arranca desmarcado — y podés retirar el permiso cuando quieras. Completá, firmá en la pantalla y te queda una copia en PDF, a nosotros y a tu email.</p>
+
+    <div class="form-gracias" id="formGracias">
+      ¡Gracias! Recibimos tu autorización firmada. Te descargamos una copia en PDF y también te va a llegar por email.
+    </div>
+
+    <form id="formAutorizacion" action="https://formsubmit.co/contacto@publicasmart.com" method="POST" enctype="multipart/form-data">
+      <input type="hidden" name="_subject" value="Autorización de uso de caso firmada">
+      <input type="hidden" name="_template" value="table">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_next" value="autorizacion-caso-exito.html?enviado=1">
+      <input type="hidden" name="_cc" id="ccCliente" value="">
+      <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
+      <input type="file" name="Autorización firmada (PDF)" id="adjuntoPdf" style="display:none">
+      <input type="hidden" name="Proyecto" id="proyectoOculto">
+      <input type="hidden" name="País del cliente" id="paisOculto">
+      <input type="hidden" name="Resumen de lo autorizado" id="resumenOculto">
+      <input type="hidden" name="Firmado el (UTC)" id="marcaTiempoOculta">
+      <input type="hidden" name="Huella SHA-256 del PDF" id="huellaOculta">
+
+      <div class="campo-proyecto">
+        <label for="proyecto">Nombre del proyecto / persona / empresa</label>
+        <input type="text" id="proyecto" placeholder="Ej: Escribanía Acosta Pastore">
+      </div>
+
+      <div class="partes">
+        <div class="parte">
+          <h2>El cliente (quien autoriza)</h2>
+          <div class="pais-pills">
+            <input type="radio" name="pais" id="paisUY" value="UY" checked>
+            <label for="paisUY">Uruguay</label>
+            <input type="radio" name="pais" id="paisES" value="ES">
+            <label for="paisES">España</label>
+          </div>
+          <div class="campo">
+            <label for="clienteNombre">Nombre completo</label>
+            <input type="text" id="clienteNombre" name="Nombre completo" required>
+          </div>
+          <div class="campo">
+            <label for="clienteCedula" id="labelCedula">Cédula de identidad</label>
+            <input type="text" id="clienteCedula" name="Documento de identidad" required>
+            <p class="campo-error" id="avisoDoc"></p>
+          </div>
+          <div class="campo">
+            <label for="clienteEmail">Email</label>
+            <input type="email" id="clienteEmail" name="Email" required>
+          </div>
+        </div>
+        <div class="parte parte-estatica">
+          <h2>El proveedor</h2>
+          <div>
+            <p class="n">Alejandro Vidal Voglino</p>
+            <p class="t">CI: 4.680.863-6</p>
+            <p class="t">Renueva Smart — renuevasmart.com</p>
+          </div>
+        </div>
+      </div>
+
+      <p class="intro-autoriza">Por medio del presente documento, <strong>EL CLIENTE</strong> autoriza a <strong>EL PROVEEDOR</strong> a utilizar los contenidos y a publicar el caso de su proyecto únicamente en los términos que marque a continuación. <strong>Todo lo que quede sin marcar queda NO autorizado.</strong> Si firmás en nombre de una empresa, hacelo como su representante legal.</p>
+
+      <div class="seccion-items" data-grupo="contenidos">
+        <h3>A. Qué contenidos puede usar</h3>
+        <p class="sub">Marcá solo lo que estés de acuerdo en que se muestre.</p>
+        <ul class="lista-items">
+          <li><label><input type="checkbox" data-item="Nombre o razón social y marca del cliente"> Nombre o razón social y marca del cliente</label></li>
+          <li><label><input type="checkbox" data-item="Logo y elementos de identidad visual"> Logo y elementos de identidad visual</label></li>
+          <li><label><input type="checkbox" data-item="Capturas, imágenes y videos del sitio web (antes y después)"> Capturas, imágenes y videos del sitio web (antes y después)</label></li>
+          <li><label><input type="checkbox" data-item="Descripción del proyecto, del proceso y de los resultados obtenidos (visitas, posicionamiento, consultas, etc.)"> Descripción del proyecto, del proceso y de los resultados obtenidos (visitas, posicionamiento, consultas, etc.)</label></li>
+          <li><label><input type="checkbox" data-item="Testimonio o reseña del cliente (texto, con su nombre y cargo)"> Testimonio o reseña del cliente (texto, con su nombre y cargo)</label></li>
+          <li><label><input type="checkbox" data-item="Imagen y voz del cliente (fotografías o video en los que aparece)"> Imagen y voz del cliente (fotografías o video en los que aparece)</label></li>
+        </ul>
+      </div>
+
+      <div class="seccion-items" data-grupo="canales">
+        <h3>B. Dónde puede publicarse</h3>
+        <p class="sub">Elegí los canales. Podés autorizar unos y otros no.</p>
+        <ul class="lista-items">
+          <li><label><input type="checkbox" data-item="Sitio web renuevasmart.com (casos, portfolio, blog)"> Sitio web renuevasmart.com (casos, portfolio, blog)</label></li>
+          <li><label><input type="checkbox" data-item="Instagram y Facebook"> Instagram y Facebook</label></li>
+          <li><label><input type="checkbox" data-item="LinkedIn"> LinkedIn</label></li>
+          <li><label><input type="checkbox" data-item="TikTok, YouTube y X (Twitter)"> TikTok, YouTube y X (Twitter)</label></li>
+          <li><label><input type="checkbox" data-item="Correos, newsletters y presentaciones comerciales a potenciales clientes"> Correos, newsletters y presentaciones comerciales a potenciales clientes</label></li>
+          <li><label><input type="checkbox" data-item="Publicidad paga (anuncios en redes sociales y buscadores)"> Publicidad paga (anuncios en redes sociales y buscadores)</label></li>
+        </ul>
+      </div>
+
+      <div class="clausulas" id="clausulasPagina"></div>
+
+      <div class="callout">
+        <strong>Importante:</strong> tus datos de contacto, contraseñas y cualquier información confidencial o de tus propios clientes o pacientes <strong>nunca</strong> se publican. Antes de subir cada pieza te la mandamos por email y solo se publica si la aprobás.
+      </div>
+
+      <div class="campo-check">
+        <input type="checkbox" id="consentimiento" required>
+        <label for="consentimiento">He leído este documento y presto mi consentimiento libre, específico e informado para los usos que marqué arriba. Sé que puedo retirarlo cuando quiera.</label>
+      </div>
+      <div class="campo-check">
+        <input type="checkbox" id="facultades" required>
+        <label for="facultades">Declaro ser titular de los contenidos indicados, o tener facultades para autorizar su uso en nombre de la empresa o persona titular.</label>
+      </div>
+
+      <div class="fila-lugar-fecha">
+        <div class="campo">
+          <label for="lugar" id="labelLugar">Departamento</label>
+          <select id="lugar" name="Lugar" required></select>
+        </div>
+        <div class="campo">
+          <label for="fecha">Fecha</label>
+          <input type="date" id="fecha" name="Fecha" required>
+        </div>
+      </div>
+
+      <div class="firmas">
+        <div class="firma-bloque">
+          <h2>Firma del cliente</h2>
+          <canvas class="firma-lienzo" id="lienzoFirma"></canvas>
+          <button type="button" class="firma-borrar" id="borrarFirma">Borrar firma</button>
+          <p class="firma-aclaracion">Aclaración: <span id="aclaracionCliente">—</span></p>
+        </div>
+        <div class="firma-bloque">
+          <h2>Firma del proveedor</h2>
+          <div class="firma-preescrita"><img src="assets/firma-alejandro.png" alt="Firma de Alejandro Vidal Voglino"></div>
+          <p class="firma-aclaracion">Aclaración: Alejandro Vidal Voglino — Renueva Smart</p>
+        </div>
+      </div>
+
+      <p class="error-envio" id="errorEnvio">Completá todos los campos obligatorios, marcá al menos un contenido y un canal, y firmá antes de enviar.</p>
+
+      <button type="submit" class="btn-enviar" id="btnEnviar">Firmar y enviar</button>
+      <p class="nota-legal">Los datos de este formulario (nombre, documento, email y firma) se usan solo para documentar tu consentimiento y se archivan junto con el PDF firmado. Si no pudiste descargarlo o no te llegó el correo, avisanos.</p>
+    </form>
+  </div>
+
+  <p class="footer-copy">© 2026 Renueva Smart — Alejandro Vidal Voglino</p>
+
+  <!-- Hoja usada solo para generar el PDF: se llena con los mismos datos justo antes de firmar -->
+  <div id="envoltorioHojaPdf"><div id="hojaPdf">
+    <div class="marca-pdf"><img src="assets/logo-pdf-oscuro.png" alt="Renueva Smart"></div>
+    <span class="eyebrow-oscuro">Autorización de uso de caso y datos</span>
+    <h1 id="pdfTitulo"></h1>
+    <p>Consentimiento para la presentación pública del proyecto del cliente como caso de éxito en la web y redes sociales de Renueva Smart.</p>
+    <div class="partes-pdf">
+      <div class="parte-pdf">
+        <h2>El cliente (quien autoriza)</h2>
+        <p id="pdfClienteNombre"></p>
+        <p class="t" id="pdfClienteCedula"></p>
+        <p class="t" id="pdfClienteEmail"></p>
+        <p class="t" id="pdfClienteProyecto"></p>
+      </div>
+      <div class="parte-pdf">
+        <h2>El proveedor</h2>
+        <p>Alejandro Vidal Voglino</p>
+        <p class="t">CI: 4.680.863-6</p>
+        <p class="t">Renueva Smart — renuevasmart.com</p>
+      </div>
+    </div>
+    <p>EL CLIENTE autoriza a EL PROVEEDOR a utilizar los contenidos y a publicar el caso de su proyecto únicamente en los términos marcados a continuación. Todo lo no marcado queda NO autorizado.</p>
+    <div id="pdfListaItems"></div>
+    <h3>Condiciones</h3>
+    <div id="pdfClausulas"></div>
+    <p id="pdfLugarFecha"></p>
+    <div class="firmas-pdf">
+      <div>
+        <img id="pdfFirmaCliente" alt="Firma del cliente">
+        <div class="linea">Firma del cliente<br><span id="pdfAclaracionCliente"></span></div>
+      </div>
+      <div>
+        <img class="firma-preescrita-pdf" src="assets/firma-alejandro-oscura.png" alt="Firma de Alejandro Vidal Voglino">
+        <div class="linea">Firma del proveedor<br>Alejandro Vidal Voglino — Renueva Smart</div>
+      </div>
+    </div>
+    <p class="registro-pdf" id="pdfRegistro"></p>
+  </div></div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <!-- html2canvas-pro reemplaza el renderer viejo que trae html2pdf.bundle: en navegadores actualizados
+       ese renderer viejo devuelve un canvas en blanco (fondo sólido, sin nada del contenido real). -->
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas-pro@1.5.8/dist/html2canvas-pro.min.js"></script>
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const EMAIL_CONTACTO = 'contacto@publicasmart.com';
+
+    // ---------- País del cliente: documento, regiones y textos legales ----------
+    // Los textos están en tercera persona ("EL CLIENTE") para que sirvan igual en ambos países.
+    const CONFIG_PAIS = {
+      UY: {
+        labelDoc: 'Cédula o RUT', labelLugar: 'Departamento', lugarDefault: 'Montevideo',
+        regiones: ['Artigas', 'Canelones', 'Cerro Largo', 'Colonia', 'Durazno', 'Flores', 'Florida', 'Lavalleja', 'Maldonado', 'Montevideo', 'Paysandú', 'Río Negro', 'Rivera', 'Rocha', 'Salto', 'San José', 'Soriano', 'Tacuarembó', 'Treinta y Tres'],
+        marco: 'Este consentimiento se otorga conforme a la Ley N° 18.331 de Protección de Datos Personales y Acción de Habeas Data y su Decreto reglamentario N° 414/009, que exigen el consentimiento previo, expreso, informado y documentado del titular de los datos (art. 9); a la Ley N° 9.739 de Derechos de Autor y sus modificativas (Ley N° 17.616), que requiere el consentimiento expreso de la persona para el uso comercial de su retrato (art. 21) y protege las obras y signos de EL CLIENTE; y a la Ley N° 18.600 sobre documento electrónico y firma electrónica. Cuando EL CLIENTE sea una persona jurídica, estas normas se aplican en cuanto corresponda.',
+        transferencias: 'Las plataformas donde se publique el contenido (por ejemplo Meta, LinkedIn, Google/YouTube, TikTok y X) pueden tratar los datos en servidores ubicados fuera del país, conforme a sus propias políticas.',
+        derechos: 'EL CLIENTE puede ejercer los derechos de acceso, rectificación, actualización, inclusión y supresión (arts. 14 y 15 de la Ley N° 18.331) y retirar su consentimiento escribiendo a ' + EMAIL_CONTACTO + '. Si considera que sus derechos no fueron atendidos, puede reclamar ante la Unidad Reguladora y de Control de Datos Personales (URCDP), www.gub.uy/urcdp.',
+        firma: 'Las partes reconocen a la firma manuscrita digital estampada en pantalla el carácter de firma electrónica en los términos de la Ley N° 18.600, y le atribuyen validez y eficacia probatoria. Al firmar se registran la fecha y hora (UTC) y la huella digital (SHA-256) del PDF, que quedan archivadas junto con el documento como prueba del consentimiento otorgado.',
+        ley: 'Este documento se rige por las leyes de la República Oriental del Uruguay. Las partes se someten a los tribunales competentes de la República Oriental del Uruguay, sin perjuicio de los recursos ante la URCDP.',
+      },
+      ES: {
+        labelDoc: 'DNI / NIF', labelLugar: 'Comunidad autónoma', lugarDefault: 'Comunidad de Madrid',
+        regiones: ['Andalucía', 'Aragón', 'Asturias', 'Baleares', 'Canarias', 'Cantabria', 'Castilla-La Mancha', 'Castilla y León', 'Cataluña', 'Comunidad de Madrid', 'Comunidad Valenciana', 'Extremadura', 'Galicia', 'La Rioja', 'Murcia', 'Navarra', 'País Vasco', 'Ceuta', 'Melilla'],
+        marco: 'Este consentimiento se otorga conforme al Reglamento (UE) 2016/679 (RGPD), en particular sus arts. 6.1.a) y 7, y a la Ley Orgánica 3/2018 de Protección de Datos Personales y garantía de los derechos digitales; a la Ley Orgánica 1/1982 de protección civil del derecho al honor, a la intimidad personal y familiar y a la propia imagen (art. 2.2, consentimiento expreso), sin perjuicio de lo previsto en su art. 2.3 sobre revocación; al Real Decreto Legislativo 1/1996 (Ley de Propiedad Intelectual) respecto de logos, textos e imágenes; y al Reglamento (UE) 910/2014 (eIDAS) y la Ley 6/2020 reguladora de determinados aspectos de los servicios electrónicos de confianza.',
+        transferencias: 'EL PROVEEDOR está establecido en Uruguay, país con decisión de adecuación de la Comisión Europea (Decisión 2012/484/UE). Las plataformas donde se publique el contenido (por ejemplo Meta, LinkedIn, Google/YouTube, TikTok y X) pueden tratar los datos en terceros países conforme a las garantías previstas en sus propias políticas.',
+        derechos: 'EL CLIENTE puede ejercer los derechos de acceso, rectificación, supresión, limitación, oposición y portabilidad (arts. 15 a 22 RGPD) y retirar su consentimiento en cualquier momento (art. 7.3 RGPD), sin que ello afecte a la licitud del tratamiento anterior, escribiendo a ' + EMAIL_CONTACTO + '. Si considera que sus derechos no han sido atendidos, puede presentar una reclamación ante la Agencia Española de Protección de Datos (www.aepd.es).',
+        firma: 'Las partes reconocen que la firma manuscrita digital estampada en pantalla es una firma electrónica en el sentido del Reglamento (UE) 910/2014 (eIDAS), cuyos efectos jurídicos y admisibilidad como prueba no pueden denegarse por el solo hecho de ser electrónica (art. 25). Al firmar se registran la fecha y hora (UTC) y la huella digital (SHA-256) del PDF, que quedan archivadas junto con el documento como prueba del consentimiento otorgado.',
+        ley: 'Este documento se rige por la legislación española y de la Unión Europea. Las partes se someten a los Juzgados y Tribunales del domicilio de EL CLIENTE, sin perjuicio del derecho a reclamar ante la Agencia Española de Protección de Datos.',
+      },
+    };
+    function paisActual() {
+      return document.querySelector('input[name="pais"]:checked').value;
+    }
+
+    // Cláusulas fijas: una sola fuente para la página y para el PDF.
+    function clausulas(pais) {
+      const c = CONFIG_PAIS[pais];
+      return [
+        ['Voluntariedad y gratuidad', 'Esta autorización es voluntaria y gratuita: EL CLIENTE no recibe ni debe pagar contraprestación alguna, y su negativa a otorgarla no afecta al servicio contratado ni a su relación con EL PROVEEDOR.'],
+        ['Alcance', 'EL PROVEEDOR solo podrá utilizar los contenidos y publicar en los canales que EL CLIENTE haya marcado expresamente. Todo lo no marcado queda NO autorizado.'],
+        ['Revisión y aprobación previa', 'Antes de publicar cada pieza, EL PROVEEDOR la enviará a EL CLIENTE por email para su aprobación. Sin aprobación expresa no se publica; el silencio no implica consentimiento.'],
+        ['Exclusiones y confidencialidad', 'En ningún caso se publicarán datos de contacto, credenciales de acceso, información confidencial o sujeta a secreto profesional, ni datos personales de clientes, pacientes, usuarios o terceros de EL CLIENTE. EL CLIENTE se abstendrá de entregar material que los contenga; si llegara a contenerlos, EL PROVEEDOR los ocultará o anonimizará antes de cualquier uso.'],
+        ['Titularidad y licencia', 'EL CLIENTE conserva la titularidad de su marca, logo, textos, imágenes y demás contenidos. Otorga a EL PROVEEDOR una licencia no exclusiva, gratuita y revocable, sin cesión de derechos, para reproducir y comunicar públicamente esos contenidos únicamente para los usos y canales autorizados, en Internet y mientras la autorización esté vigente. Todo ello sin perjuicio de lo pactado en el contrato de servicios.'],
+        ['Vigencia y revocación', 'La autorización rige hasta que EL CLIENTE la revoque, sin necesidad de justificarlo, mediante comunicación a ' + EMAIL_CONTACTO + '. Dentro de los 10 días hábiles de recibida, EL PROVEEDOR retirará los contenidos de sus canales propios y dejará de usarlos. La revocación no afecta a los usos ya realizados de forma lícita; EL PROVEEDOR no puede garantizar la eliminación de copias, capturas o republicaciones hechas por terceros o por las propias plataformas.'],
+        ['Declaraciones de EL CLIENTE', 'EL CLIENTE declara que es titular de los contenidos o tiene facultades para autorizar su uso (si es persona jurídica, que quien firma la representa); que la información y los resultados que aporte son veraces; y que, si en el material aparecen otras personas identificables, cuenta con su consentimiento o lo excluirá.'],
+        ['Marco normativo', c.marco],
+        ['Tratamiento de datos personales', 'Responsable: Alejandro Vidal Voglino (Renueva Smart), CI 4.680.863-6, ' + EMAIL_CONTACTO + '. Finalidad: documentar este consentimiento y difundir el caso de éxito en los canales autorizados. Base jurídica: el consentimiento de EL CLIENTE. Destinatarios: el público en general a través de los canales autorizados y las plataformas que los alojan. Conservación: mientras la autorización esté vigente y, luego, durante el plazo necesario para acreditar el consentimiento otorgado. ' + c.transferencias],
+        ['Derechos de EL CLIENTE', c.derechos],
+        ['Firma electrónica y prueba', c.firma],
+        ['Ley aplicable y jurisdicción', c.ley],
+      ];
+    }
+
+    const contenedorClausulas = document.getElementById('clausulasPagina');
+    function renderClausulasPagina() {
+      contenedorClausulas.innerHTML = '<h2>Condiciones</h2>' + clausulas(paisActual()).map(([t, txt], i) =>
+        '<div class="clausula"><h4>' + (i + 1) + '. ' + t + '</h4><p>' + txt + '</p></div>').join('');
+    }
+
+    // ---------- Validación de documento de identidad según el país ----------
+    const TABLA_DNI_ES = 'TRWAGMYFPDXBNJZSQVHLCKE';
+    function validarDniEs(valor) {
+      const m = valor.trim().toUpperCase().match(/^(\d{8})([A-Z])$/);
+      if (!m) return false;
+      return TABLA_DNI_ES[parseInt(m[1], 10) % 23] === m[2];
+    }
+    function validarNieEs(valor) {
+      const m = valor.trim().toUpperCase().match(/^([XYZ])(\d{7})([A-Z])$/);
+      if (!m) return false;
+      const prefijo = { X: '0', Y: '1', Z: '2' }[m[1]];
+      return TABLA_DNI_ES[parseInt(prefijo + m[2], 10) % 23] === m[3];
+    }
+    function validarCifEs(valor) {
+      return /^[A-HJNPQRSUVW]\d{7}[A-J0-9]$/i.test(valor.trim());
+    }
+    function validarDocumentoEs(valor) {
+      const v = valor.trim();
+      if (!v) return true;
+      return validarDniEs(v) || validarNieEs(v) || validarCifEs(v);
+    }
+    function validarCedulaUy(valor) {
+      const digitos = valor.replace(/\D/g, '');
+      if (digitos.length < 7 || digitos.length > 8) return false;
+      const num = digitos.padStart(8, '0');
+      const pesos = [2, 9, 8, 7, 6, 3, 4];
+      let suma = 0;
+      for (let i = 0; i < 7; i++) suma += parseInt(num[i], 10) * pesos[i];
+      const resto = suma % 10;
+      const esperado = resto === 0 ? 0 : 10 - resto;
+      return esperado === parseInt(num[7], 10);
+    }
+    function validarRutUy(valor) {
+      return valor.replace(/\D/g, '').length === 12;
+    }
+    function validarDocumentoUy(valor) {
+      const v = valor.trim();
+      if (!v) return true;
+      return validarCedulaUy(v) || validarRutUy(v);
+    }
+    function validarDocumentoPorPais(pais, valor) {
+      return pais === 'UY' ? validarDocumentoUy(valor) : validarDocumentoEs(valor);
+    }
+
+    const radiosPais = document.querySelectorAll('input[name="pais"]');
+    const labelCedula = document.getElementById('labelCedula');
+    const clienteCedula = document.getElementById('clienteCedula');
+    const avisoDoc = document.getElementById('avisoDoc');
+    const selectLugar = document.getElementById('lugar');
+
+    function validarDocActual() {
+      const pais = paisActual();
+      const ok = validarDocumentoPorPais(pais, clienteCedula.value);
+      const mensaje = pais === 'UY'
+        ? 'Cédula o RUT uruguayo inválido (revisá el número y el dígito verificador).'
+        : 'DNI, NIE o CIF español inválido.';
+      avisoDoc.textContent = ok ? '' : mensaje;
+      clienteCedula.setCustomValidity(ok ? '' : mensaje);
+      return ok;
+    }
+    clienteCedula.addEventListener('input', validarDocActual);
+
+    function actualizarPorPais() {
+      const cfg = CONFIG_PAIS[paisActual()];
+      labelCedula.textContent = cfg.labelDoc;
+      document.getElementById('labelLugar').textContent = cfg.labelLugar;
+      selectLugar.innerHTML = cfg.regiones.map((r) => '<option value="' + r + '">' + r + '</option>').join('');
+      selectLugar.value = cfg.lugarDefault;
+      validarDocActual();
+      renderClausulasPagina();
+    }
+    radiosPais.forEach((r) => r.addEventListener('change', actualizarPorPais));
+    actualizarPorPais();
+
+    const inputProyecto = document.getElementById('proyecto');
+    const tituloDoc = document.getElementById('tituloDoc');
+    function actualizarTitulo() {
+      const nombre = inputProyecto.value.trim();
+      tituloDoc.textContent = 'Presentar el caso de ' + (nombre || 'tu proyecto') + ' en la web y redes de Renueva Smart';
+    }
+    inputProyecto.value = params.get('cliente') || '';
+    if (params.get('pais') === 'ES') { document.getElementById('paisES').checked = true; actualizarPorPais(); }
+    actualizarTitulo();
+    inputProyecto.addEventListener('input', actualizarTitulo);
+
+    const inputNombre = document.getElementById('clienteNombre');
+    const aclaracionCliente = document.getElementById('aclaracionCliente');
+    inputNombre.addEventListener('input', () => {
+      aclaracionCliente.textContent = inputNombre.value.trim() || '—';
+    });
+
+    document.getElementById('fecha').value = new Date().toISOString().slice(0, 10);
+
+    // ---------- Firma en pantalla (canvas) ----------
+    const lienzo = document.getElementById('lienzoFirma');
+    const ctx = lienzo.getContext('2d');
+    let firmaDibujada = false;
+    let dibujando = false;
+    let anchoLienzo = 0;
+
+    function ajustarLienzo() {
+      const rect = lienzo.getBoundingClientRect();
+      const dpr = window.devicePixelRatio || 1;
+      lienzo.width = rect.width * dpr;
+      lienzo.height = rect.height * dpr;
+      anchoLienzo = rect.width;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      ctx.lineWidth = 2.2;
+      ctx.lineCap = 'round';
+      ctx.strokeStyle = '#f5f3ee';
+    }
+    ajustarLienzo();
+    // En el celular "resize" salta al scrollear (barra de direcciones): solo se reajusta
+    // si cambió el ancho, y se repone la firma para no borrarla sin querer.
+    window.addEventListener('resize', () => {
+      if (Math.abs(lienzo.getBoundingClientRect().width - anchoLienzo) < 1) return;
+      const previo = document.createElement('canvas');
+      previo.width = lienzo.width; previo.height = lienzo.height;
+      previo.getContext('2d').drawImage(lienzo, 0, 0);
+      ajustarLienzo();
+      ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0);
+      ctx.drawImage(previo, 0, 0, lienzo.width, lienzo.height);
+      ctx.restore();
+    });
+
+    function posicion(e) {
+      const rect = lienzo.getBoundingClientRect();
+      const punto = e.touches ? e.touches[0] : e;
+      return { x: punto.clientX - rect.left, y: punto.clientY - rect.top };
+    }
+    function empezar(e) {
+      dibujando = true; firmaDibujada = true;
+      const p = posicion(e);
+      ctx.beginPath();
+      ctx.moveTo(p.x, p.y);
+      e.preventDefault();
+    }
+    function trazar(e) {
+      if (!dibujando) return;
+      const p = posicion(e);
+      ctx.lineTo(p.x, p.y);
+      ctx.stroke();
+      e.preventDefault();
+    }
+    function terminar() { dibujando = false; }
+
+    lienzo.addEventListener('mousedown', empezar);
+    lienzo.addEventListener('mousemove', trazar);
+    window.addEventListener('mouseup', terminar);
+    lienzo.addEventListener('touchstart', empezar, { passive: false });
+    lienzo.addEventListener('touchmove', trazar, { passive: false });
+    lienzo.addEventListener('touchend', terminar);
+
+    document.getElementById('borrarFirma').addEventListener('click', () => {
+      ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0);
+      ctx.clearRect(0, 0, lienzo.width, lienzo.height);
+      ctx.restore();
+      firmaDibujada = false;
+    });
+
+    // ---------- Envío ----------
+    const form = document.getElementById('formAutorizacion');
+    const errorEnvio = document.getElementById('errorEnvio');
+    const btnEnviar = document.getElementById('btnEnviar');
+
+    function slug(texto) {
+      return (texto || 'proyecto').toLowerCase()
+        .normalize('NFD').replace(/[̀-ͯ]/g, '')
+        .replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '') || 'proyecto';
+    }
+    function esc(t) {
+      return String(t).replace(/[&<>"]/g, (ch) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[ch]));
+    }
+
+    function invertirCanvas(canvasOrigen) {
+      // La firma se dibuja en tinta clara (pensada para el fondo oscuro de la web).
+      // Para la hoja del PDF, de fondo blanco, invertimos los píxeles a tinta oscura:
+      // html2canvas no respeta el filter:invert() de CSS, así que se hace a mano acá.
+      const c = document.createElement('canvas');
+      c.width = canvasOrigen.width;
+      c.height = canvasOrigen.height;
+      const cx = c.getContext('2d');
+      cx.drawImage(canvasOrigen, 0, 0);
+      const imageData = cx.getImageData(0, 0, c.width, c.height);
+      const d = imageData.data;
+      for (let i = 0; i < d.length; i += 4) {
+        d[i] = 255 - d[i];
+        d[i + 1] = 255 - d[i + 1];
+        d[i + 2] = 255 - d[i + 2];
+      }
+      cx.putImageData(imageData, 0, 0);
+      return c.toDataURL('image/png');
+    }
+
+    function algunMarcado(grupo) {
+      return !!document.querySelector('[data-grupo="' + grupo + '"] input:checked');
+    }
+
+    function poblarHojaPdf(marcaTiempo) {
+      const pais = paisActual();
+      const nombreProyecto = inputProyecto.value.trim();
+      document.getElementById('pdfTitulo').textContent = tituloDoc.textContent;
+      document.getElementById('pdfClienteNombre').textContent = inputNombre.value.trim();
+      document.getElementById('pdfClienteCedula').textContent = CONFIG_PAIS[pais].labelDoc + ': ' + clienteCedula.value.trim();
+      document.getElementById('pdfClienteEmail').textContent = document.getElementById('clienteEmail').value.trim();
+      document.getElementById('pdfClienteProyecto').textContent = nombreProyecto ? 'Proyecto: ' + nombreProyecto : '';
+      document.getElementById('pdfLugarFecha').textContent = 'Lugar y fecha: ' + selectLugar.value.trim() + ', ' + document.getElementById('fecha').value;
+      document.getElementById('pdfFirmaCliente').src = invertirCanvas(lienzo);
+      document.getElementById('pdfAclaracionCliente').textContent = inputNombre.value.trim();
+      document.getElementById('pdfRegistro').textContent = 'Registro: documento firmado electrónicamente el ' + marcaTiempo + ' (UTC). La huella digital SHA-256 del PDF se archiva junto con el documento.';
+
+      const contenedor = document.getElementById('pdfListaItems');
+      contenedor.innerHTML = '';
+      const resumen = [];
+      document.querySelectorAll('.seccion-items').forEach((seccion) => {
+        const h3 = document.createElement('h3');
+        h3.textContent = seccion.querySelector('h3').textContent;
+        contenedor.appendChild(h3);
+        const ul = document.createElement('ul');
+        seccion.querySelectorAll('input[type="checkbox"]').forEach((chk) => {
+          const li = document.createElement('li');
+          const marca = chk.checked ? '✓' : '✗ (no autorizado)';
+          li.innerHTML = '<b class="' + (chk.checked ? '' : 'no-autorizado') + '">' + marca + '</b>' + esc(chk.dataset.item);
+          ul.appendChild(li);
+          resumen.push((chk.checked ? '✓ ' : '✗ NO autorizado — ') + chk.dataset.item);
+        });
+        contenedor.appendChild(ul);
+      });
+      document.getElementById('resumenOculto').value = resumen.join('\n');
+
+      document.getElementById('pdfClausulas').innerHTML = clausulas(pais).map(([t, txt], i) =>
+        '<div class="clausula-pdf"><h4>' + (i + 1) + '. ' + esc(t) + '</h4><p>' + esc(txt) + '</p></div>').join('');
+    }
+
+    // html2canvas-pro no respeta los colores que llegan por hoja de estilos dentro de
+    // #hojaPdf (ni literales ni var()): hay que ponerlos como estilo inline justo antes
+    // de capturar. Solo funciona así — inline + var() — probado a mano, no es capricho.
+    function aplicarColoresInlinePdf(hoja) {
+      const set = (el, prop, valor) => { if (el) el.style.setProperty(prop, valor, 'important'); };
+      set(hoja, 'color', 'var(--pdf-texto-oscuro)');
+      // el mismo bug de html2canvas-pro afecta al alto del logo puesto por CSS:
+      // sin esto lo dibuja a su tamaño natural (enorme) en vez de 26px.
+      set(hoja.querySelector('.marca-pdf img'), 'height', '26px');
+      set(hoja.querySelector('.marca-pdf img'), 'width', 'auto');
+      set(hoja.querySelector('h1'), 'color', 'var(--pdf-texto-oscuro)');
+      set(hoja.querySelector('.eyebrow-oscuro'), 'color', 'var(--color-brand)');
+      hoja.querySelectorAll(':scope > p').forEach((el) => set(el, 'color', 'var(--pdf-texto-cuerpo)'));
+      const partes = hoja.querySelector('.partes-pdf');
+      set(partes, 'background', 'var(--pdf-borde-suave)');
+      set(partes, 'border-color', 'var(--pdf-borde-suave)');
+      set(partes, 'display', 'grid');
+      set(partes, 'grid-template-columns', '1fr 1fr');
+      set(partes, 'gap', '1px');
+      hoja.querySelectorAll('.parte-pdf').forEach((el) => set(el, 'background', 'var(--pdf-fondo-tarjeta)'));
+      hoja.querySelectorAll('.parte-pdf h2').forEach((el) => set(el, 'color', 'var(--color-brand)'));
+      hoja.querySelectorAll('.parte-pdf p').forEach((el) => set(el, 'color', 'var(--pdf-texto-oscuro)'));
+      hoja.querySelectorAll('.parte-pdf .t').forEach((el) => set(el, 'color', 'var(--pdf-texto-tenue)'));
+      hoja.querySelectorAll('h3').forEach((el) => set(el, 'color', 'var(--pdf-texto-oscuro)'));
+      // mismo bug otra vez: "list-style:none" puesto por hoja de estilos no se aplica,
+      // así que el puntito de la lista queda dibujado encima del tilde ✓.
+      hoja.querySelectorAll('ul').forEach((el) => { set(el, 'list-style', 'none'); set(el, 'list-style-type', 'none'); });
+      hoja.querySelectorAll('li').forEach((el) => set(el, 'color', 'var(--pdf-texto-cuerpo)'));
+      hoja.querySelectorAll('li b').forEach((el) => set(el, 'color', 'var(--color-brand)'));
+      hoja.querySelectorAll('li b.no-autorizado').forEach((el) => set(el, 'color', 'var(--pdf-rojo-no-autorizado)'));
+      hoja.querySelectorAll('.clausula-pdf h4').forEach((el) => set(el, 'color', 'var(--pdf-texto-oscuro)'));
+      hoja.querySelectorAll('.clausula-pdf p').forEach((el) => set(el, 'color', 'var(--pdf-texto-cuerpo)'));
+      const firmas = hoja.querySelector('.firmas-pdf');
+      set(firmas, 'display', 'grid');
+      set(firmas, 'grid-template-columns', '1fr 1fr');
+      set(firmas, 'gap', '24px');
+      hoja.querySelectorAll('.firmas-pdf img').forEach((el) => { set(el, 'height', '60px'); set(el, 'width', 'auto'); });
+      hoja.querySelectorAll('.firmas-pdf .linea').forEach((el) => { set(el, 'color', 'var(--pdf-texto-tenue)'); set(el, 'border-top-color', 'var(--pdf-borde-claro)'); });
+      hoja.querySelectorAll('.registro-pdf').forEach((el) => set(el, 'color', 'var(--pdf-texto-tenue)'));
+    }
+
+    // Al pasarle un canvas ya renderizado a html2pdf (en vez de un elemento HTML) se pierde
+    // su sistema de salto de página "inteligente": corta cada hoja a una altura fija en píxeles,
+    // sin fijarse si eso parte un renglón de texto al medio. Para evitarlo, antes de cortar cada
+    // página buscamos la fila más "pareja" cerca del corte ideal (sin texto, sin bordes) y
+    // cortamos ahí en vez de en el punto exacto.
+    function medirVariacionFila(datosFila) {
+      let min = 255, max = 0;
+      for (let i = 0; i < datosFila.length; i += 4) {
+        const r = datosFila[i];
+        if (r < min) min = r;
+        if (r > max) max = r;
+      }
+      return max - min;
+    }
+
+    function elegirCorteSeguro(ctx2, ancho, corteIdeal, ventana) {
+      // solo se busca hacia atrás: cortar pasado el ideal haría la página más alta que la hoja A4
+      // y html2pdf metería una página extra.
+      const desde = Math.max(1, corteIdeal - ventana);
+      const hasta = corteIdeal + 1;
+      let mejorY = corteIdeal;
+      let mejorVariacion = Infinity;
+      let mejorDistancia = Infinity;
+      // recorre toda la ventana: entre varias filas igual de parejas, se queda con la más cercana al corte ideal.
+      for (let y = desde; y < hasta; y++) {
+        const variacion = medirVariacionFila(ctx2.getImageData(0, y, ancho, 1).data);
+        const distancia = Math.abs(y - corteIdeal);
+        if (variacion < mejorVariacion || (variacion === mejorVariacion && distancia < mejorDistancia)) {
+          mejorVariacion = variacion; mejorY = y; mejorDistancia = distancia;
+        }
+      }
+      return mejorY;
+    }
+
+    function recortarCanvas(origen, y0, y1) {
+      const c = document.createElement('canvas');
+      c.width = origen.width;
+      c.height = y1 - y0;
+      c.getContext('2d').drawImage(origen, 0, y0, origen.width, y1 - y0, 0, 0, origen.width, y1 - y0);
+      return c;
+    }
+
+    function dividirEnPaginasSeguras(canvasCompleto, altoUtilPx) {
+      if (canvasCompleto.height <= altoUtilPx) return [canvasCompleto];
+      const ctx2 = canvasCompleto.getContext('2d');
+      const ventana = Math.max(20, Math.round(altoUtilPx * 0.1));
+      const cortes = [0];
+      let y = 0;
+      while (canvasCompleto.height - y > altoUtilPx) {
+        const ideal = y + altoUtilPx;
+        const real = elegirCorteSeguro(ctx2, canvasCompleto.width, ideal, ventana);
+        cortes.push(real > y ? real : ideal);
+        y = cortes[cortes.length - 1];
+      }
+      cortes.push(canvasCompleto.height);
+      const paginas = [];
+      for (let i = 0; i < cortes.length - 1; i++) paginas.push(recortarCanvas(canvasCompleto, cortes[i], cortes[i + 1]));
+      // el margen inferior de la hoja puede quedar solo en una última página en blanco: se descarta
+      const ultima = paginas[paginas.length - 1];
+      if (paginas.length > 1 && medirVariacionFila(ultima.getContext('2d').getImageData(0, 0, ultima.width, ultima.height).data) === 0) paginas.pop();
+      return paginas;
+    }
+
+    async function hashSha256(blob) {
+      try {
+        const buf = await crypto.subtle.digest('SHA-256', await blob.arrayBuffer());
+        return Array.from(new Uint8Array(buf)).map((b) => b.toString(16).padStart(2, '0')).join('');
+      } catch (e) {
+        return 'no disponible';
+      }
+    }
+
+    async function generarPdfYAdjuntar(nombreArchivo) {
+      const marcaTiempo = new Date().toISOString().replace('T', ' ').slice(0, 19);
+      document.getElementById('marcaTiempoOculta').value = marcaTiempo;
+      poblarHojaPdf(marcaTiempo);
+      await document.fonts.ready; // evita que html2canvas rasterice con la fuente de reemplazo y apriete el espaciado
+      const imgs = Array.from(document.querySelectorAll('#hojaPdf img'));
+      // decode() puede quedar colgado en algunos navegadores para imágenes ya completas
+      // (p. ej. la firma recién generada como data URL) — si ya está lista, no hace falta esperar.
+      await Promise.all(imgs.map((img) => (img.complete && img.naturalWidth > 0) ? Promise.resolve() : img.decode().catch(() => {})));
+      const hoja = document.getElementById('hojaPdf');
+      aplicarColoresInlinePdf(hoja);
+      const canvas = await html2canvas(hoja, {
+        scale: 0.75,
+        backgroundColor: '#ffffff',
+        letterRendering: true,
+        width: hoja.scrollWidth,
+        height: hoja.scrollHeight,
+        windowWidth: hoja.scrollWidth,
+        windowHeight: hoja.scrollHeight,
+      });
+
+      const margenMm = 8;
+      const anchoPaginaMm = 210;
+      const altoPaginaMm = 297;
+      const mmPorPx = (anchoPaginaMm - margenMm * 2) / canvas.width;
+      const altoUtilPx = Math.floor((altoPaginaMm - margenMm * 2) / mmPorPx);
+      const paginas = dividirEnPaginasSeguras(canvas, altoUtilPx);
+
+      const opciones = {
+        margin: margenMm,
+        image: { type: 'png' },
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+      };
+      const pdf = await html2pdf().set(opciones).from(paginas[0], 'canvas').toPdf().get('pdf');
+      const anchoImgMm = anchoPaginaMm - margenMm * 2;
+      for (let i = 1; i < paginas.length; i++) {
+        const alturaImgMm = anchoImgMm * (paginas[i].height / paginas[i].width);
+        pdf.addPage();
+        pdf.addImage(paginas[i].toDataURL('image/png'), 'PNG', margenMm, margenMm, anchoImgMm, alturaImgMm);
+      }
+      const blob = pdf.output('blob');
+      document.getElementById('huellaOculta').value = await hashSha256(blob);
+
+      const url = URL.createObjectURL(blob);
+      const enlace = document.createElement('a');
+      enlace.href = url;
+      enlace.download = nombreArchivo;
+      enlace.click();
+      URL.revokeObjectURL(url);
+
+      const archivo = new File([blob], nombreArchivo, { type: 'application/pdf' });
+      const dt = new DataTransfer();
+      dt.items.add(archivo);
+      document.getElementById('adjuntoPdf').files = dt.files;
+      return blob;
+    }
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const camposOk = form.checkValidity();
+      const eleccionOk = algunMarcado('contenidos') && algunMarcado('canales');
+      if (!camposOk || !firmaDibujada || !eleccionOk) {
+        if (!camposOk) {
+          form.reportValidity();
+        } else {
+          errorEnvio.classList.add('visible');
+          errorEnvio.scrollIntoView({ block: 'center', behavior: 'smooth' });
+        }
+        return;
+      }
+      errorEnvio.classList.remove('visible');
+
+      btnEnviar.disabled = true;
+      btnEnviar.textContent = 'Generando PDF...';
+
+      const nombreProyecto = inputProyecto.value.trim() || 'proyecto';
+      document.getElementById('proyectoOculto').value = nombreProyecto;
+      document.getElementById('paisOculto').value = paisActual() === 'UY' ? 'Uruguay' : 'España';
+      document.getElementById('ccCliente').value = document.getElementById('clienteEmail').value.trim();
+
+      const nombreArchivo = 'autorizacion-caso-exito-' + slug(nombreProyecto) + '.pdf';
+      await generarPdfYAdjuntar(nombreArchivo);
+
+      btnEnviar.textContent = 'Enviando...';
+      HTMLFormElement.prototype.submit.call(form);
+    });
+
+    if (params.get('enviado') === '1') {
+      document.getElementById('formGracias').classList.add('visible');
+      form.style.display = 'none';
+    }
+  </script>
+</body>
+</html>

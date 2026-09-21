@@ -50,7 +50,12 @@
     background: var(--color-bg-tertiary); border: 1px solid var(--color-border-default);
     border-radius: var(--radius-lg); padding: 12px 14px;
   }
-  .campo input:focus { outline: 2px solid var(--color-brand); outline-offset: 1px; }
+  .campo select {
+    width: 100%; font-family: inherit; font-size: 15px; color: var(--color-text-primary);
+    background: var(--color-bg-tertiary); border: 1px solid var(--color-border-default);
+    border-radius: var(--radius-lg); padding: 12px 14px;
+  }
+  .campo input:focus, .campo select:focus { outline: 2px solid var(--color-brand); outline-offset: 1px; }
 
   .resultado {
     background: var(--color-bg-secondary); border: 1px solid var(--color-border-default);
@@ -84,6 +89,14 @@
     <p class="lead">Escribí el nombre del cliente o proyecto y te arma el link listo para mandar — con el nombre ya precargado en el formulario.</p>
 
     <div class="campo">
+      <label for="tipo">Documento</label>
+      <select id="tipo">
+        <option value="autorizacion-accesos.html">Autorización de accesos y permisos</option>
+        <option value="autorizacion-caso-exito.html">Autorización de uso de caso y datos (web y redes)</option>
+      </select>
+    </div>
+
+    <div class="campo">
       <label for="nombre">Nombre del proyecto / persona / empresa</label>
       <input type="text" id="nombre" placeholder="Ej: Despacho de Abogados A&amp;O" autofocus>
     </div>
@@ -99,7 +112,8 @@
   </div>
 
   <script>
-    const base = location.href.replace(/generar-autorizacion\.html.*$/, 'autorizacion-accesos.html');
+    const carpeta = location.href.replace(/generar-autorizacion\.html.*$/, '');
+    const selectTipo = document.getElementById('tipo');
     const inputNombre = document.getElementById('nombre');
     const inputLink = document.getElementById('link');
     const enlaceAbrir = document.getElementById('enlaceAbrir');
@@ -107,11 +121,13 @@
 
     function actualizar() {
       const nombre = inputNombre.value.trim();
+      const base = carpeta + selectTipo.value;
       const url = nombre ? base + '?cliente=' + encodeURIComponent(nombre) : base;
       inputLink.value = url;
       enlaceAbrir.href = url;
     }
     inputNombre.addEventListener('input', actualizar);
+    selectTipo.addEventListener('change', actualizar);
     actualizar();
 
     btnCopiar.addEventListener('click', async () => {
