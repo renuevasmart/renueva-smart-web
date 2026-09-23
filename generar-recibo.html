@@ -44,6 +44,14 @@
     --radius-pill: 999px;
   }
   * { box-sizing: border-box; }
+  :focus-visible { outline: 2px solid var(--color-brand); outline-offset: 2px; border-radius: 4px; }
+  .skip-link {
+    position: absolute; left: 12px; top: -60px; z-index: 100;
+    background: var(--color-bg-primary); color: var(--color-text-primary);
+    padding: 12px 20px; border-radius: var(--radius-lg); font-weight: 700;
+    text-decoration: none; transition: top 0.2s ease;
+  }
+  .skip-link:focus { top: 12px; }
   body { margin: 0; background: var(--color-bg-primary); color: var(--color-text-primary); font-family: var(--font-ui); }
   a { color: inherit; }
   img { max-width: 100%; display: block; }
@@ -150,11 +158,13 @@
 </head>
 <body>
 
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+
   <nav class="nav">
     <a href="index.html"><img class="nav-logo" src="assets/logo.png" alt="Renueva Smart"></a>
   </nav>
 
-  <div class="contenido">
+  <div class="contenido" id="contenido">
     <span class="eyebrow-oscuro">Herramienta interna</span>
     <h1>Generar comprobante de pago</h1>
     <p class="lead">Completá los datos y te genera el PDF listo — con el formato ajustado al país del cliente (Uruguay o España). Es de uso interno tuyo, no lo compartas.</p>

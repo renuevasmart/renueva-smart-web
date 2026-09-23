@@ -178,11 +178,19 @@
     --radius-3xl: 24px;
     --radius-pill: 999px;
 
-    --shadow-card: 0 8px 30px rgba(0, 0, 0, 0.25);
+    --shadow-card: 0 14px 32px -10px rgba(10, 6, 2, 0.55);
   }
 
   * { box-sizing: border-box; }
   html { scroll-behavior: smooth; }
+  :focus-visible { outline: 2px solid var(--color-brand); outline-offset: 2px; border-radius: 4px; }
+  .skip-link {
+    position: absolute; left: 12px; top: -60px; z-index: 100;
+    background: var(--color-bg-primary); color: var(--color-text-primary);
+    padding: 12px 20px; border-radius: var(--radius-lg); font-weight: 700;
+    text-decoration: none; transition: top 0.2s ease;
+  }
+  .skip-link:focus { top: 12px; }
   body {
     margin: 0;
     background: var(--color-bg-primary);
@@ -249,14 +257,16 @@
     white-space: nowrap;
   }
   .btn-cta:hover { background: var(--color-brand-hover); transform: translateY(-1px); }
+  .btn-cta:active { transform: translateY(0) scale(0.97); }
   .btn-cta-lg { font-size: 16px; padding: 15px 28px; }
   .btn-secundario {
     font-weight: 700; font-size: 15px; color: var(--color-text-primary);
     background: transparent; border: 1.5px solid var(--color-border-strong); border-radius: var(--radius-pill);
     padding: 13px 24px; text-decoration: none; display: inline-block; text-align: center;
-    transition: border-color 0.15s ease, background 0.15s ease;
+    transition: border-color 0.15s ease, background 0.15s ease, transform 0.15s ease;
   }
   .btn-secundario:hover { border-color: var(--color-text-primary); background: rgba(255,255,255,0.06); }
+  .btn-secundario:active { transform: scale(0.97); }
   .link-secundario {
     font-weight: 700; font-size: 15px; color: var(--color-text-primary); text-decoration: none;
     display: inline-flex; align-items: center; gap: 8px;
@@ -374,7 +384,7 @@
   .garantias-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
   @media (max-width: 900px) { .garantias-grid { grid-template-columns: 1fr 1fr; } }
   @media (max-width: 520px) { .garantias-grid { grid-template-columns: 1fr; } }
-  .garantia { background: var(--color-bg-secondary); border: 1px solid var(--color-border-default); border-radius: var(--radius-2xl); padding: clamp(20px, 2.6vw, 28px); }
+  .garantia { background: var(--color-bg-secondary); border: 1px solid var(--color-border-default); border-radius: var(--radius-2xl); padding: clamp(20px, 2.6vw, 28px); box-shadow: var(--shadow-card); }
   .garantia h3 { font-family: var(--font-display); font-weight: 700; font-size: 18px; margin: 0 0 10px; }
   .garantia h3::before { content: "✓"; color: var(--color-brand); font-weight: 800; margin-right: 8px; }
   .garantia p { font-size: 14px; line-height: 1.55; color: var(--color-text-secondary); margin: 0; }
@@ -419,7 +429,7 @@
   /* ---------- ¿Es para ti? ---------- */
   .encaje-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
   @media (max-width: 720px) { .encaje-grid { grid-template-columns: 1fr; } }
-  .encaje-col { background: var(--color-bg-secondary); border: 1px solid var(--color-border-default); border-radius: var(--radius-2xl); padding: clamp(24px, 3vw, 32px); }
+  .encaje-col { background: var(--color-bg-secondary); border: 1px solid var(--color-border-default); border-radius: var(--radius-2xl); padding: clamp(24px, 3vw, 32px); box-shadow: var(--shadow-card); }
   .encaje-col h3 { font-family: var(--font-display); font-weight: 700; font-size: 20px; margin: 0 0 16px; }
   .encaje-col.no h3 { color: var(--color-text-muted); }
   .encaje-col ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 12px; }
@@ -470,6 +480,8 @@
 </head>
 <body>
 
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+
   <nav class="nav" id="nav">
     <img class="nav-logo" src="assets/logo.png" alt="Renueva Smart">
     <div class="nav-links">
@@ -483,7 +495,7 @@
     <a href="https://wa.me/34602555026?text=Hola%2C%20quiero%20m%C3%A1s%20informaci%C3%B3n" target="_blank" rel="noopener" class="btn-cta" data-i18n="cta_nav">Escríbenos ahora</a>
   </nav>
 
-  <header class="hero">
+  <header class="hero" id="contenido">
     <video class="hero-video" autoplay muted loop playsinline preload="metadata" poster="assets/hero-bg-poster.jpg" aria-hidden="true">
       <source src="assets/hero-bg.mp4" type="video/mp4">
     </video>
@@ -792,6 +804,7 @@
         <a href="precio-rediseno-web.html">Precios</a>
         <a href="contacto.html">Contacto</a>
         <a href="blog/index.html">Blog</a>
+        <a href="privacidad.html">Privacidad</a>
       </div>
     </div>
     <p class="footer-copy">© 2026 Renueva Smart — Alejandro Vidal Voglino</p>

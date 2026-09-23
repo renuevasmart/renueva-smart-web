@@ -82,6 +82,14 @@
   }
   * { box-sizing: border-box; }
   html { scroll-behavior: smooth; }
+  :focus-visible { outline: 2px solid var(--color-brand); outline-offset: 2px; border-radius: 4px; }
+  .skip-link {
+    position: absolute; left: 12px; top: -60px; z-index: 100;
+    background: var(--color-bg-primary); color: var(--color-text-primary);
+    padding: 12px 20px; border-radius: 8px; font-weight: 700;
+    text-decoration: none; transition: top 0.2s ease;
+  }
+  .skip-link:focus { top: 12px; }
   body { margin: 0; background: var(--color-bg-primary); color: var(--color-text-primary); font-family: var(--font-ui); }
   a { color: inherit; }
   img, video { max-width: 100%; display: block; }
@@ -104,6 +112,7 @@
     display: inline-block; transition: background 0.15s ease, transform 0.15s ease; white-space: nowrap;
   }
   .btn-cta:hover { background: var(--color-brand-hover); transform: translateY(-1px); }
+  .btn-cta:active { transform: translateY(0) scale(0.97); }
 
   .contenido { max-width: 780px; margin: 0 auto; padding: clamp(130px, 17vw, 170px) clamp(20px, 4vw, 56px) 40px; }
   .eyebrow-oscuro { font-weight: 800; font-size: 12.5px; letter-spacing: 0.09em; text-transform: uppercase; color: var(--color-brand); }
@@ -137,6 +146,8 @@
 </head>
 <body>
 
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+
   <nav class="nav">
     <a href="../index.html"><img class="nav-logo" src="../assets/logo.png" alt="Renueva Smart"></a>
     <div class="nav-links">
@@ -150,7 +161,7 @@
     <a href="https://wa.me/34602555026?text=Hola%2C%20quiero%20m%C3%A1s%20informaci%C3%B3n" target="_blank" rel="noopener" class="btn-cta" data-i18n="cta_nav">Escríbenos ahora</a>
   </nav>
 
-  <article class="contenido">
+  <article class="contenido" id="contenido">
     <span class="eyebrow-oscuro">Blog</span>
     <h1>Presencia digital y confianza para negocios de servicios profesionales</h1>
     <p class="entradilla">Guías prácticas para dueños de notarías, despachos, gestorías, inmobiliarias y clínicas que quieren que su web transmita lo mismo que transmiten en persona.</p>
@@ -295,6 +306,7 @@
         <a href="../precio-rediseno-web.html">Precios</a>
         <a href="../contacto.html">Contacto</a>
         <a href="index.html">Blog</a>
+        <a href="../privacidad.html">Privacidad</a>
       </div>
     </div>
     <p class="footer-copy">© 2026 Renueva Smart — Alejandro Vidal Voglino</p>
