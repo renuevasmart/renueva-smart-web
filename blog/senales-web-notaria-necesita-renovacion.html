@@ -269,8 +269,37 @@
         document.querySelectorAll('[data-i18n="' + clave + '"]').forEach((el) => { el.innerHTML = mapa[clave]; });
       });
     }
+    function aplicarTerminologiaEspana() {
+      function reemplazar(texto) {
+        return texto
+          .replace(/\b(notarías)\s+y\s+escribanías\b/gi, '$1')
+          .replace(/\b(notaría)\s+o\s+escribanía\b/gi, '$1')
+          .replace(/\b(notario)\s+o\s+(un\s+)?escribano\b/gi, '$1')
+          .replace(/colegio de escribanos o notarios/gi, 'Colegio de Notarios')
+          .replace(/Escribanías/g, 'Notarías')
+          .replace(/escribanías/g, 'notarías')
+          .replace(/Escribanía/g, 'Notaría')
+          .replace(/escribanía/g, 'notaría')
+          .replace(/Escribanos/g, 'Notarios')
+          .replace(/escribanos/g, 'notarios')
+          .replace(/Escribano/g, 'Notario')
+          .replace(/escribano/g, 'notario');
+      }
+      const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
+        acceptNode(nodo) {
+          const padre = nodo.parentElement;
+          if (!padre || padre.closest('script, style, [data-no-swap]')) return NodeFilter.FILTER_REJECT;
+          return /escriban/i.test(nodo.textContent) ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT;
+        }
+      });
+      const nodos = [];
+      let nodo;
+      while ((nodo = walker.nextNode())) nodos.push(nodo);
+      nodos.forEach((n) => { n.textContent = reemplazar(n.textContent); });
+    }
     function variantePorPais(pais) {
       if (!pais) return null;
+      if (pais === 'ES') return 'espana';
       if (['AR', 'UY', 'PY'].includes(pais)) return 'voseo';
       return 'neutro';
     }
@@ -281,6 +310,7 @@
     }
     function aplicarSegun(variante) {
       if (variante === 'voseo') aplicarVariante(TEXTO_VOSEO);
+      else if (variante === 'espana') aplicarTerminologiaEspana();
     }
     (function detectarVarianteDeLead() {
       const controlador = new AbortController();
