@@ -220,13 +220,16 @@
     ];
 
     const CONTRATO_TRABAJOS = [
-      { key: 'diseno-desarrollo-web', label: 'Diseño y desarrollo de sitio web' },
+      { key: 'diseno-desarrollo-web', label: 'Diseño y desarrollo del sitio web' },
       { key: 'redisenio-existente', label: 'Rediseño de un sitio web existente' },
-      { key: 'seo', label: 'Optimización SEO' },
-      { key: 'dominio-hosting-ssl', label: 'Configuración de dominio, hosting y certificado SSL' },
-      { key: 'formularios-bd', label: 'Formularios de contacto e integración con base de datos' },
-      { key: 'materiales-explicativos', label: 'Materiales explicativos (PDFs, reportes, demos)' },
-      { key: 'capacitacion', label: 'Capacitación de uso del sitio al entregar' },
+      { key: 'formularios-bd', label: 'Formulario de contacto y conexión a base de datos' },
+      { key: 'compra-dominio', label: 'Compra del dominio, registrado a nombre del cliente' },
+      { key: 'dominio-hosting-ssl', label: 'Configuración del dominio, el alojamiento (hosting) y el certificado SSL' },
+      { key: 'google-search-console', label: 'Gestión de Google Search Console' },
+      { key: 'google-business', label: 'Gestión de Google Business (Perfil de Empresa de Google)' },
+      { key: 'seo', label: 'Optimización SEO (posicionamiento en buscadores)' },
+      { key: 'materiales-explicativos', label: 'Materiales explicativos: PDF, reportes y demos' },
+      { key: 'capacitacion', label: 'Capacitación de uso del sitio al momento de la entrega' },
       { key: 'mantenimiento', label: 'Mantenimiento y soporte posterior a la entrega' },
     ];
 
@@ -310,15 +313,15 @@
         // sin parámetros extra: el cliente elige contenidos y canales él mismo
       } else {
         const trabajos = clavesTildadas('trabajos');
-        if (trabajos.length) qp.set('trabajos', trabajos.join(','));
+        qp.set('trabajos', trabajos.join(','));
         const alcance = document.getElementById('genAlcance').value.trim();
         const precio = document.getElementById('genPrecio').value.trim();
         if (alcance) qp.set('alcance', alcance);
         if (precio) qp.set('precio', precio);
         const total = document.getElementById('genTotal').value.trim();
         const ajustes = document.getElementById('genAjustes').value.trim();
-        if (!total || !ajustes) {
-          avisoFalta.textContent = 'Completá el total del presupuesto y los días de ajuste antes de generar el link.';
+        if (!trabajos.length || !total || !ajustes) {
+          avisoFalta.textContent = 'Marcá al menos un trabajo incluido y completá el total del presupuesto y los días de ajuste antes de generar el link.';
           avisoFalta.classList.add('visible');
           return;
         }

@@ -279,13 +279,16 @@
         <h3>A. Trabajos incluidos</h3>
         <p class="sub">Marcá los servicios que forman parte de este proyecto.</p>
         <ul class="lista-items">
-          <li><label><input type="checkbox" data-key="diseno-desarrollo-web" data-item="Diseño y desarrollo de sitio web"> Diseño y desarrollo de sitio web</label></li>
+          <li><label><input type="checkbox" data-key="diseno-desarrollo-web" data-item="Diseño y desarrollo del sitio web"> Diseño y desarrollo del sitio web</label></li>
           <li><label><input type="checkbox" data-key="redisenio-existente" data-item="Rediseño de un sitio web existente"> Rediseño de un sitio web existente</label></li>
+          <li><label><input type="checkbox" data-key="formularios-bd" data-item="Formulario de contacto y conexión a base de datos"> Formulario de contacto y conexión a base de datos</label></li>
+          <li><label><input type="checkbox" data-key="compra-dominio" data-item="Compra del dominio, registrado a nombre del cliente"> Compra del dominio, registrado a nombre del cliente</label></li>
+          <li><label><input type="checkbox" data-key="dominio-hosting-ssl" data-item="Configuración del dominio, el alojamiento (hosting) y el certificado SSL"> Configuración del dominio, el alojamiento (hosting) y el certificado SSL</label></li>
+          <li><label><input type="checkbox" data-key="google-search-console" data-item="Gestión de Google Search Console"> Gestión de Google Search Console</label></li>
+          <li><label><input type="checkbox" data-key="google-business" data-item="Gestión de Google Business (Perfil de Empresa de Google)"> Gestión de Google Business (Perfil de Empresa de Google)</label></li>
           <li><label><input type="checkbox" data-key="seo" data-item="Optimización SEO (posicionamiento en buscadores)"> Optimización SEO (posicionamiento en buscadores)</label></li>
-          <li><label><input type="checkbox" data-key="dominio-hosting-ssl" data-item="Configuración de dominio, hosting y certificado SSL"> Configuración de dominio, hosting y certificado SSL</label></li>
-          <li><label><input type="checkbox" data-key="formularios-bd" data-item="Formularios de contacto e integración con base de datos"> Formularios de contacto e integración con base de datos</label></li>
-          <li><label><input type="checkbox" data-key="materiales-explicativos" data-item="Materiales explicativos para el cliente (PDFs, reportes, demos)"> Materiales explicativos para el cliente (PDFs, reportes, demos)</label></li>
-          <li><label><input type="checkbox" data-key="capacitacion" data-item="Capacitación de uso del sitio al entregar"> Capacitación de uso del sitio al entregar</label></li>
+          <li><label><input type="checkbox" data-key="materiales-explicativos" data-item="Materiales explicativos: PDF, reportes y demos"> Materiales explicativos: PDF, reportes y demos</label></li>
+          <li><label><input type="checkbox" data-key="capacitacion" data-item="Capacitación de uso del sitio al momento de la entrega"> Capacitación de uso del sitio al momento de la entrega</label></li>
           <li><label><input type="checkbox" data-key="mantenimiento" data-item="Mantenimiento y soporte posterior a la entrega"> Mantenimiento y soporte posterior a la entrega</label></li>
         </ul>
       </div>
@@ -448,6 +451,7 @@
       const total = parseFloat(document.getElementById('totalPresupuesto').value);
       const dias = parseInt(document.getElementById('diasAjuste').value, 10);
       const publica = document.getElementById('publica').value;
+      const incluyeDominio = !!document.querySelector('[data-grupo="trabajos"] input[data-key="compra-dominio"]:checked');
       const nombreCliente = document.getElementById('clienteNombre').value.trim() || '[nombre del cliente]';
       const docCliente = document.getElementById('clienteCedula').value.trim() || '[documento del cliente]';
       const totalTxt = isNaN(total) ? '[total del presupuesto]' : fmt(total);
@@ -467,7 +471,7 @@
         ['Trabajos fuera de alcance', 'Cualquier trabajo no incluido en las secciones A y B se considera adicional y requiere acuerdo previo por escrito sobre su precio y plazo antes de realizarse.'],
         ['Entrega y aprobación', 'EL PROVEEDOR notificará a EL CLIENTE cuando cada entregable esté listo para revisión. Los ajustes de contenidos se rigen por la cláusula de rondas de ajuste; los cambios sustanciales respecto de lo acordado se tratan como trabajo adicional.'],
         ['Rondas de ajuste', 'El precio incluye dos rondas de ajuste de contenidos, dentro de los ' + diasTxt + ' días a partir de la entrega del sitio. Los ajustes solicitados una vez vencido ese plazo, o más allá de esas dos rondas, se tratan como trabajo adicional.'],
-        ['Titularidad del dominio', 'El dominio del sitio será de propiedad de EL CLIENTE, ' + nombreCliente + ' (' + c.labelDoc + ': ' + docCliente + '), y se registra a su nombre.'],
+        incluyeDominio ? ['Titularidad del dominio', 'El dominio del sitio será de propiedad de EL CLIENTE, ' + nombreCliente + ' (' + c.labelDoc + ': ' + docCliente + '), y se registra a su nombre.'] : null,
         ['Propiedad del trabajo final', 'Una vez abonado el precio en su totalidad, EL CLIENTE es titular del sitio y los materiales entregados para este proyecto.' + (REFERENCIA ? ' EL PROVEEDOR puede conservar copias de trabajo y mencionar el proyecto como referencia de su portfolio, salvo pacto en contrario o lo que disponga el acuerdo de uso de caso firmado aparte.' : '')],
         ['Confidencialidad', 'Cada parte se compromete a no divulgar a terceros la información confidencial de la otra que conozca con motivo de este contrato, salvo obligación legal de hacerlo.'],
         ['Cancelación anticipada', 'Cualquiera de las partes puede dar por terminado este contrato antes de la entrega final mediante comunicación escrita. En ese caso, EL CLIENTE abona el trabajo efectivamente realizado hasta ese momento, calculado en proporción al precio total y al avance del proyecto.'],
@@ -581,7 +585,18 @@
       document.querySelectorAll('[data-grupo="trabajos"] input[type="checkbox"]').forEach((chk) => {
         chk.checked = claves.has(chk.dataset.key);
       });
+      // El cliente ve solo los trabajos que Renueva Smart eligió, sin poder modificarlos.
+      document.querySelectorAll('[data-grupo="trabajos"] li').forEach((li) => {
+        const chk = li.querySelector('input');
+        if (!chk.checked) { li.style.display = 'none'; return; }
+        chk.addEventListener('click', (e) => e.preventDefault());
+        li.querySelector('label').style.cursor = 'default';
+      });
+      document.querySelector('[data-grupo="trabajos"] .sub').textContent = 'Servicios incluidos en este proyecto.';
     }
+    document.querySelectorAll('[data-grupo="trabajos"] input[type="checkbox"]').forEach((chk) => {
+      chk.addEventListener('change', renderClausulasPagina);
+    });
     if (params.get('alcance')) document.getElementById('alcanceLibre').value = params.get('alcance');
     if (params.get('precio')) document.getElementById('precioPlazos').value = params.get('precio');
 
@@ -725,11 +740,11 @@
       const resumen = [];
       const ul = document.createElement('ul');
       document.querySelectorAll('[data-grupo="trabajos"] input[type="checkbox"]').forEach((chk) => {
+        if (!chk.checked) return;
         const li = document.createElement('li');
-        const marca = chk.checked ? '✓' : '✗ (no incluido)';
-        li.innerHTML = '<b class="' + (chk.checked ? '' : 'no-autorizado') + '">' + marca + '</b>' + esc(chk.dataset.item);
+        li.innerHTML = '<b>✓</b>' + esc(chk.dataset.item);
         ul.appendChild(li);
-        resumen.push((chk.checked ? '✓ ' : '✗ no incluido — ') + chk.dataset.item);
+        resumen.push('✓ ' + chk.dataset.item);
       });
       contenedor.appendChild(ul);
       document.getElementById('resumenOculto').value = resumen.join('\n');
