@@ -241,6 +241,7 @@
           <div class="pais-pills">
             <input type="radio" name="pais" id="paisUY" value="UY" checked>
             <label for="paisUY">Uruguay</label>
+            <input type="radio" name="pais" id="paisOT" value="OT">
             <input type="radio" name="pais" id="paisES" value="ES">
             <label for="paisES">España</label>
           </div>
@@ -433,6 +434,12 @@
         regiones: ['Andalucía', 'Aragón', 'Asturias', 'Baleares', 'Canarias', 'Cantabria', 'Castilla-La Mancha', 'Castilla y León', 'Cataluña', 'Comunidad de Madrid', 'Comunidad Valenciana', 'Extremadura', 'Galicia', 'La Rioja', 'Murcia', 'Navarra', 'País Vasco', 'Ceuta', 'Melilla'],
       },
     };
+    // Otros países hispanohablantes (?pais=OT&paisNombre=...): marco neutro, sin validar el documento.
+    const PAISES_HISPANOHABLANTES = ['Uruguay', 'España', 'Argentina', 'Bolivia', 'Chile', 'Colombia', 'Costa Rica', 'Cuba', 'Ecuador', 'El Salvador', 'Guatemala', 'Guinea Ecuatorial', 'Honduras', 'México', 'Nicaragua', 'Panamá', 'Paraguay', 'Perú', 'Puerto Rico', 'República Dominicana', 'Venezuela'];
+    const PAIS_NOMBRE_OT = (params.get('pais') === 'OT' && PAISES_HISPANOHABLANTES.includes(params.get('paisNombre')) && params.get('paisNombre') !== 'Uruguay' && params.get('paisNombre') !== 'España') ? params.get('paisNombre') : null;
+    if (PAIS_NOMBRE_OT) {
+      CONFIG_PAIS.OT = { labelDoc: 'Documento de identidad', labelLugar: 'País', lugarDefault: PAIS_NOMBRE_OT, regiones: [PAIS_NOMBRE_OT] };
+    }
     function paisActual() {
       return document.querySelector('input[name="pais"]:checked').value;
     }
@@ -478,7 +485,7 @@
       return validarCedulaUy(v) || validarRutUy(v);
     }
     function validarDocumentoPorPais(pais, valor) {
-      return pais === 'UY' ? validarDocumentoUy(valor) : validarDocumentoEs(valor);
+      return pais === 'UY' ? validarDocumentoUy(valor) : pais === 'ES' ? validarDocumentoEs(valor) : true;
     }
 
     const radiosPais = document.querySelectorAll('input[name="pais"]');
@@ -509,8 +516,9 @@
     radiosPais.forEach((r) => r.addEventListener('change', actualizarPorPais));
     // País definido por Renueva Smart en el link: el cliente no lo elige.
     const paisParam = params.get('pais');
-    if (paisParam === 'ES' || paisParam === 'UY') {
-      document.getElementById(paisParam === 'ES' ? 'paisES' : 'paisUY').checked = true;
+    const idPais = paisParam === 'ES' ? 'paisES' : paisParam === 'UY' ? 'paisUY' : (paisParam === 'OT' && PAIS_NOMBRE_OT) ? 'paisOT' : null;
+    if (idPais) {
+      document.getElementById(idPais).checked = true;
       document.querySelector('.pais-pills').style.display = 'none';
     }
     actualizarPorPais();

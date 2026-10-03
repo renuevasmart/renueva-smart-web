@@ -149,12 +149,30 @@
       </div>
       <div class="campo">
         <label for="pais">País del cliente</label>
-        <div class="pais-pills">
-          <input type="radio" name="pais" id="paisUY" value="UY" checked>
-          <label for="paisUY">Uruguay</label>
-          <input type="radio" name="pais" id="paisES" value="ES">
-          <label for="paisES">España</label>
-        </div>
+        <select id="pais">
+          <option>Uruguay</option>
+          <option>España</option>
+          <option>Argentina</option>
+          <option>Bolivia</option>
+          <option>Chile</option>
+          <option>Colombia</option>
+          <option>Costa Rica</option>
+          <option>Cuba</option>
+          <option>Ecuador</option>
+          <option>El Salvador</option>
+          <option>Guatemala</option>
+          <option>Guinea Ecuatorial</option>
+          <option>Honduras</option>
+          <option>México</option>
+          <option>Nicaragua</option>
+          <option>Panamá</option>
+          <option>Paraguay</option>
+          <option>Perú</option>
+          <option>Puerto Rico</option>
+          <option>República Dominicana</option>
+          <option>Venezuela</option>
+        </select>
+        <p class="campo-hint">Uruguay y España tienen su propio marco legal; el resto usa un marco neutro (sin leyes concretas citadas).</p>
       </div>
     </div>
 
@@ -274,51 +292,47 @@
           '<li><label><input type="checkbox" id="genOpRecomendacion"> 10 % por recomendación (30 días para el primer interesado; el segundo, sin plazo)</label></li>' +
           '<li><label><input type="checkbox" id="genOpResena"> 10 % por reseña en Google Business y autorización del caso</label></li>' +
           '<li><label><input type="checkbox" id="genOpDolares"> 1,5 % por pagar en dólares (solo Uruguay y otros países de Hispanoamérica)</label></li></ul>' +
-          '<div class="campo" id="campoPaisDolares" style="display:none;margin-top:12px"><label for="genPaisDolares">País del cliente (Hispanoamérica)</label><select id="genPaisDolares"></select></div>' +
           '<p class="campo-hint" id="hintDolares">El cliente ve solo las que tildes y marca cuáles quiere aplicar; las que no marque, no se aplican.</p></div>';
       }
       marcarPendiente();
       actualizarMonedas();
       actualizarOpciones();
       zona.querySelectorAll('input, textarea, select').forEach((el) => el.addEventListener('input', marcarPendiente));
-      const chkDolares = document.getElementById('genOpDolares');
-      if (chkDolares) chkDolares.addEventListener('change', actualizarOpciones);
     }
     selectTipo.addEventListener('change', renderZona);
 
     const inputNombre = document.getElementById('nombre');
-    const radiosPais = document.querySelectorAll('input[name="pais"]');
+    const selPais = document.getElementById('pais');
+    // Uruguay y España tienen marco propio ('UY'/'ES'); cualquier otro país usa el marco neutro ('OT').
+    function paisCodigo() { return selPais.value === 'Uruguay' ? 'UY' : selPais.value === 'España' ? 'ES' : 'OT'; }
     inputNombre.addEventListener('input', marcarPendiente);
-    radiosPais.forEach((r) => r.addEventListener('change', marcarPendiente));
+    selPais.addEventListener('change', marcarPendiente);
 
     // Monedas del contrato según el país elegido en el paso 1 (la primera es la de por defecto).
-    const MONEDAS = { UY: [['UYU', 'Pesos uruguayos'], ['USD', 'Dólares'], ['EUR', 'Euros']], ES: [['EUR', 'Euros'], ['USD', 'Dólares']] };
+    const MONEDAS = { UY: [['UYU', 'Pesos uruguayos'], ['USD', 'Dólares'], ['EUR', 'Euros']], ES: [['EUR', 'Euros'], ['USD', 'Dólares']], OT: [['USD', 'Dólares'], ['EUR', 'Euros']] };
     function actualizarMonedas() {
       const sel = document.getElementById('genMoneda');
       if (!sel) return;
-      const lista = MONEDAS[document.querySelector('input[name="pais"]:checked').value];
+      const lista = MONEDAS[paisCodigo()];
       const previa = sel.value;
       sel.innerHTML = lista.map(([v, n]) => '<option value="' + v + '">' + n + '</option>').join('');
       sel.value = lista.some(([v]) => v === previa) ? previa : lista[0][0];
     }
-    radiosPais.forEach((r) => r.addEventListener('change', actualizarMonedas));
+    selPais.addEventListener('change', actualizarMonedas);
 
-    // Descuento por pagar en dólares: solo Uruguay y otros países de Hispanoamérica (no España).
-    const PAISES_HISPANOAMERICA = ['Uruguay', 'Argentina', 'Bolivia', 'Chile', 'Colombia', 'Costa Rica', 'Cuba', 'Ecuador', 'El Salvador', 'Guatemala', 'Honduras', 'México', 'Nicaragua', 'Panamá', 'Paraguay', 'Perú', 'Puerto Rico', 'República Dominicana', 'Venezuela'];
+    // Descuento por pagar en dólares: solo Uruguay y otros países de Hispanoamérica (no España ni Guinea Ecuatorial).
+    function aplicaDolares() { return selPais.value !== 'España' && selPais.value !== 'Guinea Ecuatorial'; }
     function actualizarOpciones() {
       const chk = document.getElementById('genOpDolares');
       if (!chk) return;
-      const sel = document.getElementById('genPaisDolares');
-      if (!sel.options.length) sel.innerHTML = PAISES_HISPANOAMERICA.map((p) => '<option>' + p + '</option>').join('');
-      const esES = document.querySelector('input[name="pais"]:checked').value === 'ES';
-      chk.disabled = esES;
-      if (esES) chk.checked = false;
-      document.getElementById('campoPaisDolares').style.display = chk.checked ? '' : 'none';
-      document.getElementById('hintDolares').textContent = esES
-        ? 'La opción de pago en dólares no está disponible para España. El cliente ve solo las que tildes y marca cuáles quiere aplicar.'
+      const noAplica = !aplicaDolares();
+      chk.disabled = noAplica;
+      if (noAplica) chk.checked = false;
+      document.getElementById('hintDolares').textContent = noAplica
+        ? 'La opción de pago en dólares solo aplica a Uruguay y otros países de Hispanoamérica; con ' + selPais.value + ' no está disponible. El cliente ve solo las que tildes y marca cuáles quiere aplicar.'
         : 'El cliente ve solo las que tildes y marca cuáles quiere aplicar; las que no marque, no se aplican.';
     }
-    radiosPais.forEach((r) => r.addEventListener('change', actualizarOpciones));
+    selPais.addEventListener('change', actualizarOpciones);
 
     // ---------- Confirmar / generar ----------
     const inputLink = document.getElementById('link');
@@ -349,10 +363,11 @@
       const carpeta = location.href.replace(/generar-autorizacion\.html.*$/, '');
       const tipo = selectTipo.value;
       const nombre = inputNombre.value.trim();
-      const pais = document.querySelector('input[name="pais"]:checked').value;
+      const pais = paisCodigo();
       const qp = new URLSearchParams();
       if (nombre) qp.set('cliente', nombre);
       qp.set('pais', pais);
+      if (pais === 'OT') qp.set('paisNombre', selPais.value);
 
       if (tipo === 'autorizacion-accesos.html') {
         const tildadas = clavesTildadas('accesos');
@@ -385,10 +400,7 @@
         const opciones = [];
         if (document.getElementById('genOpRecomendacion').checked) opciones.push('recomendacion');
         if (document.getElementById('genOpResena').checked) opciones.push('resena');
-        if (document.getElementById('genOpDolares').checked && pais !== 'ES') {
-          opciones.push('dolares');
-          qp.set('paisDolares', document.getElementById('genPaisDolares').value);
-        }
+        if (document.getElementById('genOpDolares').checked && aplicaDolares()) opciones.push('dolares');
         if (opciones.length) qp.set('opciones', opciones.join(','));
       }
       avisoFalta.classList.remove('visible');

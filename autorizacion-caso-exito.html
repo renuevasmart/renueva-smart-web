@@ -247,6 +247,7 @@
           <div class="pais-pills">
             <input type="radio" name="pais" id="paisUY" value="UY" checked>
             <label for="paisUY">Uruguay</label>
+            <input type="radio" name="pais" id="paisOT" value="OT">
             <input type="radio" name="pais" id="paisES" value="ES">
             <label for="paisES">España</label>
           </div>
@@ -420,6 +421,22 @@
         ley: 'Este documento se rige por la legislación española y de la Unión Europea. Las partes se someten a los Juzgados y Tribunales del domicilio de EL CLIENTE, sin perjuicio del derecho a reclamar ante la Agencia Española de Protección de Datos.',
       },
     };
+    // Otros países hispanohablantes (?pais=OT&paisNombre=...): marco neutro, sin citar leyes concretas.
+    const PAISES_HISPANOHABLANTES = ['Uruguay', 'España', 'Argentina', 'Bolivia', 'Chile', 'Colombia', 'Costa Rica', 'Cuba', 'Ecuador', 'El Salvador', 'Guatemala', 'Guinea Ecuatorial', 'Honduras', 'México', 'Nicaragua', 'Panamá', 'Paraguay', 'Perú', 'Puerto Rico', 'República Dominicana', 'Venezuela'];
+    const PAIS_NOMBRE_OT = (params.get('pais') === 'OT' && PAISES_HISPANOHABLANTES.includes(params.get('paisNombre')) && params.get('paisNombre') !== 'Uruguay' && params.get('paisNombre') !== 'España') ? params.get('paisNombre') : null;
+    if (PAIS_NOMBRE_OT) {
+      CONFIG_PAIS.OT = {
+        labelDoc: 'Documento de identidad', labelLugar: 'País', lugarDefault: PAIS_NOMBRE_OT, regiones: [PAIS_NOMBRE_OT],
+        marco: 'Este consentimiento se otorga conforme a la normativa de protección de datos personales, de derechos de autor y de imagen, y de firma electrónica aplicable en ' + PAIS_NOMBRE_OT + '.',
+        transferencias: 'Las plataformas donde se publique el contenido (por ejemplo Meta, LinkedIn, Google/YouTube, TikTok y X) pueden tratar los datos en servidores ubicados fuera del país, conforme a sus propias políticas.',
+        derechos: 'EL CLIENTE puede ejercer los derechos de acceso, rectificación y supresión de sus datos y retirar su consentimiento escribiendo a ' + EMAIL_CONTACTO + '. Si considera que sus derechos no fueron atendidos, puede reclamar ante la autoridad de protección de datos de su país.',
+        firma: 'Las partes reconocen a la firma manuscrita digital estampada en pantalla el carácter de firma electrónica, con la validez y eficacia probatoria que le reconozca la normativa aplicable. Al firmar se registran la fecha y hora (UTC) y la huella digital (SHA-256) del PDF, que quedan archivadas junto con el documento como prueba del consentimiento otorgado.',
+        ley: 'Este documento se rige por la legislación de ' + PAIS_NOMBRE_OT + '. Las partes se someten a los tribunales competentes del domicilio de EL CLIENTE.',
+      };
+    }
+    function nombrePais(codigo) {
+      return codigo === 'UY' ? 'Uruguay' : codigo === 'ES' ? 'España' : PAIS_NOMBRE_OT;
+    }
     function paisActual() {
       return document.querySelector('input[name="pais"]:checked').value;
     }
@@ -490,7 +507,7 @@
       return validarCedulaUy(v) || validarRutUy(v);
     }
     function validarDocumentoPorPais(pais, valor) {
-      return pais === 'UY' ? validarDocumentoUy(valor) : validarDocumentoEs(valor);
+      return pais === 'UY' ? validarDocumentoUy(valor) : pais === 'ES' ? validarDocumentoEs(valor) : true;
     }
 
     const radiosPais = document.querySelectorAll('input[name="pais"]');
@@ -532,8 +549,9 @@
     inputProyecto.value = params.get('cliente') || '';
     // País definido por Renueva Smart en el link: el cliente no lo elige.
     const paisParam = params.get('pais');
-    if (paisParam === 'ES' || paisParam === 'UY') {
-      document.getElementById(paisParam === 'ES' ? 'paisES' : 'paisUY').checked = true;
+    const idPais = paisParam === 'ES' ? 'paisES' : paisParam === 'UY' ? 'paisUY' : (paisParam === 'OT' && PAIS_NOMBRE_OT) ? 'paisOT' : null;
+    if (idPais) {
+      document.getElementById(idPais).checked = true;
       document.querySelector('.pais-pills').style.display = 'none';
       actualizarPorPais();
     }
@@ -879,7 +897,7 @@
 
       const nombreProyecto = inputProyecto.value.trim() || 'proyecto';
       document.getElementById('proyectoOculto').value = nombreProyecto;
-      document.getElementById('paisOculto').value = paisActual() === 'UY' ? 'Uruguay' : 'España';
+      document.getElementById('paisOculto').value = nombrePais(paisActual());
       document.getElementById('ccCliente').value = document.getElementById('clienteEmail').value.trim();
 
       const nombreArchivo = 'autorizacion-caso-exito-' + slug(nombreProyecto) + '.pdf';

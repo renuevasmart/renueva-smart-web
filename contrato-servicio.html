@@ -249,6 +249,7 @@
             <label for="paisUY">Uruguay</label>
             <input type="radio" name="pais" id="paisES" value="ES">
             <label for="paisES">España</label>
+            <input type="radio" name="pais" id="paisOT" value="OT">
           </div>
           <div class="campo">
             <label for="clienteNombre">Nombre completo</label>
@@ -450,6 +451,19 @@
         ley: 'Este contrato se rige por la legislación civil y mercantil española. Las partes se someten a los Juzgados y Tribunales del domicilio de EL CLIENTE, salvo que una norma de consumo imponga un fuero distinto.',
       },
     };
+    // Otros países hispanohablantes (?pais=OT&paisNombre=...): marco neutro, sin leyes concretas citadas.
+    const PAISES_HISPANOHABLANTES = ['Uruguay', 'España', 'Argentina', 'Bolivia', 'Chile', 'Colombia', 'Costa Rica', 'Cuba', 'Ecuador', 'El Salvador', 'Guatemala', 'Guinea Ecuatorial', 'Honduras', 'México', 'Nicaragua', 'Panamá', 'Paraguay', 'Perú', 'Puerto Rico', 'República Dominicana', 'Venezuela'];
+    const PAIS_NOMBRE_OT = (params.get('pais') === 'OT' && PAISES_HISPANOHABLANTES.includes(params.get('paisNombre')) && params.get('paisNombre') !== 'Uruguay' && params.get('paisNombre') !== 'España') ? params.get('paisNombre') : null;
+    if (PAIS_NOMBRE_OT) {
+      CONFIG_PAIS.OT = {
+        labelDoc: 'Documento de identidad', labelLugar: 'País', lugarDefault: PAIS_NOMBRE_OT,
+        regiones: [PAIS_NOMBRE_OT],
+        ley: 'Este contrato se rige por la legislación civil y comercial de ' + PAIS_NOMBRE_OT + '. Las partes se someten a los tribunales competentes del domicilio de EL CLIENTE.',
+      };
+    }
+    function nombrePais(codigo) {
+      return codigo === 'UY' ? 'Uruguay' : codigo === 'ES' ? 'España' : PAIS_NOMBRE_OT;
+    }
     function paisActual() {
       return document.querySelector('input[name="pais"]:checked').value;
     }
@@ -463,8 +477,9 @@
 
     // Opciones de descuento que Renueva Smart ofrece en el link (?opciones=recomendacion,resena,dolares);
     // el cliente marca cuáles quiere (nunca vienen pre-marcadas).
-    const PAISES_HISPANOAMERICA = ['Uruguay', 'Argentina', 'Bolivia', 'Chile', 'Colombia', 'Costa Rica', 'Cuba', 'Ecuador', 'El Salvador', 'Guatemala', 'Honduras', 'México', 'Nicaragua', 'Panamá', 'Paraguay', 'Perú', 'Puerto Rico', 'República Dominicana', 'Venezuela'];
-    const PAIS_DOLARES = params.get('paisDolares');
+    // El 1,5 % por pagar en dólares aplica a Uruguay y a otros países de Hispanoamérica (no España ni Guinea Ecuatorial).
+    const PAIS_CLIENTE = params.get('pais') === 'UY' ? 'Uruguay' : PAIS_NOMBRE_OT;
+    const APLICA_DOLARES = !!PAIS_CLIENTE && PAIS_CLIENTE !== 'Guinea Ecuatorial';
     const OPCIONES = {
       recomendacion: {
         titulo: '10 % por recomendación',
@@ -476,17 +491,17 @@
       },
       dolares: {
         titulo: '1,5 % por pagar en dólares',
-        texto: 'Si EL CLIENTE paga en dólares estadounidenses, obtiene un descuento del 1,5 % sobre el total a pagar. Esta opción rige para clientes de Uruguay y de otros países de Hispanoamérica (país del cliente: ' + PAIS_DOLARES + ').',
+        texto: 'Si EL CLIENTE paga en dólares estadounidenses, obtiene un descuento del 1,5 % sobre el total a pagar. Esta opción rige para clientes de Uruguay y de otros países de Hispanoamérica (país del cliente: ' + PAIS_CLIENTE + ').',
       },
     };
-    const OFRECIDAS = (params.get('opciones') || '').split(',').filter((k) => OPCIONES[k] && (k !== 'dolares' || (params.get('pais') !== 'ES' && PAISES_HISPANOAMERICA.includes(PAIS_DOLARES))));
+    const OFRECIDAS = (params.get('opciones') || '').split(',').filter((k) => OPCIONES[k] && (k !== 'dolares' || APLICA_DOLARES));
     const DOLAR = Number(params.get('dolar')) > 0 ? Number(params.get('dolar')) : 40;
     function fmt(n) {
       return Number(n).toLocaleString('de-DE', { maximumFractionDigits: 2 });
     }
 
     // Monedas permitidas por país (la primera es la de por defecto).
-    const MONEDAS = { UY: ['UYU', 'USD', 'EUR'], ES: ['EUR', 'USD'] };
+    const MONEDAS = { UY: ['UYU', 'USD', 'EUR'], ES: ['EUR', 'USD'], OT: ['USD', 'EUR'] };
     const NOMBRE_MONEDA = { UYU: 'Pesos uruguayos', USD: 'Dólares', EUR: 'Euros' };
     function actualizarMonedas() {
       const sel = document.getElementById('monedaPresupuesto');
@@ -592,7 +607,7 @@
       return validarCedulaUy(v) || validarRutUy(v);
     }
     function validarDocumentoPorPais(pais, valor) {
-      return pais === 'UY' ? validarDocumentoUy(valor) : validarDocumentoEs(valor);
+      return pais === 'UY' ? validarDocumentoUy(valor) : pais === 'ES' ? validarDocumentoEs(valor) : true;
     }
 
     const radiosPais = document.querySelectorAll('input[name="pais"]');
@@ -635,8 +650,9 @@
     inputProyecto.value = params.get('cliente') || '';
     // País definido por Renueva Smart en el link: el cliente no lo elige.
     const paisParam = params.get('pais');
-    if (paisParam === 'ES' || paisParam === 'UY') {
-      document.getElementById(paisParam === 'ES' ? 'paisES' : 'paisUY').checked = true;
+    const idPais = paisParam === 'ES' ? 'paisES' : paisParam === 'UY' ? 'paisUY' : (paisParam === 'OT' && PAIS_NOMBRE_OT) ? 'paisOT' : null;
+    if (idPais) {
+      document.getElementById(idPais).checked = true;
       document.querySelector('.pais-pills').style.display = 'none';
       actualizarPorPais();
     }
@@ -1018,7 +1034,7 @@
 
       const nombreProyecto = inputProyecto.value.trim() || 'proyecto';
       document.getElementById('proyectoOculto').value = nombreProyecto;
-      document.getElementById('paisOculto').value = paisActual() === 'UY' ? 'Uruguay' : 'España';
+      document.getElementById('paisOculto').value = nombrePais(paisActual());
       document.getElementById('ccCliente').value = document.getElementById('clienteEmail').value.trim();
 
       const nombreArchivo = 'contrato-servicio-' + slug(nombreProyecto) + '.pdf';
