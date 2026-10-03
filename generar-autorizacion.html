@@ -261,7 +261,7 @@
           '<div class="seccion-items"><h3>A. Trabajos incluidos</h3>' + listaHtml(CONTRATO_TRABAJOS, 'trabajos', false) + '</div>' +
           '<div class="campo"><label for="genAlcance">Alcance adicional / detalle específico</label><textarea id="genAlcance" rows="3" placeholder="Ej: landing de una sola página, con sección de testimonios."></textarea></div>' +
           '<div class="campo"><label for="genPrecio">Precio y plazos</label><textarea id="genPrecio" rows="4" placeholder="Ej: USD 700 en total — 50% al firmar, 50% contra entrega. Entrega: 15 días hábiles."></textarea></div>' +
-          '<div class="campo"><label for="genTotal">Total del presupuesto</label><input type="number" id="genTotal" min="0" step="any" inputmode="decimal" placeholder="Ej: 12800"><p class="campo-hint">En pesos uruguayos si el cliente es de Uruguay, en euros si es de España.</p></div>' +
+          '<div class="campo"><label for="genTotal">Total del presupuesto</label><div style="display:flex;gap:10px"><input type="number" id="genTotal" min="0" step="any" inputmode="decimal" placeholder="Ej: 12800" style="flex:1;min-width:0"><select id="genMoneda" style="width:auto" aria-label="Moneda"></select></div><p class="campo-hint">Uruguay: pesos, dólares o euros. España: euros o dólares.</p></div>' +
           '<div class="campo"><label for="genAjustes">Días de las dos rondas de ajuste (a partir de la entrega del sitio)</label><input type="number" id="genAjustes" min="1" step="1" inputmode="numeric" placeholder="Ej: 15"></div>' +
           '<div class="campo"><label for="genPublica">Publicación del sitio</label><select id="genPublica"><option value="rs">Renueva Smart publica la web (la deja en línea)</option><option value="cliente">El cliente o su proveedor publica la web (se entregan los archivos)</option></select></div>' +
           '<div class="campo"><label for="genDolar">Tipo de cambio (pesos uruguayos por 1 USD)</label><input type="number" id="genDolar" min="1" step="any" value="40"><p class="campo-hint">Solo se usa en contratos de Uruguay.</p></div>' +
@@ -272,6 +272,7 @@
           '<p class="campo-hint">Si tildás una, el contrato lo dice en una cláusula; si no, no se menciona.</p>';
       }
       marcarPendiente();
+      actualizarMonedas();
       zona.querySelectorAll('input, textarea, select').forEach((el) => el.addEventListener('input', marcarPendiente));
     }
     selectTipo.addEventListener('change', renderZona);
@@ -280,6 +281,18 @@
     const radiosPais = document.querySelectorAll('input[name="pais"]');
     inputNombre.addEventListener('input', marcarPendiente);
     radiosPais.forEach((r) => r.addEventListener('change', marcarPendiente));
+
+    // Monedas del contrato según el país elegido en el paso 1 (la primera es la de por defecto).
+    const MONEDAS = { UY: [['UYU', 'Pesos uruguayos'], ['USD', 'Dólares'], ['EUR', 'Euros']], ES: [['EUR', 'Euros'], ['USD', 'Dólares']] };
+    function actualizarMonedas() {
+      const sel = document.getElementById('genMoneda');
+      if (!sel) return;
+      const lista = MONEDAS[document.querySelector('input[name="pais"]:checked').value];
+      const previa = sel.value;
+      sel.innerHTML = lista.map(([v, n]) => '<option value="' + v + '">' + n + '</option>').join('');
+      sel.value = lista.some(([v]) => v === previa) ? previa : lista[0][0];
+    }
+    radiosPais.forEach((r) => r.addEventListener('change', actualizarMonedas));
 
     // ---------- Confirmar / generar ----------
     const inputLink = document.getElementById('link');
@@ -335,6 +348,7 @@
           return;
         }
         qp.set('total', total);
+        qp.set('moneda', document.getElementById('genMoneda').value);
         qp.set('ajustes', ajustes);
         qp.set('publica', document.getElementById('genPublica').value);
         const dolar = document.getElementById('genDolar').value.trim();
