@@ -343,7 +343,7 @@
       if (!cont) return;
       const cod = paisCodigo();
       const lista = cod === 'ES' ? [['efectivo', 'Efectivo', true], ['bizum', 'Bizum (+34 602 555 026)', true], ['transferencia', 'Transferencia bancaria', true]]
-        : cod === 'OT' ? (selPais.value === 'Argentina' ? [['stripe', 'Stripe', false]] : [['paypal', 'PayPal', false], ['stripe', 'Stripe', false]]) : [];
+        : cod === 'OT' ? (selPais.value === 'Argentina' ? [['paypal', 'PayPal', false]] : [['paypal', 'PayPal', false], ['stripe', 'Stripe', false]]) : [];
       cont.innerHTML = lista.length
         ? '<ul class="lista-items">' + lista.map(([k, n, tildado]) => '<li><label><input type="checkbox" data-pago="' + k + '"' + (tildado ? ' checked' : '') + '> ' + n + '</label></li>').join('') + '</ul>'
           + (cod === 'ES' ? '<div class="campo" id="campoIban" style="margin-top:12px"><label for="genIban">IBAN para la transferencia</label><input type="text" id="genIban" maxlength="42" placeholder="ES00 0000 0000 0000 0000 0000"><p class="campo-hint">Opcional. Si lo dejás vacío, el contrato dice que indicarás los datos de la cuenta.</p></div>' : '')
