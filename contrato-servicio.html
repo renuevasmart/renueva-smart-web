@@ -575,10 +575,10 @@
       const docCliente = document.getElementById('clienteCedula').value.trim() || '[documento del cliente]';
       const moneda = document.getElementById('monedaPresupuesto').value;
       const montoTxt = isNaN(total) ? '[total del presupuesto]' : dinero(total, moneda);
-      const equivalencia = isNaN(total) || pais !== 'UY' ? ''
-        : moneda === 'UYU' ? ' (equivalente a USD ' + fmt(total / DOLAR) + ' al tipo de cambio indicado en la cláusula siguiente)'
-        : moneda === 'USD' ? ' (equivalente a $' + fmt(total * DOLAR) + ' pesos uruguayos al tipo de cambio indicado en la cláusula siguiente)'
-        : '';
+      // La cláusula de tipo de cambio solo rige si el cliente paga en dólares y es de Uruguay u otro país de Hispanoamérica.
+      const aplicaTipoCambio = moneda === 'USD' && (pais === 'UY' || (pais === 'OT' && !!PAIS_NOMBRE_OT && PAIS_NOMBRE_OT !== 'Guinea Ecuatorial'));
+      const equivalencia = isNaN(total) || !aplicaTipoCambio || pais !== 'UY' ? ''
+        : ' (equivalente a $' + fmt(total * DOLAR) + ' pesos uruguayos al tipo de cambio indicado en la cláusula siguiente)';
       const diasTxt = isNaN(dias) ? '[días]' : String(dias);
       const entrega = parseInt(document.getElementById('diasEntrega').value, 10);
       const entregaTxt = isNaN(entrega) ? '[días]' : entrega + (entrega === 1 ? ' día' : ' días');
@@ -599,7 +599,9 @@
       return [
         ['Objeto', 'EL PROVEEDOR se obliga a prestar a EL CLIENTE los servicios detallados en las secciones "A. Trabajos incluidos" y "B. Aclaraciones" de este documento, en las condiciones aquí pactadas.'],
         ['Precio y forma de pago', precio],
-        pais === 'UY' && moneda !== 'EUR' ? ['Tipo de cambio', 'A los efectos de este contrato se toma el dólar estadounidense a $' + DOLAR + ' pesos uruguayos (1 USD = ' + DOLAR + ' UYU) para convertir los importes expresados en dólares y en pesos.'] : null,
+        !aplicaTipoCambio ? null : ['Tipo de cambio', pais === 'UY'
+          ? 'A los efectos de este contrato se toma el dólar estadounidense a $' + DOLAR + ' pesos uruguayos (1 USD = ' + DOLAR + ' UYU) para convertir los importes expresados en dólares y en pesos.'
+          : 'El precio se pacta y se paga en dólares estadounidenses. Los importes de referencia de EL PROVEEDOR expresados en pesos uruguayos se convierten a dólares tomando el dólar a $' + DOLAR + ' pesos uruguayos (1 USD = ' + DOLAR + ' UYU); el importe en dólares pactado no varía por fluctuaciones del tipo de cambio.'],
         OFRECIDAS.length ? ['Opciones de descuento', 'Las opciones de descuento que EL CLIENTE marque en la sección "D. Opciones de descuento" se aplican en los términos allí descritos; las que no marque no se aplican.'] : null,
         SIN_DOMINIO || SIN_CORREO ? ['Costos no incluidos en el precio', SIN_DOMINIO && SIN_CORREO
           ? 'El costo del dominio y el del correo profesional no están incluidos en el precio de los servicios y se abonan por separado.'
