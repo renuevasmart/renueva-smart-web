@@ -435,6 +435,8 @@
     }
 
     const CUENTA_PREX = '1479265';
+    // Cláusula opcional que activa Renueva Smart desde el generador (?referencia=1); sin eso no aparece.
+    const REFERENCIA = params.get('referencia') === '1';
     const DOLAR = Number(params.get('dolar')) > 0 ? Number(params.get('dolar')) : 40;
     function fmt(n) {
       return Number(n).toLocaleString('de-DE', { maximumFractionDigits: 2 });
@@ -466,7 +468,7 @@
         ['Entrega y aprobación', 'EL PROVEEDOR notificará a EL CLIENTE cuando cada entregable esté listo para revisión. Los ajustes de contenidos se rigen por la cláusula de rondas de ajuste; los cambios sustanciales respecto de lo acordado se tratan como trabajo adicional.'],
         ['Rondas de ajuste', 'El precio incluye dos rondas de ajuste de contenidos, dentro de los ' + diasTxt + ' días a partir de la entrega del sitio. Los ajustes solicitados una vez vencido ese plazo, o más allá de esas dos rondas, se tratan como trabajo adicional.'],
         ['Titularidad del dominio', 'El dominio del sitio será de propiedad de EL CLIENTE, ' + nombreCliente + ' (' + c.labelDoc + ': ' + docCliente + '), y se registra a su nombre.'],
-        ['Propiedad del trabajo final', 'Una vez abonado el precio en su totalidad, EL CLIENTE es titular del sitio y los materiales entregados para este proyecto. EL PROVEEDOR puede conservar copias de trabajo y mencionar el proyecto como referencia de su portfolio, salvo pacto en contrario o lo que disponga el acuerdo de uso de caso firmado aparte.'],
+        ['Propiedad del trabajo final', 'Una vez abonado el precio en su totalidad, EL CLIENTE es titular del sitio y los materiales entregados para este proyecto.' + (REFERENCIA ? ' EL PROVEEDOR puede conservar copias de trabajo y mencionar el proyecto como referencia de su portfolio, salvo pacto en contrario o lo que disponga el acuerdo de uso de caso firmado aparte.' : '')],
         ['Confidencialidad', 'Cada parte se compromete a no divulgar a terceros la información confidencial de la otra que conozca con motivo de este contrato, salvo obligación legal de hacerlo.'],
         ['Cancelación anticipada', 'Cualquiera de las partes puede dar por terminado este contrato antes de la entrega final mediante comunicación escrita. En ese caso, EL CLIENTE abona el trabajo efectivamente realizado hasta ese momento, calculado en proporción al precio total y al avance del proyecto.'],
         ['Firma electrónica y prueba', 'Las partes reconocen a la firma manuscrita digital estampada en pantalla el carácter de firma electrónica, y le atribuyen validez y eficacia probatoria. Al firmar se registran la fecha y hora (UTC) y la huella digital (SHA-256) del PDF, que quedan archivadas junto con el documento como prueba del acuerdo alcanzado.'],
