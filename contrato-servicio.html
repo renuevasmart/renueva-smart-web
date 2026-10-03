@@ -475,6 +475,21 @@
     const SIN_DOMINIO = params.get('sinDominio') === '1';
     const SIN_CORREO = params.get('sinCorreo') === '1';
 
+    // Medios de pago que Renueva Smart acepta en el contrato (?pagos=...). Uruguay: siempre Prex (fijo).
+    // España: efectivo, Bizum y transferencia. Otros países: PayPal o Stripe, salvo Argentina.
+    const BIZUM_NUMERO = '+34 602 555 026';
+    const PAGOS_PERMITIDOS = { UY: [], ES: ['efectivo', 'bizum', 'transferencia'], OT: PAIS_NOMBRE_OT === 'Argentina' ? [] : ['paypal', 'stripe'] };
+    const PAGOS_TXT = {
+      efectivo: 'efectivo',
+      bizum: 'Bizum (al número ' + BIZUM_NUMERO + ')',
+      transferencia: 'transferencia bancaria (EL PROVEEDOR indicará los datos de la cuenta)',
+      paypal: 'PayPal',
+      stripe: 'Stripe',
+    };
+    function listaO(items) {
+      return items.length < 2 ? items.join('') : items.slice(0, -1).join(', ') + ' o ' + items[items.length - 1];
+    }
+
     // Opciones de descuento que Renueva Smart ofrece en el link (?opciones=recomendacion,resena,dolares);
     // el cliente marca cuáles quiere (nunca vienen pre-marcadas).
     // El 1,5 % por pagar en dólares aplica a Uruguay y a otros países de Hispanoamérica (no España ni Guinea Ecuatorial).
@@ -530,10 +545,11 @@
         : moneda === 'USD' ? ' (equivalente a $' + fmt(total * DOLAR) + ' pesos uruguayos al tipo de cambio indicado en la cláusula siguiente)'
         : '';
       const diasTxt = isNaN(dias) ? '[días]' : String(dias);
+      const pagos = (params.get('pagos') || '').split(',').filter((k) => (PAGOS_PERMITIDOS[pais] || []).includes(k));
       const recibido = ' Los pagos se consideran recibidos cuando el importe está efectivamente disponible para EL PROVEEDOR.';
       const precio = pais === 'UY'
         ? 'El precio total pactado es de ' + montoTxt + equivalencia + ', conforme al detalle de la sección "C. Precio y plazos". El pago se realiza por transferencia a la cuenta Prex número ' + CUENTA_PREX + '.' + recibido
-        : 'El precio total pactado es de ' + montoTxt + ', conforme al detalle de la sección "C. Precio y plazos", donde también se indica la forma de pago.' + recibido;
+        : 'El precio total pactado es de ' + montoTxt + ', conforme al detalle de la sección "C. Precio y plazos"' + (pagos.length ? '. El pago puede realizarse por ' + listaO(pagos.map((k) => PAGOS_TXT[k])) + '.' : ', donde también se indica la forma de pago.') + recibido;
       return [
         ['Objeto', 'EL PROVEEDOR se obliga a prestar a EL CLIENTE los servicios detallados en las secciones "A. Trabajos incluidos" y "B. Alcance adicional" de este documento, en las condiciones aquí pactadas.'],
         ['Precio y forma de pago', precio],

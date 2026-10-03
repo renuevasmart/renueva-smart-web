@@ -288,6 +288,7 @@
           '<ul class="lista-items"><li><label><input type="checkbox" id="genSinDominio" checked> Aclarar que el costo del dominio no está incluido en el precio (se abona por separado)</label></li>' +
           '<li><label><input type="checkbox" id="genSinCorreo" checked> Aclarar que el costo del correo profesional no está incluido en el precio (se abona por separado)</label></li></ul>' +
           '<p class="campo-hint">Si tildás una, el contrato lo dice en una cláusula; si no, no se menciona.</p>' +
+          '<div class="seccion-items" style="margin-top:20px"><h3>Formas de pago que aceptás</h3><div id="bloquePagos"></div></div>' +
           '<div class="seccion-items" style="margin-top:20px"><h3>D. Opciones de descuento que le ofrecés al cliente</h3><ul class="lista-items">' +
           '<li><label><input type="checkbox" id="genOpRecomendacion"> 10 % por recomendación (30 días para el primer interesado; el segundo, sin plazo)</label></li>' +
           '<li><label><input type="checkbox" id="genOpResena"> 10 % por reseña en Google Business y autorización del caso</label></li>' +
@@ -297,6 +298,7 @@
       marcarPendiente();
       actualizarMonedas();
       actualizarOpciones();
+      actualizarPagos();
       zona.querySelectorAll('input, textarea, select').forEach((el) => el.addEventListener('input', marcarPendiente));
     }
     selectTipo.addEventListener('change', renderZona);
@@ -333,6 +335,21 @@
         : 'El cliente ve solo las que tildes y marca cuáles quiere aplicar; las que no marque, no se aplican.';
     }
     selPais.addEventListener('change', actualizarOpciones);
+
+    // Medios de pago según el país: Uruguay siempre Prex (fijo); España efectivo/Bizum/transferencia;
+    // otros países PayPal o Stripe, salvo Argentina.
+    function actualizarPagos() {
+      const cont = document.getElementById('bloquePagos');
+      if (!cont) return;
+      const cod = paisCodigo();
+      const lista = cod === 'ES' ? [['efectivo', 'Efectivo', true], ['bizum', 'Bizum (+34 602 555 026)', true], ['transferencia', 'Transferencia bancaria', true]]
+        : (cod === 'OT' && selPais.value !== 'Argentina') ? [['paypal', 'PayPal', false], ['stripe', 'Stripe', false]] : [];
+      cont.innerHTML = lista.length
+        ? '<ul class="lista-items">' + lista.map(([k, n, tildado]) => '<li><label><input type="checkbox" data-pago="' + k + '"' + (tildado ? ' checked' : '') + '> ' + n + '</label></li>').join('') + '</ul>'
+        : '<p class="campo-hint">' + (cod === 'UY' ? 'Uruguay: siempre transferencia a la cuenta Prex (fijo en el contrato).' : 'Para Argentina no hay medios de pago predefinidos: el contrato remite a la sección C.') + '</p>';
+      cont.querySelectorAll('input').forEach((el) => el.addEventListener('input', marcarPendiente));
+    }
+    selPais.addEventListener('change', actualizarPagos);
 
     // ---------- Confirmar / generar ----------
     const inputLink = document.getElementById('link');
@@ -397,6 +414,8 @@
         if (document.getElementById('genReferencia').checked) qp.set('referencia', '1');
         if (document.getElementById('genSinDominio').checked) qp.set('sinDominio', '1');
         if (document.getElementById('genSinCorreo').checked) qp.set('sinCorreo', '1');
+        const pagos = [...document.querySelectorAll('#bloquePagos input:checked')].map((i) => i.dataset.pago);
+        if (pagos.length) qp.set('pagos', pagos.join(','));
         const opciones = [];
         if (document.getElementById('genOpRecomendacion').checked) opciones.push('recomendacion');
         if (document.getElementById('genOpResena').checked) opciones.push('resena');
