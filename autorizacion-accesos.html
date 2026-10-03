@@ -855,7 +855,7 @@
 
       const opciones = {
         margin: margenMm,
-        image: { type: 'png' },
+        image: { type: 'jpeg', quality: 0.9 },
         jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
       };
       const pdf = await html2pdf().set(opciones).from(paginas[0], 'canvas').toPdf().get('pdf');
@@ -863,7 +863,7 @@
       for (let i = 1; i < paginas.length; i++) {
         const alturaImgMm = anchoImgMm * (paginas[i].height / paginas[i].width);
         pdf.addPage();
-        pdf.addImage(paginas[i].toDataURL('image/png'), 'PNG', margenMm, margenMm, anchoImgMm, alturaImgMm);
+        pdf.addImage(paginas[i].toDataURL('image/jpeg', 0.9), 'JPEG', margenMm, margenMm, anchoImgMm, alturaImgMm);
       }
       const blob = pdf.output('blob');
 
