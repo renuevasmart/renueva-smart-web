@@ -195,8 +195,23 @@
           <button type="button" class="btn-copiar" id="btnCopiar" disabled>Copiar</button>
         </div>
         <a class="abrir deshabilitado" id="enlaceAbrir" href="#" target="_blank" rel="noopener">Abrir para revisar →</a>
+        <p class="campo-hint" id="estadoLink"></p>
       </div>
     </div>
+
+    <details class="paso" id="ajusteToken">
+      <summary class="paso-titulo" style="cursor:pointer">Links cortos — configuración (una sola vez por navegador)</summary>
+      <p class="campo-hint">Para que el link sea corto (<code>renuevasmart.com/c/contrato-cliente/#clave</code>) esta página guarda los datos cifrados en el repositorio del sitio. Necesita un token de GitHub: <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">crearlo acá</a> con acceso solo al repositorio <b>renueva-smart-web</b> y el permiso <b>Contents: Read and write</b> (poné vencimiento). El token queda guardado solo en este navegador. Sin token se genera el link largo de siempre.</p>
+      <div class="campo">
+        <label for="ghToken">Token de GitHub</label>
+        <input type="password" id="ghToken" autocomplete="off" placeholder="github_pat_...">
+      </div>
+      <div class="fila-link">
+        <button type="button" class="btn-copiar" id="btnGuardarToken">Guardar token</button>
+        <button type="button" class="btn-copiar" id="btnQuitarToken" style="background:var(--color-bg-tertiary);color:var(--color-text-primary)">Quitar token</button>
+      </div>
+      <p class="campo-hint" id="estadoToken"></p>
+    </details>
   </div>
 
   <script>
@@ -401,7 +416,7 @@
       return zona.querySelectorAll('[data-grupo="' + grupo + '"] input').length;
     }
 
-    btnGenerar.addEventListener('click', () => {
+    btnGenerar.addEventListener('click', async () => {
       // Raíz del sitio: funciona igual si el generador se abre con o sin ".html".
       const carpeta = /^https?:$/.test(location.protocol) ? location.origin + '/' : location.href.replace(/[^/]*$/, '');
       const tipo = selectTipo.value;
@@ -462,15 +477,159 @@
       avisoFalta.classList.remove('visible');
 
       const query = qp.toString();
-      const url = carpeta + tipo + (query ? '?' + query : '');
-      inputLink.value = url;
-      enlaceAbrir.href = url;
-      enlaceAbrir.classList.remove('deshabilitado');
-      btnCopiar.disabled = false;
-      avisoPendiente.classList.remove('visible');
-      confirmadoEl.classList.add('visible');
-      generado = true;
+      const urlLargo = carpeta + tipo + (query ? '?' + query : '');
+      const mostrar = (url, nota) => {
+        inputLink.value = url;
+        enlaceAbrir.href = url;
+        enlaceAbrir.classList.remove('deshabilitado');
+        btnCopiar.disabled = false;
+        avisoPendiente.classList.remove('visible');
+        confirmadoEl.classList.add('visible');
+        estadoLink.textContent = nota || '';
+        generado = true;
+      };
+
+      const token = leerToken();
+      if (!token || !nombre) {
+        mostrar(urlLargo, !token
+          ? 'Link largo: para un link corto guardá un token de GitHub en "Links cortos" (abajo).'
+          : 'Link largo: poné el nombre del proyecto/persona/empresa para obtener un link corto.');
+        return;
+      }
+
+      // Link corto: datos cifrados en el repo (c/<slug>/index.html) y clave solo en el #.
+      const intento = ++intentoPublicacion;
+      generado = false;
+      confirmadoEl.classList.remove('visible');
+      btnCopiar.disabled = true;
+      enlaceAbrir.classList.add('deshabilitado');
+      btnGenerar.disabled = true;
+      inputLink.value = '';
+      estadoLink.textContent = 'Publicando el link corto…';
+      try {
+        const pub = await publicarEnlaceCorto(token, tipo, nombre, Object.fromEntries(qp));
+        if (intento !== intentoPublicacion) return;
+        enlaceAbrir.href = pub.url;
+        inputLink.value = pub.url;
+        estadoLink.textContent = 'Publicado. Esperando que el sitio lo muestre (puede tardar 1–2 minutos)…';
+        const vivo = await esperarPublicacion(pub.slug, () => intento !== intentoPublicacion);
+        if (intento !== intentoPublicacion) return;
+        mostrar(pub.url, vivo ? '' : 'Todavía no responde: probá abrirlo en un minuto antes de enviarlo.');
+      } catch (e) {
+        if (intento !== intentoPublicacion) return;
+        mostrar(urlLargo, 'No se pudo crear el link corto (' + (e && e.message ? e.message : 'error') + '). Te dejo el link largo.');
+      } finally {
+        btnGenerar.disabled = false;
+      }
     });
+
+    // ---------- Link corto: cifrar y guardar en el repositorio ----------
+    const TOKEN_KEY = 'rs_gh_token';
+    const SITIO = 'https://renuevasmart.com';
+    const API_REPO = 'https://api.github.com/repos/renuevasmart/renueva-smart-web/contents/';
+    const PREFIJO_DOC = { 'autorizacion-accesos.html': 'accesos', 'autorizacion-caso-exito.html': 'caso', 'contrato-servicio.html': 'contrato' };
+    const estadoLink = document.getElementById('estadoLink');
+    const estadoToken = document.getElementById('estadoToken');
+    const campoToken = document.getElementById('ghToken');
+    let intentoPublicacion = 0;
+
+    function leerToken() { try { return localStorage.getItem(TOKEN_KEY) || ''; } catch (e) { return ''; } }
+    function pintarToken() {
+      estadoToken.textContent = leerToken() ? 'Token guardado en este navegador: los links nuevos serán cortos.' : 'Sin token guardado.';
+    }
+    document.getElementById('btnGuardarToken').addEventListener('click', () => {
+      const t = campoToken.value.trim();
+      if (!t) { estadoToken.textContent = 'Pegá el token primero.'; return; }
+      try { localStorage.setItem(TOKEN_KEY, t); campoToken.value = ''; } catch (e) { estadoToken.textContent = 'Este navegador no deja guardar datos.'; return; }
+      pintarToken();
+    });
+    document.getElementById('btnQuitarToken').addEventListener('click', () => {
+      try { localStorage.removeItem(TOKEN_KEY); } catch (e) { /* nada que quitar */ }
+      pintarToken();
+    });
+    pintarToken();
+
+    const base64url = (bytes) => {
+      let s = '';
+      bytes.forEach((b) => { s += String.fromCharCode(b); });
+      return btoa(s).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+    };
+    const base64Utf8 = (texto) => {
+      let s = '';
+      new TextEncoder().encode(texto).forEach((b) => { s += String.fromCharCode(b); });
+      return btoa(s);
+    };
+
+    function slugDe(texto) {
+      return texto.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+    }
+
+    async function apiRepo(token, ruta, opciones) {
+      const resp = await fetch(API_REPO + ruta, Object.assign({
+        headers: { Authorization: 'Bearer ' + token, Accept: 'application/vnd.github+json', 'Content-Type': 'application/json' },
+      }, opciones || {}));
+      if (resp.status === 401) throw new Error('el token no es válido o venció');
+      if (resp.status === 403 || (resp.status === 404 && opciones)) throw new Error('el token no tiene permiso de escritura en el repositorio');
+      return resp;
+    }
+
+    async function publicarEnlaceCorto(token, tipo, nombre, params) {
+      const base = (PREFIJO_DOC[tipo] || 'doc') + '-' + (slugDe(nombre) || 'cliente');
+      let slug = base;
+      for (let n = 2; n < 50; n++) {
+        const resp = await apiRepo(token, 'c/' + slug + '/index.html?ref=master');
+        if (resp.status === 404) break;
+        if (!resp.ok) throw new Error('GitHub respondió ' + resp.status);
+        slug = base + '-' + n;
+      }
+
+      const clave = crypto.getRandomValues(new Uint8Array(16));
+      const iv = crypto.getRandomValues(new Uint8Array(12));
+      const llave = await crypto.subtle.importKey('raw', clave, 'AES-GCM', false, ['encrypt']);
+      const cifrado = new Uint8Array(await crypto.subtle.encrypt({ name: 'AES-GCM', iv }, llave, new TextEncoder().encode(JSON.stringify({ doc: tipo, params }))));
+      const todo = new Uint8Array(iv.length + cifrado.length);
+      todo.set(iv);
+      todo.set(cifrado, iv.length);
+      const blob = base64url(todo);
+
+      const html = [
+        '<!DOCTYPE html>',
+        '<html lang="es">',
+        '<head>',
+        '<meta charset="UTF-8">',
+        '<meta name="viewport" content="width=device-width, initial-scale=1.0">',
+        '<title>Renueva Smart</title>',
+        '<meta name="robots" content="noindex, nofollow">',
+        '<link rel="icon" href="/assets/favicon.ico" sizes="any">',
+        '</head>',
+        '<body style="margin:0;background:#0b0c0e;color:#f5f3ee;font-family:system-ui,sans-serif">',
+        '<p id="msg" style="padding:40px;text-align:center">Cargando documento…</p>',
+        '<script id="datos" type="application/json">' + JSON.stringify(blob) + '<\/script>',
+        '<script src="/c/cargador.js"><\/script>',
+        '</body>',
+        '</html>',
+        ''].join('\n');
+
+      const resp = await apiRepo(token, 'c/' + slug + '/index.html', {
+        method: 'PUT',
+        body: JSON.stringify({ message: 'Enlace de documento: ' + slug, content: base64Utf8(html), branch: 'master' }),
+      });
+      if (!resp.ok) throw new Error('GitHub respondió ' + resp.status);
+      return { slug, url: SITIO + '/c/' + slug + '/#' + base64url(clave) };
+    }
+
+    // GitHub Pages tarda un poco en mostrar la página nueva: se espera hasta que responda.
+    async function esperarPublicacion(slug, cancelado) {
+      for (let i = 0; i < 30; i++) {
+        if (cancelado()) return false;
+        try {
+          const resp = await fetch(SITIO + '/c/' + slug + '/?t=' + Date.now(), { cache: 'no-store' });
+          if (resp.ok) return true;
+        } catch (e) { /* todavía no responde */ }
+        await new Promise((r) => setTimeout(r, 5000));
+      }
+      return false;
+    }
 
     btnCopiar.addEventListener('click', async () => {
       try {
