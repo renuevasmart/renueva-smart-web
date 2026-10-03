@@ -233,6 +233,7 @@
       <input type="hidden" name="País del cliente" id="paisOculto">
       <input type="hidden" name="Resumen de trabajos marcados" id="resumenOculto">
       <input type="hidden" name="Opciones de descuento elegidas" id="opcionesOculto">
+      <input type="hidden" name="Precio y plazos" id="precioOculto">
       <input type="hidden" name="Firmado el (UTC)" id="marcaTiempoOculta">
       <input type="hidden" name="Huella SHA-256 del PDF" id="huellaOculta">
 
@@ -305,15 +306,14 @@
       </div>
 
       <div class="campo-grande campo">
-        <label for="alcanceLibre">Alcance adicional / detalle específico de este proyecto</label>
-        <textarea id="alcanceLibre" name="Alcance adicional" rows="4" placeholder="Ej: landing de una sola página, en español, con sección de testimonios y mapa de ubicación."></textarea>
-        <p class="campo-hint">Opcional. Usalo para precisar lo marcado arriba o agregar trabajos que no estén en la lista.</p>
+        <label for="alcanceLibre">B. Aclaraciones</label>
+        <textarea id="alcanceLibre" name="Aclaraciones" rows="4" placeholder="Ej: Paquete A: estructura simple de la web. Paquete C: dejar la web funcionando y en línea."></textarea>
+        <p class="campo-hint">Opcional. Aclaraciones sobre este proyecto.</p>
       </div>
 
-      <div class="campo-grande campo">
-        <label for="precioPlazos">Precio y plazos</label>
-        <textarea id="precioPlazos" name="Precio y plazos" rows="5" placeholder="Ej: USD 700 en total — 50% (USD 350) al firmar este contrato, 50% restante contra entrega. Entrega estimada: 15 días hábiles desde el pago inicial." required></textarea>
-        <p class="campo-hint">Detallá el monto total, la moneda, la forma de pago (al contado, en cuotas, por hitos) y la fecha o plazo de entrega acordados.</p>
+      <div class="seccion-items" id="seccionPrecioPlazos">
+        <h3>C. Precio y plazos</h3>
+        <ul class="lista-items" id="listaPrecioPlazos"></ul>
       </div>
 
       <div class="seccion-items" id="seccionOpciones" style="display:none">
@@ -339,6 +339,17 @@
           <select id="publica" name="Publicación del sitio" required>
             <option value="rs">Renueva Smart publica la web (la deja en línea)</option>
             <option value="cliente">El cliente o su proveedor publica la web (se entregan los archivos)</option>
+          </select>
+        </div>
+        <div class="campo" id="campoEntrega">
+          <label for="diasEntrega">Plazo de entrega (días, máximo 30)</label>
+          <select id="diasEntrega" name="Plazo de entrega (días)" required></select>
+        </div>
+        <div class="campo" id="campoPlazoDesde">
+          <label for="plazoDesde">Los días de entrega corren desde</label>
+          <select id="plazoDesde" name="Plazo de entrega: desde" required>
+            <option value="primer">El primer pago</option>
+            <option value="total">Que se pague el 100 % de lo presupuestado</option>
           </select>
         </div>
       </div>
@@ -415,7 +426,7 @@
     </div>
     <h3>A. Trabajos incluidos</h3>
     <div id="pdfListaItems"></div>
-    <h3>B. Alcance adicional</h3>
+    <h3>B. Aclaraciones</h3>
     <div class="texto-libre-pdf" id="pdfAlcanceLibre"></div>
     <h3>C. Precio y plazos</h3>
     <div class="texto-libre-pdf" id="pdfPrecioPlazos"></div>
@@ -565,6 +576,9 @@
         : moneda === 'USD' ? ' (equivalente a $' + fmt(total * DOLAR) + ' pesos uruguayos al tipo de cambio indicado en la cláusula siguiente)'
         : '';
       const diasTxt = isNaN(dias) ? '[días]' : String(dias);
+      const entrega = parseInt(document.getElementById('diasEntrega').value, 10);
+      const entregaTxt = isNaN(entrega) ? '[días]' : entrega + (entrega === 1 ? ' día' : ' días');
+      const desdeTxt = document.getElementById('plazoDesde').value === 'total' ? 'de que se abone el 100 % del presupuesto' : 'del primer pago';
       const permitidos = pagosPermitidos(pais);
       const pagos = (params.get('pagos') || '').split(',').filter((k) => permitidos.includes(k));
       const recibido = ' Los pagos se consideran recibidos cuando el importe está efectivamente disponible para EL PROVEEDOR.';
@@ -577,7 +591,7 @@
         ? base + '.' + (pagos.length ? metodos : ' El pago se realiza por transferencia a la cuenta Prex número ' + CUENTA_PREX + '.') + cuotas + recibido
         : base + (pagos.length || EN_CUOTAS ? '.' + metodos + cuotas : ', donde también se indica la forma de pago.') + recibido;
       return [
-        ['Objeto', 'EL PROVEEDOR se obliga a prestar a EL CLIENTE los servicios detallados en las secciones "A. Trabajos incluidos" y "B. Alcance adicional" de este documento, en las condiciones aquí pactadas.'],
+        ['Objeto', 'EL PROVEEDOR se obliga a prestar a EL CLIENTE los servicios detallados en las secciones "A. Trabajos incluidos" y "B. Aclaraciones" de este documento, en las condiciones aquí pactadas.'],
         ['Precio y forma de pago', precio],
         pais === 'UY' && moneda !== 'EUR' ? ['Tipo de cambio', 'A los efectos de este contrato se toma el dólar estadounidense a $' + DOLAR + ' pesos uruguayos (1 USD = ' + DOLAR + ' UYU) para convertir los importes expresados en dólares y en pesos.'] : null,
         OFRECIDAS.length ? ['Opciones de descuento', 'Las opciones de descuento que EL CLIENTE marque en la sección "D. Opciones de descuento" se aplican en los términos allí descritos; las que no marque no se aplican.'] : null,
@@ -587,9 +601,9 @@
             ? 'El costo del dominio no está incluido en el precio de los servicios y se abona por separado.'
             : 'El costo del correo profesional no está incluido en el precio de los servicios y se abona por separado.'] : null,
         ['Trabajos fuera de alcance', 'Cualquier trabajo no incluido en las secciones A y B se considera adicional y requiere acuerdo previo por escrito sobre su precio y plazo antes de realizarse.'],
-        ['Lo que no incluye', 'Salvo que figure expresamente en la sección "A. Trabajos incluidos" o en la sección "B. Alcance adicional", este contrato no incluye la redacción de textos a medida, la obtención de fotografías u otros materiales con derechos de uso, ni la contratación de alojamientos de pago.'],
+        ['Lo que no incluye', 'Salvo que figure expresamente en la sección "A. Trabajos incluidos" o en la sección "B. Aclaraciones", este contrato no incluye la redacción de textos a medida, la obtención de fotografías u otros materiales con derechos de uso, ni la contratación de alojamientos de pago.'],
         !IMAGEN_PERSONAS ? null : ['Contenidos y derechos de imagen', 'EL CLIENTE es el único responsable de los textos, fotografías, videos, logotipos y demás materiales que entregue para el sitio, y declara contar con los derechos de uso sobre ellos y, si aparecen personas identificables, con su consentimiento expreso para el uso de su imagen (y el de sus representantes legales, si son menores). EL PROVEEDOR no verifica esos derechos ni responde por reclamaciones de terceros derivadas de los materiales aportados por EL CLIENTE, quien lo mantendrá indemne frente a ellas. EL PROVEEDOR responde por la licencia del material que incorpore por su cuenta. Ante una reclamación de un tercero, EL PROVEEDOR podrá retirar el contenido afectado hasta que se aclare.'],
-        ['Plazos de entrega', 'El plazo de entrega es el indicado en la sección "C. Precio y plazos". Los plazos pueden extenderse por demoras atribuibles a EL CLIENTE (falta de contenidos, accesos o aprobaciones a tiempo) o por causas de fuerza mayor, sin que ello genere penalidad para EL PROVEEDOR.'],
+        ['Plazos de entrega', 'El plazo de entrega es de ' + entregaTxt + ' a partir ' + desdeTxt + ', según la sección "C. Precio y plazos". Los plazos pueden extenderse por demoras atribuibles a EL CLIENTE (falta de contenidos, accesos o aprobaciones a tiempo) o por causas de fuerza mayor, sin que ello genere penalidad para EL PROVEEDOR.'],
         ['Publicación del sitio', publica === 'rs'
           ? 'EL PROVEEDOR publica el sitio y lo deja en línea y funcionando como parte de este contrato.'
           : 'EL PROVEEDOR entrega los archivos del sitio terminado; la publicación en línea queda a cargo de EL CLIENTE o de su proveedor.'],
@@ -606,9 +620,20 @@
     }
 
     const contenedorClausulas = document.getElementById('clausulasPagina');
+    // Sección C: total y plazo de entrega, armados con lo que define Renueva Smart (el cliente no los edita).
+    function textoPrecioPlazos() {
+      const total = parseFloat(document.getElementById('totalPresupuesto').value);
+      const moneda = document.getElementById('monedaPresupuesto').value;
+      const entrega = parseInt(document.getElementById('diasEntrega').value, 10);
+      const desde = document.getElementById('plazoDesde').value === 'total' ? 'de que se abone el 100 % del presupuesto' : 'del primer pago';
+      return 'Total del presupuesto: ' + (isNaN(total) ? '[total]' : dinero(total, moneda))
+        + '\nPlazo de entrega: ' + (isNaN(entrega) ? '[días]' : entrega + (entrega === 1 ? ' día' : ' días')) + ' a partir ' + desde + '.';
+    }
     function renderClausulasPagina() {
       contenedorClausulas.innerHTML = '<h2>Condiciones</h2>' + clausulas(paisActual()).map(([t, txt], i) =>
         '<div class="clausula"><h4>' + (i + 1) + '. ' + esc(t) + '</h4><p>' + esc(txt) + '</p></div>').join('');
+      document.getElementById('listaPrecioPlazos').innerHTML = textoPrecioPlazos().split('\n').map((l) =>
+        '<li><label style="cursor:default"><span>' + esc(l) + '</span></label></li>').join('');
     }
 
     const TABLA_DNI_ES = 'TRWAGMYFPDXBNJZSQVHLCKE';
@@ -726,7 +751,7 @@
       chk.addEventListener('change', renderClausulasPagina);
     });
     if (params.get('alcance')) document.getElementById('alcanceLibre').value = params.get('alcance');
-    if (params.get('precio')) document.getElementById('precioPlazos').value = params.get('precio');
+    document.getElementById('diasEntrega').innerHTML = '<option value="">Elegí…</option>' + Array.from({ length: 30 }, (_, i) => '<option value="' + (i + 1) + '">' + (i + 1) + (i === 0 ? ' día' : ' días') + '</option>').join('');
 
     // Datos que define Renueva Smart en el link (total, días de ajuste, quién publica): el cliente
     // no los ve como campos. Si falta alguno (link viejo o directo), ese campo queda visible.
@@ -740,15 +765,17 @@
         '<li><label><input type="checkbox" data-key="' + k + '"> <span><strong>' + esc(OPCIONES[k].titulo) + '.</strong> ' + esc(OPCIONES[k].texto) + '</span></label></li>').join('');
     }
     let camposDefinidos = 0;
-    [['total', 'totalPresupuesto', 'campoTotal'], ['ajustes', 'diasAjuste', 'campoAjustes'], ['publica', 'publica', 'campoPublica']].forEach(([p, id, campo]) => {
+    [['total', 'totalPresupuesto', 'campoTotal'], ['ajustes', 'diasAjuste', 'campoAjustes'], ['publica', 'publica', 'campoPublica'], ['entrega', 'diasEntrega', 'campoEntrega'], ['plazoDesde', 'plazoDesde', 'campoPlazoDesde']].forEach(([p, id, campo]) => {
       const v = params.get(p);
-      if (!v || (p === 'publica' && v !== 'rs' && v !== 'cliente')) return;
-      document.getElementById(id).value = v;
+      if (!v) return;
+      const el = document.getElementById(id);
+      el.value = v;
+      if (el.value !== v) return; // valor no válido para ese desplegable
       document.getElementById(campo).style.display = 'none';
       camposDefinidos++;
     });
-    if (camposDefinidos === 3) document.getElementById('bloqueProveedor').style.display = 'none';
-    ['totalPresupuesto', 'monedaPresupuesto', 'diasAjuste', 'publica', 'clienteNombre', 'clienteCedula'].forEach((id) => {
+    if (camposDefinidos === 5) document.getElementById('bloqueProveedor').style.display = 'none';
+    ['totalPresupuesto', 'monedaPresupuesto', 'diasAjuste', 'publica', 'diasEntrega', 'plazoDesde', 'clienteNombre', 'clienteCedula'].forEach((id) => {
       document.getElementById(id).addEventListener('input', renderClausulasPagina);
     });
     renderClausulasPagina();
@@ -869,8 +896,10 @@
       document.getElementById('pdfFirmaCliente').src = invertirCanvas(lienzo);
       document.getElementById('pdfAclaracionCliente').textContent = inputNombre.value.trim();
       document.getElementById('pdfRegistro').textContent = 'Registro: documento firmado electrónicamente el ' + marcaTiempo + ' (UTC). La huella digital SHA-256 del PDF se archiva junto con el documento.';
-      document.getElementById('pdfAlcanceLibre').textContent = document.getElementById('alcanceLibre').value.trim() || '— (sin detalle adicional) —';
-      document.getElementById('pdfPrecioPlazos').textContent = document.getElementById('precioPlazos').value.trim();
+      document.getElementById('pdfAlcanceLibre').textContent = document.getElementById('alcanceLibre').value.trim() || '— (sin aclaraciones) —';
+      const resumenC = textoPrecioPlazos();
+      document.getElementById('pdfPrecioPlazos').textContent = resumenC;
+      document.getElementById('precioOculto').value = resumenC;
 
       const marcadas = [...document.querySelectorAll('#listaOpciones input:checked')].map((c) => c.dataset.key);
       document.getElementById('pdfBloqueOpciones').style.display = OFRECIDAS.length ? '' : 'none';

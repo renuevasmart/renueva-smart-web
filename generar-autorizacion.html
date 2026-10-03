@@ -280,8 +280,7 @@
       } else {
         zona.innerHTML =
           '<div class="seccion-items"><h3>A. Trabajos incluidos</h3>' + listaHtml(CONTRATO_TRABAJOS, 'trabajos', false) + '</div>' +
-          '<div class="campo"><label for="genAlcance">Alcance adicional / detalle específico</label><textarea id="genAlcance" rows="3" placeholder="Ej: landing de una sola página, con sección de testimonios."></textarea></div>' +
-          '<div class="campo"><label for="genPrecio">Precio y plazos</label><textarea id="genPrecio" rows="4" placeholder="Ej: USD 700 en total — 50% al firmar, 50% contra entrega. Entrega: 15 días hábiles."></textarea></div>' +
+          '<div class="campo"><label for="genAlcance">B. Aclaraciones</label><textarea id="genAlcance" rows="3" placeholder="Ej: Paquete A: estructura simple de la web. Paquete C: dejar la web funcionando y en línea."></textarea><p class="campo-hint">Opcional. Único espacio de texto libre del contrato.</p></div>' +
           '<div class="seccion-items"><h3>Forma de pago</h3><div id="bloquePagos"></div>' +
           '<ul class="lista-items" style="margin-top:12px"><li><label><input type="checkbox" id="genEnCuotas"> El pago es en cuotas mensuales</label></li></ul>' +
           '<div id="campoCuotas" style="display:none;margin-top:12px"><div style="display:flex;gap:10px">' +
@@ -289,6 +288,8 @@
           '<div class="campo" style="flex:1;margin:0"><label for="genCuotaMonto">Monto aprox. de cada cuota</label><input type="number" id="genCuotaMonto" min="0" step="any" inputmode="decimal" placeholder="Ej: 2133"></div></div>' +
           '<p class="campo-hint">Completá uno o los dos. El monto va en la misma moneda que el total.</p></div></div>' +
           '<div class="campo"><label for="genTotal">Total del presupuesto</label><div style="display:flex;gap:10px"><input type="number" id="genTotal" min="0" step="any" inputmode="decimal" placeholder="Ej: 12800" style="flex:1;min-width:0"><select id="genMoneda" style="width:auto" aria-label="Moneda"></select></div><p class="campo-hint">Uruguay: pesos, dólares o euros. España: euros o dólares.</p></div>' +
+          '<div class="campo"><label for="genEntrega">Plazo de entrega (días, máximo 30)</label><select id="genEntrega"><option value="">Elegí…</option>' + Array.from({ length: 30 }, (_, i) => '<option value="' + (i + 1) + '">' + (i + 1) + (i === 0 ? ' día' : ' días') + '</option>').join('') + '</select></div>' +
+          '<div class="campo"><label for="genPlazoDesde">Los días de entrega corren desde</label><select id="genPlazoDesde"><option value="primer">El primer pago</option><option value="total">Que se pague el 100 % de lo presupuestado</option></select></div>' +
           '<div class="campo"><label for="genAjustes">Días de las dos rondas de ajuste (a partir de la entrega del sitio)</label><input type="number" id="genAjustes" min="1" step="1" inputmode="numeric" placeholder="Ej: 15"></div>' +
           '<div class="campo"><label for="genPublica">Publicación del sitio</label><select id="genPublica"><option value="rs">Renueva Smart publica la web (la deja en línea)</option><option value="cliente">El cliente o su proveedor publica la web (se entregan los archivos)</option></select></div>' +
           '<div class="campo"><label for="genDolar">Tipo de cambio (pesos uruguayos por 1 USD)</label><input type="number" id="genDolar" min="1" step="any" value="40"><p class="campo-hint">Solo se usa en contratos de Uruguay.</p></div>' +
@@ -418,18 +419,19 @@
         const trabajos = clavesTildadas('trabajos');
         qp.set('trabajos', trabajos.join(','));
         const alcance = document.getElementById('genAlcance').value.trim();
-        const precio = document.getElementById('genPrecio').value.trim();
         if (alcance) qp.set('alcance', alcance);
-        if (precio) qp.set('precio', precio);
         const total = document.getElementById('genTotal').value.trim();
+        const entrega = document.getElementById('genEntrega').value;
         const ajustes = document.getElementById('genAjustes').value.trim();
-        if (!trabajos.length || !total || !ajustes) {
-          avisoFalta.textContent = 'Marcá al menos un trabajo incluido y completá el total del presupuesto y los días de ajuste antes de generar el link.';
+        if (!trabajos.length || !total || !entrega || !ajustes) {
+          avisoFalta.textContent = 'Marcá al menos un trabajo incluido y completá el total del presupuesto, el plazo de entrega y los días de ajuste antes de generar el link.';
           avisoFalta.classList.add('visible');
           return;
         }
         qp.set('total', total);
         qp.set('moneda', document.getElementById('genMoneda').value);
+        qp.set('entrega', entrega);
+        qp.set('plazoDesde', document.getElementById('genPlazoDesde').value);
         qp.set('ajustes', ajustes);
         qp.set('publica', document.getElementById('genPublica').value);
         const dolar = document.getElementById('genDolar').value.trim();
