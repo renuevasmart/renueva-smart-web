@@ -399,7 +399,8 @@
     }
 
     btnGenerar.addEventListener('click', () => {
-      const carpeta = location.href.replace(/generar-autorizacion\.html.*$/, '');
+      // Raíz del sitio: funciona igual si el generador se abre con o sin ".html".
+      const carpeta = /^https?:$/.test(location.protocol) ? location.origin + '/' : location.href.replace(/[^/]*$/, '');
       const tipo = selectTipo.value;
       const nombre = inputNombre.value.trim();
       const pais = paisCodigo();
