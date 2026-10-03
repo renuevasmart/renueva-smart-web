@@ -279,14 +279,14 @@
         <h3>A. Trabajos incluidos</h3>
         <p class="sub">Marcá los servicios que forman parte de este proyecto.</p>
         <ul class="lista-items">
-          <li><label><input type="checkbox" data-item="Diseño y desarrollo de sitio web"> Diseño y desarrollo de sitio web</label></li>
-          <li><label><input type="checkbox" data-item="Rediseño de un sitio web existente"> Rediseño de un sitio web existente</label></li>
-          <li><label><input type="checkbox" data-item="Optimización SEO (posicionamiento en buscadores)"> Optimización SEO (posicionamiento en buscadores)</label></li>
-          <li><label><input type="checkbox" data-item="Configuración de dominio, hosting y certificado SSL"> Configuración de dominio, hosting y certificado SSL</label></li>
-          <li><label><input type="checkbox" data-item="Formularios de contacto e integración con base de datos"> Formularios de contacto e integración con base de datos</label></li>
-          <li><label><input type="checkbox" data-item="Materiales explicativos para el cliente (PDFs, reportes, demos)"> Materiales explicativos para el cliente (PDFs, reportes, demos)</label></li>
-          <li><label><input type="checkbox" data-item="Capacitación de uso del sitio al entregar"> Capacitación de uso del sitio al entregar</label></li>
-          <li><label><input type="checkbox" data-item="Mantenimiento y soporte posterior a la entrega"> Mantenimiento y soporte posterior a la entrega</label></li>
+          <li><label><input type="checkbox" data-key="diseno-desarrollo-web" data-item="Diseño y desarrollo de sitio web"> Diseño y desarrollo de sitio web</label></li>
+          <li><label><input type="checkbox" data-key="redisenio-existente" data-item="Rediseño de un sitio web existente"> Rediseño de un sitio web existente</label></li>
+          <li><label><input type="checkbox" data-key="seo" data-item="Optimización SEO (posicionamiento en buscadores)"> Optimización SEO (posicionamiento en buscadores)</label></li>
+          <li><label><input type="checkbox" data-key="dominio-hosting-ssl" data-item="Configuración de dominio, hosting y certificado SSL"> Configuración de dominio, hosting y certificado SSL</label></li>
+          <li><label><input type="checkbox" data-key="formularios-bd" data-item="Formularios de contacto e integración con base de datos"> Formularios de contacto e integración con base de datos</label></li>
+          <li><label><input type="checkbox" data-key="materiales-explicativos" data-item="Materiales explicativos para el cliente (PDFs, reportes, demos)"> Materiales explicativos para el cliente (PDFs, reportes, demos)</label></li>
+          <li><label><input type="checkbox" data-key="capacitacion" data-item="Capacitación de uso del sitio al entregar"> Capacitación de uso del sitio al entregar</label></li>
+          <li><label><input type="checkbox" data-key="mantenimiento" data-item="Mantenimiento y soporte posterior a la entrega"> Mantenimiento y soporte posterior a la entrega</label></li>
         </ul>
       </div>
 
@@ -521,6 +521,18 @@
     if (params.get('pais') === 'ES') { document.getElementById('paisES').checked = true; actualizarPorPais(); }
     actualizarTitulo();
     inputProyecto.addEventListener('input', actualizarTitulo);
+
+    // Pre-llenado desde el link (armado por Renueva Smart en generar-autorizacion.html): el
+    // cliente ve todo esto ya completado y puede ajustarlo antes de firmar.
+    const trabajosPreseleccionados = params.get('trabajos');
+    if (trabajosPreseleccionados !== null) {
+      const claves = new Set(trabajosPreseleccionados.split(',').filter(Boolean));
+      document.querySelectorAll('[data-grupo="trabajos"] input[type="checkbox"]').forEach((chk) => {
+        chk.checked = claves.has(chk.dataset.key);
+      });
+    }
+    if (params.get('alcance')) document.getElementById('alcanceLibre').value = params.get('alcance');
+    if (params.get('precio')) document.getElementById('precioPlazos').value = params.get('precio');
 
     const inputNombre = document.getElementById('clienteNombre');
     const aclaracionCliente = document.getElementById('aclaracionCliente');

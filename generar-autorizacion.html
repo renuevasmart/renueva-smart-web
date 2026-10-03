@@ -27,6 +27,7 @@
     --font-display: "Fraunces", Georgia, "Iowan Old Style", serif;
     --font-ui: "Plus Jakarta Sans", "Segoe UI", -apple-system, Roboto, Arial, sans-serif;
     --radius-lg: 8px;
+    --radius-xl: 12px;
     --radius-2xl: 16px;
     --radius-pill: 999px;
   }
@@ -46,24 +47,41 @@
   .nav { padding: 18px clamp(20px, 4vw, 56px); }
   .nav-logo { height: 44px; }
 
-  .contenido { max-width: 560px; margin: 0 auto; padding: 40px clamp(20px, 4vw, 56px) 60px; }
+  .contenido { max-width: 680px; margin: 0 auto; padding: 40px clamp(20px, 4vw, 56px) 60px; }
   .eyebrow-oscuro { font-weight: 800; font-size: 12.5px; letter-spacing: 0.09em; text-transform: uppercase; color: var(--color-brand); }
   .contenido h1 { font-family: var(--font-display); font-weight: 700; font-size: clamp(24px, 3.4vw, 32px); line-height: 1.15; margin: 10px 0 14px; }
   .contenido > p.lead { font-size: 15px; line-height: 1.6; color: var(--color-text-secondary); margin: 0 0 30px; }
 
+  .paso { margin-bottom: 10px; }
+  .paso-titulo { font-size: 12px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-text-muted); margin: 0 0 14px; display: flex; align-items: center; gap: 8px; }
+  .paso-titulo .num { display: inline-flex; align-items: center; justify-content: center; width: 20px; height: 20px; border-radius: 50%; background: var(--color-brand); color: var(--color-bg-primary); font-size: 11px; }
+
   .campo { margin-bottom: 22px; }
   .campo label { display: block; font-size: 11.5px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-text-muted); margin-bottom: 8px; }
-  .campo input {
+  .campo input, .campo select, .campo textarea {
     width: 100%; font-family: inherit; font-size: 15px; color: var(--color-text-primary);
     background: var(--color-bg-tertiary); border: 1px solid var(--color-border-default);
     border-radius: var(--radius-lg); padding: 12px 14px;
   }
-  .campo select {
-    width: 100%; font-family: inherit; font-size: 15px; color: var(--color-text-primary);
-    background: var(--color-bg-tertiary); border: 1px solid var(--color-border-default);
-    border-radius: var(--radius-lg); padding: 12px 14px;
+  .campo textarea { resize: vertical; min-height: 80px; line-height: 1.5; }
+  .campo input:focus, .campo select:focus, .campo textarea:focus { outline: 2px solid var(--color-brand); outline-offset: 1px; }
+  .campo-hint { font-size: 12.5px; color: var(--color-text-muted); margin: 6px 0 0; line-height: 1.5; }
+
+  .pais-pills { display: flex; gap: 10px; max-width: 280px; }
+  .pais-pills input { position: absolute; opacity: 0; pointer-events: none; }
+  .pais-pills label {
+    flex: 1; text-align: center; padding: 10px 8px; font-weight: 700; font-size: 13.5px; cursor: pointer;
+    background: var(--color-bg-tertiary); border: 1px solid var(--color-border-default); border-radius: var(--radius-lg);
+    transition: border-color 0.15s ease, color 0.15s ease;
   }
-  .campo input:focus, .campo select:focus { outline: 2px solid var(--color-brand); outline-offset: 1px; }
+  .pais-pills input:checked + label { border-color: var(--color-brand); color: var(--color-brand); }
+
+  .seccion-items { margin-bottom: 20px; }
+  .seccion-items h3 { font-size: 13px; font-weight: 800; margin: 0 0 8px; color: var(--color-text-primary); }
+  .lista-items { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 1px; background: var(--color-border-subtle); border: 1px solid var(--color-border-subtle); border-radius: var(--radius-xl); overflow: hidden; }
+  .lista-items li { background: var(--color-bg-secondary); }
+  .lista-items label { display: flex; align-items: flex-start; gap: 12px; padding: 10px 14px; font-size: 13.5px; line-height: 1.45; color: var(--color-text-secondary); cursor: pointer; }
+  .lista-items input { margin-top: 3px; width: 16px; height: 16px; flex-shrink: 0; accent-color: var(--color-brand); }
 
   .resultado {
     background: var(--color-bg-secondary); border: 1px solid var(--color-border-default);
@@ -82,7 +100,24 @@
   }
   .btn-copiar:hover { background: var(--color-brand-hover); }
   .btn-copiar.copiado { background: #2ecc71; }
+  .btn-copiar:disabled, .resultado a.abrir.deshabilitado { opacity: 0.4; cursor: not-allowed; pointer-events: none; }
   .resultado a.abrir { display: inline-block; margin-top: 12px; font-size: 13.5px; font-weight: 700; color: var(--color-text-primary); text-decoration: underline; }
+
+  .btn-generar {
+    font-weight: 800; font-size: 15px; color: var(--color-bg-primary); background: var(--color-brand);
+    border: none; border-radius: var(--radius-pill); padding: 14px 24px; cursor: pointer; width: 100%;
+    margin: 28px 0 18px; transition: background 0.15s ease, transform 0.15s ease;
+  }
+  .btn-generar:hover { background: var(--color-brand-hover); transform: translateY(-1px); }
+
+  .aviso-pendiente {
+    display: none; font-size: 13px; color: #ff8a65; background: rgba(255,106,0,0.08);
+    border: 1px solid rgba(255,106,0,0.3); border-radius: var(--radius-lg); padding: 10px 14px; margin-bottom: 18px;
+  }
+  .aviso-pendiente.visible { display: block; }
+
+  .confirmado { display: none; font-size: 13px; font-weight: 700; color: #2ecc71; margin: 0 0 10px; }
+  .confirmado.visible { display: block; }
 </style>
 </head>
 <body>
@@ -96,50 +131,217 @@
   <div class="contenido" id="contenido">
     <span class="eyebrow-oscuro">Herramienta interna</span>
     <h1>Generar link de documento</h1>
-    <p class="lead">Escribí el nombre del cliente o proyecto y te arma el link listo para mandar — con el nombre ya precargado en el formulario.</p>
+    <p class="lead">Elegí el documento, completá los campos que correspondan y confirmá antes de generar el link — así el cliente ya lo recibe con todo cargado y solo firma.</p>
 
-    <div class="campo">
-      <label for="tipo">Documento</label>
-      <select id="tipo">
-        <option value="autorizacion-accesos.html">Autorización de accesos y permisos</option>
-        <option value="autorizacion-caso-exito.html">Autorización de uso de caso y datos (web y redes)</option>
-        <option value="contrato-servicio.html">Contrato de servicios (alcance, precio y plazos)</option>
-      </select>
-    </div>
-
-    <div class="campo">
-      <label for="nombre">Nombre del proyecto / persona / empresa</label>
-      <input type="text" id="nombre" placeholder="Ej: Despacho de Abogados A&amp;O" autofocus>
-    </div>
-
-    <div class="resultado">
-      <label>Link para mandar</label>
-      <div class="fila-link">
-        <input type="text" id="link" readonly>
-        <button type="button" class="btn-copiar" id="btnCopiar">Copiar</button>
+    <div class="paso">
+      <p class="paso-titulo"><span class="num">1</span> Documento y proyecto</p>
+      <div class="campo">
+        <label for="tipo">Documento</label>
+        <select id="tipo">
+          <option value="autorizacion-accesos.html">Autorización de accesos y permisos</option>
+          <option value="autorizacion-caso-exito.html">Autorización de uso de caso y datos (web y redes)</option>
+          <option value="contrato-servicio.html">Contrato de servicios (alcance, precio y plazos)</option>
+        </select>
       </div>
-      <a class="abrir" id="enlaceAbrir" href="autorizacion-accesos.html" target="_blank" rel="noopener">Abrir para revisar →</a>
+      <div class="campo">
+        <label for="nombre">Nombre del proyecto / persona / empresa</label>
+        <input type="text" id="nombre" placeholder="Ej: Despacho de Abogados A&amp;O" autofocus>
+      </div>
+      <div class="campo">
+        <label for="pais">País del cliente</label>
+        <div class="pais-pills">
+          <input type="radio" name="pais" id="paisUY" value="UY" checked>
+          <label for="paisUY">Uruguay</label>
+          <input type="radio" name="pais" id="paisES" value="ES">
+          <label for="paisES">España</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="paso">
+      <p class="paso-titulo"><span class="num">2</span> Personalizar antes de generar el link</p>
+      <div id="zonaPersonalizar"></div>
+    </div>
+
+    <button type="button" class="btn-generar" id="btnGenerar">Confirmar y generar link</button>
+
+    <div class="paso">
+      <p class="paso-titulo"><span class="num">3</span> Copiar y enviar</p>
+      <p class="aviso-pendiente" id="avisoPendiente">Cambiaste algo arriba — tocá "Confirmar y generar link" de nuevo antes de copiar, para que el link coincida con lo que ves.</p>
+      <div class="resultado">
+        <p class="confirmado" id="confirmado">✓ Link generado — listo para enviar</p>
+        <label>Link para mandar</label>
+        <div class="fila-link">
+          <input type="text" id="link" readonly placeholder="Tocá &quot;Confirmar y generar link&quot; arriba">
+          <button type="button" class="btn-copiar" id="btnCopiar" disabled>Copiar</button>
+        </div>
+        <a class="abrir deshabilitado" id="enlaceAbrir" href="#" target="_blank" rel="noopener">Abrir para revisar →</a>
+      </div>
     </div>
   </div>
 
   <script>
-    const carpeta = location.href.replace(/generar-autorizacion\.html.*$/, '');
+    // ---------- Datos de los checklists (claves = data-key en cada documento real) ----------
+    const ACCESOS_SECCIONES = [
+      { titulo: '1. Dominio', items: [
+        { key: 'dominio-panel', label: 'Acceso al panel del registrador (o autorización para gestionarlo en su nombre)' },
+        { key: 'dominio-dns', label: 'Modificación de registros DNS (A, CNAME, MX, TXT)' },
+      ]},
+      { titulo: '2. Hosting / alojamiento', items: [
+        { key: 'hosting-panel', label: 'Acceso al panel de hosting (GitHub Pages, Netlify, Vercel, cPanel, etc.)' },
+        { key: 'hosting-subida', label: 'Subida de archivos (FTP/SFTP o despliegue por Git)' },
+        { key: 'hosting-ssl', label: 'Configuración de certificado SSL' },
+      ]},
+      { titulo: '3. Backend / base de datos', items: [
+        { key: 'backend-cuenta', label: 'Creación y administración de la cuenta del servicio de base de datos' },
+        { key: 'backend-config', label: 'Configuración de tablas, reglas de permisos y almacenamiento' },
+      ]},
+      { titulo: '4. Cuentas de servicios de terceros', items: [
+        { key: 'terceros-google', label: 'Google (Workspace/Gmail del sitio, Analytics, Search Console, OAuth)' },
+        { key: 'terceros-email', label: 'Servicio de envío de correo transaccional (Resend, Brevo, etc.)' },
+        { key: 'terceros-redes', label: 'Redes sociales del movimiento (Instagram, Facebook, Twitter/X)' },
+      ]},
+      { titulo: '5. Claves API y secretos', items: [
+        { key: 'api-claves', label: 'Generación y uso de claves API (Google Maps, reCAPTCHA, etc.)' },
+        { key: 'api-variables', label: 'Gestión de variables de entorno y tokens' },
+      ]},
+      { titulo: '6. Acceso remoto al equipo del cliente', items: [
+        { key: 'remoto-acceso', label: 'Autorización puntual por AnyDesk/TeamViewer, con alcance y horario definidos' },
+      ]},
+      { titulo: '7. Contenido y datos', items: [
+        { key: 'contenido-uso', label: 'Autorización de uso de logo, textos, imágenes y videos del cliente' },
+        { key: 'contenido-datos', label: 'Tratamiento de datos de usuarios del sitio conforme a la normativa vigente' },
+      ]},
+      { titulo: '8. Alcance y responsabilidad', items: [
+        { key: 'alcance-vigencia', label: 'Rige mientras dure el desarrollo del proyecto, revocable por el cliente' },
+        { key: 'alcance-confidencialidad', label: 'Las credenciales compartidas son confidenciales y de uso exclusivo del proyecto' },
+      ]},
+    ];
+
+    const CASO_EXITO_CONTENIDOS = [
+      { key: 'nombre-marca', label: 'Nombre o razón social y marca del cliente' },
+      { key: 'logo', label: 'Logo y elementos de identidad visual' },
+      { key: 'capturas', label: 'Capturas, imágenes y videos del sitio web (antes y después)' },
+      { key: 'descripcion-proceso', label: 'Descripción del proyecto, proceso y resultados obtenidos' },
+      { key: 'testimonio', label: 'Testimonio o reseña del cliente' },
+      { key: 'imagen-voz', label: 'Imagen y voz del cliente' },
+    ];
+    const CASO_EXITO_CANALES = [
+      { key: 'web-renuevasmart', label: 'Sitio web renuevasmart.com' },
+      { key: 'instagram-facebook', label: 'Instagram y Facebook' },
+      { key: 'linkedin', label: 'LinkedIn' },
+      { key: 'tiktok-youtube-x', label: 'TikTok, YouTube y X (Twitter)' },
+      { key: 'correos-newsletters', label: 'Correos, newsletters y presentaciones comerciales' },
+      { key: 'publicidad-paga', label: 'Publicidad paga' },
+    ];
+
+    const CONTRATO_TRABAJOS = [
+      { key: 'diseno-desarrollo-web', label: 'Diseño y desarrollo de sitio web' },
+      { key: 'redisenio-existente', label: 'Rediseño de un sitio web existente' },
+      { key: 'seo', label: 'Optimización SEO' },
+      { key: 'dominio-hosting-ssl', label: 'Configuración de dominio, hosting y certificado SSL' },
+      { key: 'formularios-bd', label: 'Formularios de contacto e integración con base de datos' },
+      { key: 'materiales-explicativos', label: 'Materiales explicativos (PDFs, reportes, demos)' },
+      { key: 'capacitacion', label: 'Capacitación de uso del sitio al entregar' },
+      { key: 'mantenimiento', label: 'Mantenimiento y soporte posterior a la entrega' },
+    ];
+
+    function listaHtml(items, grupo, todoTildado) {
+      return '<ul class="lista-items" data-grupo="' + grupo + '">' + items.map((it) =>
+        '<li><label><input type="checkbox" data-key="' + it.key + '"' + (todoTildado ? ' checked' : '') + '> ' + it.label + '</label></li>'
+      ).join('') + '</ul>';
+    }
+
+    const zona = document.getElementById('zonaPersonalizar');
     const selectTipo = document.getElementById('tipo');
+
+    function renderZona() {
+      const tipo = selectTipo.value;
+      if (tipo === 'autorizacion-accesos.html') {
+        zona.innerHTML = ACCESOS_SECCIONES.map((sec) =>
+          '<div class="seccion-items"><h3>' + sec.titulo + '</h3>' + listaHtml(sec.items, 'accesos', true) + '</div>'
+        ).join('') + '<p class="campo-hint">Por defecto quedan todos tildados (como en el documento real). Destildá los que no apliquen a este proyecto.</p>';
+      } else if (tipo === 'autorizacion-caso-exito.html') {
+        zona.innerHTML =
+          '<div class="seccion-items"><h3>A. Qué contenidos proponer</h3>' + listaHtml(CASO_EXITO_CONTENIDOS, 'contenidos', false) + '</div>' +
+          '<div class="seccion-items"><h3>B. En qué canales proponer publicar</h3>' + listaHtml(CASO_EXITO_CANALES, 'canales', false) + '</div>' +
+          '<p class="campo-hint">Lo que tildes acá llega pre-tildado, pero el cliente lo ve igual y puede ajustarlo antes de firmar — la decisión final siempre es suya.</p>';
+      } else {
+        zona.innerHTML =
+          '<div class="seccion-items"><h3>A. Trabajos incluidos</h3>' + listaHtml(CONTRATO_TRABAJOS, 'trabajos', false) + '</div>' +
+          '<div class="campo"><label for="genAlcance">Alcance adicional / detalle específico</label><textarea id="genAlcance" rows="3" placeholder="Ej: landing de una sola página, con sección de testimonios."></textarea></div>' +
+          '<div class="campo"><label for="genPrecio">Precio y plazos</label><textarea id="genPrecio" rows="4" placeholder="Ej: USD 700 en total — 50% al firmar, 50% contra entrega. Entrega: 15 días hábiles."></textarea></div>';
+      }
+      marcarPendiente();
+      zona.querySelectorAll('input, textarea').forEach((el) => el.addEventListener('input', marcarPendiente));
+    }
+    selectTipo.addEventListener('change', renderZona);
+
     const inputNombre = document.getElementById('nombre');
+    const radiosPais = document.querySelectorAll('input[name="pais"]');
+    inputNombre.addEventListener('input', marcarPendiente);
+    radiosPais.forEach((r) => r.addEventListener('change', marcarPendiente));
+
+    // ---------- Confirmar / generar ----------
     const inputLink = document.getElementById('link');
     const enlaceAbrir = document.getElementById('enlaceAbrir');
     const btnCopiar = document.getElementById('btnCopiar');
+    const btnGenerar = document.getElementById('btnGenerar');
+    const avisoPendiente = document.getElementById('avisoPendiente');
+    const confirmadoEl = document.getElementById('confirmado');
+    let generado = false;
 
-    function actualizar() {
+    function marcarPendiente() {
+      if (!generado) return;
+      avisoPendiente.classList.add('visible');
+      confirmadoEl.classList.remove('visible');
+      btnCopiar.disabled = true;
+      enlaceAbrir.classList.add('deshabilitado');
+    }
+
+    function clavesTildadas(grupo) {
+      return Array.from(zona.querySelectorAll('[data-grupo="' + grupo + '"] input:checked')).map((chk) => chk.dataset.key);
+    }
+    function clavesTotales(grupo) {
+      return zona.querySelectorAll('[data-grupo="' + grupo + '"] input').length;
+    }
+
+    btnGenerar.addEventListener('click', () => {
+      const carpeta = location.href.replace(/generar-autorizacion\.html.*$/, '');
+      const tipo = selectTipo.value;
       const nombre = inputNombre.value.trim();
-      const base = carpeta + selectTipo.value;
-      const url = nombre ? base + '?cliente=' + encodeURIComponent(nombre) : base;
+      const pais = document.querySelector('input[name="pais"]:checked').value;
+      const qp = new URLSearchParams();
+      if (nombre) qp.set('cliente', nombre);
+      if (pais === 'ES') qp.set('pais', 'ES');
+
+      if (tipo === 'autorizacion-accesos.html') {
+        const tildadas = clavesTildadas('accesos');
+        if (tildadas.length < clavesTotales('accesos')) qp.set('accesos', tildadas.join(','));
+      } else if (tipo === 'autorizacion-caso-exito.html') {
+        const contenidos = clavesTildadas('contenidos');
+        const canales = clavesTildadas('canales');
+        if (contenidos.length) qp.set('contenidos', contenidos.join(','));
+        if (canales.length) qp.set('canales', canales.join(','));
+      } else {
+        const trabajos = clavesTildadas('trabajos');
+        if (trabajos.length) qp.set('trabajos', trabajos.join(','));
+        const alcance = document.getElementById('genAlcance').value.trim();
+        const precio = document.getElementById('genPrecio').value.trim();
+        if (alcance) qp.set('alcance', alcance);
+        if (precio) qp.set('precio', precio);
+      }
+
+      const query = qp.toString();
+      const url = carpeta + tipo + (query ? '?' + query : '');
       inputLink.value = url;
       enlaceAbrir.href = url;
-    }
-    inputNombre.addEventListener('input', actualizar);
-    selectTipo.addEventListener('change', actualizar);
-    actualizar();
+      enlaceAbrir.classList.remove('deshabilitado');
+      btnCopiar.disabled = false;
+      avisoPendiente.classList.remove('visible');
+      confirmadoEl.classList.add('visible');
+      generado = true;
+    });
 
     btnCopiar.addEventListener('click', async () => {
       try {
@@ -152,6 +354,8 @@
       btnCopiar.classList.add('copiado');
       setTimeout(() => { btnCopiar.textContent = 'Copiar'; btnCopiar.classList.remove('copiado'); }, 1800);
     });
+
+    renderZona();
   </script>
 </body>
 </html>

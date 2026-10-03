@@ -272,65 +272,65 @@
       <div class="seccion-accesos">
         <h3>1. Dominio</h3>
         <ul class="lista-accesos">
-          <li><label><input type="checkbox" data-acceso="Acceso al panel del registrador (o autorización para gestionarlo en su nombre)" checked> Acceso al panel del registrador (o autorización para gestionarlo en su nombre)</label></li>
-          <li><label><input type="checkbox" data-acceso="Modificación de registros DNS (A, CNAME, MX, TXT)" checked> Modificación de registros DNS (A, CNAME, MX, TXT)</label></li>
+          <li><label><input type="checkbox" data-key="dominio-panel" data-acceso="Acceso al panel del registrador (o autorización para gestionarlo en su nombre)" checked> Acceso al panel del registrador (o autorización para gestionarlo en su nombre)</label></li>
+          <li><label><input type="checkbox" data-key="dominio-dns" data-acceso="Modificación de registros DNS (A, CNAME, MX, TXT)" checked> Modificación de registros DNS (A, CNAME, MX, TXT)</label></li>
         </ul>
       </div>
 
       <div class="seccion-accesos">
         <h3>2. Hosting / alojamiento</h3>
         <ul class="lista-accesos">
-          <li><label><input type="checkbox" data-acceso="Acceso al panel de hosting (GitHub Pages, Netlify, Vercel, cPanel, etc.)" checked> Acceso al panel de hosting (GitHub Pages, Netlify, Vercel, cPanel, etc.)</label></li>
-          <li><label><input type="checkbox" data-acceso="Subida de archivos (FTP/SFTP o despliegue por Git)" checked> Subida de archivos (FTP/SFTP o despliegue por Git)</label></li>
-          <li><label><input type="checkbox" data-acceso="Configuración de certificado SSL" checked> Configuración de certificado SSL</label></li>
+          <li><label><input type="checkbox" data-key="hosting-panel" data-acceso="Acceso al panel de hosting (GitHub Pages, Netlify, Vercel, cPanel, etc.)" checked> Acceso al panel de hosting (GitHub Pages, Netlify, Vercel, cPanel, etc.)</label></li>
+          <li><label><input type="checkbox" data-key="hosting-subida" data-acceso="Subida de archivos (FTP/SFTP o despliegue por Git)" checked> Subida de archivos (FTP/SFTP o despliegue por Git)</label></li>
+          <li><label><input type="checkbox" data-key="hosting-ssl" data-acceso="Configuración de certificado SSL" checked> Configuración de certificado SSL</label></li>
         </ul>
       </div>
 
       <div class="seccion-accesos">
         <h3>3. Backend / base de datos</h3>
         <ul class="lista-accesos">
-          <li><label><input type="checkbox" data-acceso="Creación y administración de la cuenta del servicio de base de datos (ej. Supabase)" checked> Creación y administración de la cuenta del servicio de base de datos (ej. Supabase)</label></li>
-          <li><label><input type="checkbox" data-acceso="Configuración de tablas, reglas de permisos y almacenamiento" checked> Configuración de tablas, reglas de permisos y almacenamiento</label></li>
+          <li><label><input type="checkbox" data-key="backend-cuenta" data-acceso="Creación y administración de la cuenta del servicio de base de datos (ej. Supabase)" checked> Creación y administración de la cuenta del servicio de base de datos (ej. Supabase)</label></li>
+          <li><label><input type="checkbox" data-key="backend-config" data-acceso="Configuración de tablas, reglas de permisos y almacenamiento" checked> Configuración de tablas, reglas de permisos y almacenamiento</label></li>
         </ul>
       </div>
 
       <div class="seccion-accesos">
         <h3>4. Cuentas de servicios de terceros</h3>
         <ul class="lista-accesos">
-          <li><label><input type="checkbox" data-acceso="Google (Workspace/Gmail del sitio, Analytics, Search Console, OAuth)" checked> Google (Workspace/Gmail del sitio, Analytics, Search Console, OAuth)</label></li>
-          <li><label><input type="checkbox" data-acceso="Servicio de envío de correo transaccional (Resend, Brevo, etc.)" checked> Servicio de envío de correo transaccional (Resend, Brevo, etc.)</label></li>
-          <li><label><input type="checkbox" data-acceso="Redes sociales del movimiento (Instagram, Facebook, Twitter/X)" checked> Redes sociales del movimiento (Instagram, Facebook, Twitter/X)</label></li>
+          <li><label><input type="checkbox" data-key="terceros-google" data-acceso="Google (Workspace/Gmail del sitio, Analytics, Search Console, OAuth)" checked> Google (Workspace/Gmail del sitio, Analytics, Search Console, OAuth)</label></li>
+          <li><label><input type="checkbox" data-key="terceros-email" data-acceso="Servicio de envío de correo transaccional (Resend, Brevo, etc.)" checked> Servicio de envío de correo transaccional (Resend, Brevo, etc.)</label></li>
+          <li><label><input type="checkbox" data-key="terceros-redes" data-acceso="Redes sociales del movimiento (Instagram, Facebook, Twitter/X)" checked> Redes sociales del movimiento (Instagram, Facebook, Twitter/X)</label></li>
         </ul>
       </div>
 
       <div class="seccion-accesos">
         <h3>5. Claves API y secretos</h3>
         <ul class="lista-accesos">
-          <li><label><input type="checkbox" data-acceso="Generación y uso de claves API (Google Maps, reCAPTCHA, etc.)" checked> Generación y uso de claves API (Google Maps, reCAPTCHA, etc.)</label></li>
-          <li><label><input type="checkbox" data-acceso="Gestión de variables de entorno y tokens" checked> Gestión de variables de entorno y tokens</label></li>
+          <li><label><input type="checkbox" data-key="api-claves" data-acceso="Generación y uso de claves API (Google Maps, reCAPTCHA, etc.)" checked> Generación y uso de claves API (Google Maps, reCAPTCHA, etc.)</label></li>
+          <li><label><input type="checkbox" data-key="api-variables" data-acceso="Gestión de variables de entorno y tokens" checked> Gestión de variables de entorno y tokens</label></li>
         </ul>
       </div>
 
       <div class="seccion-accesos">
         <h3>6. Acceso remoto al equipo del cliente</h3>
         <ul class="lista-accesos">
-          <li><label><input type="checkbox" data-acceso="Autorización puntual por AnyDesk/TeamViewer, con alcance y horario definidos, preferentemente con el cliente delante del trabajo que se está realizando." checked> Autorización puntual por AnyDesk/TeamViewer, con alcance y horario definidos, preferentemente con el cliente delante del trabajo que se está realizando.</label></li>
+          <li><label><input type="checkbox" data-key="remoto-acceso" data-acceso="Autorización puntual por AnyDesk/TeamViewer, con alcance y horario definidos, preferentemente con el cliente delante del trabajo que se está realizando." checked> Autorización puntual por AnyDesk/TeamViewer, con alcance y horario definidos, preferentemente con el cliente delante del trabajo que se está realizando.</label></li>
         </ul>
       </div>
 
       <div class="seccion-accesos">
         <h3>7. Contenido y datos</h3>
         <ul class="lista-accesos">
-          <li><label><input type="checkbox" data-acceso="Autorización de uso de logo, textos, imágenes y videos que aporte el cliente" checked> Autorización de uso de logo, textos, imágenes y videos que aporte el cliente</label></li>
-          <li><label><input type="checkbox" data-acceso="Tratamiento de datos de usuarios del sitio (cuentas, formularios) conforme a la normativa vigente" checked> Tratamiento de datos de usuarios del sitio (cuentas, formularios) conforme a la normativa vigente</label></li>
+          <li><label><input type="checkbox" data-key="contenido-uso" data-acceso="Autorización de uso de logo, textos, imágenes y videos que aporte el cliente" checked> Autorización de uso de logo, textos, imágenes y videos que aporte el cliente</label></li>
+          <li><label><input type="checkbox" data-key="contenido-datos" data-acceso="Tratamiento de datos de usuarios del sitio (cuentas, formularios) conforme a la normativa vigente" checked> Tratamiento de datos de usuarios del sitio (cuentas, formularios) conforme a la normativa vigente</label></li>
         </ul>
       </div>
 
       <div class="seccion-accesos">
         <h3>8. Alcance y responsabilidad</h3>
         <ul class="lista-accesos">
-          <li><label><input type="checkbox" data-acceso="Esta autorización rige mientras dure el desarrollo del proyecto y puede ser revocada por EL CLIENTE en cualquier momento" checked> Esta autorización rige mientras dure el desarrollo del proyecto y puede ser revocada por EL CLIENTE en cualquier momento</label></li>
-          <li><label><input type="checkbox" data-acceso="Las credenciales compartidas son de uso exclusivo para este proyecto y serán tratadas de forma confidencial" checked> Las credenciales compartidas son de uso exclusivo para este proyecto y serán tratadas de forma confidencial</label></li>
+          <li><label><input type="checkbox" data-key="alcance-vigencia" data-acceso="Esta autorización rige mientras dure el desarrollo del proyecto y puede ser revocada por EL CLIENTE en cualquier momento" checked> Esta autorización rige mientras dure el desarrollo del proyecto y puede ser revocada por EL CLIENTE en cualquier momento</label></li>
+          <li><label><input type="checkbox" data-key="alcance-confidencialidad" data-acceso="Las credenciales compartidas son de uso exclusivo para este proyecto y serán tratadas de forma confidencial" checked> Las credenciales compartidas son de uso exclusivo para este proyecto y serán tratadas de forma confidencial</label></li>
         </ul>
       </div>
 
@@ -507,7 +507,19 @@
       validarDocActual();
     }
     radiosPais.forEach((r) => r.addEventListener('change', actualizarPorPais));
+    if (params.get('pais') === 'ES') document.getElementById('paisES').checked = true;
     actualizarPorPais();
+
+    // Pre-selección de accesos desde el link (armado por Renueva Smart en generar-autorizacion.html):
+    // si el link trae ?accesos=, solo quedan tildados los indicados; si no trae el parámetro,
+    // queda el default de siempre (todos tildados) para no romper links viejos.
+    const accesosPreseleccionados = params.get('accesos');
+    if (accesosPreseleccionados !== null) {
+      const claves = new Set(accesosPreseleccionados.split(',').filter(Boolean));
+      document.querySelectorAll('.lista-accesos input[type="checkbox"]').forEach((chk) => {
+        chk.checked = claves.has(chk.dataset.key);
+      });
+    }
 
     const inputProyecto = document.getElementById('proyecto');
     const tituloDoc = document.getElementById('tituloDoc');

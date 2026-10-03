@@ -280,12 +280,12 @@
         <h3>A. Qué contenidos puede usar</h3>
         <p class="sub">Marcá solo lo que estés de acuerdo en que se muestre.</p>
         <ul class="lista-items">
-          <li><label><input type="checkbox" data-item="Nombre o razón social y marca del cliente"> Nombre o razón social y marca del cliente</label></li>
-          <li><label><input type="checkbox" data-item="Logo y elementos de identidad visual"> Logo y elementos de identidad visual</label></li>
-          <li><label><input type="checkbox" data-item="Capturas, imágenes y videos del sitio web (antes y después)"> Capturas, imágenes y videos del sitio web (antes y después)</label></li>
-          <li><label><input type="checkbox" data-item="Descripción del proyecto, del proceso y de los resultados obtenidos (visitas, posicionamiento, consultas, etc.)"> Descripción del proyecto, del proceso y de los resultados obtenidos (visitas, posicionamiento, consultas, etc.)</label></li>
-          <li><label><input type="checkbox" data-item="Testimonio o reseña del cliente (texto, con su nombre y cargo)"> Testimonio o reseña del cliente (texto, con su nombre y cargo)</label></li>
-          <li><label><input type="checkbox" data-item="Imagen y voz del cliente (fotografías o video en los que aparece)"> Imagen y voz del cliente (fotografías o video en los que aparece)</label></li>
+          <li><label><input type="checkbox" data-key="nombre-marca" data-item="Nombre o razón social y marca del cliente"> Nombre o razón social y marca del cliente</label></li>
+          <li><label><input type="checkbox" data-key="logo" data-item="Logo y elementos de identidad visual"> Logo y elementos de identidad visual</label></li>
+          <li><label><input type="checkbox" data-key="capturas" data-item="Capturas, imágenes y videos del sitio web (antes y después)"> Capturas, imágenes y videos del sitio web (antes y después)</label></li>
+          <li><label><input type="checkbox" data-key="descripcion-proceso" data-item="Descripción del proyecto, del proceso y de los resultados obtenidos (visitas, posicionamiento, consultas, etc.)"> Descripción del proyecto, del proceso y de los resultados obtenidos (visitas, posicionamiento, consultas, etc.)</label></li>
+          <li><label><input type="checkbox" data-key="testimonio" data-item="Testimonio o reseña del cliente (texto, con su nombre y cargo)"> Testimonio o reseña del cliente (texto, con su nombre y cargo)</label></li>
+          <li><label><input type="checkbox" data-key="imagen-voz" data-item="Imagen y voz del cliente (fotografías o video en los que aparece)"> Imagen y voz del cliente (fotografías o video en los que aparece)</label></li>
         </ul>
       </div>
 
@@ -293,12 +293,12 @@
         <h3>B. Dónde puede publicarse</h3>
         <p class="sub">Elegí los canales. Podés autorizar unos y otros no.</p>
         <ul class="lista-items">
-          <li><label><input type="checkbox" data-item="Sitio web renuevasmart.com (casos, portfolio, blog)"> Sitio web renuevasmart.com (casos, portfolio, blog)</label></li>
-          <li><label><input type="checkbox" data-item="Instagram y Facebook"> Instagram y Facebook</label></li>
-          <li><label><input type="checkbox" data-item="LinkedIn"> LinkedIn</label></li>
-          <li><label><input type="checkbox" data-item="TikTok, YouTube y X (Twitter)"> TikTok, YouTube y X (Twitter)</label></li>
-          <li><label><input type="checkbox" data-item="Correos, newsletters y presentaciones comerciales a potenciales clientes"> Correos, newsletters y presentaciones comerciales a potenciales clientes</label></li>
-          <li><label><input type="checkbox" data-item="Publicidad paga (anuncios en redes sociales y buscadores)"> Publicidad paga (anuncios en redes sociales y buscadores)</label></li>
+          <li><label><input type="checkbox" data-key="web-renuevasmart" data-item="Sitio web renuevasmart.com (casos, portfolio, blog)"> Sitio web renuevasmart.com (casos, portfolio, blog)</label></li>
+          <li><label><input type="checkbox" data-key="instagram-facebook" data-item="Instagram y Facebook"> Instagram y Facebook</label></li>
+          <li><label><input type="checkbox" data-key="linkedin" data-item="LinkedIn"> LinkedIn</label></li>
+          <li><label><input type="checkbox" data-key="tiktok-youtube-x" data-item="TikTok, YouTube y X (Twitter)"> TikTok, YouTube y X (Twitter)</label></li>
+          <li><label><input type="checkbox" data-key="correos-newsletters" data-item="Correos, newsletters y presentaciones comerciales a potenciales clientes"> Correos, newsletters y presentaciones comerciales a potenciales clientes</label></li>
+          <li><label><input type="checkbox" data-key="publicidad-paga" data-item="Publicidad paga (anuncios en redes sociales y buscadores)"> Publicidad paga (anuncios en redes sociales y buscadores)</label></li>
         </ul>
       </div>
 
@@ -533,6 +533,20 @@
     if (params.get('pais') === 'ES') { document.getElementById('paisES').checked = true; actualizarPorPais(); }
     actualizarTitulo();
     inputProyecto.addEventListener('input', actualizarTitulo);
+
+    // Pre-selección desde el link (armado por Renueva Smart en generar-autorizacion.html):
+    // si el link trae ?contenidos= y/o ?canales=, quedan tildados esos ítems; el cliente los
+    // ve igual y puede ajustarlos antes de firmar. Sin el parámetro, default de siempre (sin tildar).
+    function preseleccionar(grupo, paramNombre) {
+      const valor = params.get(paramNombre);
+      if (valor === null) return;
+      const claves = new Set(valor.split(',').filter(Boolean));
+      document.querySelectorAll('[data-grupo="' + grupo + '"] input[type="checkbox"]').forEach((chk) => {
+        chk.checked = claves.has(chk.dataset.key);
+      });
+    }
+    preseleccionar('contenidos', 'contenidos');
+    preseleccionar('canales', 'canales');
 
     const inputNombre = document.getElementById('clienteNombre');
     const aclaracionCliente = document.getElementById('aclaracionCliente');
