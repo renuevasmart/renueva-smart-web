@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contrato de servicios — Renueva Smart</title>
+<meta name="description" content="Contrato digital de servicios de Renueva Smart: alcance del trabajo, precio y plazos. Completá, firmá en pantalla y recibí una copia en PDF.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="assets/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<script src="assets/consent.js" defer></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,700;0,800;1,500;1,600&family=Fraunces:ital,opsz,wght@0,9..144,600;0,9..144,700;1,9..144,500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --color-brand: #ff6a00;
+    --color-brand-hover: #ff7a1a;
+    --color-bg-primary: #0b0c0e;
+    --color-bg-secondary: #151719;
+    --color-bg-tertiary: #25282c;
+    --color-text-primary: #f5f3ee;
+    --color-text-secondary: #d9dce0;
+    --color-text-muted: #92979d;
+    --color-border-subtle: rgba(255, 255, 255, 0.08);
+    --color-border-default: rgba(255, 255, 255, 0.12);
+    --color-border-strong: rgba(255, 255, 255, 0.18);
+    --pdf-texto-oscuro: #1a1a1a;
+    --pdf-texto-cuerpo: #444444;
+    --pdf-texto-tenue: #767676;
+    --pdf-borde-claro: #cccccc;
+    --pdf-borde-suave: #e5e5e5;
+    --pdf-fondo-tarjeta: #f7f7f7;
+    --pdf-rojo-no-autorizado: #d32f2f;
+    --font-display: "Fraunces", Georgia, "Iowan Old Style", serif;
+    --font-ui: "Plus Jakarta Sans", "Segoe UI", -apple-system, Roboto, Arial, sans-serif;
+    --radius-lg: 8px;
+    --radius-xl: 12px;
+    --radius-2xl: 16px;
+    --radius-pill: 999px;
+  }
+  * { box-sizing: border-box; }
+  :focus-visible { outline: 2px solid var(--color-brand); outline-offset: 2px; border-radius: 4px; }
+  .skip-link {
+    position: absolute; left: 12px; top: -60px; z-index: 100;
+    background: var(--color-bg-primary); color: var(--color-text-primary);
+    padding: 12px 20px; border-radius: var(--radius-lg); font-weight: 700;
+    text-decoration: none; transition: top 0.2s ease;
+  }
+  .skip-link:focus { top: 12px; }
+  body { margin: 0; background: var(--color-bg-primary); color: var(--color-text-primary); font-family: var(--font-ui); }
+  a { color: inherit; }
+  img { max-width: 100%; display: block; }
+
+  .nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 40;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 18px clamp(20px, 4vw, 56px);
+    background: rgba(11,12,14,0.92); backdrop-filter: blur(8px);
+    box-shadow: 0 1px 0 var(--color-border-subtle);
+  }
+  .nav-logo { height: 44px; }
+
+  .contenido { max-width: 780px; margin: 0 auto; padding: clamp(110px, 15vw, 150px) clamp(20px, 4vw, 56px) 60px; }
+  .eyebrow-oscuro { font-weight: 800; font-size: 12.5px; letter-spacing: 0.09em; text-transform: uppercase; color: var(--color-brand); }
+  .contenido h1 { font-family: var(--font-display); font-weight: 700; font-size: clamp(26px, 4vw, 38px); line-height: 1.15; margin: 10px 0 14px; text-wrap: balance; }
+  .contenido > p.lead { font-size: 15.5px; line-height: 1.65; color: var(--color-text-secondary); margin: 0 0 30px; }
+
+  .campo-proyecto { margin-bottom: 30px; }
+  .campo-proyecto label, .campo label { display: block; font-size: 11.5px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-text-muted); margin-bottom: 8px; }
+  .campo input, .campo textarea, .campo select, .campo-proyecto input {
+    width: 100%; font-family: inherit; font-size: 15px; color: var(--color-text-primary);
+    background: var(--color-bg-tertiary); border: 1px solid var(--color-border-default);
+    border-radius: var(--radius-lg); padding: 12px 14px;
+  }
+  .campo textarea { resize: vertical; min-height: 90px; line-height: 1.5; }
+  .campo input:focus, .campo select:focus, .campo textarea:focus, .campo-proyecto input:focus { outline: 2px solid var(--color-brand); outline-offset: 1px; }
+  .campo-error { font-size: 12.5px; color: #ff8a65; margin: 6px 0 0; min-height: 16px; }
+  .campo-hint { font-size: 12.5px; color: var(--color-text-muted); margin: 6px 0 0; line-height: 1.5; }
+
+  .pais-pills { display: flex; gap: 10px; }
+  .pais-pills input { position: absolute; opacity: 0; pointer-events: none; }
+  .pais-pills label {
+    flex: 1; text-align: center; padding: 10px 8px; font-weight: 700; font-size: 13.5px; cursor: pointer;
+    background: var(--color-bg-tertiary); border: 1px solid var(--color-border-default); border-radius: var(--radius-lg);
+    transition: border-color 0.15s ease, color 0.15s ease;
+  }
+  .pais-pills input:checked + label { border-color: var(--color-brand); color: var(--color-brand); }
+
+  .partes {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1px;
+    background: var(--color-border-default); border: 1px solid var(--color-border-default);
+    border-radius: var(--radius-2xl); overflow: hidden; margin-bottom: 30px;
+  }
+  .parte { background: var(--color-bg-secondary); padding: 22px clamp(18px, 3vw, 26px); display: flex; flex-direction: column; gap: 16px; }
+  .parte h2 { font-size: 12px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-brand); margin: 0; }
+  .parte .campo { margin: 0; }
+  .parte-estatica p { margin: 0; font-size: 15px; }
+  .parte-estatica .n { font-weight: 700; }
+  .parte-estatica .t { color: var(--color-text-muted); font-size: 13px; margin-top: 2px; }
+  @media (max-width: 620px) { .partes { grid-template-columns: 1fr; } }
+
+  .intro-autoriza { font-size: 15px; line-height: 1.7; color: var(--color-text-secondary); margin: 0 0 28px; }
+  .intro-autoriza strong { color: var(--color-text-primary); }
+
+  .seccion-items { margin-bottom: 26px; }
+  .seccion-items h3 { font-family: var(--font-display); font-weight: 700; font-size: 18px; margin: 0 0 6px; }
+  .seccion-items .sub { font-size: 13px; color: var(--color-text-muted); margin: 0 0 10px; }
+  .lista-items { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 1px; background: var(--color-border-subtle); border: 1px solid var(--color-border-subtle); border-radius: var(--radius-xl); overflow: hidden; }
+  .lista-items li { background: var(--color-bg-secondary); }
+  .lista-items label { display: flex; align-items: flex-start; gap: 12px; padding: 12px 16px; font-size: 14.5px; line-height: 1.5; color: var(--color-text-secondary); cursor: pointer; }
+  .lista-items input { margin-top: 3px; width: 17px; height: 17px; flex-shrink: 0; accent-color: var(--color-brand); }
+
+  .campo-grande { margin-bottom: 26px; }
+
+  .clausulas { margin: 30px 0; padding: 6px 22px; background: var(--color-bg-secondary); border: 1px solid var(--color-border-subtle); border-radius: var(--radius-xl); }
+  .clausulas h2 { font-family: var(--font-display); font-size: 18px; margin: 20px 0 4px; }
+  .clausula { padding: 12px 0; border-top: 1px solid var(--color-border-subtle); }
+  .clausula:first-of-type { border-top: none; }
+  .clausula h4 { font-size: 13.5px; font-weight: 800; margin: 0 0 4px; color: var(--color-text-primary); }
+  .clausula p { font-size: 13.5px; line-height: 1.65; color: var(--color-text-secondary); margin: 0; }
+
+  .callout {
+    margin: 30px 0; padding: 20px 22px; background: rgba(255,106,0,0.08);
+    border: 1px solid rgba(255,106,0,0.35); border-radius: var(--radius-xl);
+    font-size: 14px; line-height: 1.6; color: var(--color-text-secondary);
+  }
+  .callout strong { color: var(--color-brand); }
+
+  .campo-check { display: flex; align-items: flex-start; gap: 10px; margin: 18px 0; }
+  .campo-check input { margin-top: 3px; width: 18px; height: 18px; flex-shrink: 0; accent-color: var(--color-brand); }
+  .campo-check label { font-size: 14.5px; color: var(--color-text-primary); line-height: 1.5; font-weight: 600; }
+
+  .fila-lugar-fecha { display: grid; grid-template-columns: 2fr 1fr; gap: 16px; margin: 26px 0 30px; }
+  @media (max-width: 480px) { .fila-lugar-fecha { grid-template-columns: 1fr; } }
+
+  .firmas { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(20px, 3vw, 34px); margin-bottom: 30px; }
+  @media (max-width: 620px) { .firmas { grid-template-columns: 1fr; } }
+  .firma-bloque h2 { font-size: 12px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-text-muted); margin: 0 0 10px; }
+  .firma-lienzo {
+    width: 100%; height: 150px; background: var(--color-bg-tertiary);
+    border: 1px solid var(--color-border-default); border-radius: var(--radius-lg);
+    touch-action: none; cursor: crosshair;
+  }
+  .firma-borrar { margin-top: 8px; font-size: 12.5px; font-weight: 700; color: var(--color-text-muted); background: none; border: none; cursor: pointer; padding: 0; text-decoration: underline; }
+  .firma-borrar:hover { color: var(--color-text-primary); }
+  .firma-aclaracion { margin-top: 10px; font-size: 13.5px; color: var(--color-text-secondary); border-top: 1px solid var(--color-border-strong); padding-top: 8px; }
+  .firma-preescrita {
+    height: 150px; display: flex; align-items: center; justify-content: center;
+    background: var(--color-bg-tertiary); border: 1px solid var(--color-border-default); border-radius: var(--radius-lg);
+  }
+  .firma-preescrita img { max-width: 70%; max-height: 70%; object-fit: contain; }
+
+  .nota-legal { font-size: 12.5px; line-height: 1.6; color: var(--color-text-muted); text-align: center; margin: 18px 0 0; }
+
+  .error-envio { color: #ff8a65; font-size: 13.5px; margin: -18px 0 20px; display: none; }
+  .error-envio.visible { display: block; }
+
+  .btn-enviar {
+    font-weight: 800; font-size: 15.5px; color: var(--color-bg-primary); background: var(--color-brand);
+    border: none; border-radius: var(--radius-pill); padding: 15px 30px; cursor: pointer; width: 100%;
+    transition: background 0.15s ease, transform 0.15s ease;
+  }
+  .btn-enviar:hover { background: var(--color-brand-hover); transform: translateY(-1px); }
+  .btn-enviar:disabled { opacity: 0.6; cursor: wait; transform: none; }
+
+  .form-gracias {
+    display: none; text-align: center; padding: 34px 26px; background: var(--color-bg-secondary);
+    border: 1px solid var(--color-border-default); border-radius: var(--radius-2xl); margin-bottom: 24px; font-size: 15.5px; line-height: 1.6;
+  }
+  .form-gracias.visible { display: block; }
+  .form-gracias strong { color: var(--color-brand); }
+
+  .footer-copy { text-align: center; font-size: 12.5px; color: var(--color-text-muted); padding: 30px 20px; border-top: 1px solid var(--color-border-subtle); }
+
+  /* ---------- Hoja usada solo para generar el PDF (fondo blanco, paleta propia) ---------- */
+  #envoltorioHojaPdf { position: absolute; top: 0; left: 0; width: 0; height: 0; overflow: hidden; }
+  #hojaPdf { width: 780px; background: #ffffff; color: var(--pdf-texto-oscuro); font-family: var(--font-ui); padding: 40px; word-spacing: 1.8px; }
+  #hojaPdf .marca-pdf { margin-bottom: 24px; }
+  #hojaPdf .marca-pdf img { height: 26px; }
+  #hojaPdf h1 { font-family: var(--font-display); font-size: 26px; margin: 8px 0 10px; color: var(--pdf-texto-oscuro); }
+  #hojaPdf .eyebrow-oscuro { display: block; margin-bottom: 6px; color: var(--color-brand); }
+  #hojaPdf p { font-size: 13px; line-height: 1.6; color: var(--pdf-texto-cuerpo); }
+  #hojaPdf .partes-pdf { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--pdf-borde-suave); border: 1px solid var(--pdf-borde-suave); border-radius: 16px; overflow: hidden; margin: 20px 0; }
+  #hojaPdf .parte-pdf { background: var(--pdf-fondo-tarjeta); padding: 18px 20px; }
+  #hojaPdf .parte-pdf h2 { font-size: 11px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-brand); margin: 0 0 10px; }
+  #hojaPdf .parte-pdf p { margin: 0 0 8px; font-size: 13px; color: var(--pdf-texto-oscuro); }
+  #hojaPdf .parte-pdf .t { color: var(--pdf-texto-tenue); font-size: 11.5px; }
+  #hojaPdf h3 { font-family: var(--font-display); font-size: 15px; margin: 20px 0 8px; color: var(--pdf-texto-oscuro); }
+  #hojaPdf ul { list-style: none; margin: 0 0 4px; padding: 0; }
+  #hojaPdf li { font-size: 12.5px; line-height: 1.5; color: var(--pdf-texto-cuerpo); padding: 3px 0; }
+  #hojaPdf li b { color: var(--color-brand); margin-right: 6px; }
+  #hojaPdf li b.no-autorizado { color: var(--pdf-rojo-no-autorizado); }
+  #hojaPdf .texto-libre-pdf { white-space: pre-wrap; font-size: 12.5px; line-height: 1.6; color: var(--pdf-texto-cuerpo); background: var(--pdf-fondo-tarjeta); border: 1px solid var(--pdf-borde-suave); border-radius: 10px; padding: 12px 14px; margin: 6px 0 4px; }
+  #hojaPdf .clausula-pdf { margin: 0 0 10px; }
+  #hojaPdf .clausula-pdf h4 { font-size: 12px; margin: 0 0 2px; color: var(--pdf-texto-oscuro); }
+  #hojaPdf .clausula-pdf p { font-size: 11.5px; line-height: 1.55; margin: 0; color: var(--pdf-texto-cuerpo); word-spacing: 4px; }
+  #hojaPdf > p, #hojaPdf li, #hojaPdf .parte-pdf p { word-spacing: 3.5px; }
+  #hojaPdf .firmas-pdf { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 28px; }
+  #hojaPdf .firmas-pdf img { height: 60px; object-fit: contain; }
+  #hojaPdf .firmas-pdf .linea { border-top: 1px solid var(--pdf-borde-claro); margin-top: 6px; padding-top: 6px; font-size: 11.5px; color: var(--pdf-texto-tenue); word-spacing: 3px; }
+  #hojaPdf .registro-pdf { margin-top: 22px; font-size: 10.5px; color: var(--pdf-texto-tenue); }
+</style>
+</head>
+<body>
+
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+
+  <nav class="nav">
+    <a href="index.html"><img class="nav-logo" src="assets/logo.png" alt="Renueva Smart"></a>
+  </nav>
+
+  <div class="contenido" id="contenido">
+    <span class="eyebrow-oscuro">Contrato de servicios</span>
+    <h1 id="tituloDoc">Contrato de servicios con tu proyecto</h1>
+    <p class="lead">Este documento deja por escrito qué trabajo se hace, a qué precio y en qué plazos. Completalo, firmalo en la pantalla y te queda una copia en PDF — a nosotros y a tu email.</p>
+
+    <div class="form-gracias" id="formGracias">
+      ¡Gracias! Recibimos el contrato firmado. Te descargamos una copia en PDF y también te va a llegar por email.
+    </div>
+
+    <form id="formContrato" action="https://formsubmit.co/contacto@publicasmart.com" method="POST" enctype="multipart/form-data">
+      <input type="hidden" name="_subject" value="Contrato de servicios firmado">
+      <input type="hidden" name="_template" value="table">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_next" value="contrato-servicio.html?enviado=1">
+      <input type="hidden" name="_cc" id="ccCliente" value="">
+      <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
+      <input type="file" name="Contrato firmado (PDF)" id="adjuntoPdf" style="display:none">
+      <input type="hidden" name="Proyecto" id="proyectoOculto">
+      <input type="hidden" name="País del cliente" id="paisOculto">
+      <input type="hidden" name="Resumen de trabajos marcados" id="resumenOculto">
+      <input type="hidden" name="Firmado el (UTC)" id="marcaTiempoOculta">
+      <input type="hidden" name="Huella SHA-256 del PDF" id="huellaOculta">
+
+      <div class="campo-proyecto">
+        <label for="proyecto">Nombre del proyecto / persona / empresa</label>
+        <input type="text" id="proyecto" placeholder="Ej: Escribanía Acosta Pastore">
+      </div>
+
+      <div class="partes">
+        <div class="parte">
+          <h2>El cliente</h2>
+          <div class="pais-pills">
+            <input type="radio" name="pais" id="paisUY" value="UY" checked>
+            <label for="paisUY">Uruguay</label>
+            <input type="radio" name="pais" id="paisES" value="ES">
+            <label for="paisES">España</label>
+          </div>
+          <div class="campo">
+            <label for="clienteNombre">Nombre completo</label>
+            <input type="text" id="clienteNombre" name="Nombre completo" required>
+          </div>
+          <div class="campo">
+            <label for="clienteCedula" id="labelCedula">Cédula de identidad</label>
+            <input type="text" id="clienteCedula" name="Documento de identidad" required>
+            <p class="campo-error" id="avisoDoc"></p>
+          </div>
+          <div class="campo">
+            <label for="clienteEmail">Email</label>
+            <input type="email" id="clienteEmail" name="Email" required>
+          </div>
+        </div>
+        <div class="parte parte-estatica">
+          <h2>El proveedor</h2>
+          <div>
+            <p class="n">Alejandro Vidal Voglino</p>
+            <p class="t">CI: 4.680.863-6</p>
+            <p class="t">Renueva Smart — renuevasmart.com</p>
+          </div>
+        </div>
+      </div>
+
+      <p class="intro-autoriza">Por medio del presente documento, <strong>EL CLIENTE</strong> y <strong>EL PROVEEDOR</strong> acuerdan la prestación de los servicios detallados a continuación, bajo el precio, los plazos y las condiciones aquí descritas. Si firmás en nombre de una empresa, hacelo como su representante legal.</p>
+
+      <div class="seccion-items" data-grupo="trabajos">
+        <h3>A. Trabajos incluidos</h3>
+        <p class="sub">Marcá los servicios que forman parte de este proyecto.</p>
+        <ul class="lista-items">
+          <li><label><input type="checkbox" data-item="Diseño y desarrollo de sitio web"> Diseño y desarrollo de sitio web</label></li>
+          <li><label><input type="checkbox" data-item="Rediseño de un sitio web existente"> Rediseño de un sitio web existente</label></li>
+          <li><label><input type="checkbox" data-item="Optimización SEO (posicionamiento en buscadores)"> Optimización SEO (posicionamiento en buscadores)</label></li>
+          <li><label><input type="checkbox" data-item="Configuración de dominio, hosting y certificado SSL"> Configuración de dominio, hosting y certificado SSL</label></li>
+          <li><label><input type="checkbox" data-item="Formularios de contacto e integración con base de datos"> Formularios de contacto e integración con base de datos</label></li>
+          <li><label><input type="checkbox" data-item="Materiales explicativos para el cliente (PDFs, reportes, demos)"> Materiales explicativos para el cliente (PDFs, reportes, demos)</label></li>
+          <li><label><input type="checkbox" data-item="Capacitación de uso del sitio al entregar"> Capacitación de uso del sitio al entregar</label></li>
+          <li><label><input type="checkbox" data-item="Mantenimiento y soporte posterior a la entrega"> Mantenimiento y soporte posterior a la entrega</label></li>
+        </ul>
+      </div>
+
+      <div class="campo-grande campo">
+        <label for="alcanceLibre">Alcance adicional / detalle específico de este proyecto</label>
+        <textarea id="alcanceLibre" name="Alcance adicional" rows="4" placeholder="Ej: landing de una sola página, en español, con sección de testimonios y mapa de ubicación."></textarea>
+        <p class="campo-hint">Opcional. Usalo para precisar lo marcado arriba o agregar trabajos que no estén en la lista.</p>
+      </div>
+
+      <div class="campo-grande campo">
+        <label for="precioPlazos">Precio y plazos</label>
+        <textarea id="precioPlazos" name="Precio y plazos" rows="5" placeholder="Ej: USD 700 en total — 50% (USD 350) al firmar este contrato, 50% restante contra entrega. Entrega estimada: 15 días hábiles desde el pago inicial." required></textarea>
+        <p class="campo-hint">Detallá el monto total, la moneda, la forma de pago (al contado, en cuotas, por hitos) y la fecha o plazo de entrega acordados.</p>
+      </div>
+
+      <div class="clausulas" id="clausulasPagina"></div>
+
+      <div class="callout">
+        <strong>Importante:</strong> este contrato describe lo acordado entre las partes; no es un modelo de asesoramiento legal. Ante dudas sobre su validez o alcance en un caso particular, se recomienda la revisión de un profesional del derecho.
+      </div>
+
+      <div class="campo-check">
+        <input type="checkbox" id="consentimiento" required>
+        <label for="consentimiento">He leído este contrato y acepto los términos, el alcance, el precio y los plazos descritos arriba.</label>
+      </div>
+      <div class="campo-check">
+        <input type="checkbox" id="facultades" required>
+        <label for="facultades">Declaro firmar en nombre propio o contar con facultades para hacerlo en representación de la empresa o persona que indico.</label>
+      </div>
+
+      <div class="fila-lugar-fecha">
+        <div class="campo">
+          <label for="lugar" id="labelLugar">Departamento</label>
+          <select id="lugar" name="Lugar" required></select>
+        </div>
+        <div class="campo">
+          <label for="fecha">Fecha</label>
+          <input type="date" id="fecha" name="Fecha" required>
+        </div>
+      </div>
+
+      <div class="firmas">
+        <div class="firma-bloque">
+          <h2>Firma del cliente</h2>
+          <canvas class="firma-lienzo" id="lienzoFirma"></canvas>
+          <button type="button" class="firma-borrar" id="borrarFirma">Borrar firma</button>
+          <p class="firma-aclaracion">Aclaración: <span id="aclaracionCliente">—</span></p>
+        </div>
+        <div class="firma-bloque">
+          <h2>Firma del proveedor</h2>
+          <div class="firma-preescrita"><img src="assets/firma-alejandro.png" alt="Firma de Alejandro Vidal Voglino"></div>
+          <p class="firma-aclaracion">Aclaración: Alejandro Vidal Voglino — Renueva Smart</p>
+        </div>
+      </div>
+
+      <p class="error-envio" id="errorEnvio">Completá todos los campos obligatorios (incluido precio y plazos) y firmá antes de enviar.</p>
+
+      <button type="submit" class="btn-enviar" id="btnEnviar">Firmar y enviar</button>
+      <p class="nota-legal">Los datos de este formulario (nombre, documento, email y firma) se usan solo para documentar este contrato y se archivan junto con el PDF firmado. Si no pudiste descargarlo o no te llegó el correo, avisanos.</p>
+    </form>
+  </div>
+
+  <p class="footer-copy">© 2026 Renueva Smart — Alejandro Vidal Voglino</p>
+
+  <!-- Hoja usada solo para generar el PDF: se llena con los mismos datos justo antes de firmar -->
+  <div id="envoltorioHojaPdf"><div id="hojaPdf">
+    <div class="marca-pdf"><img src="assets/logo-pdf-oscuro.png" alt="Renueva Smart"></div>
+    <span class="eyebrow-oscuro">Contrato de servicios</span>
+    <h1 id="pdfTitulo"></h1>
+    <p>Contrato de prestación de servicios entre EL CLIENTE y EL PROVEEDOR, bajo el alcance, precio y plazos aquí descritos.</p>
+    <div class="partes-pdf">
+      <div class="parte-pdf">
+        <h2>El cliente</h2>
+        <p id="pdfClienteNombre"></p>
+        <p class="t" id="pdfClienteCedula"></p>
+        <p class="t" id="pdfClienteEmail"></p>
+        <p class="t" id="pdfClienteProyecto"></p>
+      </div>
+      <div class="parte-pdf">
+        <h2>El proveedor</h2>
+        <p>Alejandro Vidal Voglino</p>
+        <p class="t">CI: 4.680.863-6</p>
+        <p class="t">Renueva Smart — renuevasmart.com</p>
+      </div>
+    </div>
+    <h3>A. Trabajos incluidos</h3>
+    <div id="pdfListaItems"></div>
+    <h3>B. Alcance adicional</h3>
+    <div class="texto-libre-pdf" id="pdfAlcanceLibre"></div>
+    <h3>C. Precio y plazos</h3>
+    <div class="texto-libre-pdf" id="pdfPrecioPlazos"></div>
+    <h3>Condiciones</h3>
+    <div id="pdfClausulas"></div>
+    <p id="pdfLugarFecha"></p>
+    <div class="firmas-pdf">
+      <div>
+        <img id="pdfFirmaCliente" alt="Firma del cliente">
+        <div class="linea">Firma del cliente<br><span id="pdfAclaracionCliente"></span></div>
+      </div>
+      <div>
+        <img class="firma-preescrita-pdf" src="assets/firma-alejandro-oscura.png" alt="Firma de Alejandro Vidal Voglino">
+        <div class="linea">Firma del proveedor<br>Alejandro Vidal Voglino — Renueva Smart</div>
+      </div>
+    </div>
+    <p class="registro-pdf" id="pdfRegistro"></p>
+  </div></div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas-pro@1.5.8/dist/html2canvas-pro.min.js"></script>
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const EMAIL_CONTACTO = 'contacto@publicasmart.com';
+
+    const CONFIG_PAIS = {
+      UY: {
+        labelDoc: 'Cédula o RUT', labelLugar: 'Departamento', lugarDefault: 'Montevideo',
+        regiones: ['Artigas', 'Canelones', 'Cerro Largo', 'Colonia', 'Durazno', 'Flores', 'Florida', 'Lavalleja', 'Maldonado', 'Montevideo', 'Paysandú', 'Río Negro', 'Rivera', 'Rocha', 'Salto', 'San José', 'Soriano', 'Tacuarembó', 'Treinta y Tres'],
+        ley: 'Este contrato se rige por el derecho de los contratos y la legislación civil y comercial de la República Oriental del Uruguay. Las partes se someten a los tribunales competentes de la República Oriental del Uruguay.',
+      },
+      ES: {
+        labelDoc: 'DNI / NIF', labelLugar: 'Comunidad autónoma', lugarDefault: 'Comunidad de Madrid',
+        regiones: ['Andalucía', 'Aragón', 'Asturias', 'Baleares', 'Canarias', 'Cantabria', 'Castilla-La Mancha', 'Castilla y León', 'Cataluña', 'Comunidad de Madrid', 'Comunidad Valenciana', 'Extremadura', 'Galicia', 'La Rioja', 'Murcia', 'Navarra', 'País Vasco', 'Ceuta', 'Melilla'],
+        ley: 'Este contrato se rige por la legislación civil y mercantil española. Las partes se someten a los Juzgados y Tribunales del domicilio de EL CLIENTE, salvo que una norma de consumo imponga un fuero distinto.',
+      },
+    };
+    function paisActual() {
+      return document.querySelector('input[name="pais"]:checked').value;
+    }
+
+    function clausulas(pais) {
+      const c = CONFIG_PAIS[pais];
+      return [
+        ['Objeto', 'EL PROVEEDOR se obliga a prestar a EL CLIENTE los servicios detallados en las secciones "A. Trabajos incluidos" y "B. Alcance adicional" de este documento, en las condiciones aquí pactadas.'],
+        ['Precio y forma de pago', 'El precio total, la moneda y la forma de pago son los descritos en la sección "C. Precio y plazos". Los pagos se consideran recibidos cuando el importe está efectivamente disponible para EL PROVEEDOR.'],
+        ['Plazos de entrega', 'El plazo de entrega es el indicado en la sección "C. Precio y plazos". Los plazos pueden extenderse por demoras atribuibles a EL CLIENTE (falta de contenidos, accesos o aprobaciones a tiempo) o por causas de fuerza mayor, sin que ello genere penalidad para EL PROVEEDOR.'],
+        ['Trabajos fuera de alcance', 'Cualquier trabajo no incluido en las secciones A y B se considera adicional y requiere acuerdo previo por escrito sobre su precio y plazo antes de realizarse.'],
+        ['Entrega y aprobación', 'EL PROVEEDOR notificará a EL CLIENTE cuando cada entregable esté listo para revisión. EL CLIENTE dispondrá de un plazo razonable para solicitar ajustes menores dentro del alcance pactado; cambios sustanciales respecto de lo acordado se tratan como trabajo adicional.'],
+        ['Propiedad del trabajo final', 'Una vez abonado el precio en su totalidad, EL CLIENTE es titular del sitio y los materiales entregados para este proyecto. EL PROVEEDOR puede conservar copias de trabajo y mencionar el proyecto como referencia de su portfolio, salvo pacto en contrario o lo que disponga el acuerdo de uso de caso firmado aparte.'],
+        ['Confidencialidad', 'Cada parte se compromete a no divulgar a terceros la información confidencial de la otra que conozca con motivo de este contrato, salvo obligación legal de hacerlo.'],
+        ['Cancelación anticipada', 'Cualquiera de las partes puede dar por terminado este contrato antes de la entrega final mediante comunicación escrita. En ese caso, EL CLIENTE abona el trabajo efectivamente realizado hasta ese momento, calculado en proporción al precio total y al avance del proyecto.'],
+        ['Firma electrónica y prueba', 'Las partes reconocen a la firma manuscrita digital estampada en pantalla el carácter de firma electrónica, y le atribuyen validez y eficacia probatoria. Al firmar se registran la fecha y hora (UTC) y la huella digital (SHA-256) del PDF, que quedan archivadas junto con el documento como prueba del acuerdo alcanzado.'],
+        ['Ley aplicable y jurisdicción', c.ley],
+      ];
+    }
+
+    const contenedorClausulas = document.getElementById('clausulasPagina');
+    function renderClausulasPagina() {
+      contenedorClausulas.innerHTML = '<h2>Condiciones</h2>' + clausulas(paisActual()).map(([t, txt], i) =>
+        '<div class="clausula"><h4>' + (i + 1) + '. ' + t + '</h4><p>' + txt + '</p></div>').join('');
+    }
+
+    const TABLA_DNI_ES = 'TRWAGMYFPDXBNJZSQVHLCKE';
+    function validarDniEs(valor) {
+      const m = valor.trim().toUpperCase().match(/^(\d{8})([A-Z])$/);
+      if (!m) return false;
+      return TABLA_DNI_ES[parseInt(m[1], 10) % 23] === m[2];
+    }
+    function validarNieEs(valor) {
+      const m = valor.trim().toUpperCase().match(/^([XYZ])(\d{7})([A-Z])$/);
+      if (!m) return false;
+      const prefijo = { X: '0', Y: '1', Z: '2' }[m[1]];
+      return TABLA_DNI_ES[parseInt(prefijo + m[2], 10) % 23] === m[3];
+    }
+    function validarCifEs(valor) {
+      return /^[A-HJNPQRSUVW]\d{7}[A-J0-9]$/i.test(valor.trim());
+    }
+    function validarDocumentoEs(valor) {
+      const v = valor.trim();
+      if (!v) return true;
+      return validarDniEs(v) || validarNieEs(v) || validarCifEs(v);
+    }
+    function validarCedulaUy(valor) {
+      const digitos = valor.replace(/\D/g, '');
+      if (digitos.length < 7 || digitos.length > 8) return false;
+      const num = digitos.padStart(8, '0');
+      const pesos = [2, 9, 8, 7, 6, 3, 4];
+      let suma = 0;
+      for (let i = 0; i < 7; i++) suma += parseInt(num[i], 10) * pesos[i];
+      const resto = suma % 10;
+      const esperado = resto === 0 ? 0 : 10 - resto;
+      return esperado === parseInt(num[7], 10);
+    }
+    function validarRutUy(valor) {
+      return valor.replace(/\D/g, '').length === 12;
+    }
+    function validarDocumentoUy(valor) {
+      const v = valor.trim();
+      if (!v) return true;
+      return validarCedulaUy(v) || validarRutUy(v);
+    }
+    function validarDocumentoPorPais(pais, valor) {
+      return pais === 'UY' ? validarDocumentoUy(valor) : validarDocumentoEs(valor);
+    }
+
+    const radiosPais = document.querySelectorAll('input[name="pais"]');
+    const labelCedula = document.getElementById('labelCedula');
+    const clienteCedula = document.getElementById('clienteCedula');
+    const avisoDoc = document.getElementById('avisoDoc');
+    const selectLugar = document.getElementById('lugar');
+
+    function validarDocActual() {
+      const pais = paisActual();
+      const ok = validarDocumentoPorPais(pais, clienteCedula.value);
+      const mensaje = pais === 'UY'
+        ? 'Cédula o RUT uruguayo inválido (revisá el número y el dígito verificador).'
+        : 'DNI, NIE o CIF español inválido.';
+      avisoDoc.textContent = ok ? '' : mensaje;
+      clienteCedula.setCustomValidity(ok ? '' : mensaje);
+      return ok;
+    }
+    clienteCedula.addEventListener('input', validarDocActual);
+
+    function actualizarPorPais() {
+      const cfg = CONFIG_PAIS[paisActual()];
+      labelCedula.textContent = cfg.labelDoc;
+      document.getElementById('labelLugar').textContent = cfg.labelLugar;
+      selectLugar.innerHTML = cfg.regiones.map((r) => '<option value="' + r + '">' + r + '</option>').join('');
+      selectLugar.value = cfg.lugarDefault;
+      validarDocActual();
+      renderClausulasPagina();
+    }
+    radiosPais.forEach((r) => r.addEventListener('change', actualizarPorPais));
+    actualizarPorPais();
+
+    const inputProyecto = document.getElementById('proyecto');
+    const tituloDoc = document.getElementById('tituloDoc');
+    function actualizarTitulo() {
+      const nombre = inputProyecto.value.trim();
+      tituloDoc.textContent = 'Contrato de servicios con ' + (nombre || 'tu proyecto');
+    }
+    inputProyecto.value = params.get('cliente') || '';
+    if (params.get('pais') === 'ES') { document.getElementById('paisES').checked = true; actualizarPorPais(); }
+    actualizarTitulo();
+    inputProyecto.addEventListener('input', actualizarTitulo);
+
+    const inputNombre = document.getElementById('clienteNombre');
+    const aclaracionCliente = document.getElementById('aclaracionCliente');
+    inputNombre.addEventListener('input', () => {
+      aclaracionCliente.textContent = inputNombre.value.trim() || '—';
+    });
+
+    document.getElementById('fecha').value = new Date().toISOString().slice(0, 10);
+
+    // ---------- Firma en pantalla (canvas) ----------
+    const lienzo = document.getElementById('lienzoFirma');
+    const ctx = lienzo.getContext('2d');
+    let firmaDibujada = false;
+    let dibujando = false;
+    let anchoLienzo = 0;
+
+    function ajustarLienzo() {
+      const rect = lienzo.getBoundingClientRect();
+      const dpr = window.devicePixelRatio || 1;
+      lienzo.width = rect.width * dpr;
+      lienzo.height = rect.height * dpr;
+      anchoLienzo = rect.width;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      ctx.lineWidth = 2.2;
+      ctx.lineCap = 'round';
+      ctx.strokeStyle = '#f5f3ee';
+    }
+    ajustarLienzo();
+    window.addEventListener('resize', () => {
+      if (Math.abs(lienzo.getBoundingClientRect().width - anchoLienzo) < 1) return;
+      const previo = document.createElement('canvas');
+      previo.width = lienzo.width; previo.height = lienzo.height;
+      previo.getContext('2d').drawImage(lienzo, 0, 0);
+      ajustarLienzo();
+      ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0);
+      ctx.drawImage(previo, 0, 0, lienzo.width, lienzo.height);
+      ctx.restore();
+    });
+
+    function posicion(e) {
+      const rect = lienzo.getBoundingClientRect();
+      const punto = e.touches ? e.touches[0] : e;
+      return { x: punto.clientX - rect.left, y: punto.clientY - rect.top };
+    }
+    function empezar(e) {
+      dibujando = true; firmaDibujada = true;
+      const p = posicion(e);
+      ctx.beginPath();
+      ctx.moveTo(p.x, p.y);
+      e.preventDefault();
+    }
+    function trazar(e) {
+      if (!dibujando) return;
+      const p = posicion(e);
+      ctx.lineTo(p.x, p.y);
+      ctx.stroke();
+      e.preventDefault();
+    }
+    function terminar() { dibujando = false; }
+
+    lienzo.addEventListener('mousedown', empezar);
+    lienzo.addEventListener('mousemove', trazar);
+    window.addEventListener('mouseup', terminar);
+    lienzo.addEventListener('touchstart', empezar, { passive: false });
+    lienzo.addEventListener('touchmove', trazar, { passive: false });
+    lienzo.addEventListener('touchend', terminar);
+
+    document.getElementById('borrarFirma').addEventListener('click', () => {
+      ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0);
+      ctx.clearRect(0, 0, lienzo.width, lienzo.height);
+      ctx.restore();
+      firmaDibujada = false;
+    });
+
+    // ---------- Envío ----------
+    const form = document.getElementById('formContrato');
+    const errorEnvio = document.getElementById('errorEnvio');
+    const btnEnviar = document.getElementById('btnEnviar');
+
+    function slug(texto) {
+      return (texto || 'proyecto').toLowerCase()
+        .normalize('NFD').replace(/[̀-ͯ]/g, '')
+        .replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '') || 'proyecto';
+    }
+    function esc(t) {
+      return String(t).replace(/[&<>"]/g, (ch) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[ch]));
+    }
+
+    function invertirCanvas(canvasOrigen) {
+      const c = document.createElement('canvas');
+      c.width = canvasOrigen.width;
+      c.height = canvasOrigen.height;
+      const cx = c.getContext('2d');
+      cx.drawImage(canvasOrigen, 0, 0);
+      const imageData = cx.getImageData(0, 0, c.width, c.height);
+      const d = imageData.data;
+      for (let i = 0; i < d.length; i += 4) {
+        d[i] = 255 - d[i];
+        d[i + 1] = 255 - d[i + 1];
+        d[i + 2] = 255 - d[i + 2];
+      }
+      cx.putImageData(imageData, 0, 0);
+      return c.toDataURL('image/png');
+    }
+
+    function poblarHojaPdf(marcaTiempo) {
+      const pais = paisActual();
+      const nombreProyecto = inputProyecto.value.trim();
+      document.getElementById('pdfTitulo').textContent = tituloDoc.textContent;
+      document.getElementById('pdfClienteNombre').textContent = inputNombre.value.trim();
+      document.getElementById('pdfClienteCedula').textContent = CONFIG_PAIS[pais].labelDoc + ': ' + clienteCedula.value.trim();
+      document.getElementById('pdfClienteEmail').textContent = document.getElementById('clienteEmail').value.trim();
+      document.getElementById('pdfClienteProyecto').textContent = nombreProyecto ? 'Proyecto: ' + nombreProyecto : '';
+      document.getElementById('pdfLugarFecha').textContent = 'Lugar y fecha: ' + selectLugar.value.trim() + ', ' + document.getElementById('fecha').value;
+      document.getElementById('pdfFirmaCliente').src = invertirCanvas(lienzo);
+      document.getElementById('pdfAclaracionCliente').textContent = inputNombre.value.trim();
+      document.getElementById('pdfRegistro').textContent = 'Registro: documento firmado electrónicamente el ' + marcaTiempo + ' (UTC). La huella digital SHA-256 del PDF se archiva junto con el documento.';
+      document.getElementById('pdfAlcanceLibre').textContent = document.getElementById('alcanceLibre').value.trim() || '— (sin detalle adicional) —';
+      document.getElementById('pdfPrecioPlazos').textContent = document.getElementById('precioPlazos').value.trim();
+
+      const contenedor = document.getElementById('pdfListaItems');
+      contenedor.innerHTML = '';
+      const resumen = [];
+      const ul = document.createElement('ul');
+      document.querySelectorAll('[data-grupo="trabajos"] input[type="checkbox"]').forEach((chk) => {
+        const li = document.createElement('li');
+        const marca = chk.checked ? '✓' : '✗ (no incluido)';
+        li.innerHTML = '<b class="' + (chk.checked ? '' : 'no-autorizado') + '">' + marca + '</b>' + esc(chk.dataset.item);
+        ul.appendChild(li);
+        resumen.push((chk.checked ? '✓ ' : '✗ no incluido — ') + chk.dataset.item);
+      });
+      contenedor.appendChild(ul);
+      document.getElementById('resumenOculto').value = resumen.join('\n');
+
+      document.getElementById('pdfClausulas').innerHTML = clausulas(pais).map(([t, txt], i) =>
+        '<div class="clausula-pdf"><h4>' + (i + 1) + '. ' + esc(t) + '</h4><p>' + esc(txt) + '</p></div>').join('');
+    }
+
+    function aplicarColoresInlinePdf(hoja) {
+      const set = (el, prop, valor) => { if (el) el.style.setProperty(prop, valor, 'important'); };
+      set(hoja, 'color', 'var(--pdf-texto-oscuro)');
+      set(hoja.querySelector('.marca-pdf img'), 'height', '26px');
+      set(hoja.querySelector('.marca-pdf img'), 'width', 'auto');
+      set(hoja.querySelector('h1'), 'color', 'var(--pdf-texto-oscuro)');
+      set(hoja.querySelector('.eyebrow-oscuro'), 'color', 'var(--color-brand)');
+      hoja.querySelectorAll(':scope > p').forEach((el) => set(el, 'color', 'var(--pdf-texto-cuerpo)'));
+      const partes = hoja.querySelector('.partes-pdf');
+      set(partes, 'background', 'var(--pdf-borde-suave)');
+      set(partes, 'border-color', 'var(--pdf-borde-suave)');
+      set(partes, 'display', 'grid');
+      set(partes, 'grid-template-columns', '1fr 1fr');
+      set(partes, 'gap', '1px');
+      hoja.querySelectorAll('.parte-pdf').forEach((el) => set(el, 'background', 'var(--pdf-fondo-tarjeta)'));
+      hoja.querySelectorAll('.parte-pdf h2').forEach((el) => set(el, 'color', 'var(--color-brand)'));
+      hoja.querySelectorAll('.parte-pdf p').forEach((el) => set(el, 'color', 'var(--pdf-texto-oscuro)'));
+      hoja.querySelectorAll('.parte-pdf .t').forEach((el) => set(el, 'color', 'var(--pdf-texto-tenue)'));
+      hoja.querySelectorAll('h3').forEach((el) => set(el, 'color', 'var(--pdf-texto-oscuro)'));
+      hoja.querySelectorAll('ul').forEach((el) => { set(el, 'list-style', 'none'); set(el, 'list-style-type', 'none'); });
+      hoja.querySelectorAll('li').forEach((el) => set(el, 'color', 'var(--pdf-texto-cuerpo)'));
+      hoja.querySelectorAll('li b').forEach((el) => set(el, 'color', 'var(--color-brand)'));
+      hoja.querySelectorAll('li b.no-autorizado').forEach((el) => set(el, 'color', 'var(--pdf-rojo-no-autorizado)'));
+      hoja.querySelectorAll('.texto-libre-pdf').forEach((el) => { set(el, 'color', 'var(--pdf-texto-cuerpo)'); set(el, 'background', 'var(--pdf-fondo-tarjeta)'); set(el, 'border-color', 'var(--pdf-borde-suave)'); });
+      hoja.querySelectorAll('.clausula-pdf h4').forEach((el) => set(el, 'color', 'var(--pdf-texto-oscuro)'));
+      hoja.querySelectorAll('.clausula-pdf p').forEach((el) => set(el, 'color', 'var(--pdf-texto-cuerpo)'));
+      const firmas = hoja.querySelector('.firmas-pdf');
+      set(firmas, 'display', 'grid');
+      set(firmas, 'grid-template-columns', '1fr 1fr');
+      set(firmas, 'gap', '24px');
+      hoja.querySelectorAll('.firmas-pdf img').forEach((el) => { set(el, 'height', '60px'); set(el, 'width', 'auto'); });
+      hoja.querySelectorAll('.firmas-pdf .linea').forEach((el) => { set(el, 'color', 'var(--pdf-texto-tenue)'); set(el, 'border-top-color', 'var(--pdf-borde-claro)'); });
+      hoja.querySelectorAll('.registro-pdf').forEach((el) => set(el, 'color', 'var(--pdf-texto-tenue)'));
+    }
+
+    function medirVariacionFila(datosFila) {
+      let min = 255, max = 0;
+      for (let i = 0; i < datosFila.length; i += 4) {
+        const r = datosFila[i];
+        if (r < min) min = r;
+        if (r > max) max = r;
+      }
+      return max - min;
+    }
+
+    function elegirCorteSeguro(ctx2, ancho, corteIdeal, ventana) {
+      const desde = Math.max(1, corteIdeal - ventana);
+      const hasta = corteIdeal + 1;
+      let mejorY = corteIdeal;
+      let mejorVariacion = Infinity;
+      let mejorDistancia = Infinity;
+      for (let y = desde; y < hasta; y++) {
+        const variacion = medirVariacionFila(ctx2.getImageData(0, y, ancho, 1).data);
+        const distancia = Math.abs(y - corteIdeal);
+        if (variacion < mejorVariacion || (variacion === mejorVariacion && distancia < mejorDistancia)) {
+          mejorVariacion = variacion; mejorY = y; mejorDistancia = distancia;
+        }
+      }
+      return mejorY;
+    }
+
+    function recortarCanvas(origen, y0, y1) {
+      const c = document.createElement('canvas');
+      c.width = origen.width;
+      c.height = y1 - y0;
+      c.getContext('2d').drawImage(origen, 0, y0, origen.width, y1 - y0, 0, 0, origen.width, y1 - y0);
+      return c;
+    }
+
+    function dividirEnPaginasSeguras(canvasCompleto, altoUtilPx) {
+      if (canvasCompleto.height <= altoUtilPx) return [canvasCompleto];
+      const ctx2 = canvasCompleto.getContext('2d');
+      const ventana = Math.max(20, Math.round(altoUtilPx * 0.1));
+      const cortes = [0];
+      let y = 0;
+      while (canvasCompleto.height - y > altoUtilPx) {
+        const ideal = y + altoUtilPx;
+        const real = elegirCorteSeguro(ctx2, canvasCompleto.width, ideal, ventana);
+        cortes.push(real > y ? real : ideal);
+        y = cortes[cortes.length - 1];
+      }
+      cortes.push(canvasCompleto.height);
+      const paginas = [];
+      for (let i = 0; i < cortes.length - 1; i++) paginas.push(recortarCanvas(canvasCompleto, cortes[i], cortes[i + 1]));
+      const ultima = paginas[paginas.length - 1];
+      if (paginas.length > 1 && medirVariacionFila(ultima.getContext('2d').getImageData(0, 0, ultima.width, ultima.height).data) === 0) paginas.pop();
+      return paginas;
+    }
+
+    async function hashSha256(blob) {
+      try {
+        const buf = await crypto.subtle.digest('SHA-256', await blob.arrayBuffer());
+        return Array.from(new Uint8Array(buf)).map((b) => b.toString(16).padStart(2, '0')).join('');
+      } catch (e) {
+        return 'no disponible';
+      }
+    }
+
+    async function generarPdfYAdjuntar(nombreArchivo) {
+      const marcaTiempo = new Date().toISOString().replace('T', ' ').slice(0, 19);
+      document.getElementById('marcaTiempoOculta').value = marcaTiempo;
+      poblarHojaPdf(marcaTiempo);
+      await document.fonts.ready;
+      const imgs = Array.from(document.querySelectorAll('#hojaPdf img'));
+      await Promise.all(imgs.map((img) => (img.complete && img.naturalWidth > 0) ? Promise.resolve() : img.decode().catch(() => {})));
+      const hoja = document.getElementById('hojaPdf');
+      aplicarColoresInlinePdf(hoja);
+      const canvas = await html2canvas(hoja, {
+        scale: 0.75,
+        backgroundColor: '#ffffff',
+        letterRendering: true,
+        width: hoja.scrollWidth,
+        height: hoja.scrollHeight,
+        windowWidth: hoja.scrollWidth,
+        windowHeight: hoja.scrollHeight,
+      });
+
+      const margenMm = 8;
+      const anchoPaginaMm = 210;
+      const altoPaginaMm = 297;
+      const mmPorPx = (anchoPaginaMm - margenMm * 2) / canvas.width;
+      const altoUtilPx = Math.floor((altoPaginaMm - margenMm * 2) / mmPorPx);
+      const paginas = dividirEnPaginasSeguras(canvas, altoUtilPx);
+
+      const opciones = {
+        margin: margenMm,
+        image: { type: 'png' },
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+      };
+      const pdf = await html2pdf().set(opciones).from(paginas[0], 'canvas').toPdf().get('pdf');
+      const anchoImgMm = anchoPaginaMm - margenMm * 2;
+      for (let i = 1; i < paginas.length; i++) {
+        const alturaImgMm = anchoImgMm * (paginas[i].height / paginas[i].width);
+        pdf.addPage();
+        pdf.addImage(paginas[i].toDataURL('image/png'), 'PNG', margenMm, margenMm, anchoImgMm, alturaImgMm);
+      }
+      const blob = pdf.output('blob');
+      document.getElementById('huellaOculta').value = await hashSha256(blob);
+
+      const url = URL.createObjectURL(blob);
+      const enlace = document.createElement('a');
+      enlace.href = url;
+      enlace.download = nombreArchivo;
+      enlace.click();
+      URL.revokeObjectURL(url);
+
+      const archivo = new File([blob], nombreArchivo, { type: 'application/pdf' });
+      const dt = new DataTransfer();
+      dt.items.add(archivo);
+      document.getElementById('adjuntoPdf').files = dt.files;
+      return blob;
+    }
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const camposOk = form.checkValidity();
+      if (!camposOk || !firmaDibujada) {
+        if (!camposOk) {
+          form.reportValidity();
+        } else {
+          errorEnvio.classList.add('visible');
+          errorEnvio.scrollIntoView({ block: 'center', behavior: 'smooth' });
+        }
+        return;
+      }
+      errorEnvio.classList.remove('visible');
+
+      btnEnviar.disabled = true;
+      btnEnviar.textContent = 'Generando PDF...';
+
+      const nombreProyecto = inputProyecto.value.trim() || 'proyecto';
+      document.getElementById('proyectoOculto').value = nombreProyecto;
+      document.getElementById('paisOculto').value = paisActual() === 'UY' ? 'Uruguay' : 'España';
+      document.getElementById('ccCliente').value = document.getElementById('clienteEmail').value.trim();
+
+      const nombreArchivo = 'contrato-servicio-' + slug(nombreProyecto) + '.pdf';
+      await generarPdfYAdjuntar(nombreArchivo);
+
+      btnEnviar.textContent = 'Enviando...';
+      HTMLFormElement.prototype.submit.call(form);
+    });
+
+    if (params.get('enviado') === '1') {
+      document.getElementById('formGracias').classList.add('visible');
+      form.style.display = 'none';
+    }
+  </script>
+</body>
+</html>
