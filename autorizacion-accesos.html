@@ -691,6 +691,26 @@
     // html2canvas-pro no respeta los colores que llegan por hoja de estilos dentro de
     // #hojaPdf (ni literales ni var()): hay que ponerlos como estilo inline justo antes
     // de capturar. Solo funciona así — inline + var() — probado a mano, no es capricho.
+    // Alto real de la hoja tal como la dibuja html2canvas (su clon se acomoda distinto al DOM visible):
+    // si se usa el alto del DOM, el PDF se corta al final en contratos largos o recorta el logo.
+    async function alturaRealDeLaHoja(hoja) {
+      let alto = hoja.scrollHeight;
+      await html2canvas(hoja, {
+        scale: 0.1,
+        width: hoja.scrollWidth,
+        windowWidth: hoja.scrollWidth,
+        onclone: (doc) => {
+          const h = doc.getElementById('hojaPdf');
+          if (!h) return;
+          const arriba = h.getBoundingClientRect().top;
+          let max = h.scrollHeight;
+          h.querySelectorAll('*').forEach((el) => { max = Math.max(max, el.getBoundingClientRect().bottom - arriba); });
+          alto = Math.ceil(max) + 40;
+        },
+      });
+      return alto;
+    }
+
     function aplicarColoresInlinePdf(hoja) {
       // html2canvas dibuja palabra por palabra y "come" los espacios (texto apretado y desprolijo).
       // Con letter-spacing distinto de cero dibuja letra por letra, en la posición exacta que mide el navegador.
@@ -807,15 +827,15 @@
       await Promise.all(imgs.map((img) => (img.complete && img.naturalWidth > 0) ? Promise.resolve() : img.decode().catch(() => {})));
       const hoja = document.getElementById('hojaPdf');
       aplicarColoresInlinePdf(hoja);
-      const escalaCanvas = 2;
+      const escalaCanvas = 1.5;
+      const alto = await alturaRealDeLaHoja(hoja);
       const opcionesCanvas = {
         scale: escalaCanvas,
         backgroundColor: '#ffffff',
         letterRendering: true,
+        height: alto,
         width: hoja.scrollWidth,
-        height: hoja.scrollHeight,
         windowWidth: hoja.scrollWidth,
-        windowHeight: hoja.scrollHeight,
       };
 
       // pedido explícito: del punto 6 en adelante siempre en la página 2, marcado en
