@@ -284,7 +284,9 @@
           <li><label><input type="checkbox" data-key="diseno-desarrollo-web" data-item="Diseño y desarrollo del sitio web"> Diseño y desarrollo del sitio web</label></li>
           <li><label><input type="checkbox" data-key="redisenio-existente" data-item="Rediseño de un sitio web existente"> Rediseño de un sitio web existente</label></li>
           <li><label><input type="checkbox" data-key="formularios-bd" data-item="Formulario de contacto y conexión a base de datos"> Formulario de contacto y conexión a base de datos</label></li>
-          <li><label><input type="checkbox" data-key="whatsapp-mapa-redes" data-item="Botón de WhatsApp, mapa de ubicación y enlaces a redes sociales"> Botón de WhatsApp, mapa de ubicación y enlaces a redes sociales</label></li>
+          <li><label><input type="checkbox" data-key="boton-whatsapp" data-item="Botón de WhatsApp"> Botón de WhatsApp</label></li>
+          <li><label><input type="checkbox" data-key="mapa-ubicacion" data-item="Mapa de ubicación"> Mapa de ubicación</label></li>
+          <li><label><input type="checkbox" data-key="enlaces-redes" data-item="Enlaces a redes sociales"> Enlaces a redes sociales</label></li>
           <li><label><input type="checkbox" data-key="paginas-legales" data-item="Páginas legales y banner de cookies (privacidad, cookies y aviso legal)"> Páginas legales y banner de cookies (privacidad, cookies y aviso legal)</label></li>
           <li><label><input type="checkbox" data-key="compra-dominio" data-item="Compra del dominio, registrado a nombre del cliente"> Compra del dominio, registrado a nombre del cliente</label></li>
           <li><label><input type="checkbox" data-key="dominio-hosting-ssl" data-item="Configuración del dominio, el alojamiento (hosting) y el certificado SSL"> Configuración del dominio, el alojamiento (hosting) y el certificado SSL</label></li>
@@ -705,6 +707,8 @@
     const trabajosPreseleccionados = params.get('trabajos');
     if (trabajosPreseleccionados !== null) {
       const claves = new Set(trabajosPreseleccionados.split(',').filter(Boolean));
+      // clave antigua, ahora dividida en tres ítems
+      if (claves.has('whatsapp-mapa-redes')) ['boton-whatsapp', 'mapa-ubicacion', 'enlaces-redes'].forEach((k) => claves.add(k));
       document.querySelectorAll('[data-grupo="trabajos"] input[type="checkbox"]').forEach((chk) => {
         chk.checked = claves.has(chk.dataset.key);
       });
