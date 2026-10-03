@@ -944,9 +944,9 @@
       sincronizarAclaracion();
       document.getElementById('pdfAclaracionCliente').textContent = inputNombre.value.trim();
       document.getElementById('pdfRegistro').textContent = 'Registro: documento firmado electrónicamente el ' + marcaTiempo + ' (UTC). La huella digital SHA-256 del PDF se archiva junto con el documento.';
-      document.getElementById('pdfAlcanceLibre').textContent = document.getElementById('alcanceLibre').value.trim() || '— (sin aclaraciones) —';
+      llenarLineasPdf(document.getElementById('pdfAlcanceLibre'), document.getElementById('alcanceLibre').value.trim() || '— (sin aclaraciones) —');
       const resumenC = textoPrecioPlazos();
-      document.getElementById('pdfPrecioPlazos').textContent = resumenC;
+      llenarLineasPdf(document.getElementById('pdfPrecioPlazos'), resumenC);
       document.getElementById('precioOculto').value = resumenC;
 
       const marcadas = [...document.querySelectorAll('#listaOpciones input:checked')].map((c) => c.dataset.key);
@@ -986,6 +986,12 @@
     }
 
     function aplicarColoresInlinePdf(hoja) {
+      // html2canvas dibuja palabra por palabra y "come" los espacios (texto apretado y desprolijo).
+      // Con letter-spacing distinto de cero dibuja letra por letra, en la posición exacta que mide el navegador.
+      [hoja, ...hoja.querySelectorAll('*')].forEach((el) => {
+        if (getComputedStyle(el).letterSpacing === 'normal') el.style.letterSpacing = '0.01px';
+        el.style.wordSpacing = 'normal';
+      });
       const set = (el, prop, valor) => { if (el) el.style.setProperty(prop, valor, 'important'); };
       set(hoja, 'color', 'var(--pdf-texto-oscuro)');
       set(hoja.querySelector('.marca-pdf img'), 'height', '26px');
@@ -1083,6 +1089,16 @@
       }
     }
 
+    // Una línea = un bloque: html2canvas pierde los saltos de línea del texto con white-space: pre-wrap.
+    function llenarLineasPdf(el, texto) {
+      el.textContent = '';
+      String(texto).split('\n').forEach((linea) => {
+        const d = document.createElement('div');
+        d.textContent = linea || '\u00a0';
+        el.appendChild(d);
+      });
+    }
+
     async function generarPdfYAdjuntar(nombreArchivo) {
       const marcaTiempo = new Date().toISOString().replace('T', ' ').slice(0, 19);
       document.getElementById('marcaTiempoOculta').value = marcaTiempo;
@@ -1093,7 +1109,7 @@
       const hoja = document.getElementById('hojaPdf');
       aplicarColoresInlinePdf(hoja);
       const canvas = await html2canvas(hoja, {
-        scale: 0.75,
+        scale: 2,
         backgroundColor: '#ffffff',
         letterRendering: true,
         width: hoja.scrollWidth,

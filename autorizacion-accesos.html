@@ -692,6 +692,12 @@
     // #hojaPdf (ni literales ni var()): hay que ponerlos como estilo inline justo antes
     // de capturar. Solo funciona así — inline + var() — probado a mano, no es capricho.
     function aplicarColoresInlinePdf(hoja) {
+      // html2canvas dibuja palabra por palabra y "come" los espacios (texto apretado y desprolijo).
+      // Con letter-spacing distinto de cero dibuja letra por letra, en la posición exacta que mide el navegador.
+      [hoja, ...hoja.querySelectorAll('*')].forEach((el) => {
+        if (getComputedStyle(el).letterSpacing === 'normal') el.style.letterSpacing = '0.01px';
+        el.style.wordSpacing = 'normal';
+      });
       const set = (el, prop, valor) => { if (el) el.style.setProperty(prop, valor, 'important'); };
       set(hoja, 'color', 'var(--pdf-texto-oscuro)');
       // el mismo bug de html2canvas-pro afecta al alto del logo puesto por CSS:
@@ -801,7 +807,7 @@
       await Promise.all(imgs.map((img) => (img.complete && img.naturalWidth > 0) ? Promise.resolve() : img.decode().catch(() => {})));
       const hoja = document.getElementById('hojaPdf');
       aplicarColoresInlinePdf(hoja);
-      const escalaCanvas = 0.75;
+      const escalaCanvas = 2;
       const opcionesCanvas = {
         scale: escalaCanvas,
         backgroundColor: '#ffffff',
