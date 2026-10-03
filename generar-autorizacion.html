@@ -266,7 +266,10 @@
           '<div class="campo"><label for="genPublica">Publicación del sitio</label><select id="genPublica"><option value="rs">Renueva Smart publica la web (la deja en línea)</option><option value="cliente">El cliente o su proveedor publica la web (se entregan los archivos)</option></select></div>' +
           '<div class="campo"><label for="genDolar">Tipo de cambio (pesos uruguayos por 1 USD)</label><input type="number" id="genDolar" min="1" step="any" value="40"><p class="campo-hint">Solo se usa en contratos de Uruguay.</p></div>' +
           '<ul class="lista-items"><li><label><input type="checkbox" id="genReferencia"> Incluir la cláusula: el proveedor puede conservar copias de trabajo y mencionar el proyecto como referencia de su portfolio</label></li></ul>' +
-          '<p class="campo-hint">Opcional. Si no la tildás, esa frase no aparece en el contrato.</p>';
+          '<p class="campo-hint">Opcional. Si no la tildás, esa frase no aparece en el contrato.</p>' +
+          '<ul class="lista-items"><li><label><input type="checkbox" id="genSinDominio" checked> Aclarar que el costo del dominio no está incluido en el precio (se abona por separado)</label></li>' +
+          '<li><label><input type="checkbox" id="genSinCorreo" checked> Aclarar que el costo del correo profesional no está incluido en el precio (se abona por separado)</label></li></ul>' +
+          '<p class="campo-hint">Si tildás una, el contrato lo dice en una cláusula; si no, no se menciona.</p>';
       }
       marcarPendiente();
       zona.querySelectorAll('input, textarea, select').forEach((el) => el.addEventListener('input', marcarPendiente));
@@ -337,6 +340,8 @@
         const dolar = document.getElementById('genDolar').value.trim();
         if (dolar && dolar !== '40') qp.set('dolar', dolar);
         if (document.getElementById('genReferencia').checked) qp.set('referencia', '1');
+        if (document.getElementById('genSinDominio').checked) qp.set('sinDominio', '1');
+        if (document.getElementById('genSinCorreo').checked) qp.set('sinCorreo', '1');
       }
       avisoFalta.classList.remove('visible');
 

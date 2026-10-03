@@ -446,6 +446,9 @@
     const CUENTA_PREX = '1479265';
     // Cláusula opcional que activa Renueva Smart desde el generador (?referencia=1); sin eso no aparece.
     const REFERENCIA = params.get('referencia') === '1';
+    // Costos que Renueva Smart marca como no incluidos en el precio (?sinDominio=1 / ?sinCorreo=1).
+    const SIN_DOMINIO = params.get('sinDominio') === '1';
+    const SIN_CORREO = params.get('sinCorreo') === '1';
     const DOLAR = Number(params.get('dolar')) > 0 ? Number(params.get('dolar')) : 40;
     function fmt(n) {
       return Number(n).toLocaleString('de-DE', { maximumFractionDigits: 2 });
@@ -475,7 +478,12 @@
           ? 'EL PROVEEDOR publica el sitio y lo deja en línea y funcionando como parte de este contrato.'
           : 'EL PROVEEDOR entrega los archivos del sitio terminado; la publicación en línea queda a cargo de EL CLIENTE o de su proveedor.'],
         ['Trabajos fuera de alcance', 'Cualquier trabajo no incluido en las secciones A y B se considera adicional y requiere acuerdo previo por escrito sobre su precio y plazo antes de realizarse.'],
-        ['Lo que no incluye', 'Salvo que figure expresamente en la sección "A. Trabajos incluidos" o en la sección "B. Alcance adicional", este contrato no incluye la redacción de textos a medida, la obtención de fotografías u otros materiales con derechos de uso, ni la compra de dominios o alojamientos de pago.'],
+        ['Lo que no incluye', 'Salvo que figure expresamente en la sección "A. Trabajos incluidos" o en la sección "B. Alcance adicional", este contrato no incluye la redacción de textos a medida, la obtención de fotografías u otros materiales con derechos de uso, ni la contratación de alojamientos de pago.'],
+        SIN_DOMINIO || SIN_CORREO ? ['Costos no incluidos en el precio', SIN_DOMINIO && SIN_CORREO
+          ? 'El costo del dominio y el del correo profesional no están incluidos en el precio de los servicios y se abonan por separado.'
+          : SIN_DOMINIO
+            ? 'El costo del dominio no está incluido en el precio de los servicios y se abona por separado.'
+            : 'El costo del correo profesional no está incluido en el precio de los servicios y se abona por separado.'] : null,
         ['Entrega y aprobación', 'EL PROVEEDOR notificará a EL CLIENTE cuando cada entregable esté listo para revisión. Los ajustes de contenidos se rigen por la cláusula de rondas de ajuste; los cambios sustanciales respecto de lo acordado se tratan como trabajo adicional.'],
         ['Rondas de ajuste', 'El precio incluye dos rondas de ajuste de contenidos, dentro de los ' + diasTxt + ' días a partir de la entrega del sitio. Los ajustes solicitados una vez vencido ese plazo, o más allá de esas dos rondas, se tratan como trabajo adicional.'],
         incluyeDominio ? ['Titularidad del dominio', 'El dominio del sitio será de propiedad de EL CLIENTE, ' + nombreCliente + ' (' + c.labelDoc + ': ' + docCliente + '), y se registra a su nombre.'] : null,
