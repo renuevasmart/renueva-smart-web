@@ -612,7 +612,7 @@
         ['Lo que no incluye', 'Salvo que figure expresamente en la sección "A. Trabajos incluidos" o en la sección "B. Aclaraciones", este contrato no incluye la redacción de textos a medida, la obtención de fotografías u otros materiales con derechos de uso, ni la contratación de alojamientos de pago.'],
         ['Uso del sitio web', 'EL CLIENTE es el único responsable de los fines para los que utilice el sitio web y de que su uso, tanto durante el desarrollo como después de la entrega, cumpla la ley. En la medida en que la ley lo permita, EL PROVEEDOR no responde por los actos ilícitos que se cometan mediante el sitio, ni por la actividad o los contenidos que EL CLIENTE o terceros desarrollen en él, y EL CLIENTE lo mantendrá indemne frente a las reclamaciones derivadas de ese uso. Si EL PROVEEDOR tomara conocimiento de un uso ilícito, podrá suspender o dar por terminado el trabajo sin que ello genere responsabilidad para él.'],
         !IMAGEN_PERSONAS ? null : ['Contenidos y derechos de imagen', 'EL CLIENTE es el único responsable de los textos, fotografías, videos, logotipos y demás materiales que entregue para el sitio, y declara contar con los derechos de uso sobre ellos y, si aparecen personas identificables, con su consentimiento expreso para el uso de su imagen (y el de sus representantes legales, si son menores). EL PROVEEDOR no verifica esos derechos ni responde por reclamaciones de terceros derivadas de los materiales aportados por EL CLIENTE, quien lo mantendrá indemne frente a ellas. EL PROVEEDOR responde por la licencia del material que incorpore por su cuenta. Ante una reclamación de un tercero, EL PROVEEDOR podrá retirar el contenido afectado hasta que se aclare.'],
-        ['Plazos de entrega', (entregaAlPagar ? 'La entrega se realiza una vez que se abone el 100 % del presupuesto' : 'El plazo de entrega es de ' + entregaTxt + ' a partir ' + desdeTxt) + ', según la sección "C. Precio y plazos". Los plazos pueden extenderse por demoras atribuibles a EL CLIENTE (falta de contenidos, accesos o aprobaciones a tiempo) o por causas de fuerza mayor, sin que ello genere penalidad para EL PROVEEDOR.'],
+        ['Plazos de entrega', (entregaAlPagar ? 'La entrega se realiza una vez que se abone el 100 % del presupuesto' : 'El plazo de entrega es de ' + entregaTxt + ' a partir ' + desdeTxt) + ', según la sección "C. Precio y plazos". Los plazos pueden extenderse por demoras atribuibles a EL CLIENTE (impagos, falta de contenidos, incomunicación sostenida de EL CLIENTE, accesos o aprobaciones a tiempo) o por causas de fuerza mayor, sin que ello genere penalidad para EL PROVEEDOR.'],
         ['Publicación del sitio', publica === 'rs'
           ? 'EL PROVEEDOR publica el sitio y lo deja en línea y funcionando como parte de este contrato.'
           : 'EL PROVEEDOR entrega los archivos del sitio terminado; la publicación en línea queda a cargo de EL CLIENTE o de su proveedor.'],
@@ -965,7 +965,7 @@
       }
       document.getElementById('pdfOpciones').innerHTML = '';
       document.getElementById('pdfOpciones').appendChild(ulOpciones);
-      document.getElementById('opcionesOculto').value = marcadas.map((k) => OPCIONES[k].titulo).join(' | ') || 'Ninguna';
+      document.getElementById('opcionesOculto').value = marcadas.map((k) => OPCIONES[k].titulo).join(' | ') || (OFRECIDAS.length ? 'Ninguna' : 'No se ofrecieron');
 
       const contenedor = document.getElementById('pdfListaItems');
       contenedor.innerHTML = '';
