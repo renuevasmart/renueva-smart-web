@@ -496,11 +496,14 @@
 
     function validarDocActual() {
       const pais = paisActual();
-      const ok = validarDocumentoPorPais(pais, clienteCedula.value);
-      const mensaje = pais === 'UY'
-        ? 'Cédula o RUT uruguayo inválido (revisá el número y el dígito verificador).'
-        : 'DNI, NIE o CIF español inválido.';
-      avisoDoc.textContent = ok ? '' : mensaje;
+      const v = clienteCedula.value.trim();
+      const formatoOk = pais === 'OT' ? v.length >= 4 : validarDocumentoPorPais(pais, v);
+      const ok = v !== '' && formatoOk;
+      const mensaje = !v ? 'Completá tu documento de identidad.'
+        : pais === 'UY' ? 'Cédula o RUT uruguayo inválido (revisá el número y el dígito verificador).'
+        : pais === 'ES' ? 'DNI, NIE o CIF español inválido.'
+        : 'Escribí tu documento de identidad completo.';
+      avisoDoc.textContent = (ok || !v) ? '' : mensaje;
       clienteCedula.setCustomValidity(ok ? '' : mensaje);
       return ok;
     }
@@ -546,9 +549,24 @@
 
     const inputNombre = document.getElementById('clienteNombre');
     const aclaracionCliente = document.getElementById('aclaracionCliente');
-    inputNombre.addEventListener('input', () => {
+    // La aclaración bajo la firma del cliente se completa sola con el nombre completo escrito arriba.
+    function sincronizarAclaracion() {
       aclaracionCliente.textContent = inputNombre.value.trim() || '—';
-    });
+    }
+    ['input', 'change', 'blur', 'keyup'].forEach((ev) => inputNombre.addEventListener(ev, sincronizarAclaracion));
+    sincronizarAclaracion();
+
+    // Nombre completo obligatorio (nombre y apellido, sin espacios en blanco) y correo con formato válido.
+    function validarNombreFirmante() {
+      const palabras = inputNombre.value.trim().split(/\s+/).filter(Boolean);
+      const ok = palabras.length >= 2 && inputNombre.value.trim().length >= 5;
+      inputNombre.setCustomValidity(ok ? '' : 'Escribí tu nombre completo (nombre y apellido).');
+    }
+    inputNombre.addEventListener('input', validarNombreFirmante);
+    validarNombreFirmante();
+    const inputEmailFirmante = document.getElementById('clienteEmail');
+    inputEmailFirmante.pattern = '[^@\\s]+@[^@\\s]+\\.[^@\\s]+';
+    inputEmailFirmante.title = 'Escribí un correo válido, por ejemplo nombre@dominio.com';
 
     document.getElementById('fecha').value = new Date().toISOString().slice(0, 10);
 
