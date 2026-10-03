@@ -199,8 +199,8 @@
       </div>
     </div>
 
-    <details class="paso" id="ajusteToken">
-      <summary class="paso-titulo" style="cursor:pointer">Links cortos — configuración (una sola vez por navegador)</summary>
+    <details class="paso" id="ajusteToken" style="border:1px solid var(--color-brand);border-radius:var(--radius-2xl);padding:16px 20px">
+      <summary class="paso-titulo" style="cursor:pointer;margin:0;color:var(--color-brand)">▸ Links cortos — configuración (una sola vez por navegador)</summary>
       <p class="campo-hint">Para que el link sea corto (<code>renuevasmart.com/c/contrato-cliente/#clave</code>) esta página guarda los datos cifrados en el repositorio del sitio. Necesita un token de GitHub: <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">crearlo acá</a> con acceso solo al repositorio <b>renueva-smart-web</b> y el permiso <b>Contents: Read and write</b> (poné vencimiento). El token queda guardado solo en este navegador. Sin token se genera el link largo de siempre.</p>
       <div class="campo">
         <label for="ghToken">Token de GitHub</label>
@@ -536,6 +536,7 @@
     function leerToken() { try { return localStorage.getItem(TOKEN_KEY) || ''; } catch (e) { return ''; } }
     function pintarToken() {
       estadoToken.textContent = leerToken() ? 'Token guardado en este navegador: los links nuevos serán cortos.' : 'Sin token guardado.';
+      document.getElementById('ajusteToken').open = !leerToken();
     }
     document.getElementById('btnGuardarToken').addEventListener('click', () => {
       const t = campoToken.value.trim();
