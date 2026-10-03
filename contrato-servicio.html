@@ -575,19 +575,20 @@
         ['Precio y forma de pago', precio],
         pais === 'UY' && moneda !== 'EUR' ? ['Tipo de cambio', 'A los efectos de este contrato se toma el dólar estadounidense a $' + DOLAR + ' pesos uruguayos (1 USD = ' + DOLAR + ' UYU) para convertir los importes expresados en dólares y en pesos.'] : null,
         OFRECIDAS.length ? ['Opciones de descuento', 'Las opciones de descuento que EL CLIENTE marque en la sección "D. Opciones de descuento" se aplican en los términos allí descritos; las que no marque no se aplican.'] : null,
-        ['Plazos de entrega', 'El plazo de entrega es el indicado en la sección "C. Precio y plazos". Los plazos pueden extenderse por demoras atribuibles a EL CLIENTE (falta de contenidos, accesos o aprobaciones a tiempo) o por causas de fuerza mayor, sin que ello genere penalidad para EL PROVEEDOR.'],
-        ['Publicación del sitio', publica === 'rs'
-          ? 'EL PROVEEDOR publica el sitio y lo deja en línea y funcionando como parte de este contrato.'
-          : 'EL PROVEEDOR entrega los archivos del sitio terminado; la publicación en línea queda a cargo de EL CLIENTE o de su proveedor.'],
-        ['Trabajos fuera de alcance', 'Cualquier trabajo no incluido en las secciones A y B se considera adicional y requiere acuerdo previo por escrito sobre su precio y plazo antes de realizarse.'],
-        ['Lo que no incluye', 'Salvo que figure expresamente en la sección "A. Trabajos incluidos" o en la sección "B. Alcance adicional", este contrato no incluye la redacción de textos a medida, la obtención de fotografías u otros materiales con derechos de uso, ni la contratación de alojamientos de pago.'],
         SIN_DOMINIO || SIN_CORREO ? ['Costos no incluidos en el precio', SIN_DOMINIO && SIN_CORREO
           ? 'El costo del dominio y el del correo profesional no están incluidos en el precio de los servicios y se abonan por separado.'
           : SIN_DOMINIO
             ? 'El costo del dominio no está incluido en el precio de los servicios y se abona por separado.'
             : 'El costo del correo profesional no está incluido en el precio de los servicios y se abona por separado.'] : null,
+        ['Trabajos fuera de alcance', 'Cualquier trabajo no incluido en las secciones A y B se considera adicional y requiere acuerdo previo por escrito sobre su precio y plazo antes de realizarse.'],
+        ['Lo que no incluye', 'Salvo que figure expresamente en la sección "A. Trabajos incluidos" o en la sección "B. Alcance adicional", este contrato no incluye la redacción de textos a medida, la obtención de fotografías u otros materiales con derechos de uso, ni la contratación de alojamientos de pago.'],
+        ['Plazos de entrega', 'El plazo de entrega es el indicado en la sección "C. Precio y plazos". Los plazos pueden extenderse por demoras atribuibles a EL CLIENTE (falta de contenidos, accesos o aprobaciones a tiempo) o por causas de fuerza mayor, sin que ello genere penalidad para EL PROVEEDOR.'],
+        ['Publicación del sitio', publica === 'rs'
+          ? 'EL PROVEEDOR publica el sitio y lo deja en línea y funcionando como parte de este contrato.'
+          : 'EL PROVEEDOR entrega los archivos del sitio terminado; la publicación en línea queda a cargo de EL CLIENTE o de su proveedor.'],
         ['Entrega y aprobación', 'EL PROVEEDOR notificará a EL CLIENTE cuando cada entregable esté listo para revisión. Los ajustes de contenidos se rigen por la cláusula de rondas de ajuste; los cambios sustanciales respecto de lo acordado se tratan como trabajo adicional.'],
         ['Rondas de ajuste', 'El precio incluye dos rondas de ajuste de contenidos, dentro de los ' + diasTxt + ' días a partir de la entrega del sitio. Los ajustes solicitados una vez vencido ese plazo, o más allá de esas dos rondas, se tratan como trabajo adicional.'],
+        ['Entrega del trabajo y de las credenciales', 'EL PROVEEDOR entrega el trabajo terminado y las credenciales de acceso y administración de todo lo relacionado con el sitio web (dominio, alojamiento, cuentas y servicios asociados) únicamente cuando EL CLIENTE haya abonado la totalidad del precio.' + (EN_CUOTAS ? ' Si el pago se realiza en cuotas, la entrega tiene lugar una vez abonada la última cuota.' : '') + ' Hasta ese momento, el trabajo y las credenciales permanecen en poder de EL PROVEEDOR.'],
         incluyeDominio ? ['Titularidad del dominio', 'El dominio del sitio será de propiedad de EL CLIENTE, ' + nombreCliente + ' (' + c.labelDoc + ': ' + docCliente + '), y se registra a su nombre.'] : null,
         ['Propiedad del trabajo final', 'Una vez abonado el precio en su totalidad, EL CLIENTE es titular del sitio y los materiales entregados para este proyecto.' + (REFERENCIA ? ' EL PROVEEDOR puede conservar copias de trabajo y mencionar el proyecto como referencia de su portfolio, salvo pacto en contrario o lo que disponga el acuerdo de uso de caso firmado aparte.' : '')],
         ['Confidencialidad', 'Cada parte se compromete a no divulgar a terceros la información confidencial de la otra que conozca con motivo de este contrato, salvo obligación legal de hacerlo.'],
