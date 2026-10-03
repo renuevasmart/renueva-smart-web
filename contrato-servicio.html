@@ -232,6 +232,7 @@
       <input type="hidden" name="Proyecto" id="proyectoOculto">
       <input type="hidden" name="País del cliente" id="paisOculto">
       <input type="hidden" name="Resumen de trabajos marcados" id="resumenOculto">
+      <input type="hidden" name="Opciones de descuento elegidas" id="opcionesOculto">
       <input type="hidden" name="Firmado el (UTC)" id="marcaTiempoOculta">
       <input type="hidden" name="Huella SHA-256 del PDF" id="huellaOculta">
 
@@ -309,6 +310,12 @@
         <label for="precioPlazos">Precio y plazos</label>
         <textarea id="precioPlazos" name="Precio y plazos" rows="5" placeholder="Ej: USD 700 en total — 50% (USD 350) al firmar este contrato, 50% restante contra entrega. Entrega estimada: 15 días hábiles desde el pago inicial." required></textarea>
         <p class="campo-hint">Detallá el monto total, la moneda, la forma de pago (al contado, en cuotas, por hitos) y la fecha o plazo de entrega acordados.</p>
+      </div>
+
+      <div class="seccion-items" id="seccionOpciones" style="display:none">
+        <h3>D. Opciones de descuento</h3>
+        <p class="sub">Marcá solo las opciones que querés aplicar a este contrato. Las que no marques no se aplican.</p>
+        <ul class="lista-items" id="listaOpciones"></ul>
       </div>
 
       <div class="campo-grande" id="bloqueProveedor">
@@ -408,6 +415,7 @@
     <div class="texto-libre-pdf" id="pdfAlcanceLibre"></div>
     <h3>C. Precio y plazos</h3>
     <div class="texto-libre-pdf" id="pdfPrecioPlazos"></div>
+    <div id="pdfBloqueOpciones" style="display:none"><h3>D. Opciones de descuento elegidas</h3><div id="pdfOpciones"></div></div>
     <h3>Condiciones</h3>
     <div id="pdfClausulas"></div>
     <p id="pdfLugarFecha"></p>
@@ -452,6 +460,26 @@
     // Costos que Renueva Smart marca como no incluidos en el precio (?sinDominio=1 / ?sinCorreo=1).
     const SIN_DOMINIO = params.get('sinDominio') === '1';
     const SIN_CORREO = params.get('sinCorreo') === '1';
+
+    // Opciones de descuento que Renueva Smart ofrece en el link (?opciones=recomendacion,resena,dolares);
+    // el cliente marca cuáles quiere (nunca vienen pre-marcadas).
+    const PAISES_HISPANOAMERICA = ['Uruguay', 'Argentina', 'Bolivia', 'Chile', 'Colombia', 'Costa Rica', 'Cuba', 'Ecuador', 'El Salvador', 'Guatemala', 'Honduras', 'México', 'Nicaragua', 'Panamá', 'Paraguay', 'Perú', 'Puerto Rico', 'República Dominicana', 'Venezuela'];
+    const PAIS_DOLARES = params.get('paisDolares');
+    const OPCIONES = {
+      recomendacion: {
+        titulo: '10 % por recomendación',
+        texto: 'Si EL CLIENTE recomienda a EL PROVEEDOR a alguien interesado en hacer una web con él dentro de los primeros 30 días de iniciado el contrato, obtiene un 10 % del total de su presupuesto. Si consigue un segundo interesado, no rige el plazo de 30 días: puede llegar en cualquier momento, y cuando ese cliente pague, EL PROVEEDOR le reembolsa otro 10 % del total de su presupuesto.',
+      },
+      resena: {
+        titulo: '10 % por reseña y caso',
+        texto: 'EL CLIENTE obtiene un 10 % del total de su presupuesto si deja una reseña en la ficha de Google Business de EL PROVEEDOR y lo autoriza por escrito a mostrar su caso en las redes, el sitio web y el portfolio de Renueva Smart.',
+      },
+      dolares: {
+        titulo: '1,5 % por pagar en dólares',
+        texto: 'Si EL CLIENTE paga en dólares estadounidenses, obtiene un descuento del 1,5 % sobre el total a pagar. Esta opción rige para clientes de Uruguay y de otros países de Hispanoamérica (país del cliente: ' + PAIS_DOLARES + ').',
+      },
+    };
+    const OFRECIDAS = (params.get('opciones') || '').split(',').filter((k) => OPCIONES[k] && (k !== 'dolares' || (params.get('pais') !== 'ES' && PAISES_HISPANOAMERICA.includes(PAIS_DOLARES))));
     const DOLAR = Number(params.get('dolar')) > 0 ? Number(params.get('dolar')) : 40;
     function fmt(n) {
       return Number(n).toLocaleString('de-DE', { maximumFractionDigits: 2 });
@@ -495,6 +523,7 @@
         ['Objeto', 'EL PROVEEDOR se obliga a prestar a EL CLIENTE los servicios detallados en las secciones "A. Trabajos incluidos" y "B. Alcance adicional" de este documento, en las condiciones aquí pactadas.'],
         ['Precio y forma de pago', precio],
         pais === 'UY' && moneda !== 'EUR' ? ['Tipo de cambio', 'A los efectos de este contrato se toma el dólar estadounidense a $' + DOLAR + ' pesos uruguayos (1 USD = ' + DOLAR + ' UYU) para convertir los importes expresados en dólares y en pesos.'] : null,
+        OFRECIDAS.length ? ['Opciones de descuento', 'Las opciones de descuento que EL CLIENTE marque en la sección "D. Opciones de descuento" se aplican en los términos allí descritos; las que no marque no se aplican.'] : null,
         ['Plazos de entrega', 'El plazo de entrega es el indicado en la sección "C. Precio y plazos". Los plazos pueden extenderse por demoras atribuibles a EL CLIENTE (falta de contenidos, accesos o aprobaciones a tiempo) o por causas de fuerza mayor, sin que ello genere penalidad para EL PROVEEDOR.'],
         ['Publicación del sitio', publica === 'rs'
           ? 'EL PROVEEDOR publica el sitio y lo deja en línea y funcionando como parte de este contrato.'
@@ -643,6 +672,11 @@
     if (monedaParam && MONEDAS[paisActual()].includes(monedaParam)) {
       document.getElementById('monedaPresupuesto').value = monedaParam;
     }
+    if (OFRECIDAS.length) {
+      document.getElementById('seccionOpciones').style.display = '';
+      document.getElementById('listaOpciones').innerHTML = OFRECIDAS.map((k) =>
+        '<li><label><input type="checkbox" data-key="' + k + '"> <span><strong>' + esc(OPCIONES[k].titulo) + '.</strong> ' + esc(OPCIONES[k].texto) + '</span></label></li>').join('');
+    }
     let camposDefinidos = 0;
     [['total', 'totalPresupuesto', 'campoTotal'], ['ajustes', 'diasAjuste', 'campoAjustes'], ['publica', 'publica', 'campoPublica']].forEach(([p, id, campo]) => {
       const v = params.get(p);
@@ -775,6 +809,24 @@
       document.getElementById('pdfRegistro').textContent = 'Registro: documento firmado electrónicamente el ' + marcaTiempo + ' (UTC). La huella digital SHA-256 del PDF se archiva junto con el documento.';
       document.getElementById('pdfAlcanceLibre').textContent = document.getElementById('alcanceLibre').value.trim() || '— (sin detalle adicional) —';
       document.getElementById('pdfPrecioPlazos').textContent = document.getElementById('precioPlazos').value.trim();
+
+      const marcadas = [...document.querySelectorAll('#listaOpciones input:checked')].map((c) => c.dataset.key);
+      document.getElementById('pdfBloqueOpciones').style.display = OFRECIDAS.length ? '' : 'none';
+      const ulOpciones = document.createElement('ul');
+      if (marcadas.length) {
+        marcadas.forEach((k) => {
+          const li = document.createElement('li');
+          li.innerHTML = '<b>✓</b>' + esc(OPCIONES[k].titulo) + ': ' + esc(OPCIONES[k].texto);
+          ulOpciones.appendChild(li);
+        });
+      } else {
+        const li = document.createElement('li');
+        li.textContent = 'EL CLIENTE no marcó ninguna opción de descuento.';
+        ulOpciones.appendChild(li);
+      }
+      document.getElementById('pdfOpciones').innerHTML = '';
+      document.getElementById('pdfOpciones').appendChild(ulOpciones);
+      document.getElementById('opcionesOculto').value = marcadas.map((k) => OPCIONES[k].titulo).join(' | ') || 'Ninguna';
 
       const contenedor = document.getElementById('pdfListaItems');
       contenedor.innerHTML = '';

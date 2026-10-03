@@ -269,11 +269,20 @@
           '<p class="campo-hint">Opcional. Si no la tildás, esa frase no aparece en el contrato.</p>' +
           '<ul class="lista-items"><li><label><input type="checkbox" id="genSinDominio" checked> Aclarar que el costo del dominio no está incluido en el precio (se abona por separado)</label></li>' +
           '<li><label><input type="checkbox" id="genSinCorreo" checked> Aclarar que el costo del correo profesional no está incluido en el precio (se abona por separado)</label></li></ul>' +
-          '<p class="campo-hint">Si tildás una, el contrato lo dice en una cláusula; si no, no se menciona.</p>';
+          '<p class="campo-hint">Si tildás una, el contrato lo dice en una cláusula; si no, no se menciona.</p>' +
+          '<div class="seccion-items" style="margin-top:20px"><h3>D. Opciones de descuento que le ofrecés al cliente</h3><ul class="lista-items">' +
+          '<li><label><input type="checkbox" id="genOpRecomendacion"> 10 % por recomendación (30 días para el primer interesado; el segundo, sin plazo)</label></li>' +
+          '<li><label><input type="checkbox" id="genOpResena"> 10 % por reseña en Google Business y autorización del caso</label></li>' +
+          '<li><label><input type="checkbox" id="genOpDolares"> 1,5 % por pagar en dólares (solo Uruguay y otros países de Hispanoamérica)</label></li></ul>' +
+          '<div class="campo" id="campoPaisDolares" style="display:none;margin-top:12px"><label for="genPaisDolares">País del cliente (Hispanoamérica)</label><select id="genPaisDolares"></select></div>' +
+          '<p class="campo-hint" id="hintDolares">El cliente ve solo las que tildes y marca cuáles quiere aplicar; las que no marque, no se aplican.</p></div>';
       }
       marcarPendiente();
       actualizarMonedas();
+      actualizarOpciones();
       zona.querySelectorAll('input, textarea, select').forEach((el) => el.addEventListener('input', marcarPendiente));
+      const chkDolares = document.getElementById('genOpDolares');
+      if (chkDolares) chkDolares.addEventListener('change', actualizarOpciones);
     }
     selectTipo.addEventListener('change', renderZona);
 
@@ -293,6 +302,23 @@
       sel.value = lista.some(([v]) => v === previa) ? previa : lista[0][0];
     }
     radiosPais.forEach((r) => r.addEventListener('change', actualizarMonedas));
+
+    // Descuento por pagar en dólares: solo Uruguay y otros países de Hispanoamérica (no España).
+    const PAISES_HISPANOAMERICA = ['Uruguay', 'Argentina', 'Bolivia', 'Chile', 'Colombia', 'Costa Rica', 'Cuba', 'Ecuador', 'El Salvador', 'Guatemala', 'Honduras', 'México', 'Nicaragua', 'Panamá', 'Paraguay', 'Perú', 'Puerto Rico', 'República Dominicana', 'Venezuela'];
+    function actualizarOpciones() {
+      const chk = document.getElementById('genOpDolares');
+      if (!chk) return;
+      const sel = document.getElementById('genPaisDolares');
+      if (!sel.options.length) sel.innerHTML = PAISES_HISPANOAMERICA.map((p) => '<option>' + p + '</option>').join('');
+      const esES = document.querySelector('input[name="pais"]:checked').value === 'ES';
+      chk.disabled = esES;
+      if (esES) chk.checked = false;
+      document.getElementById('campoPaisDolares').style.display = chk.checked ? '' : 'none';
+      document.getElementById('hintDolares').textContent = esES
+        ? 'La opción de pago en dólares no está disponible para España. El cliente ve solo las que tildes y marca cuáles quiere aplicar.'
+        : 'El cliente ve solo las que tildes y marca cuáles quiere aplicar; las que no marque, no se aplican.';
+    }
+    radiosPais.forEach((r) => r.addEventListener('change', actualizarOpciones));
 
     // ---------- Confirmar / generar ----------
     const inputLink = document.getElementById('link');
@@ -356,6 +382,14 @@
         if (document.getElementById('genReferencia').checked) qp.set('referencia', '1');
         if (document.getElementById('genSinDominio').checked) qp.set('sinDominio', '1');
         if (document.getElementById('genSinCorreo').checked) qp.set('sinCorreo', '1');
+        const opciones = [];
+        if (document.getElementById('genOpRecomendacion').checked) opciones.push('recomendacion');
+        if (document.getElementById('genOpResena').checked) opciones.push('resena');
+        if (document.getElementById('genOpDolares').checked && pais !== 'ES') {
+          opciones.push('dolares');
+          qp.set('paisDolares', document.getElementById('genPaisDolares').value);
+        }
+        if (opciones.length) qp.set('opciones', opciones.join(','));
       }
       avisoFalta.classList.remove('visible');
 
