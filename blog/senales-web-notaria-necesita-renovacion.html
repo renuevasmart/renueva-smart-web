@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>5 señales de que tu web de notaría necesita renovarse — Renueva Smart</title>
-<meta name="description" content="Ficha del Colegio, blog de plantilla, web rota en el móvil: así se ve una notaría que pierde clientes por su web. 5 señales y qué hacer con cada una.">
+<title>5 señales: tu notaría necesita web nueva — Renueva Smart</title>
+<meta name="description" content="¿Ficha del Colegio, web rota en el móvil, plantilla sin tocar hace años? 5 señales de que tu notaría necesita una web nueva, y qué hacer con cada una.">
 <meta name="theme-color" content="#0b0c0e">
 <link rel="canonical" href="https://renuevasmart.com/blog/senales-web-notaria-necesita-renovacion.html">
 <link rel="icon" href="../assets/favicon.ico" sizes="any">
@@ -16,8 +16,8 @@
 <meta property="og:site_name" content="Renueva Smart">
 <meta property="og:locale" content="es_ES">
 <meta property="og:locale:alternate" content="es_UY">
-<meta property="og:title" content="5 señales de que tu web de notaría necesita renovarse">
-<meta property="og:description" content="Ficha del Colegio, blog de plantilla, web rota en el móvil: 5 señales de que la web de tu notaría necesita renovarse, y qué hacer con cada una.">
+<meta property="og:title" content="5 señales: tu notaría necesita web nueva">
+<meta property="og:description" content="¿Ficha del Colegio, web rota en el móvil, plantilla sin tocar hace años? 5 señales de que tu notaría necesita una web nueva, y qué hacer con cada una.">
 <meta property="og:image" content="https://renuevasmart.com/assets/portfolio-escribania.jpg">
 <meta property="og:url" content="https://renuevasmart.com/blog/senales-web-notaria-necesita-renovacion.html">
 <meta name="twitter:card" content="summary_large_image">
@@ -269,8 +269,37 @@
         document.querySelectorAll('[data-i18n="' + clave + '"]').forEach((el) => { el.innerHTML = mapa[clave]; });
       });
     }
+    function aplicarTerminologiaEspana() {
+      function reemplazar(texto) {
+        return texto
+          .replace(/\b(notarías)\s+y\s+escribanías\b/gi, '$1')
+          .replace(/\b(notaría)\s+o\s+escribanía\b/gi, '$1')
+          .replace(/\b(notario)\s+o\s+(un\s+)?escribano\b/gi, '$1')
+          .replace(/colegio de escribanos o notarios/gi, 'Colegio de Notarios')
+          .replace(/Escribanías/g, 'Notarías')
+          .replace(/escribanías/g, 'notarías')
+          .replace(/Escribanía/g, 'Notaría')
+          .replace(/escribanía/g, 'notaría')
+          .replace(/Escribanos/g, 'Notarios')
+          .replace(/escribanos/g, 'notarios')
+          .replace(/Escribano/g, 'Notario')
+          .replace(/escribano/g, 'notario');
+      }
+      const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
+        acceptNode(nodo) {
+          const padre = nodo.parentElement;
+          if (!padre || padre.closest('script, style, [data-no-swap]')) return NodeFilter.FILTER_REJECT;
+          return /escriban/i.test(nodo.textContent) ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT;
+        }
+      });
+      const nodos = [];
+      let nodo;
+      while ((nodo = walker.nextNode())) nodos.push(nodo);
+      nodos.forEach((n) => { n.textContent = reemplazar(n.textContent); });
+    }
     function variantePorPais(pais) {
       if (!pais) return null;
+      if (pais === 'ES') return 'espana';
       if (['AR', 'UY', 'PY'].includes(pais)) return 'voseo';
       return 'neutro';
     }
@@ -281,6 +310,7 @@
     }
     function aplicarSegun(variante) {
       if (variante === 'voseo') aplicarVariante(TEXTO_VOSEO);
+      else if (variante === 'espana') aplicarTerminologiaEspana();
     }
     (function detectarVarianteDeLead() {
       const controlador = new AbortController();

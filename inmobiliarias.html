@@ -157,6 +157,12 @@
   .faq-item[open] .faq-icono { transform: rotate(45deg); }
   .faq-item p { margin: 12px 0 0; font-size: 14.5px; line-height: 1.6; color: var(--color-text-secondary); }
 
+  .comparacion { margin: 28px 0 8px; display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+  .comparacion figure { margin: 0; }
+  .comparacion figcaption { font-size: 11.5px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-text-muted); margin-bottom: 8px; }
+  .comparacion .marco { border-radius: var(--radius-2xl); overflow: hidden; border: 1px solid var(--color-border-default); background: var(--color-bg-primary); aspect-ratio: 1919 / 762; }
+  .comparacion img { display: block; width: 100%; height: 100%; object-fit: cover; }
+  @media (max-width: 640px) { .comparacion { grid-template-columns: 1fr; } }
   .caso-cta { margin-top: 44px; padding-top: 32px; border-top: 1px solid var(--color-border-subtle); }
   .caso-cta p { font-size: 16.5px; color: var(--color-text-primary); margin: 0 0 20px; }
   .caso-cta-acciones { display: flex; flex-wrap: wrap; gap: 14px; }
@@ -198,8 +204,19 @@
     <p>Casi todo el mundo busca piso desde el móvil, así que la web de una inmobiliaria se juega ahí: tiene que cargar rápido, verse bien en pantalla pequeña y dejar claras en segundos las tres rutas —comprar, vender y alquilar— y cómo contactar. También pesa la confianza: quién está detrás de la agencia, la zona en la que trabajáis y por qué elegiros frente a la de al lado.</p>
     <p>El listado de propiedades es una conversación aparte. La mayoría de las inmobiliarias ya lo gestionan desde un CRM o un portal (Idealista, Fotocasa, pisos.com), y lo más sensato suele ser integrar ese listado en la web nueva en vez de rehacerlo. Lo vemos contigo según cómo trabajéis las fichas.</p>
 
-    <h2>Prueba de lo que hacemos</h2>
-    <p>Todavía no tenemos un caso publicado de una inmobiliaria, pero el proceso es el mismo que usamos con la <a href="caso-acosta-pastore.html">Escribanía Acosta Pastore</a>: sitio propio, navegación clara y contenido real reordenado, no una plantilla genérica.</p>
+    <h2>Un ejemplo de rediseño</h2>
+    <p>Para mostrar cómo trabajamos, rediseñamos la web de una inmobiliaria de Madrid, Langa &amp; Infiesta Asesores. Es un ejemplo de rediseño, no un caso publicado: partimos de su web actual y dejamos claras las rutas de contacto, en el móvil y en el escritorio.</p>
+    <div class="comparacion">
+      <figure>
+        <figcaption>Antes</figcaption>
+        <div class="marco"><img src="assets/langa-antes.jpg" width="1919" height="762" loading="lazy" decoding="async" alt="Web original de Langa &amp; Infiesta Asesores: fondo con iconos repetidos, mapa a media pantalla y menú con poca jerarquía"></div>
+      </figure>
+      <figure>
+        <figcaption>Después</figcaption>
+        <div class="marco"><img src="assets/langa-despues.jpg" width="1919" height="749" loading="lazy" decoding="async" alt="Rediseño de la web de Langa &amp; Infiesta Asesores: portada con foto de interior, título claro y botones de visita y servicios"></div>
+      </figure>
+    </div>
+    <p>El proceso es el mismo que usamos con la <a href="caso-acosta-pastore.html">Escribanía Acosta Pastore</a>, nuestro caso publicado: sitio propio, navegación clara y contenido real reordenado, no una plantilla genérica.</p>
 
     <h2>Cómo trabajamos</h2>
     <ol class="pasos-lista">
@@ -269,6 +286,34 @@
         document.querySelectorAll('[data-i18n="' + clave + '"]').forEach((el) => { el.innerHTML = mapa[clave]; });
       });
     }
+    function aplicarTerminologiaEspana() {
+      function reemplazar(texto) {
+        return texto
+          .replace(/\b(notarías)\s+y\s+escribanías\b/gi, '$1')
+          .replace(/\b(notaría)\s+o\s+escribanía\b/gi, '$1')
+          .replace(/\b(notario)\s+o\s+(un\s+)?escribano\b/gi, '$1')
+          .replace(/colegio de escribanos o notarios/gi, 'Colegio de Notarios')
+          .replace(/Escribanías/g, 'Notarías')
+          .replace(/escribanías/g, 'notarías')
+          .replace(/Escribanía/g, 'Notaría')
+          .replace(/escribanía/g, 'notaría')
+          .replace(/Escribanos/g, 'Notarios')
+          .replace(/escribanos/g, 'notarios')
+          .replace(/Escribano/g, 'Notario')
+          .replace(/escribano/g, 'notario');
+      }
+      const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
+        acceptNode(nodo) {
+          const padre = nodo.parentElement;
+          if (!padre || padre.closest('script, style, [data-no-swap]')) return NodeFilter.FILTER_REJECT;
+          return /escriban/i.test(nodo.textContent) ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT;
+        }
+      });
+      const nodos = [];
+      let nodo;
+      while ((nodo = walker.nextNode())) nodos.push(nodo);
+      nodos.forEach((n) => { n.textContent = reemplazar(n.textContent); });
+    }
     function variantePorPais(pais) {
       if (!pais) return null;
       if (pais === 'ES') return 'espana';
@@ -282,6 +327,7 @@
     }
     function aplicarSegun(variante) {
       if (variante === 'voseo') aplicarVariante(TEXTO_VOSEO);
+      else if (variante === 'espana') aplicarTerminologiaEspana();
     }
     (function detectarVarianteDeLead() {
       const controlador = new AbortController();

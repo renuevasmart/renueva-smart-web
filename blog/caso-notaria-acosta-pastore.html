@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cómo rediseñamos la web de la Escribanía Acosta Pastore — Renueva Smart</title>
-<meta name="description" content="De un blog de plantilla genérica a una web propia con identidad y contenido reorganizado. El caso real de la Escribanía Acosta Pastore, paso a paso.">
+<title>El rediseño web de Escribanía Acosta Pastore — Renueva Smart</title>
+<meta name="description" content="De un blog de plantilla genérica a una web propia con identidad. El caso real de la Escribanía Acosta Pastore, paso a paso.">
 <meta name="theme-color" content="#0b0c0e">
-<link rel="canonical" href="https://renuevasmart.com/blog/caso-escribania-acosta-pastore.html">
+<link rel="canonical" href="https://renuevasmart.com/blog/caso-notaria-acosta-pastore.html">
 <link rel="icon" href="../assets/favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="../assets/favicon-16.png">
@@ -16,10 +16,10 @@
 <meta property="og:site_name" content="Renueva Smart">
 <meta property="og:locale" content="es_ES">
 <meta property="og:locale:alternate" content="es_UY">
-<meta property="og:title" content="Cómo rediseñamos la web de la Escribanía Acosta Pastore">
-<meta property="og:description" content="De un blog de plantilla genérica a una web propia con identidad y contenido reorganizado. El caso real, paso a paso.">
+<meta property="og:title" content="El rediseño web de Escribanía Acosta Pastore">
+<meta property="og:description" content="De un blog de plantilla genérica a una web propia con identidad. El caso real de la Escribanía Acosta Pastore, paso a paso.">
 <meta property="og:image" content="https://renuevasmart.com/assets/portfolio-escribania.jpg">
-<meta property="og:url" content="https://renuevasmart.com/blog/caso-escribania-acosta-pastore.html">
+<meta property="og:url" content="https://renuevasmart.com/blog/caso-notaria-acosta-pastore.html">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -30,7 +30,7 @@
   "@graph": [
     {
       "@type": "BlogPosting",
-      "@id": "https://renuevasmart.com/blog/caso-escribania-acosta-pastore.html#articulo",
+      "@id": "https://renuevasmart.com/blog/caso-notaria-acosta-pastore.html#articulo",
       "headline": "Cómo rediseñamos la web de la Escribanía Acosta Pastore",
       "description": "De un blog de plantilla genérica a una web propia con identidad y contenido reorganizado. El caso real de la Escribanía Acosta Pastore, paso a paso.",
       "author": { "@type": "Person", "name": "Alejandro Vidal Voglino" },
@@ -38,7 +38,7 @@
       "about": { "@id": "https://renuevasmart.com/#negocio" },
       "datePublished": "2026-09-17",
       "dateModified": "2026-09-17",
-      "mainEntityOfPage": "https://renuevasmart.com/blog/caso-escribania-acosta-pastore.html",
+      "mainEntityOfPage": "https://renuevasmart.com/blog/caso-notaria-acosta-pastore.html",
       "image": "https://renuevasmart.com/assets/portfolio-escribania.jpg",
       "inLanguage": "es"
     },
@@ -47,7 +47,7 @@
       "itemListElement": [
         { "@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://renuevasmart.com/" },
         { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://renuevasmart.com/blog/" },
-        { "@type": "ListItem", "position": 3, "name": "Caso: Escribanía Acosta Pastore", "item": "https://renuevasmart.com/blog/caso-escribania-acosta-pastore.html" }
+        { "@type": "ListItem", "position": 3, "name": "Caso: Escribanía Acosta Pastore", "item": "https://renuevasmart.com/blog/caso-notaria-acosta-pastore.html" }
       ]
     }
   ]
@@ -252,9 +252,33 @@
   <script>
     const TEXTO_VOSEO = { cta_nav: 'Escribinos ahora', cta_tenes: 'Tenés', podes_ver: 'podés' };
     function aplicarVariante(mapa) { Object.keys(mapa).forEach((clave) => { document.querySelectorAll('[data-i18n="' + clave + '"]').forEach((el) => { el.innerHTML = mapa[clave]; }); }); }
-    function variantePorPais(pais) { if (!pais) return null; if (['AR', 'UY', 'PY'].includes(pais)) return 'voseo'; return 'neutro'; }
+    function aplicarTerminologiaEspana() {
+      function reemplazar(texto) {
+        return texto
+          .replace(/\b(notarías)\s+y\s+escribanías\b/gi, '$1')
+          .replace(/\b(notaría)\s+o\s+escribanía\b/gi, '$1')
+          .replace(/\b(notario)\s+o\s+(un\s+)?escribano\b/gi, '$1')
+          .replace(/colegio de escribanos o notarios/gi, 'Colegio de Notarios')
+          .replace(/Escribanías/g, 'Notarías').replace(/escribanías/g, 'notarías')
+          .replace(/Escribanía/g, 'Notaría').replace(/escribanía/g, 'notaría')
+          .replace(/Escribanos/g, 'Notarios').replace(/escribanos/g, 'notarios')
+          .replace(/Escribano/g, 'Notario').replace(/escribano/g, 'notario');
+      }
+      const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
+        acceptNode(nodo) {
+          const padre = nodo.parentElement;
+          if (!padre || padre.closest('script, style, [data-no-swap]')) return NodeFilter.FILTER_REJECT;
+          return /escriban/i.test(nodo.textContent) ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT;
+        }
+      });
+      const nodos = [];
+      let nodo;
+      while ((nodo = walker.nextNode())) nodos.push(nodo);
+      nodos.forEach((n) => { n.textContent = reemplazar(n.textContent); });
+    }
+    function variantePorPais(pais) { if (!pais) return null; if (pais === 'ES') return 'espana'; if (['AR', 'UY', 'PY'].includes(pais)) return 'voseo'; return 'neutro'; }
     function variantePorNavegador() { const lang = (navigator.language || '').toLowerCase(); if (lang.includes('es-ar') || lang.includes('es-uy') || lang.includes('es-py')) return 'voseo'; return 'neutro'; }
-    function aplicarSegun(variante) { if (variante === 'voseo') aplicarVariante(TEXTO_VOSEO); }
+    function aplicarSegun(variante) { if (variante === 'voseo') aplicarVariante(TEXTO_VOSEO); else if (variante === 'espana') aplicarTerminologiaEspana(); }
     (function detectarVarianteDeLead() {
       const controlador = new AbortController();
       const limite = setTimeout(() => controlador.abort(), 2500);
