@@ -530,7 +530,13 @@
       tituloDoc.textContent = 'Presentar el caso de ' + (nombre || 'tu proyecto') + ' en la web y redes de Renueva Smart';
     }
     inputProyecto.value = params.get('cliente') || '';
-    if (params.get('pais') === 'ES') { document.getElementById('paisES').checked = true; actualizarPorPais(); }
+    // País definido por Renueva Smart en el link: el cliente no lo elige.
+    const paisParam = params.get('pais');
+    if (paisParam === 'ES' || paisParam === 'UY') {
+      document.getElementById(paisParam === 'ES' ? 'paisES' : 'paisUY').checked = true;
+      document.querySelector('.pais-pills').style.display = 'none';
+      actualizarPorPais();
+    }
     actualizarTitulo();
     inputProyecto.addEventListener('input', actualizarTitulo);
 

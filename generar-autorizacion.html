@@ -313,7 +313,7 @@
       const pais = document.querySelector('input[name="pais"]:checked').value;
       const qp = new URLSearchParams();
       if (nombre) qp.set('cliente', nombre);
-      if (pais === 'ES') qp.set('pais', 'ES');
+      qp.set('pais', pais);
 
       if (tipo === 'autorizacion-accesos.html') {
         const tildadas = clavesTildadas('accesos');

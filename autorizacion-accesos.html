@@ -507,7 +507,12 @@
       validarDocActual();
     }
     radiosPais.forEach((r) => r.addEventListener('change', actualizarPorPais));
-    if (params.get('pais') === 'ES') document.getElementById('paisES').checked = true;
+    // País definido por Renueva Smart en el link: el cliente no lo elige.
+    const paisParam = params.get('pais');
+    if (paisParam === 'ES' || paisParam === 'UY') {
+      document.getElementById(paisParam === 'ES' ? 'paisES' : 'paisUY').checked = true;
+      document.querySelector('.pais-pills').style.display = 'none';
+    }
     actualizarPorPais();
 
     // Pre-selección de accesos desde el link (armado por Renueva Smart en generar-autorizacion.html):
