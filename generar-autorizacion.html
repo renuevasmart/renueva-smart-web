@@ -163,6 +163,7 @@
       <div id="zonaPersonalizar"></div>
     </div>
 
+    <p class="aviso-pendiente" id="avisoFalta"></p>
     <button type="button" class="btn-generar" id="btnGenerar">Confirmar y generar link</button>
 
     <div class="paso">
@@ -270,10 +271,14 @@
         zona.innerHTML =
           '<div class="seccion-items"><h3>A. Trabajos incluidos</h3>' + listaHtml(CONTRATO_TRABAJOS, 'trabajos', false) + '</div>' +
           '<div class="campo"><label for="genAlcance">Alcance adicional / detalle específico</label><textarea id="genAlcance" rows="3" placeholder="Ej: landing de una sola página, con sección de testimonios."></textarea></div>' +
-          '<div class="campo"><label for="genPrecio">Precio y plazos</label><textarea id="genPrecio" rows="4" placeholder="Ej: USD 700 en total — 50% al firmar, 50% contra entrega. Entrega: 15 días hábiles."></textarea></div>';
+          '<div class="campo"><label for="genPrecio">Precio y plazos</label><textarea id="genPrecio" rows="4" placeholder="Ej: USD 700 en total — 50% al firmar, 50% contra entrega. Entrega: 15 días hábiles."></textarea></div>' +
+          '<div class="campo"><label for="genTotal">Total del presupuesto</label><input type="number" id="genTotal" min="0" step="any" inputmode="decimal" placeholder="Ej: 12800"><p class="campo-hint">En pesos uruguayos si el cliente es de Uruguay, en euros si es de España.</p></div>' +
+          '<div class="campo"><label for="genAjustes">Días de las dos rondas de ajuste (a partir de la entrega del sitio)</label><input type="number" id="genAjustes" min="1" step="1" inputmode="numeric" placeholder="Ej: 15"></div>' +
+          '<div class="campo"><label for="genPublica">Publicación del sitio</label><select id="genPublica"><option value="rs">Renueva Smart publica la web (la deja en línea)</option><option value="cliente">El cliente o su proveedor publica la web (se entregan los archivos)</option></select></div>' +
+          '<div class="campo"><label for="genDolar">Tipo de cambio (pesos uruguayos por 1 USD)</label><input type="number" id="genDolar" min="1" step="any" value="40"><p class="campo-hint">Solo se usa en contratos de Uruguay.</p></div>';
       }
       marcarPendiente();
-      zona.querySelectorAll('input, textarea').forEach((el) => el.addEventListener('input', marcarPendiente));
+      zona.querySelectorAll('input, textarea, select').forEach((el) => el.addEventListener('input', marcarPendiente));
     }
     selectTipo.addEventListener('change', renderZona);
 
@@ -288,6 +293,7 @@
     const btnCopiar = document.getElementById('btnCopiar');
     const btnGenerar = document.getElementById('btnGenerar');
     const avisoPendiente = document.getElementById('avisoPendiente');
+    const avisoFalta = document.getElementById('avisoFalta');
     const confirmadoEl = document.getElementById('confirmado');
     let generado = false;
 
@@ -330,7 +336,20 @@
         const precio = document.getElementById('genPrecio').value.trim();
         if (alcance) qp.set('alcance', alcance);
         if (precio) qp.set('precio', precio);
+        const total = document.getElementById('genTotal').value.trim();
+        const ajustes = document.getElementById('genAjustes').value.trim();
+        if (!total || !ajustes) {
+          avisoFalta.textContent = 'Completá el total del presupuesto y los días de ajuste antes de generar el link.';
+          avisoFalta.classList.add('visible');
+          return;
+        }
+        qp.set('total', total);
+        qp.set('ajustes', ajustes);
+        qp.set('publica', document.getElementById('genPublica').value);
+        const dolar = document.getElementById('genDolar').value.trim();
+        if (dolar && dolar !== '40') qp.set('dolar', dolar);
       }
+      avisoFalta.classList.remove('visible');
 
       const query = qp.toString();
       const url = carpeta + tipo + (query ? '?' + query : '');

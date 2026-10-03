@@ -302,6 +302,24 @@
         <p class="campo-hint">Detallá el monto total, la moneda, la forma de pago (al contado, en cuotas, por hitos) y la fecha o plazo de entrega acordados.</p>
       </div>
 
+      <div class="campo-grande" id="bloqueProveedor">
+        <div class="campo" id="campoTotal">
+          <label for="totalPresupuesto" id="labelTotal">Total del presupuesto (pesos uruguayos)</label>
+          <input type="number" id="totalPresupuesto" name="Total del presupuesto" min="0" step="any" inputmode="decimal" required>
+        </div>
+        <div class="campo" id="campoAjustes">
+          <label for="diasAjuste">Días de las dos rondas de ajuste (a partir de la entrega del sitio)</label>
+          <input type="number" id="diasAjuste" name="Días de las rondas de ajuste" min="1" step="1" inputmode="numeric" required>
+        </div>
+        <div class="campo" id="campoPublica">
+          <label for="publica">Publicación del sitio</label>
+          <select id="publica" name="Publicación del sitio" required>
+            <option value="rs">Renueva Smart publica la web (la deja en línea)</option>
+            <option value="cliente">El cliente o su proveedor publica la web (se entregan los archivos)</option>
+          </select>
+        </div>
+      </div>
+
       <div class="clausulas" id="clausulasPagina"></div>
 
       <div class="callout">
@@ -416,26 +434,50 @@
       return document.querySelector('input[name="pais"]:checked').value;
     }
 
+    const CUENTA_PREX = '1479265';
+    const DOLAR = Number(params.get('dolar')) > 0 ? Number(params.get('dolar')) : 40;
+    function fmt(n) {
+      return Number(n).toLocaleString('de-DE', { maximumFractionDigits: 2 });
+    }
+
+    // Devuelve texto plano (sin escapar): la página y el PDF lo escapan al mostrarlo.
     function clausulas(pais) {
       const c = CONFIG_PAIS[pais];
+      const total = parseFloat(document.getElementById('totalPresupuesto').value);
+      const dias = parseInt(document.getElementById('diasAjuste').value, 10);
+      const publica = document.getElementById('publica').value;
+      const nombreCliente = document.getElementById('clienteNombre').value.trim() || '[nombre del cliente]';
+      const docCliente = document.getElementById('clienteCedula').value.trim() || '[documento del cliente]';
+      const totalTxt = isNaN(total) ? '[total del presupuesto]' : fmt(total);
+      const diasTxt = isNaN(dias) ? '[días]' : String(dias);
+      const recibido = ' Los pagos se consideran recibidos cuando el importe está efectivamente disponible para EL PROVEEDOR.';
+      const precio = pais === 'UY'
+        ? 'El precio total pactado es de $' + totalTxt + ' pesos uruguayos' + (isNaN(total) ? '' : ' (equivalente a USD ' + fmt(total / DOLAR) + ' al tipo de cambio indicado en la cláusula siguiente)') + ', conforme al detalle de la sección "C. Precio y plazos". El pago se realiza por transferencia a la cuenta Prex número ' + CUENTA_PREX + '.' + recibido
+        : 'El precio total pactado es de ' + totalTxt + ' euros, conforme al detalle de la sección "C. Precio y plazos", donde también se indica la forma de pago.' + recibido;
       return [
         ['Objeto', 'EL PROVEEDOR se obliga a prestar a EL CLIENTE los servicios detallados en las secciones "A. Trabajos incluidos" y "B. Alcance adicional" de este documento, en las condiciones aquí pactadas.'],
-        ['Precio y forma de pago', 'El precio total, la moneda y la forma de pago son los descritos en la sección "C. Precio y plazos". Los pagos se consideran recibidos cuando el importe está efectivamente disponible para EL PROVEEDOR.'],
+        ['Precio y forma de pago', precio],
+        pais === 'UY' ? ['Tipo de cambio', 'A los efectos de este contrato se toma el dólar estadounidense a $' + DOLAR + ' pesos uruguayos (1 USD = ' + DOLAR + ' UYU) para convertir los importes expresados en dólares y en pesos.'] : null,
         ['Plazos de entrega', 'El plazo de entrega es el indicado en la sección "C. Precio y plazos". Los plazos pueden extenderse por demoras atribuibles a EL CLIENTE (falta de contenidos, accesos o aprobaciones a tiempo) o por causas de fuerza mayor, sin que ello genere penalidad para EL PROVEEDOR.'],
+        ['Publicación del sitio', publica === 'rs'
+          ? 'EL PROVEEDOR publica el sitio y lo deja en línea y funcionando como parte de este contrato.'
+          : 'EL PROVEEDOR entrega los archivos del sitio terminado; la publicación en línea queda a cargo de EL CLIENTE o de su proveedor.'],
         ['Trabajos fuera de alcance', 'Cualquier trabajo no incluido en las secciones A y B se considera adicional y requiere acuerdo previo por escrito sobre su precio y plazo antes de realizarse.'],
-        ['Entrega y aprobación', 'EL PROVEEDOR notificará a EL CLIENTE cuando cada entregable esté listo para revisión. EL CLIENTE dispondrá de un plazo razonable para solicitar ajustes menores dentro del alcance pactado; cambios sustanciales respecto de lo acordado se tratan como trabajo adicional.'],
+        ['Entrega y aprobación', 'EL PROVEEDOR notificará a EL CLIENTE cuando cada entregable esté listo para revisión. Los ajustes de contenidos se rigen por la cláusula de rondas de ajuste; los cambios sustanciales respecto de lo acordado se tratan como trabajo adicional.'],
+        ['Rondas de ajuste', 'El precio incluye dos rondas de ajuste de contenidos, dentro de los ' + diasTxt + ' días a partir de la entrega del sitio. Los ajustes solicitados una vez vencido ese plazo, o más allá de esas dos rondas, se tratan como trabajo adicional.'],
+        ['Titularidad del dominio', 'El dominio del sitio será de propiedad de EL CLIENTE, ' + nombreCliente + ' (' + c.labelDoc + ': ' + docCliente + '), y se registra a su nombre.'],
         ['Propiedad del trabajo final', 'Una vez abonado el precio en su totalidad, EL CLIENTE es titular del sitio y los materiales entregados para este proyecto. EL PROVEEDOR puede conservar copias de trabajo y mencionar el proyecto como referencia de su portfolio, salvo pacto en contrario o lo que disponga el acuerdo de uso de caso firmado aparte.'],
         ['Confidencialidad', 'Cada parte se compromete a no divulgar a terceros la información confidencial de la otra que conozca con motivo de este contrato, salvo obligación legal de hacerlo.'],
         ['Cancelación anticipada', 'Cualquiera de las partes puede dar por terminado este contrato antes de la entrega final mediante comunicación escrita. En ese caso, EL CLIENTE abona el trabajo efectivamente realizado hasta ese momento, calculado en proporción al precio total y al avance del proyecto.'],
         ['Firma electrónica y prueba', 'Las partes reconocen a la firma manuscrita digital estampada en pantalla el carácter de firma electrónica, y le atribuyen validez y eficacia probatoria. Al firmar se registran la fecha y hora (UTC) y la huella digital (SHA-256) del PDF, que quedan archivadas junto con el documento como prueba del acuerdo alcanzado.'],
         ['Ley aplicable y jurisdicción', c.ley],
-      ];
+      ].filter(Boolean);
     }
 
     const contenedorClausulas = document.getElementById('clausulasPagina');
     function renderClausulasPagina() {
       contenedorClausulas.innerHTML = '<h2>Condiciones</h2>' + clausulas(paisActual()).map(([t, txt], i) =>
-        '<div class="clausula"><h4>' + (i + 1) + '. ' + t + '</h4><p>' + txt + '</p></div>').join('');
+        '<div class="clausula"><h4>' + (i + 1) + '. ' + esc(t) + '</h4><p>' + esc(txt) + '</p></div>').join('');
     }
 
     const TABLA_DNI_ES = 'TRWAGMYFPDXBNJZSQVHLCKE';
@@ -503,6 +545,7 @@
       const cfg = CONFIG_PAIS[paisActual()];
       labelCedula.textContent = cfg.labelDoc;
       document.getElementById('labelLugar').textContent = cfg.labelLugar;
+      document.getElementById('labelTotal').textContent = 'Total del presupuesto (' + (paisActual() === 'UY' ? 'pesos uruguayos' : 'euros') + ')';
       selectLugar.innerHTML = cfg.regiones.map((r) => '<option value="' + r + '">' + r + '</option>').join('');
       selectLugar.value = cfg.lugarDefault;
       validarDocActual();
@@ -539,6 +582,22 @@
     }
     if (params.get('alcance')) document.getElementById('alcanceLibre').value = params.get('alcance');
     if (params.get('precio')) document.getElementById('precioPlazos').value = params.get('precio');
+
+    // Datos que define Renueva Smart en el link (total, días de ajuste, quién publica): el cliente
+    // no los ve como campos. Si falta alguno (link viejo o directo), ese campo queda visible.
+    let camposDefinidos = 0;
+    [['total', 'totalPresupuesto', 'campoTotal'], ['ajustes', 'diasAjuste', 'campoAjustes'], ['publica', 'publica', 'campoPublica']].forEach(([p, id, campo]) => {
+      const v = params.get(p);
+      if (!v || (p === 'publica' && v !== 'rs' && v !== 'cliente')) return;
+      document.getElementById(id).value = v;
+      document.getElementById(campo).style.display = 'none';
+      camposDefinidos++;
+    });
+    if (camposDefinidos === 3) document.getElementById('bloqueProveedor').style.display = 'none';
+    ['totalPresupuesto', 'diasAjuste', 'publica', 'clienteNombre', 'clienteCedula'].forEach((id) => {
+      document.getElementById(id).addEventListener('input', renderClausulasPagina);
+    });
+    renderClausulasPagina();
 
     const inputNombre = document.getElementById('clienteNombre');
     const aclaracionCliente = document.getElementById('aclaracionCliente');
