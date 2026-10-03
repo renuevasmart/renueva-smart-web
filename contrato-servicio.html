@@ -475,21 +475,36 @@
     const SIN_DOMINIO = params.get('sinDominio') === '1';
     const SIN_CORREO = params.get('sinCorreo') === '1';
 
-    // Medios de pago que Renueva Smart acepta en el contrato (?pagos=...). Uruguay: siempre Prex (fijo).
-    // España: efectivo, Bizum y transferencia. Otros países: PayPal o Stripe, salvo Argentina.
+    // Medios de pago que Renueva Smart acepta (?pagos=...), con pago en cuotas opcional
+    // (?enCuotas=1&cuotas=N&cuotaMonto=X). Bizum solo en España; Stripe en todos los países salvo
+    // Argentina (allí solo PayPal). Uruguay sin ?pagos: transferencia a la cuenta Prex, como siempre.
     const BIZUM_NUMERO = '+34 602 555 026';
-    const PAGOS_PERMITIDOS = { UY: [], ES: ['efectivo', 'bizum', 'transferencia'], OT: PAIS_NOMBRE_OT === 'Argentina' ? ['paypal'] : ['paypal', 'stripe'] };
-    // IBAN que Renueva Smart escribe en el generador (?iban=): solo letras, números y espacios.
+    function pagosPermitidos(pais) {
+      const lista = ['efectivo', 'tarjeta_credito', 'tarjeta_debito', 'transferencia', 'paypal'];
+      if (!(pais === 'OT' && PAIS_NOMBRE_OT === 'Argentina')) lista.push('stripe');
+      if (pais === 'ES') lista.push('bizum');
+      return lista;
+    }
+    // IBAN que Renueva Smart escribe en el generador (?iban=, solo España): letras, números y espacios.
     const IBAN = (params.get('iban') || '').replace(/[^A-Za-z0-9 ]/g, '').toUpperCase().slice(0, 42).trim();
-    const PAGOS_TXT = {
-      efectivo: 'efectivo',
-      bizum: 'Bizum (al número ' + BIZUM_NUMERO + ')',
-      transferencia: IBAN ? 'transferencia bancaria al IBAN ' + IBAN : 'transferencia bancaria (EL PROVEEDOR indicará los datos de la cuenta)',
-      paypal: 'PayPal',
-      stripe: 'Stripe',
-    };
+    function textoPago(k, pais) {
+      if (k === 'efectivo') return 'efectivo';
+      if (k === 'tarjeta_credito') return 'tarjeta de crédito';
+      if (k === 'tarjeta_debito') return 'tarjeta de débito';
+      if (k === 'bizum') return 'Bizum (al número ' + BIZUM_NUMERO + ')';
+      if (k === 'paypal') return 'PayPal';
+      if (k === 'stripe') return 'Stripe';
+      if (pais === 'UY') return 'transferencia a la cuenta Prex número ' + CUENTA_PREX;
+      return pais === 'ES' && IBAN ? 'transferencia bancaria al IBAN ' + IBAN : 'transferencia bancaria (EL PROVEEDOR indicará los datos de la cuenta)';
+    }
+    const EN_CUOTAS = params.get('enCuotas') === '1';
+    const CUOTAS_N = (() => { const n = parseInt(params.get('cuotas'), 10); return n >= 1 && n <= 120 ? n : null; })();
+    const CUOTA_MONTO = (() => { const m = parseFloat(params.get('cuotaMonto')); return isFinite(m) && m > 0 ? m : null; })();
     function listaO(items) {
       return items.length < 2 ? items.join('') : items.slice(0, -1).join(', ') + ' o ' + items[items.length - 1];
+    }
+    function dinero(n, moneda) {
+      return moneda === 'UYU' ? '$' + fmt(n) + ' pesos uruguayos' : moneda === 'USD' ? 'USD ' + fmt(n) : fmt(n) + ' euros';
     }
 
     // Opciones de descuento que Renueva Smart ofrece en el link (?opciones=recomendacion,resena,dolares);
@@ -538,20 +553,23 @@
       const nombreCliente = document.getElementById('clienteNombre').value.trim() || '[nombre del cliente]';
       const docCliente = document.getElementById('clienteCedula').value.trim() || '[documento del cliente]';
       const moneda = document.getElementById('monedaPresupuesto').value;
-      const montoTxt = isNaN(total) ? '[total del presupuesto]'
-        : moneda === 'UYU' ? '$' + fmt(total) + ' pesos uruguayos'
-        : moneda === 'USD' ? 'USD ' + fmt(total)
-        : fmt(total) + ' euros';
+      const montoTxt = isNaN(total) ? '[total del presupuesto]' : dinero(total, moneda);
       const equivalencia = isNaN(total) || pais !== 'UY' ? ''
         : moneda === 'UYU' ? ' (equivalente a USD ' + fmt(total / DOLAR) + ' al tipo de cambio indicado en la cláusula siguiente)'
         : moneda === 'USD' ? ' (equivalente a $' + fmt(total * DOLAR) + ' pesos uruguayos al tipo de cambio indicado en la cláusula siguiente)'
         : '';
       const diasTxt = isNaN(dias) ? '[días]' : String(dias);
-      const pagos = (params.get('pagos') || '').split(',').filter((k) => (PAGOS_PERMITIDOS[pais] || []).includes(k));
+      const permitidos = pagosPermitidos(pais);
+      const pagos = (params.get('pagos') || '').split(',').filter((k) => permitidos.includes(k));
       const recibido = ' Los pagos se consideran recibidos cuando el importe está efectivamente disponible para EL PROVEEDOR.';
+      const base = 'El precio total pactado es de ' + montoTxt + equivalencia + ', conforme al detalle de la sección "C. Precio y plazos"';
+      const metodos = pagos.length ? ' El pago puede realizarse por ' + listaO(pagos.map((k) => textoPago(k, pais))) + '.' : '';
+      const cuotas = EN_CUOTAS
+        ? ' El pago se realiza en ' + (CUOTAS_N ? CUOTAS_N + (CUOTAS_N === 1 ? ' cuota mensual' : ' cuotas mensuales') : 'cuotas mensuales') + (CUOTA_MONTO ? ' de aproximadamente ' + dinero(CUOTA_MONTO, moneda) : '') + '.'
+        : '';
       const precio = pais === 'UY'
-        ? 'El precio total pactado es de ' + montoTxt + equivalencia + ', conforme al detalle de la sección "C. Precio y plazos". El pago se realiza por transferencia a la cuenta Prex número ' + CUENTA_PREX + '.' + recibido
-        : 'El precio total pactado es de ' + montoTxt + ', conforme al detalle de la sección "C. Precio y plazos"' + (pagos.length ? '. El pago puede realizarse por ' + listaO(pagos.map((k) => PAGOS_TXT[k])) + '.' : ', donde también se indica la forma de pago.') + recibido;
+        ? base + '.' + (pagos.length ? metodos : ' El pago se realiza por transferencia a la cuenta Prex número ' + CUENTA_PREX + '.') + cuotas + recibido
+        : base + (pagos.length || EN_CUOTAS ? '.' + metodos + cuotas : ', donde también se indica la forma de pago.') + recibido;
       return [
         ['Objeto', 'EL PROVEEDOR se obliga a prestar a EL CLIENTE los servicios detallados en las secciones "A. Trabajos incluidos" y "B. Alcance adicional" de este documento, en las condiciones aquí pactadas.'],
         ['Precio y forma de pago', precio],
