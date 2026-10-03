@@ -540,20 +540,6 @@
     actualizarTitulo();
     inputProyecto.addEventListener('input', actualizarTitulo);
 
-    // Pre-selección desde el link (armado por Renueva Smart en generar-autorizacion.html):
-    // si el link trae ?contenidos= y/o ?canales=, quedan tildados esos ítems; el cliente los
-    // ve igual y puede ajustarlos antes de firmar. Sin el parámetro, default de siempre (sin tildar).
-    function preseleccionar(grupo, paramNombre) {
-      const valor = params.get(paramNombre);
-      if (valor === null) return;
-      const claves = new Set(valor.split(',').filter(Boolean));
-      document.querySelectorAll('[data-grupo="' + grupo + '"] input[type="checkbox"]').forEach((chk) => {
-        chk.checked = claves.has(chk.dataset.key);
-      });
-    }
-    preseleccionar('contenidos', 'contenidos');
-    preseleccionar('canales', 'canales');
-
     const inputNombre = document.getElementById('clienteNombre');
     const aclaracionCliente = document.getElementById('aclaracionCliente');
     inputNombre.addEventListener('input', () => {

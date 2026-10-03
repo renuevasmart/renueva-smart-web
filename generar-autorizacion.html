@@ -219,23 +219,6 @@
       ]},
     ];
 
-    const CASO_EXITO_CONTENIDOS = [
-      { key: 'nombre-marca', label: 'Nombre o razón social y marca del cliente' },
-      { key: 'logo', label: 'Logo y elementos de identidad visual' },
-      { key: 'capturas', label: 'Capturas, imágenes y videos del sitio web (antes y después)' },
-      { key: 'descripcion-proceso', label: 'Descripción del proyecto, proceso y resultados obtenidos' },
-      { key: 'testimonio', label: 'Testimonio o reseña del cliente' },
-      { key: 'imagen-voz', label: 'Imagen y voz del cliente' },
-    ];
-    const CASO_EXITO_CANALES = [
-      { key: 'web-renuevasmart', label: 'Sitio web renuevasmart.com' },
-      { key: 'instagram-facebook', label: 'Instagram y Facebook' },
-      { key: 'linkedin', label: 'LinkedIn' },
-      { key: 'tiktok-youtube-x', label: 'TikTok, YouTube y X (Twitter)' },
-      { key: 'correos-newsletters', label: 'Correos, newsletters y presentaciones comerciales' },
-      { key: 'publicidad-paga', label: 'Publicidad paga' },
-    ];
-
     const CONTRATO_TRABAJOS = [
       { key: 'diseno-desarrollo-web', label: 'Diseño y desarrollo de sitio web' },
       { key: 'redisenio-existente', label: 'Rediseño de un sitio web existente' },
@@ -263,10 +246,7 @@
           '<div class="seccion-items"><h3>' + sec.titulo + '</h3>' + listaHtml(sec.items, 'accesos', true) + '</div>'
         ).join('') + '<p class="campo-hint">Por defecto quedan todos tildados (como en el documento real). Destildá los que no apliquen a este proyecto.</p>';
       } else if (tipo === 'autorizacion-caso-exito.html') {
-        zona.innerHTML =
-          '<div class="seccion-items"><h3>A. Qué contenidos proponer</h3>' + listaHtml(CASO_EXITO_CONTENIDOS, 'contenidos', false) + '</div>' +
-          '<div class="seccion-items"><h3>B. En qué canales proponer publicar</h3>' + listaHtml(CASO_EXITO_CANALES, 'canales', false) + '</div>' +
-          '<p class="campo-hint">Lo que tildes acá llega pre-tildado, pero el cliente lo ve igual y puede ajustarlo antes de firmar — la decisión final siempre es suya.</p>';
+        zona.innerHTML = '<p class="campo-hint">Acá no hay nada que completar: en esta autorización el cliente elige por sí mismo qué contenidos y en qué canales (todo arranca sin tildar). Un consentimiento pre-tildado no sería válido.</p>';
       } else {
         zona.innerHTML =
           '<div class="seccion-items"><h3>A. Trabajos incluidos</h3>' + listaHtml(CONTRATO_TRABAJOS, 'trabajos', false) + '</div>' +
@@ -325,10 +305,7 @@
         const tildadas = clavesTildadas('accesos');
         if (tildadas.length < clavesTotales('accesos')) qp.set('accesos', tildadas.join(','));
       } else if (tipo === 'autorizacion-caso-exito.html') {
-        const contenidos = clavesTildadas('contenidos');
-        const canales = clavesTildadas('canales');
-        if (contenidos.length) qp.set('contenidos', contenidos.join(','));
-        if (canales.length) qp.set('canales', canales.join(','));
+        // sin parámetros extra: el cliente elige contenidos y canales él mismo
       } else {
         const trabajos = clavesTildadas('trabajos');
         if (trabajos.length) qp.set('trabajos', trabajos.join(','));
