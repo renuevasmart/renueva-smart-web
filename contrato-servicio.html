@@ -478,11 +478,13 @@
     // Medios de pago que Renueva Smart acepta en el contrato (?pagos=...). Uruguay: siempre Prex (fijo).
     // España: efectivo, Bizum y transferencia. Otros países: PayPal o Stripe, salvo Argentina.
     const BIZUM_NUMERO = '+34 602 555 026';
-    const PAGOS_PERMITIDOS = { UY: [], ES: ['efectivo', 'bizum', 'transferencia'], OT: PAIS_NOMBRE_OT === 'Argentina' ? [] : ['paypal', 'stripe'] };
+    const PAGOS_PERMITIDOS = { UY: [], ES: ['efectivo', 'bizum', 'transferencia'], OT: PAIS_NOMBRE_OT === 'Argentina' ? ['stripe'] : ['paypal', 'stripe'] };
+    // IBAN que Renueva Smart escribe en el generador (?iban=): solo letras, números y espacios.
+    const IBAN = (params.get('iban') || '').replace(/[^A-Za-z0-9 ]/g, '').toUpperCase().slice(0, 42).trim();
     const PAGOS_TXT = {
       efectivo: 'efectivo',
       bizum: 'Bizum (al número ' + BIZUM_NUMERO + ')',
-      transferencia: 'transferencia bancaria (EL PROVEEDOR indicará los datos de la cuenta)',
+      transferencia: IBAN ? 'transferencia bancaria al IBAN ' + IBAN : 'transferencia bancaria (EL PROVEEDOR indicará los datos de la cuenta)',
       paypal: 'PayPal',
       stripe: 'Stripe',
     };
