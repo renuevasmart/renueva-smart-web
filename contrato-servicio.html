@@ -342,7 +342,7 @@
           </select>
         </div>
         <div class="campo" id="campoEntrega">
-          <label for="diasEntrega">Plazo de entrega (días, máximo 30)</label>
+          <label for="diasEntrega">Plazo de entrega</label>
           <select id="diasEntrega" name="Plazo de entrega (días)" required></select>
         </div>
         <div class="campo" id="campoPlazoDesde">
@@ -578,6 +578,8 @@
       const diasTxt = isNaN(dias) ? '[días]' : String(dias);
       const entrega = parseInt(document.getElementById('diasEntrega').value, 10);
       const entregaTxt = isNaN(entrega) ? '[días]' : entrega + (entrega === 1 ? ' día' : ' días');
+      const entregaAlPagar = document.getElementById('diasEntrega').value === 'pago100';
+      const incluyeMantenimiento = !!document.querySelector('[data-grupo="trabajos"] input[data-key="mantenimiento"]:checked');
       const desdeTxt = document.getElementById('plazoDesde').value === 'total' ? 'de que se abone el 100 % del presupuesto' : 'del primer pago';
       const permitidos = pagosPermitidos(pais);
       const pagos = (params.get('pagos') || '').split(',').filter((k) => permitidos.includes(k));
@@ -603,13 +605,14 @@
         ['Trabajos fuera de alcance', 'Cualquier trabajo no incluido en las secciones A y B se considera adicional y requiere acuerdo previo por escrito sobre su precio y plazo antes de realizarse.'],
         ['Lo que no incluye', 'Salvo que figure expresamente en la sección "A. Trabajos incluidos" o en la sección "B. Aclaraciones", este contrato no incluye la redacción de textos a medida, la obtención de fotografías u otros materiales con derechos de uso, ni la contratación de alojamientos de pago.'],
         !IMAGEN_PERSONAS ? null : ['Contenidos y derechos de imagen', 'EL CLIENTE es el único responsable de los textos, fotografías, videos, logotipos y demás materiales que entregue para el sitio, y declara contar con los derechos de uso sobre ellos y, si aparecen personas identificables, con su consentimiento expreso para el uso de su imagen (y el de sus representantes legales, si son menores). EL PROVEEDOR no verifica esos derechos ni responde por reclamaciones de terceros derivadas de los materiales aportados por EL CLIENTE, quien lo mantendrá indemne frente a ellas. EL PROVEEDOR responde por la licencia del material que incorpore por su cuenta. Ante una reclamación de un tercero, EL PROVEEDOR podrá retirar el contenido afectado hasta que se aclare.'],
-        ['Plazos de entrega', 'El plazo de entrega es de ' + entregaTxt + ' a partir ' + desdeTxt + ', según la sección "C. Precio y plazos". Los plazos pueden extenderse por demoras atribuibles a EL CLIENTE (falta de contenidos, accesos o aprobaciones a tiempo) o por causas de fuerza mayor, sin que ello genere penalidad para EL PROVEEDOR.'],
+        ['Plazos de entrega', (entregaAlPagar ? 'La entrega se realiza una vez que se abone el 100 % del presupuesto' : 'El plazo de entrega es de ' + entregaTxt + ' a partir ' + desdeTxt) + ', según la sección "C. Precio y plazos". Los plazos pueden extenderse por demoras atribuibles a EL CLIENTE (falta de contenidos, accesos o aprobaciones a tiempo) o por causas de fuerza mayor, sin que ello genere penalidad para EL PROVEEDOR.'],
         ['Publicación del sitio', publica === 'rs'
           ? 'EL PROVEEDOR publica el sitio y lo deja en línea y funcionando como parte de este contrato.'
           : 'EL PROVEEDOR entrega los archivos del sitio terminado; la publicación en línea queda a cargo de EL CLIENTE o de su proveedor.'],
         ['Entrega y aprobación', 'EL PROVEEDOR notificará a EL CLIENTE cuando cada entregable esté listo para revisión. Los ajustes de contenidos se rigen por la cláusula de rondas de ajuste; los cambios sustanciales respecto de lo acordado se tratan como trabajo adicional.'],
         ['Rondas de ajuste', 'El precio incluye dos rondas de ajuste de contenidos, dentro de los ' + diasTxt + ' días a partir de la entrega del sitio. Los ajustes solicitados una vez vencido ese plazo, o más allá de esas dos rondas, se tratan como trabajo adicional.'],
         ['Entrega del trabajo y de las credenciales', 'EL PROVEEDOR entrega el trabajo terminado y las credenciales de acceso y administración de todo lo relacionado con el sitio web (dominio, alojamiento, cuentas y servicios asociados) únicamente cuando EL CLIENTE haya abonado la totalidad del precio.' + (EN_CUOTAS ? ' Si el pago se realiza en cuotas, la entrega tiene lugar una vez abonada la última cuota.' : '') + ' Hasta ese momento, el trabajo y las credenciales permanecen en poder de EL PROVEEDOR.'],
+        ['Fin del acceso de EL PROVEEDOR', 'Con la entrega, EL PROVEEDOR deja de tener acceso y de actuar sobre cualquier elemento relacionado con el sitio web, que pasa a ser gestionado de forma exclusiva por EL CLIENTE. Esto incluye, según corresponda: el dominio y el panel del registrador (con sus registros DNS); el alojamiento (hosting), el servidor, el despliegue y el certificado SSL; el repositorio de código y los archivos del sitio; la base de datos y los servicios de backend; los formularios de contacto y los servicios de envío de correo; las cuentas de correo profesional; las cuentas de Google (Search Console, Analytics y Google Business); las redes sociales; las claves API, los tokens y las variables de entorno; los gestores de contraseñas y las carpetas compartidas; y cualquier acceso remoto al equipo de EL CLIENTE. EL PROVEEDOR dará de baja sus accesos, eliminará de sus equipos las credenciales de EL CLIENTE y no volverá a intervenir sin una nueva autorización escrita.' + (incluyeMantenimiento ? ' Se exceptúa el acceso estrictamente necesario para prestar el servicio de mantenimiento y soporte incluido en la sección A, con la autorización de EL CLIENTE.' : '') + (REFERENCIA ? ' Se exceptúan las copias de trabajo previstas en la cláusula "Propiedad del trabajo final".' : '')],
         incluyeDominio ? ['Titularidad del dominio', 'El dominio del sitio será de propiedad de EL CLIENTE, ' + nombreCliente + ' (' + c.labelDoc + ': ' + docCliente + '), y se registra a su nombre.'] : null,
         ['Propiedad del trabajo final', 'Una vez abonado el precio en su totalidad, EL CLIENTE es titular del sitio y los materiales entregados para este proyecto.' + (REFERENCIA ? ' EL PROVEEDOR puede conservar copias de trabajo y mencionar el proyecto como referencia de su portfolio, salvo pacto en contrario o lo que disponga el acuerdo de uso de caso firmado aparte.' : '')],
         ['Confidencialidad', 'Cada parte se compromete a no divulgar a terceros la información confidencial de la otra que conozca con motivo de este contrato, salvo obligación legal de hacerlo.'],
@@ -626,10 +629,15 @@
       const moneda = document.getElementById('monedaPresupuesto').value;
       const entrega = parseInt(document.getElementById('diasEntrega').value, 10);
       const desde = document.getElementById('plazoDesde').value === 'total' ? 'de que se abone el 100 % del presupuesto' : 'del primer pago';
-      return 'Total del presupuesto: ' + (isNaN(total) ? '[total]' : dinero(total, moneda))
-        + '\nPlazo de entrega: ' + (isNaN(entrega) ? '[días]' : entrega + (entrega === 1 ? ' día' : ' días')) + ' a partir ' + desde + '.';
+      const plazo = document.getElementById('diasEntrega').value === 'pago100'
+        ? 'hasta que se abone el 100 % del presupuesto.'
+        : (isNaN(entrega) ? '[días]' : entrega + (entrega === 1 ? ' día' : ' días')) + ' a partir ' + desde + '.';
+      return 'Total del presupuesto: ' + (isNaN(total) ? '[total]' : dinero(total, moneda)) + '\nPlazo de entrega: ' + plazo;
     }
     function renderClausulasPagina() {
+      // "Los días corren desde…" no aplica si el plazo es "hasta que se pague el 100 %" (solo en modo directo)
+      const campoDesde = document.getElementById('campoPlazoDesde');
+      if (!campoDesde.dataset.oculto) campoDesde.style.display = document.getElementById('diasEntrega').value === 'pago100' ? 'none' : '';
       contenedorClausulas.innerHTML = '<h2>Condiciones</h2>' + clausulas(paisActual()).map(([t, txt], i) =>
         '<div class="clausula"><h4>' + (i + 1) + '. ' + esc(t) + '</h4><p>' + esc(txt) + '</p></div>').join('');
       document.getElementById('listaPrecioPlazos').innerHTML = textoPrecioPlazos().split('\n').map((l) =>
@@ -751,7 +759,7 @@
       chk.addEventListener('change', renderClausulasPagina);
     });
     if (params.get('alcance')) document.getElementById('alcanceLibre').value = params.get('alcance');
-    document.getElementById('diasEntrega').innerHTML = '<option value="">Elegí…</option>' + Array.from({ length: 30 }, (_, i) => '<option value="' + (i + 1) + '">' + (i + 1) + (i === 0 ? ' día' : ' días') + '</option>').join('');
+    document.getElementById('diasEntrega').innerHTML = '<option value="">Elegí…</option>' + Array.from({ length: 30 }, (_, i) => '<option value="' + (i + 1) + '">' + (i + 1) + (i === 0 ? ' día' : ' días') + '</option>').join('') + '<option value="pago100">Hasta que se pague el 100 % del presupuesto</option>';
 
     // Datos que define Renueva Smart en el link (total, días de ajuste, quién publica): el cliente
     // no los ve como campos. Si falta alguno (link viejo o directo), ese campo queda visible.
@@ -772,6 +780,7 @@
       el.value = v;
       if (el.value !== v) return; // valor no válido para ese desplegable
       document.getElementById(campo).style.display = 'none';
+      document.getElementById(campo).dataset.oculto = '1';
       camposDefinidos++;
     });
     if (camposDefinidos === 5) document.getElementById('bloqueProveedor').style.display = 'none';

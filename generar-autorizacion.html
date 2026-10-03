@@ -288,8 +288,8 @@
           '<div class="campo" style="flex:1;margin:0"><label for="genCuotaMonto">Monto aprox. de cada cuota</label><input type="number" id="genCuotaMonto" min="0" step="any" inputmode="decimal" placeholder="Ej: 2133"></div></div>' +
           '<p class="campo-hint">Completá uno o los dos. El monto va en la misma moneda que el total.</p></div></div>' +
           '<div class="campo"><label for="genTotal">Total del presupuesto</label><div style="display:flex;gap:10px"><input type="number" id="genTotal" min="0" step="any" inputmode="decimal" placeholder="Ej: 12800" style="flex:1;min-width:0"><select id="genMoneda" style="width:auto" aria-label="Moneda"></select></div><p class="campo-hint">Uruguay: pesos, dólares o euros. España: euros o dólares.</p></div>' +
-          '<div class="campo"><label for="genEntrega">Plazo de entrega (días, máximo 30)</label><select id="genEntrega"><option value="">Elegí…</option>' + Array.from({ length: 30 }, (_, i) => '<option value="' + (i + 1) + '">' + (i + 1) + (i === 0 ? ' día' : ' días') + '</option>').join('') + '</select></div>' +
-          '<div class="campo"><label for="genPlazoDesde">Los días de entrega corren desde</label><select id="genPlazoDesde"><option value="primer">El primer pago</option><option value="total">Que se pague el 100 % de lo presupuestado</option></select></div>' +
+          '<div class="campo"><label for="genEntrega">Plazo de entrega</label><select id="genEntrega"><option value="">Elegí…</option>' + Array.from({ length: 30 }, (_, i) => '<option value="' + (i + 1) + '">' + (i + 1) + (i === 0 ? ' día' : ' días') + '</option>').join('') + '<option value="pago100">Hasta que se pague el 100 % del presupuesto</option></select></div>' +
+          '<div class="campo" id="campoGenPlazoDesde"><label for="genPlazoDesde">Los días de entrega corren desde</label><select id="genPlazoDesde"><option value="primer">El primer pago</option><option value="total">Que se pague el 100 % de lo presupuestado</option></select></div>' +
           '<div class="campo"><label for="genAjustes">Días de las dos rondas de ajuste (a partir de la entrega del sitio)</label><input type="number" id="genAjustes" min="1" step="1" inputmode="numeric" placeholder="Ej: 15"></div>' +
           '<div class="campo"><label for="genPublica">Publicación del sitio</label><select id="genPublica"><option value="rs">Renueva Smart publica la web (la deja en línea)</option><option value="cliente">El cliente o su proveedor publica la web (se entregan los archivos)</option></select></div>' +
           '<div class="campo"><label for="genDolar">Tipo de cambio (pesos uruguayos por 1 USD)</label><input type="number" id="genDolar" min="1" step="any" value="40"><p class="campo-hint">Solo se usa en contratos de Uruguay.</p></div>' +
@@ -310,6 +310,8 @@
       actualizarMonedas();
       actualizarOpciones();
       actualizarPagos();
+      const selEntrega = document.getElementById('genEntrega');
+      if (selEntrega) selEntrega.addEventListener('change', () => { document.getElementById('campoGenPlazoDesde').style.display = selEntrega.value === 'pago100' ? 'none' : ''; });
       const chkCuotas = document.getElementById('genEnCuotas');
       if (chkCuotas) chkCuotas.addEventListener('change', () => { document.getElementById('campoCuotas').style.display = chkCuotas.checked ? '' : 'none'; });
       zona.querySelectorAll('input, textarea, select').forEach((el) => el.addEventListener('input', marcarPendiente));
