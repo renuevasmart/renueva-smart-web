@@ -218,6 +218,10 @@
     <h1 id="tituloDoc">Presentar el caso de tu proyecto en la web y redes de Renueva Smart</h1>
     <p class="lead">Nos gustaría mostrar tu proyecto como caso de éxito. Es totalmente voluntario: vos elegís qué contenidos y en qué canales — todo arranca desmarcado — y podés retirar el permiso cuando quieras. Completá, firmá en la pantalla y te queda una copia en PDF, a nosotros y a tu email.</p>
 
+    <div class="form-gracias" id="enlaceAgotado">
+      Este enlace ya se utilizó el máximo de veces permitido. Si necesitás volver a firmar, pedí un enlace nuevo a Renueva Smart.
+    </div>
+
     <div class="form-gracias" id="formGracias">
       ¡Gracias! Recibimos tu autorización firmada. Te descargamos una copia en PDF y también te va a llegar por email.
     </div>
@@ -922,8 +926,24 @@
       await generarPdfYAdjuntar(nombreArchivo);
 
       btnEnviar.textContent = 'Enviando...';
+      registrarUsoEnlace();
       HTMLFormElement.prototype.submit.call(form);
     });
+
+    // Cada enlace sirve para firmar como máximo dos veces desde un mismo navegador. Sin servidor no se
+    // puede garantizar a nivel global: el contador vive en este navegador (localStorage).
+    const MAX_USOS_ENLACE = 2;
+    const claveUsoEnlace = 'rs_usos:' + location.pathname + location.search + location.hash;
+    function usosDelEnlace() {
+      try { return parseInt(localStorage.getItem(claveUsoEnlace), 10) || 0; } catch (e) { return 0; }
+    }
+    function registrarUsoEnlace() {
+      try { localStorage.setItem(claveUsoEnlace, String(usosDelEnlace() + 1)); } catch (e) { /* sin almacenamiento: no se puede contar */ }
+    }
+    if (params.get('enviado') !== '1' && usosDelEnlace() >= MAX_USOS_ENLACE) {
+      form.style.display = 'none';
+      document.getElementById('enlaceAgotado').classList.add('visible');
+    }
 
     if (params.get('enviado') === '1') {
       document.getElementById('formGracias').classList.add('visible');

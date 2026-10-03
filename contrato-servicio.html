@@ -217,6 +217,10 @@
     <h1 id="tituloDoc">Contrato de servicios con tu proyecto</h1>
     <p class="lead">Este documento deja por escrito qué trabajo se hace, a qué precio y en qué plazos. Completalo, firmalo en la pantalla y te queda una copia en PDF — a nosotros y a tu email.</p>
 
+    <div class="form-gracias" id="enlaceAgotado">
+      Este enlace ya se utilizó el máximo de veces permitido. Si necesitás volver a firmar, pedí un enlace nuevo a Renueva Smart.
+    </div>
+
     <div class="form-gracias" id="formGracias">
       ¡Gracias! Recibimos el contrato firmado. Te descargamos una copia en PDF y también te va a llegar por email.
     </div>
@@ -604,6 +608,7 @@
             : 'El costo del correo profesional no está incluido en el precio de los servicios y se abona por separado.'] : null,
         ['Trabajos fuera de alcance', 'Cualquier trabajo no incluido en las secciones A y B se considera adicional y requiere acuerdo previo por escrito sobre su precio y plazo antes de realizarse.'],
         ['Lo que no incluye', 'Salvo que figure expresamente en la sección "A. Trabajos incluidos" o en la sección "B. Aclaraciones", este contrato no incluye la redacción de textos a medida, la obtención de fotografías u otros materiales con derechos de uso, ni la contratación de alojamientos de pago.'],
+        ['Uso del sitio web', 'EL CLIENTE es el único responsable de los fines para los que utilice el sitio web y de que su uso, tanto durante el desarrollo como después de la entrega, cumpla la ley. En la medida en que la ley lo permita, EL PROVEEDOR no responde por los actos ilícitos que se cometan mediante el sitio, ni por la actividad o los contenidos que EL CLIENTE o terceros desarrollen en él, y EL CLIENTE lo mantendrá indemne frente a las reclamaciones derivadas de ese uso. Si EL PROVEEDOR tomara conocimiento de un uso ilícito, podrá suspender o dar por terminado el trabajo sin que ello genere responsabilidad para él.'],
         !IMAGEN_PERSONAS ? null : ['Contenidos y derechos de imagen', 'EL CLIENTE es el único responsable de los textos, fotografías, videos, logotipos y demás materiales que entregue para el sitio, y declara contar con los derechos de uso sobre ellos y, si aparecen personas identificables, con su consentimiento expreso para el uso de su imagen (y el de sus representantes legales, si son menores). EL PROVEEDOR no verifica esos derechos ni responde por reclamaciones de terceros derivadas de los materiales aportados por EL CLIENTE, quien lo mantendrá indemne frente a ellas. EL PROVEEDOR responde por la licencia del material que incorpore por su cuenta. Ante una reclamación de un tercero, EL PROVEEDOR podrá retirar el contenido afectado hasta que se aclare.'],
         ['Plazos de entrega', (entregaAlPagar ? 'La entrega se realiza una vez que se abone el 100 % del presupuesto' : 'El plazo de entrega es de ' + entregaTxt + ' a partir ' + desdeTxt) + ', según la sección "C. Precio y plazos". Los plazos pueden extenderse por demoras atribuibles a EL CLIENTE (falta de contenidos, accesos o aprobaciones a tiempo) o por causas de fuerza mayor, sin que ello genere penalidad para EL PROVEEDOR.'],
         ['Publicación del sitio', publica === 'rs'
@@ -1157,8 +1162,24 @@
       await generarPdfYAdjuntar(nombreArchivo);
 
       btnEnviar.textContent = 'Enviando...';
+      registrarUsoEnlace();
       HTMLFormElement.prototype.submit.call(form);
     });
+
+    // Cada enlace sirve para firmar como máximo dos veces desde un mismo navegador. Sin servidor no se
+    // puede garantizar a nivel global: el contador vive en este navegador (localStorage).
+    const MAX_USOS_ENLACE = 2;
+    const claveUsoEnlace = 'rs_usos:' + location.pathname + location.search + location.hash;
+    function usosDelEnlace() {
+      try { return parseInt(localStorage.getItem(claveUsoEnlace), 10) || 0; } catch (e) { return 0; }
+    }
+    function registrarUsoEnlace() {
+      try { localStorage.setItem(claveUsoEnlace, String(usosDelEnlace() + 1)); } catch (e) { /* sin almacenamiento: no se puede contar */ }
+    }
+    if (params.get('enviado') !== '1' && usosDelEnlace() >= MAX_USOS_ENLACE) {
+      form.style.display = 'none';
+      document.getElementById('enlaceAgotado').classList.add('visible');
+    }
 
     if (params.get('enviado') === '1') {
       document.getElementById('formGracias').classList.add('visible');
