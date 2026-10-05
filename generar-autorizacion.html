@@ -311,6 +311,11 @@
           '<div class="campo"><label for="genEntrega">Plazo de finalización del trabajo</label><select id="genEntrega"><option value="">Elegí…</option>' + Array.from({ length: 30 }, (_, i) => '<option value="' + (i + 1) + '">' + (i + 1) + (i === 0 ? ' día' : ' días') + '</option>').join('') + '<option value="pago100">Sin plazo en días (el traspaso es al pagar el 100 %)</option></select></div>' +
           '<div class="campo" id="campoGenPlazoDesde"><label for="genPlazoDesde">Los días de finalización corren desde</label><select id="genPlazoDesde"><option value="primer">El primer pago</option><option value="total">Que se pague el 100 % de lo presupuestado</option></select></div>' +
           '<div class="campo"><label for="genAjustes">Días de las dos rondas de ajuste (a partir de la finalización del trabajo)</label><input type="number" id="genAjustes" min="1" step="1" inputmode="numeric" placeholder="Ej: 15"></div>' +
+          '<div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px">' +
+          '<div class="campo" style="flex:1;min-width:150px;margin:0"><label for="genRespuesta">Días para que el cliente responda un pedido</label><input type="number" id="genRespuesta" min="1" max="365" step="1" inputmode="numeric" value="7"></div>' +
+          '<div class="campo" style="flex:1;min-width:150px;margin:0"><label for="genEspera">Días de espera antes de seguir sin esa parte</label><input type="number" id="genEspera" min="1" max="365" step="1" inputmode="numeric" value="15"></div>' +
+          '<div class="campo" style="flex:1;min-width:150px;margin:0"><label for="genInactividad">Días sin respuesta para dar por terminado el contrato</label><input type="number" id="genInactividad" min="1" max="365" step="1" inputmode="numeric" value="60"></div></div>' +
+          '<p class="campo-hint" style="margin-top:-8px">Cláusula de colaboración del cliente (accesos, datos de cuentas, redes, materiales). Desde que pedís algo por escrito: el cliente tiene el primer plazo para responder; al segundo seguís sin esa parte y la dejás pendiente; al tercero podés terminar el contrato. Cada plazo debe ser mayor o igual al anterior.</p>' +
           '<div class="campo"><label for="genPublica">Publicación del sitio</label><select id="genPublica"><option value="rs">Renueva Smart publica la web (la deja en línea)</option><option value="cliente">El cliente o su proveedor publica la web (se entregan los archivos)</option></select></div>' +
           '<div class="campo"><label for="genDolar">Tipo de cambio (pesos uruguayos por 1 USD)</label><input type="number" id="genDolar" min="1" step="any" value="40"><p class="campo-hint">Solo aparece en el contrato si el cliente paga en dólares y es de Uruguay u otro país de Hispanoamérica.</p></div>' +
           '<ul class="lista-items"><li><label><input type="checkbox" id="genReferencia"> Incluir la cláusula: el proveedor puede conservar copias de trabajo y mencionar el proyecto como referencia de su portfolio</label></li></ul>' +
@@ -455,6 +460,10 @@
         qp.set('entrega', entrega);
         qp.set('plazoDesde', document.getElementById('genPlazoDesde').value);
         qp.set('ajustes', ajustes);
+        [['respuesta', 'genRespuesta', '7'], ['espera', 'genEspera', '15'], ['inactividad', 'genInactividad', '60']].forEach(([p, id, porDefecto]) => {
+          const v = document.getElementById(id).value.trim();
+          if (v && v !== porDefecto) qp.set(p, v);
+        });
         qp.set('publica', document.getElementById('genPublica').value);
         const dolar = document.getElementById('genDolar').value.trim();
         if (dolar && dolar !== '40') qp.set('dolar', dolar);
