@@ -84,6 +84,7 @@
     border-radius: var(--radius-lg); padding: 12px 14px;
   }
   .campo input:focus, .campo select:focus { outline: 2px solid var(--color-brand); outline-offset: 1px; }
+  input[readonly] { opacity: .75; cursor: not-allowed; }
   .campo-hint { font-size: 12.5px; color: var(--color-text-muted); margin: 6px 0 0; line-height: 1.5; }
   .campo-error { font-size: 12.5px; color: #ff8a65; margin: 6px 0 0; min-height: 16px; }
 
@@ -583,6 +584,11 @@
       tituloDoc.textContent = 'Desarrollo del sitio web de ' + (nombre || 'tu proyecto');
     }
     inputProyecto.value = params.get('cliente') || '';
+    // Si el proveedor lo fijó desde el generador, el cliente no puede modificarlo.
+    if (inputProyecto.value.trim()) {
+      inputProyecto.readOnly = true;
+      inputProyecto.title = 'Definido por el proveedor';
+    }
     actualizarTitulo();
     inputProyecto.addEventListener('input', actualizarTitulo);
 
@@ -623,7 +629,11 @@
       Array.from(selCalidad.options).forEach((op) => { if (op.value !== calidadFijada) op.remove(); });
     }
     const empresaFijada = (params.get('empresa') || '').trim().slice(0, 120);
-    if (empresaFijada) inputEmpresa.value = empresaFijada;
+    if (empresaFijada) {
+      inputEmpresa.value = empresaFijada;
+      inputEmpresa.readOnly = true;
+      inputEmpresa.title = 'Definido por el proveedor';
+    }
     selCalidad.addEventListener('change', validarEmpresa);
     inputEmpresa.addEventListener('input', validarEmpresa);
     validarEmpresa();

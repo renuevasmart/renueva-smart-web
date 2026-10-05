@@ -146,6 +146,7 @@
       <div class="campo">
         <label for="nombre">Nombre del proyecto / persona / empresa</label>
         <input type="text" id="nombre" placeholder="Ej: Despacho de Abogados A&amp;O" autofocus>
+        <p class="campo-hint">Queda fijado en el documento: el cliente no puede modificarlo.</p>
       </div>
       <div class="campo">
         <label for="pais">País del cliente</label>
@@ -294,7 +295,7 @@
       if (tipo === 'autorizacion-accesos.html') {
         const firmante = '<div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px">' +
           '<div class="campo" style="flex:1;min-width:200px;margin:0"><label for="genCalidad">Calidad en que firma el cliente</label><select id="genCalidad"><option value="">Que el cliente elija</option><option value="titular">Titular, a título personal</option><option value="representante">Representante legal de una empresa u organización</option><option value="apoderado">Apoderado</option></select></div>' +
-          '<div class="campo" style="flex:1;min-width:200px;margin:0"><label for="genEmpresa">Empresa u organización (opcional)</label><input type="text" id="genEmpresa" maxlength="120" placeholder="Ej: Asociación Civil Ejemplo"></div></div>';
+          '<div class="campo" style="flex:1;min-width:200px;margin:0"><label for="genEmpresa">Empresa u organización (opcional)</label><input type="text" id="genEmpresa" maxlength="120" placeholder="Ej: Asociación Civil Ejemplo"><p class="campo-hint">Si la completás, el cliente no puede modificarla; si la dejás vacía, la completa él.</p></div></div>';
         zona.innerHTML = firmante + ACCESOS_SECCIONES.map((sec) =>
           '<div class="seccion-items"><h3>' + sec.titulo + '</h3>' + listaHtml(sec.items, 'accesos', true) + '</div>'
         ).join('') + '<p class="campo-hint">Por defecto quedan todos tildados (como en el documento real). Destildá los que no apliquen a este proyecto.</p>';
