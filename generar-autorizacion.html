@@ -270,9 +270,9 @@
       { key: 'google-analytics', label: 'Configuración de Google Analytics (medición de visitas)' },
       { key: 'seo', label: 'Optimización SEO (posicionamiento en buscadores)' },
       { key: 'materiales-explicativos', label: 'Documentos explicativos para el cliente (PDF del trabajo realizado, informe de SEO y demo del antes y después), entregados por separado del sitio' },
-      { key: 'entrega-archivos-accesos', label: 'Entrega de los archivos del sitio y de los accesos al terminar' },
-      { key: 'capacitacion', label: 'Capacitación de uso del sitio al momento de la entrega' },
-      { key: 'mantenimiento', label: 'Mantenimiento y soporte posterior a la entrega' },
+      { key: 'entrega-archivos-accesos', label: 'Entrega de los archivos del sitio y de los accesos una vez abonado el total del presupuesto' },
+      { key: 'capacitacion', label: 'Capacitación de uso del sitio al momento del traspaso' },
+      { key: 'mantenimiento', label: 'Mantenimiento y soporte posterior al traspaso' },
     ];
 
     function listaHtml(items, grupo, todoTildado) {
@@ -303,9 +303,9 @@
           '<div class="campo" style="flex:1;margin:0"><label for="genCuotaMonto">Monto aprox. de cada cuota</label><input type="number" id="genCuotaMonto" min="0" step="any" inputmode="decimal" placeholder="Ej: 2133"></div></div>' +
           '<p class="campo-hint">Completá uno o los dos. El monto va en la misma moneda que el total.</p></div></div>' +
           '<div class="campo"><label for="genTotal">Total del presupuesto</label><div style="display:flex;gap:10px"><input type="number" id="genTotal" min="0" step="any" inputmode="decimal" placeholder="Ej: 12800" style="flex:1;min-width:0"><select id="genMoneda" style="width:auto" aria-label="Moneda"></select></div><p class="campo-hint">Uruguay: pesos, dólares o euros. España: euros o dólares.</p></div>' +
-          '<div class="campo"><label for="genEntrega">Plazo de entrega</label><select id="genEntrega"><option value="">Elegí…</option>' + Array.from({ length: 30 }, (_, i) => '<option value="' + (i + 1) + '">' + (i + 1) + (i === 0 ? ' día' : ' días') + '</option>').join('') + '<option value="pago100">Hasta que se pague el 100 % del presupuesto</option></select></div>' +
-          '<div class="campo" id="campoGenPlazoDesde"><label for="genPlazoDesde">Los días de entrega corren desde</label><select id="genPlazoDesde"><option value="primer">El primer pago</option><option value="total">Que se pague el 100 % de lo presupuestado</option></select></div>' +
-          '<div class="campo"><label for="genAjustes">Días de las dos rondas de ajuste (a partir de la entrega del sitio)</label><input type="number" id="genAjustes" min="1" step="1" inputmode="numeric" placeholder="Ej: 15"></div>' +
+          '<div class="campo"><label for="genEntrega">Plazo de finalización del trabajo</label><select id="genEntrega"><option value="">Elegí…</option>' + Array.from({ length: 30 }, (_, i) => '<option value="' + (i + 1) + '">' + (i + 1) + (i === 0 ? ' día' : ' días') + '</option>').join('') + '<option value="pago100">Sin plazo en días (el traspaso es al pagar el 100 %)</option></select></div>' +
+          '<div class="campo" id="campoGenPlazoDesde"><label for="genPlazoDesde">Los días de finalización corren desde</label><select id="genPlazoDesde"><option value="primer">El primer pago</option><option value="total">Que se pague el 100 % de lo presupuestado</option></select></div>' +
+          '<div class="campo"><label for="genAjustes">Días de las dos rondas de ajuste (a partir de la finalización del trabajo)</label><input type="number" id="genAjustes" min="1" step="1" inputmode="numeric" placeholder="Ej: 15"></div>' +
           '<div class="campo"><label for="genPublica">Publicación del sitio</label><select id="genPublica"><option value="rs">Renueva Smart publica la web (la deja en línea)</option><option value="cliente">El cliente o su proveedor publica la web (se entregan los archivos)</option></select></div>' +
           '<div class="campo"><label for="genDolar">Tipo de cambio (pesos uruguayos por 1 USD)</label><input type="number" id="genDolar" min="1" step="any" value="40"><p class="campo-hint">Solo aparece en el contrato si el cliente paga en dólares y es de Uruguay u otro país de Hispanoamérica.</p></div>' +
           '<ul class="lista-items"><li><label><input type="checkbox" id="genReferencia"> Incluir la cláusula: el proveedor puede conservar copias de trabajo y mencionar el proyecto como referencia de su portfolio</label></li></ul>' +
@@ -441,7 +441,7 @@
         const entrega = document.getElementById('genEntrega').value;
         const ajustes = document.getElementById('genAjustes').value.trim();
         if (!trabajos.length || !total || !entrega || !ajustes) {
-          avisoFalta.textContent = 'Marcá al menos un trabajo incluido y completá el total del presupuesto, el plazo de entrega y los días de ajuste antes de generar el link.';
+          avisoFalta.textContent = 'Marcá al menos un trabajo incluido y completá el total del presupuesto, el plazo de finalización y los días de ajuste antes de generar el link.';
           avisoFalta.classList.add('visible');
           return;
         }

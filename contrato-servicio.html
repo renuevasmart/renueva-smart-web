@@ -303,9 +303,9 @@
           <li><label><input type="checkbox" data-key="google-analytics" data-item="Configuración de Google Analytics (medición de visitas)"> Configuración de Google Analytics (medición de visitas)</label></li>
           <li><label><input type="checkbox" data-key="seo" data-item="Optimización SEO (posicionamiento en buscadores)"> Optimización SEO (posicionamiento en buscadores)</label></li>
           <li><label><input type="checkbox" data-key="materiales-explicativos" data-item="Documentos explicativos para el cliente (PDF del trabajo realizado, informe de SEO y demo del antes y después), entregados por separado del sitio"> Documentos explicativos para el cliente (PDF del trabajo realizado, informe de SEO y demo del antes y después), entregados por separado del sitio</label></li>
-          <li><label><input type="checkbox" data-key="entrega-archivos-accesos" data-item="Entrega de los archivos del sitio y de los accesos al terminar"> Entrega de los archivos del sitio y de los accesos al terminar</label></li>
-          <li><label><input type="checkbox" data-key="capacitacion" data-item="Capacitación de uso del sitio al momento de la entrega"> Capacitación de uso del sitio al momento de la entrega</label></li>
-          <li><label><input type="checkbox" data-key="mantenimiento" data-item="Mantenimiento y soporte posterior a la entrega"> Mantenimiento y soporte posterior a la entrega</label></li>
+          <li><label><input type="checkbox" data-key="entrega-archivos-accesos" data-item="Entrega de los archivos del sitio y de los accesos una vez abonado el total del presupuesto"> Entrega de los archivos del sitio y de los accesos una vez abonado el total del presupuesto</label></li>
+          <li><label><input type="checkbox" data-key="capacitacion" data-item="Capacitación de uso del sitio al momento del traspaso"> Capacitación de uso del sitio al momento del traspaso</label></li>
+          <li><label><input type="checkbox" data-key="mantenimiento" data-item="Mantenimiento y soporte posterior al traspaso"> Mantenimiento y soporte posterior al traspaso</label></li>
         </ul>
       </div>
 
@@ -335,7 +335,7 @@
           </div>
         </div>
         <div class="campo" id="campoAjustes">
-          <label for="diasAjuste">Días de las dos rondas de ajuste (a partir de la entrega del sitio)</label>
+          <label for="diasAjuste">Días de las dos rondas de ajuste (a partir de la finalización del trabajo)</label>
           <input type="number" id="diasAjuste" name="Días de las rondas de ajuste" min="1" step="1" inputmode="numeric" required>
         </div>
         <div class="campo" id="campoPublica">
@@ -346,12 +346,12 @@
           </select>
         </div>
         <div class="campo" id="campoEntrega">
-          <label for="diasEntrega">Plazo de entrega</label>
-          <select id="diasEntrega" name="Plazo de entrega (días)" required></select>
+          <label for="diasEntrega">Plazo de finalización del trabajo</label>
+          <select id="diasEntrega" name="Plazo de finalización (días)" required></select>
         </div>
         <div class="campo" id="campoPlazoDesde">
-          <label for="plazoDesde">Los días de entrega corren desde</label>
-          <select id="plazoDesde" name="Plazo de entrega: desde" required>
+          <label for="plazoDesde">Los días de finalización corren desde</label>
+          <select id="plazoDesde" name="Plazo de finalización: desde" required>
             <option value="primer">El primer pago</option>
             <option value="total">Que se pague el 100 % de lo presupuestado</option>
           </select>
@@ -610,20 +610,20 @@
             : 'El costo del correo profesional no está incluido en el precio de los servicios y se abona por separado.'] : null,
         ['Trabajos fuera de alcance', 'Cualquier trabajo no incluido en las secciones A y B se considera adicional y requiere acuerdo previo por escrito sobre su precio y plazo antes de realizarse.'],
         ['Lo que no incluye', 'Salvo que figure expresamente en la sección "A. Trabajos incluidos" o en la sección "B. Aclaraciones", este contrato no incluye la redacción de textos a medida, la obtención de fotografías u otros materiales con derechos de uso, ni la contratación de alojamientos de pago.'],
-        ['Uso del sitio web', 'EL CLIENTE es el único responsable de los fines para los que utilice el sitio web y de que su uso, tanto durante el desarrollo como después de la entrega, cumpla la ley. En la medida en que la ley lo permita, EL PROVEEDOR no responde por los actos ilícitos que se cometan mediante el sitio, ni por la actividad o los contenidos que EL CLIENTE o terceros desarrollen en él, y EL CLIENTE lo mantendrá indemne frente a las reclamaciones derivadas de ese uso. Si EL PROVEEDOR tomara conocimiento de un uso ilícito, podrá suspender o dar por terminado el trabajo sin que ello genere responsabilidad para él.'],
+        ['Uso del sitio web', 'EL CLIENTE es el único responsable de los fines para los que utilice el sitio web y de que su uso, tanto durante el desarrollo como después de su finalización, cumpla la ley. En la medida en que la ley lo permita, EL PROVEEDOR no responde por los actos ilícitos que se cometan mediante el sitio, ni por la actividad o los contenidos que EL CLIENTE o terceros desarrollen en él, y EL CLIENTE lo mantendrá indemne frente a las reclamaciones derivadas de ese uso. Si EL PROVEEDOR tomara conocimiento de un uso ilícito, podrá suspender o dar por terminado el trabajo sin que ello genere responsabilidad para él.'],
         !IMAGEN_PERSONAS ? null : ['Contenidos y derechos de imagen', 'EL CLIENTE es el único responsable de los textos, fotografías, videos, logotipos y demás materiales que entregue para el sitio, y declara contar con los derechos de uso sobre ellos y, si aparecen personas identificables, con su consentimiento expreso para el uso de su imagen (y el de sus representantes legales, si son menores). EL PROVEEDOR no verifica esos derechos ni responde por reclamaciones de terceros derivadas de los materiales aportados por EL CLIENTE, quien lo mantendrá indemne frente a ellas. EL PROVEEDOR responde por la licencia del material que incorpore por su cuenta. Ante una reclamación de un tercero, EL PROVEEDOR podrá retirar el contenido afectado hasta que se aclare.'],
-        ['Plazos de entrega', (entregaAlPagar ? 'La entrega se realiza una vez que se abone el 100 % del presupuesto' : 'El plazo de entrega es de ' + entregaTxt + ' a partir ' + desdeTxt) + ', según la sección "C. Precio y plazos". Los plazos pueden extenderse por demoras atribuibles a EL CLIENTE (impagos, falta de contenidos, incomunicación sostenida de EL CLIENTE, accesos o aprobaciones a tiempo) o por causas de fuerza mayor, sin que ello genere penalidad para EL PROVEEDOR.'],
+        ['Plazo de finalización', (entregaAlPagar ? 'El trabajo se finaliza y se comunica a EL CLIENTE sin un plazo fijo en días; el traspaso del trabajo y de las credenciales se realiza una vez que se abone el 100 % del presupuesto' : 'El plazo de finalización del trabajo es de ' + entregaTxt + ' a partir ' + desdeTxt) + ', según la sección "C. Precio y plazos". Se entiende por finalización el momento en que EL PROVEEDOR termina el trabajo y lo comunica a EL CLIENTE por escrito (WhatsApp, correo u otro medio) para su revisión. La finalización no depende de que el precio esté abonado y no equivale al traspaso del trabajo y de las credenciales, que se rige por la cláusula "Traspaso del trabajo y de las credenciales". Los plazos pueden extenderse por demoras atribuibles a EL CLIENTE (impagos, falta de contenidos, incomunicación sostenida de EL CLIENTE, accesos o aprobaciones a tiempo) o por causas de fuerza mayor, sin que ello genere penalidad para EL PROVEEDOR.'],
         ['Publicación del sitio', publica === 'rs'
           ? 'EL PROVEEDOR publica el sitio y lo deja en línea y funcionando como parte de este contrato.'
-          : 'EL PROVEEDOR entrega los archivos del sitio terminado; la publicación en línea queda a cargo de EL CLIENTE o de su proveedor.'],
-        ['Entrega y aprobación', 'EL PROVEEDOR notificará a EL CLIENTE cuando cada entregable esté listo para revisión. Los ajustes de contenidos se rigen por la cláusula de rondas de ajuste; los cambios sustanciales respecto de lo acordado se tratan como trabajo adicional.'],
-        ['Rondas de ajuste', 'El precio incluye dos rondas de ajuste de contenidos, dentro de los ' + diasTxt + ' días a partir de la entrega del sitio. Los ajustes solicitados una vez vencido ese plazo, o más allá de esas dos rondas, se tratan como trabajo adicional.'],
-        ['Entrega del trabajo y de las credenciales', 'EL PROVEEDOR entrega el trabajo terminado y las credenciales de acceso y administración de todo lo relacionado con el sitio web (dominio, alojamiento, cuentas y servicios asociados) únicamente cuando EL CLIENTE haya abonado la totalidad del precio.' + (EN_CUOTAS ? ' Si el pago se realiza en cuotas, la entrega tiene lugar una vez abonada la última cuota.' : '') + ' Hasta ese momento, el trabajo y las credenciales permanecen en poder de EL PROVEEDOR.'],
-        ['Fin del acceso de EL PROVEEDOR', 'Con la entrega, EL PROVEEDOR deja de tener acceso y de actuar sobre cualquier elemento relacionado con el sitio web, que pasa a ser gestionado de forma exclusiva por EL CLIENTE. Esto incluye, según corresponda: el dominio y el panel del registrador (con sus registros DNS); el alojamiento (hosting), el servidor, el despliegue y el certificado SSL; el repositorio de código y los archivos del sitio; la base de datos y los servicios de backend; los formularios de contacto y los servicios de envío de correo; las cuentas de correo profesional; las cuentas de Google (Search Console, Analytics y Google Business); las claves API, los tokens y las variables de entorno; los gestores de contraseñas y las carpetas compartidas; y cualquier acceso remoto que haya tenido al equipo de EL CLIENTE. EL PROVEEDOR dará de baja sus accesos, eliminará de sus equipos las credenciales de EL CLIENTE y no volverá a intervenir sin una nueva autorización escrita.' + (incluyeMantenimiento ? ' Se exceptúa el acceso estrictamente necesario para prestar el servicio de mantenimiento y soporte incluido en la sección A, con la autorización de EL CLIENTE.' : '') + (REFERENCIA ? ' Se exceptúan las copias de trabajo previstas en la cláusula "Propiedad del trabajo final".' : '')],
+          : 'En el traspaso, EL PROVEEDOR entrega los archivos del sitio terminado; la publicación en línea queda a cargo de EL CLIENTE o de su proveedor.'],
+        ['Finalización y revisión', 'EL PROVEEDOR comunicará a EL CLIENTE por escrito que el trabajo (o cada entregable) está finalizado y listo para revisión. Esa comunicación fija la fecha de finalización, de la que depende el plazo de las rondas de ajuste. Los ajustes de contenidos se rigen por la cláusula de rondas de ajuste; los cambios sustanciales respecto de lo acordado se tratan como trabajo adicional.'],
+        ['Rondas de ajuste', 'El precio incluye dos rondas de ajuste de contenidos, dentro de los ' + diasTxt + ' días a partir de la finalización del trabajo, es decir, de la fecha en que EL PROVEEDOR lo comunica como listo para revisión. Ese plazo corre aunque el precio aún no esté totalmente abonado: el pago pendiente no lo suspende ni lo extiende, y el traspaso posterior no lo reinicia. Los ajustes solicitados una vez vencido ese plazo, o más allá de esas dos rondas, se tratan como trabajo adicional.'],
+        ['Traspaso del trabajo y de las credenciales', 'EL PROVEEDOR puede dar el trabajo por finalizado antes de que el precio esté totalmente abonado; la finalización no implica el traspaso. El traspaso, es decir, la entrega del trabajo terminado y de las credenciales de acceso y administración de todo lo relacionado con el sitio web (dominio, alojamiento, cuentas y servicios asociados), se realiza únicamente cuando EL CLIENTE haya abonado la totalidad del precio.' + (EN_CUOTAS ? ' Si el pago se realiza en cuotas, el traspaso tiene lugar una vez abonada la última cuota.' : '') + ' Hasta ese momento, el trabajo y las credenciales permanecen en poder de EL PROVEEDOR, y la demora en el pago no extiende el plazo de las rondas de ajuste.'],
+        ['Fin del acceso de EL PROVEEDOR', 'Con el traspaso, EL PROVEEDOR deja de tener acceso y de actuar sobre cualquier elemento relacionado con el sitio web, que pasa a ser gestionado de forma exclusiva por EL CLIENTE. Esto incluye, según corresponda: el dominio y el panel del registrador (con sus registros DNS); el alojamiento (hosting), el servidor, el despliegue y el certificado SSL; el repositorio de código y los archivos del sitio; la base de datos y los servicios de backend; los formularios de contacto y los servicios de envío de correo; las cuentas de correo profesional; las cuentas de Google (Search Console, Analytics y Google Business); las claves API, los tokens y las variables de entorno; los gestores de contraseñas y las carpetas compartidas; y cualquier acceso remoto que haya tenido al equipo de EL CLIENTE. EL PROVEEDOR dará de baja sus accesos, eliminará de sus equipos las credenciales de EL CLIENTE y no volverá a intervenir sin una nueva autorización escrita.' + (incluyeMantenimiento ? ' Se exceptúa el acceso estrictamente necesario para prestar el servicio de mantenimiento y soporte incluido en la sección A, con la autorización de EL CLIENTE.' : '') + (REFERENCIA ? ' Se exceptúan las copias de trabajo previstas en la cláusula "Propiedad del trabajo final".' : '')],
         incluyeDominio ? ['Titularidad del dominio', 'El dominio del sitio será de propiedad de EL CLIENTE, ' + nombreCliente + ' (' + c.labelDoc + ': ' + docCliente + '), y se registra a su nombre.'] : null,
         ['Propiedad del trabajo final', 'Una vez abonado el precio en su totalidad, EL CLIENTE es titular del sitio y los materiales entregados para este proyecto.' + (REFERENCIA ? ' EL PROVEEDOR puede conservar copias de trabajo y mencionar el proyecto como referencia de su portfolio, salvo pacto en contrario o lo que disponga el acuerdo de uso de caso firmado aparte.' : '')],
         ['Confidencialidad', 'Cada parte se compromete a no divulgar a terceros la información confidencial de la otra que conozca con motivo de este contrato, salvo obligación legal de hacerlo.'],
-        ['Cancelación anticipada', 'Cualquiera de las partes puede dar por terminado este contrato antes de la entrega final mediante comunicación escrita. En ese caso, EL CLIENTE abona el trabajo efectivamente realizado hasta ese momento, calculado en proporción al precio total y al avance del proyecto.'],
+        ['Cancelación anticipada', 'Cualquiera de las partes puede dar por terminado este contrato antes del traspaso final mediante comunicación escrita. En ese caso, EL CLIENTE abona el trabajo efectivamente realizado hasta ese momento, calculado en proporción al precio total y al avance del proyecto.'],
         ['Firma electrónica y prueba', 'Las partes reconocen a la firma manuscrita digital estampada en pantalla el carácter de firma electrónica, y le atribuyen validez y eficacia probatoria. Al firmar se registran la fecha y hora (UTC) y la huella digital (SHA-256) del PDF, que quedan archivadas junto con el documento como prueba del acuerdo alcanzado.'],
         ['Ley aplicable y jurisdicción', c.ley],
       ].filter(Boolean);
@@ -637,9 +637,9 @@
       const entrega = parseInt(document.getElementById('diasEntrega').value, 10);
       const desde = document.getElementById('plazoDesde').value === 'total' ? 'de que se abone el 100 % del presupuesto' : 'del primer pago';
       const plazo = document.getElementById('diasEntrega').value === 'pago100'
-        ? 'hasta que se abone el 100 % del presupuesto.'
+        ? 'sin plazo fijo en días; el traspaso se realiza al abonarse el 100 % del presupuesto.'
         : (isNaN(entrega) ? '[días]' : entrega + (entrega === 1 ? ' día' : ' días')) + ' a partir ' + desde + '.';
-      return 'Total del presupuesto: ' + (isNaN(total) ? '[total]' : dinero(total, moneda)) + '\nPlazo de entrega: ' + plazo;
+      return 'Total del presupuesto: ' + (isNaN(total) ? '[total]' : dinero(total, moneda)) + '\nPlazo de finalización: ' + plazo;
     }
     function renderClausulasPagina() {
       // "Los días corren desde…" no aplica si el plazo es "hasta que se pague el 100 %" (solo en modo directo)
@@ -769,7 +769,7 @@
       chk.addEventListener('change', renderClausulasPagina);
     });
     if (params.get('alcance')) document.getElementById('alcanceLibre').value = params.get('alcance');
-    document.getElementById('diasEntrega').innerHTML = '<option value="">Elegí…</option>' + Array.from({ length: 30 }, (_, i) => '<option value="' + (i + 1) + '">' + (i + 1) + (i === 0 ? ' día' : ' días') + '</option>').join('') + '<option value="pago100">Hasta que se pague el 100 % del presupuesto</option>';
+    document.getElementById('diasEntrega').innerHTML = '<option value="">Elegí…</option>' + Array.from({ length: 30 }, (_, i) => '<option value="' + (i + 1) + '">' + (i + 1) + (i === 0 ? ' día' : ' días') + '</option>').join('') + '<option value="pago100">Sin plazo en días (el traspaso es al pagar el 100 %)</option>';
 
     // Datos que define Renueva Smart en el link (total, días de ajuste, quién publica): el cliente
     // no los ve como campos. Si falta alguno (link viejo o directo), ese campo queda visible.
