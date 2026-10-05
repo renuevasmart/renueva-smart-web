@@ -262,6 +262,24 @@
             <label for="clienteEmail">Email</label>
             <input type="email" id="clienteEmail" name="Email" required>
           </div>
+          <div class="campo">
+            <label for="clienteTelefono">Teléfono</label>
+            <input type="tel" id="clienteTelefono" name="Teléfono" required>
+            <p class="campo-hint">Lo usamos para coordinar sesiones remotas y códigos de verificación.</p>
+          </div>
+          <div class="campo">
+            <label for="clienteCalidad">Firmás en calidad de</label>
+            <select id="clienteCalidad" name="Calidad en que firma" required>
+              <option value="Titular">Titular, a título personal</option>
+              <option value="Representante legal">Representante legal de una empresa u organización</option>
+              <option value="Apoderado">Apoderado</option>
+            </select>
+          </div>
+          <div class="campo">
+            <label for="clienteEmpresa">Empresa u organización (si corresponde)</label>
+            <input type="text" id="clienteEmpresa" name="Empresa u organización">
+            <p class="campo-error" id="avisoEmpresa"></p>
+          </div>
         </div>
         <div class="parte parte-estatica">
           <h2>El proveedor / desarrollador</h2>
@@ -304,7 +322,7 @@
         <ul class="lista-accesos">
           <li><label><input type="checkbox" data-key="terceros-google" data-acceso="Google (Workspace/Gmail del sitio, Analytics, Search Console, OAuth)" checked> Google (Workspace/Gmail del sitio, Analytics, Search Console, OAuth)</label></li>
           <li><label><input type="checkbox" data-key="terceros-email" data-acceso="Servicio de envío de correo transaccional (Resend, Brevo, etc.)" checked> Servicio de envío de correo transaccional (Resend, Brevo, etc.)</label></li>
-          <li><label><input type="checkbox" data-key="terceros-redes" data-acceso="Redes sociales del movimiento (Instagram, Facebook, Twitter/X)" checked> Redes sociales del movimiento (Instagram, Facebook, Twitter/X)</label></li>
+          <li><label><input type="checkbox" data-key="terceros-redes" data-acceso="Redes sociales del cliente (Instagram, Facebook, Twitter/X)" checked> Redes sociales del cliente (Instagram, Facebook, Twitter/X)</label></li>
         </ul>
       </div>
 
@@ -334,13 +352,23 @@
       <div class="seccion-accesos">
         <h3>8. Alcance y responsabilidad</h3>
         <ul class="lista-accesos">
-          <li><label><input type="checkbox" data-key="alcance-vigencia" data-acceso="Esta autorización rige mientras dure el desarrollo del proyecto y puede ser revocada por EL CLIENTE en cualquier momento" checked> Esta autorización rige mientras dure el desarrollo del proyecto y puede ser revocada por EL CLIENTE en cualquier momento</label></li>
+          <li><label><input type="checkbox" data-key="alcance-vigencia" data-acceso="Esta autorización rige desde la firma hasta el traspaso final del trabajo y el vencimiento del plazo de ajustes del contrato (y, si hay mantenimiento acordado, mientras dure ese servicio). EL CLIENTE puede revocarla por escrito en cualquier momento; la revocación no lo libera de pagar el trabajo ya realizado." checked> Esta autorización rige desde la firma hasta el traspaso final del trabajo y el vencimiento del plazo de ajustes del contrato (y, si hay mantenimiento acordado, mientras dure ese servicio). EL CLIENTE puede revocarla por escrito en cualquier momento; la revocación no lo libera de pagar el trabajo ya realizado.</label></li>
           <li><label><input type="checkbox" data-key="alcance-confidencialidad" data-acceso="Las credenciales compartidas son de uso exclusivo para este proyecto y serán tratadas de forma confidencial" checked> Las credenciales compartidas son de uso exclusivo para este proyecto y serán tratadas de forma confidencial</label></li>
+          <li><label><input type="checkbox" data-key="alcance-contrato" data-acceso="Esta autorización complementa el contrato de servicios firmado entre las partes; si hubiera conflicto entre ambos documentos, prevalece el contrato." checked> Esta autorización complementa el contrato de servicios firmado entre las partes; si hubiera conflicto entre ambos documentos, prevalece el contrato.</label></li>
+          <li><label><input type="checkbox" data-key="alcance-titularidad" data-acceso="Las cuentas y servicios nuevos que se creen para el proyecto se registran a nombre de EL CLIENTE, que es su titular; EL PROVEEDOR los administra únicamente en su nombre." checked> Las cuentas y servicios nuevos que se creen para el proyecto se registran a nombre de EL CLIENTE, que es su titular; EL PROVEEDOR los administra únicamente en su nombre.</label></li>
+          <li><label><input type="checkbox" data-key="alcance-costos" data-acceso="Los costos de servicios de terceros (dominio, hosting, suscripciones) corren por cuenta de EL CLIENTE; EL PROVEEDOR no contrata servicios con costo en su nombre sin su aprobación previa." checked> Los costos de servicios de terceros (dominio, hosting, suscripciones) corren por cuenta de EL CLIENTE; EL PROVEEDOR no contrata servicios con costo en su nombre sin su aprobación previa.</label></li>
+          <li><label><input type="checkbox" data-key="alcance-codigo" data-acceso="Hasta el traspaso, el código del sitio puede alojarse en un repositorio (GitHub u otro) a nombre de EL PROVEEDOR; con el traspaso se entrega a EL CLIENTE." checked> Hasta el traspaso, el código del sitio puede alojarse en un repositorio (GitHub u otro) a nombre de EL PROVEEDOR; con el traspaso se entrega a EL CLIENTE.</label></li>
+          <li><label><input type="checkbox" data-key="alcance-demoras" data-acceso="Si un acceso no se autoriza o no se entrega a tiempo, el trabajo que dependa de él puede demorarse o no realizarse, y los plazos del contrato se pueden posponer por ese motivo." checked> Si un acceso no se autoriza o no se entrega a tiempo, el trabajo que dependa de él puede demorarse o no realizarse, y los plazos del contrato se pueden posponer por ese motivo.</label></li>
         </ul>
       </div>
 
       <div class="callout">
         <strong>Importante:</strong> este documento autoriza el alcance del acceso concedido; no reemplaza el intercambio seguro de contraseñas o claves. Las credenciales reales (contraseñas, claves API, tokens) no deben escribirse en este documento — se recomienda compartirlas mediante un gestor de contraseñas o un canal seguro.
+      </div>
+
+      <div class="campo-check">
+        <input type="checkbox" id="declaracionTitular" name="Declaración de titularidad" value="Sí" required>
+        <label for="declaracionTitular">Declaro ser el titular de los dominios, cuentas y servicios indicados arriba, o contar con facultades para autorizar su acceso.</label>
       </div>
 
       <div class="campo-check">
@@ -394,6 +422,8 @@
         <p id="pdfClienteNombre"></p>
         <p class="t" id="pdfClienteCedula"></p>
         <p class="t" id="pdfClienteEmail"></p>
+        <p class="t" id="pdfClienteTelefono"></p>
+        <p class="t" id="pdfClienteCalidad"></p>
       </div>
       <div class="parte-pdf">
         <h2>El proveedor / desarrollador</h2>
@@ -405,6 +435,7 @@
     <p>Por medio del presente documento, EL CLIENTE autoriza a EL PROVEEDOR a acceder y gestionar, en su nombre y durante el desarrollo del proyecto, los siguientes servicios y recursos:</p>
     <div id="pdfListaAccesos"></div>
     <div class="callout-pdf"><strong>Importante:</strong> este documento autoriza el alcance del acceso concedido; no reemplaza el intercambio seguro de contraseñas o claves. Las credenciales reales no deben escribirse en este documento.</div>
+    <p>Declaración: EL CLIENTE declara ser el titular de los dominios, cuentas y servicios indicados, o contar con facultades para autorizar su acceso.</p>
     <p id="pdfLugarFecha"></p>
     <div class="firmas-pdf">
       <div>
@@ -572,6 +603,18 @@
     inputEmailFirmante.pattern = '[^@\\s]+@[^@\\s]+\\.[^@\\s]+';
     inputEmailFirmante.title = 'Escribí un correo válido, por ejemplo nombre@dominio.com';
 
+    // Si no firma como titular (representante legal o apoderado), la empresa u organización es obligatoria.
+    const selCalidad = document.getElementById('clienteCalidad');
+    const inputEmpresa = document.getElementById('clienteEmpresa');
+    function validarEmpresa() {
+      const falta = selCalidad.value !== 'Titular' && !inputEmpresa.value.trim();
+      inputEmpresa.setCustomValidity(falta ? 'Indicá la empresa u organización que representás.' : '');
+      document.getElementById('avisoEmpresa').textContent = falta ? 'Indicá la empresa u organización que representás.' : '';
+    }
+    selCalidad.addEventListener('change', validarEmpresa);
+    inputEmpresa.addEventListener('input', validarEmpresa);
+    validarEmpresa();
+
     document.getElementById('fecha').value = new Date().toISOString().slice(0, 10);
 
     // ---------- Firma en pantalla (canvas) ----------
@@ -662,6 +705,9 @@
       document.getElementById('pdfClienteNombre').textContent = inputNombre.value.trim();
       document.getElementById('pdfClienteCedula').textContent = CONFIG_PAIS[paisActual()].labelDoc + ': ' + document.getElementById('clienteCedula').value.trim();
       document.getElementById('pdfClienteEmail').textContent = document.getElementById('clienteEmail').value.trim();
+      document.getElementById('pdfClienteTelefono').textContent = 'Tel.: ' + document.getElementById('clienteTelefono').value.trim();
+      const empresaFirmante = document.getElementById('clienteEmpresa').value.trim();
+      document.getElementById('pdfClienteCalidad').textContent = 'En calidad de: ' + document.getElementById('clienteCalidad').value + (empresaFirmante ? ' — ' + empresaFirmante : '');
       document.getElementById('pdfLugarFecha').textContent = 'Lugar y fecha: ' + document.getElementById('lugar').value.trim() + ', ' + document.getElementById('fecha').value;
       document.getElementById('pdfFirmaCliente').src = invertirCanvas(lienzo);
 
