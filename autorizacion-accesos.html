@@ -198,6 +198,7 @@
   #hojaPdf .firmas-pdf img { height: 60px; object-fit: contain; }
   #hojaPdf .firmas-pdf .linea { border-top: 1px solid var(--pdf-borde-claro); margin-top: 6px; padding-top: 6px; font-size: 11.5px; color: var(--pdf-texto-tenue); word-spacing: 3px; }
   #hojaPdf .pie-pdf { margin-top: 30px; padding-top: 14px; border-top: 1px solid var(--pdf-borde-tenue); font-size: 10.5px; color: var(--pdf-texto-pie); display: flex; justify-content: flex-end; }
+  #hojaPdf .registro-pdf { margin-top: 22px; font-size: 10.5px; color: var(--pdf-texto-tenue); }
   #hojaPdf .cierre-pdf { margin-top: 120px; display: flex; justify-content: center; opacity: 0.6; }
   #hojaPdf .cierre-pdf img { height: 52px; }
 </style>
@@ -233,6 +234,8 @@
       <input type="file" name="Autorización firmada (PDF)" id="adjuntoPdf" style="display:none">
       <input type="hidden" name="Proyecto" id="proyectoOculto">
       <input type="hidden" name="Resumen de accesos autorizados" id="resumenOculto">
+      <input type="hidden" name="Firmado el (UTC)" id="marcaTiempoOculta">
+      <input type="hidden" name="Huella SHA-256 del PDF" id="huellaOculta">
 
       <div class="campo-proyecto">
         <label for="proyecto">Nombre del proyecto / persona / empresa</label>
@@ -447,6 +450,7 @@
         <div class="linea">Firma del proveedor<br>Alejandro Vidal Voglino — Renueva Smart</div>
       </div>
     </div>
+    <p class="registro-pdf" id="pdfRegistro"></p>
     <div class="pie-pdf"><span>Página 1/1</span></div>
     <div class="cierre-pdf"><img src="assets/logo-pdf-oscuro.png" alt="Renueva Smart"></div>
   </div></div>
@@ -700,7 +704,7 @@
       return c.toDataURL('image/png');
     }
 
-    function poblarHojaPdf() {
+    function poblarHojaPdf(marcaTiempo) {
       document.getElementById('pdfTitulo').textContent = tituloDoc.textContent;
       document.getElementById('pdfClienteNombre').textContent = inputNombre.value.trim();
       document.getElementById('pdfClienteCedula').textContent = CONFIG_PAIS[paisActual()].labelDoc + ': ' + document.getElementById('clienteCedula').value.trim();
@@ -710,6 +714,7 @@
       document.getElementById('pdfClienteCalidad').textContent = 'En calidad de: ' + document.getElementById('clienteCalidad').value + (empresaFirmante ? ' — ' + empresaFirmante : '');
       document.getElementById('pdfLugarFecha').textContent = 'Lugar y fecha: ' + document.getElementById('lugar').value.trim() + ', ' + document.getElementById('fecha').value;
       document.getElementById('pdfFirmaCliente').src = invertirCanvas(lienzo);
+      document.getElementById('pdfRegistro').textContent = 'Registro: documento firmado electrónicamente el ' + marcaTiempo + ' (UTC). La huella digital SHA-256 del PDF se archiva junto con el documento.';
 
       const contenedor = document.getElementById('pdfListaAccesos');
       contenedor.innerHTML = '';
@@ -797,6 +802,7 @@
       set(firmas, 'gap', '24px');
       hoja.querySelectorAll('.firmas-pdf img').forEach((el) => { set(el, 'height', '60px'); set(el, 'width', 'auto'); });
       hoja.querySelectorAll('.firmas-pdf .linea').forEach((el) => { set(el, 'color', 'var(--pdf-texto-tenue)'); set(el, 'border-top-color', 'var(--pdf-borde-claro)'); });
+      hoja.querySelectorAll('.registro-pdf').forEach((el) => set(el, 'color', 'var(--pdf-texto-tenue)'));
       hoja.querySelectorAll('.pie-pdf').forEach((el) => { set(el, 'color', 'var(--pdf-texto-pie)'); set(el, 'border-top-color', 'var(--pdf-borde-tenue)'); set(el, 'display', 'flex'); set(el, 'justify-content', 'flex-end'); });
       hoja.querySelectorAll('.cierre-pdf').forEach((el) => { set(el, 'display', 'flex'); set(el, 'justify-content', 'center'); set(el, 'opacity', '0.6'); });
       hoja.querySelectorAll('.cierre-pdf img').forEach((el) => { set(el, 'height', '52px'); set(el, 'width', 'auto'); });
@@ -864,8 +870,19 @@
       return paginas;
     }
 
+    async function hashSha256(blob) {
+      try {
+        const buf = await crypto.subtle.digest('SHA-256', await blob.arrayBuffer());
+        return Array.from(new Uint8Array(buf)).map((b) => b.toString(16).padStart(2, '0')).join('');
+      } catch (e) {
+        return 'no disponible';
+      }
+    }
+
     async function generarPdfYAdjuntar(nombreArchivo) {
-      poblarHojaPdf();
+      const marcaTiempo = new Date().toISOString().replace('T', ' ').slice(0, 19);
+      document.getElementById('marcaTiempoOculta').value = marcaTiempo;
+      poblarHojaPdf(marcaTiempo);
       await document.fonts.ready; // evita que html2canvas rasterice con la fuente de reemplazo y apriete el espaciado
       const imgs = Array.from(document.querySelectorAll('#hojaPdf img'));
       // decode() puede quedar colgado en algunos navegadores para imágenes ya completas
@@ -938,6 +955,7 @@
         pdf.addImage(paginas[i].toDataURL('image/jpeg', 0.9), 'JPEG', margenMm, margenMm, anchoImgMm, alturaImgMm);
       }
       const blob = pdf.output('blob');
+      document.getElementById('huellaOculta').value = await hashSha256(blob);
 
       const url = URL.createObjectURL(blob);
       const enlace = document.createElement('a');
