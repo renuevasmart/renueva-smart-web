@@ -615,6 +615,15 @@
       inputEmpresa.setCustomValidity(falta ? 'Indicá la empresa u organización que representás.' : '');
       document.getElementById('avisoEmpresa').textContent = falta ? 'Indicá la empresa u organización que representás.' : '';
     }
+    // El proveedor puede fijar desde el generador en qué calidad firma el cliente (y la empresa).
+    const CALIDADES = { titular: 'Titular', representante: 'Representante legal', apoderado: 'Apoderado' };
+    const calidadFijada = CALIDADES[params.get('calidad')];
+    if (calidadFijada) {
+      selCalidad.value = calidadFijada;
+      Array.from(selCalidad.options).forEach((op) => { if (op.value !== calidadFijada) op.remove(); });
+    }
+    const empresaFijada = (params.get('empresa') || '').trim().slice(0, 120);
+    if (empresaFijada) inputEmpresa.value = empresaFijada;
     selCalidad.addEventListener('change', validarEmpresa);
     inputEmpresa.addEventListener('input', validarEmpresa);
     validarEmpresa();

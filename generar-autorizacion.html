@@ -292,7 +292,10 @@
     function renderZona() {
       const tipo = selectTipo.value;
       if (tipo === 'autorizacion-accesos.html') {
-        zona.innerHTML = ACCESOS_SECCIONES.map((sec) =>
+        const firmante = '<div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px">' +
+          '<div class="campo" style="flex:1;min-width:200px;margin:0"><label for="genCalidad">Calidad en que firma el cliente</label><select id="genCalidad"><option value="">Que el cliente elija</option><option value="titular">Titular, a título personal</option><option value="representante">Representante legal de una empresa u organización</option><option value="apoderado">Apoderado</option></select></div>' +
+          '<div class="campo" style="flex:1;min-width:200px;margin:0"><label for="genEmpresa">Empresa u organización (opcional)</label><input type="text" id="genEmpresa" maxlength="120" placeholder="Ej: Asociación Civil Ejemplo"></div></div>';
+        zona.innerHTML = firmante + ACCESOS_SECCIONES.map((sec) =>
           '<div class="seccion-items"><h3>' + sec.titulo + '</h3>' + listaHtml(sec.items, 'accesos', true) + '</div>'
         ).join('') + '<p class="campo-hint">Por defecto quedan todos tildados (como en el documento real). Destildá los que no apliquen a este proyecto.</p>';
       } else if (tipo === 'autorizacion-caso-exito.html') {
@@ -440,6 +443,10 @@
       if (tipo === 'autorizacion-accesos.html') {
         const tildadas = clavesTildadas('accesos');
         if (tildadas.length < clavesTotales('accesos')) qp.set('accesos', tildadas.join(','));
+        const calidad = document.getElementById('genCalidad').value;
+        if (calidad) qp.set('calidad', calidad);
+        const empresa = document.getElementById('genEmpresa').value.trim();
+        if (empresa) qp.set('empresa', empresa);
       } else if (tipo === 'autorizacion-caso-exito.html') {
         // sin parámetros extra: el cliente elige contenidos y canales él mismo
       } else {
