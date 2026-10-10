@@ -6,15 +6,16 @@
 <title>Construideas — Construcción y remodelación</title>
 <meta name="description" content="Empresa dedicada a la construcción y remodelación de espacios en Montevideo, Uruguay. Desde 2017.">
 <meta name="robots" content="noindex, nofollow">
-<meta name="theme-color" content="#173F70">
+<meta name="theme-color" content="#232323">
+<link rel="icon" type="image/png" href="assets/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Lexend:wght@500;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root{
-  --navy:#173F70; --navy-deep:#0F1E33; --orange:#F28C28; --orange-hover:#ff9d44;
-  --paper:#F5F3EE; --mist:#E0E4EA; --ink:#0F1E33; --ink-soft:#4a5a70;
-  --font-display:"Manrope",system-ui,sans-serif; --font-ui:"Inter",system-ui,sans-serif;
+  --navy:#232323; --navy-deep:#161616; --orange:#4E9ACC; --orange-hover:#6fb3e0; --accent-ink:#2A6FA5; --sky:#7cc0ee;
+  --paper:#F3F5F7; --mist:#DDE2E8; --ink:#161616; --ink-soft:#56606b;
+  --font-display:"Lexend",system-ui,sans-serif; --font-ui:"Inter",system-ui,sans-serif;
   --r:10px; --wrap:1160px;
 }
 *{box-sizing:border-box;margin:0}
@@ -25,12 +26,14 @@ a{color:inherit}
 :focus-visible{outline:2px solid var(--orange);outline-offset:3px;border-radius:4px}
 .wrap{width:min(var(--wrap),100% - 40px);margin-inline:auto}
 h1,h2,h3{font-family:var(--font-display);line-height:1.1;letter-spacing:-.02em}
-.eyebrow{font:700 12px/1 var(--font-display);letter-spacing:.14em;text-transform:uppercase;color:var(--orange);margin-bottom:14px}
-p.eyebrow,.hero p.eyebrow,.head p.eyebrow,.dark .head p.eyebrow{color:var(--orange);margin:0 0 14px}
-.btn{display:inline-flex;align-items:center;gap:12px;background:var(--orange);color:#fff;font:700 15px/1 var(--font-display);padding:12px 12px 12px 26px;border-radius:999px;text-decoration:none;transition:background .3s cubic-bezier(.32,.72,0,1)}
+.eyebrow{font:700 12px/1 var(--font-display);letter-spacing:.14em;text-transform:uppercase;color:var(--accent-ink);margin-bottom:14px}
+p.eyebrow{margin:0 0 14px}
+.dark p.eyebrow,.cta p.eyebrow,footer p.eyebrow{color:var(--sky)}
+.hero p.eyebrow{color:#fff}
+.btn{display:inline-flex;align-items:center;gap:12px;background:var(--orange);color:#111;font:700 15px/1 var(--font-display);padding:12px 12px 12px 26px;border-radius:999px;text-decoration:none;transition:background .3s cubic-bezier(.32,.72,0,1)}
 .btn:hover{background:var(--orange-hover)}
 .btn:active{scale:.97}
-.btn .ico{display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.24);transition:transform .5s cubic-bezier(.32,.72,0,1)}
+.btn .ico{display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:rgba(0,0,0,.14);transition:transform .5s cubic-bezier(.32,.72,0,1)}
 .btn:hover .ico{transform:translate(3px,-2px) scale(1.08)}
 .bar .btn{padding:11px 20px}
 .btn svg{width:18px;height:18px;fill:currentColor}
@@ -39,11 +42,11 @@ header{position:fixed;inset:0 0 auto;z-index:10}
 header .wrap{transition:width .7s cubic-bezier(.32,.72,0,1)}
 .bar{transition:background .5s,padding .7s cubic-bezier(.32,.72,0,1),margin .7s cubic-bezier(.32,.72,0,1),border-color .5s;border:1px solid transparent;border-radius:999px}
 header.scrolled .wrap{width:min(980px,100% - 24px)}
-header.scrolled .bar{margin-top:12px;padding:10px 12px 10px 22px;background:rgba(15,30,51,.74);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-color:rgba(255,255,255,.12)}
+header.scrolled .bar{margin-top:12px;padding:10px 12px 10px 22px;background:rgba(22,22,22,.78);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-color:rgba(255,255,255,.12)}
 .progress{position:fixed;left:0;top:0;right:0;height:3px;background:var(--orange);transform-origin:0 50%;transform:scaleX(0);z-index:20}
 .bar{display:flex;align-items:center;justify-content:space-between;gap:24px;padding:22px 0}
 .brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:#fff}
-.brand img{height:44px;width:auto}
+
 .brand b{display:block;font:800 19px/1 var(--font-display);letter-spacing:.02em}
 .brand small{display:block;font:700 9.5px/1 var(--font-display);letter-spacing:.16em;text-transform:uppercase;color:var(--orange);margin-top:5px}
 nav ul{display:flex;gap:30px;list-style:none;padding:0}
@@ -52,24 +55,22 @@ nav a:hover{opacity:1;color:var(--orange)}
 .bar .btn{font-size:14px}
 /* hero */
 .hero{position:relative;background:var(--navy-deep);color:#fff;overflow:hidden;min-height:640px;display:flex;align-items:flex-end}
-.hero::before{content:"";position:absolute;inset:0;background:
-  linear-gradient(90deg,var(--navy-deep) 8%,rgba(15,30,51,.55) 70%),
-  repeating-linear-gradient(0deg,rgba(255,255,255,.035) 0 1px,transparent 1px 64px),
-  repeating-linear-gradient(90deg,rgba(255,255,255,.035) 0 1px,transparent 1px 64px),
-  linear-gradient(135deg,#173F70 0%,#0F1E33 70%)}
-.hero-mark{position:absolute;right:-4%;top:50%;translate:0 -46%;width:min(52vw,640px);opacity:.16;pointer-events:none}
+.hero{background:#2a6fa5}
+.hero::before{content:"";position:absolute;inset:0;background:url(assets/patron.png) 0 0/420px 300px,linear-gradient(100deg,#1f5a8a 5%,#2f78b0 55%,#4E9ACC 100%)}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(22,22,22,.28),transparent 45%)}
+.hero .wrap{z-index:1}
 .hero .wrap{position:relative;padding:190px 0 90px}
 .hero h1{font-size:clamp(40px,6.4vw,76px);font-weight:800;max-width:11ch}
 .line{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.08em}
 .line>span{display:inline-block}
-.marquee{background:var(--orange);color:#fff;overflow:hidden;padding:18px 0;white-space:nowrap}
+.marquee{background:var(--orange);color:#111;overflow:hidden;padding:18px 0;white-space:nowrap}
 .marquee-track{display:inline-flex;gap:44px;padding-right:44px;animation:marquee 34s linear infinite}
 .marquee span{font:800 clamp(18px,2.4vw,26px)/1 var(--font-display);letter-spacing:.02em;text-transform:uppercase;display:inline-flex;align-items:center;gap:44px}
 .marquee span::after{content:"";width:10px;height:10px;background:var(--navy-deep);transform:rotate(45deg)}
 .marquee:hover .marquee-track{animation-play-state:paused}
 @keyframes marquee{to{transform:translateX(-50%)}}
-.hero p{margin:24px 0 34px;max-width:46ch;font-size:18px;color:#dbe3ee}
-.hero-tag{position:absolute;right:20px;bottom:18px;z-index:2;font:600 10px/1 var(--font-display);letter-spacing:.14em;text-transform:uppercase;color:#9fb0c6}
+.hero p{margin:24px 0 34px;max-width:46ch;font-size:18px;color:#fff}
+.hero-tag{position:absolute;right:20px;bottom:18px;z-index:2;font:600 10px/1 var(--font-display);letter-spacing:.14em;text-transform:uppercase;color:#b4b9bf}
 /* sections */
 section{padding:96px 0}
 .head{max-width:520px}
@@ -93,13 +94,13 @@ section{padding:96px 0}
 .projects{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
 .ph{aspect-ratio:4/3;border-radius:var(--r);position:relative;overflow:hidden;background:
   repeating-linear-gradient(45deg,rgba(255,255,255,.05) 0 2px,transparent 2px 14px),
-  linear-gradient(135deg,#1f4f87,#0F1E33);display:grid;place-items:center;border:1px dashed rgba(255,255,255,.28)}
-.ph span{font:700 11px/1.4 var(--font-display);letter-spacing:.12em;text-transform:uppercase;color:#b9c7da;text-align:center;padding:0 16px}
+  linear-gradient(135deg,#333,#161616);display:grid;place-items:center;border:1px dashed rgba(255,255,255,.28)}
+.ph span{font:700 11px/1.4 var(--font-display);letter-spacing:.12em;text-transform:uppercase;color:#c3c7cc;text-align:center;padding:0 16px}
 .project:hover .ph{border-color:var(--orange)}
 .project .ph{transition:border-color .5s}
 .sw{display:inline}
 .project h3{font-size:16px;margin:16px 0 4px;letter-spacing:0}
-.project p{font-size:13.5px;color:#b9c7da}
+.project p{font-size:13.5px;color:#c3c7cc}
 /* process */
 .steps{display:grid;grid-template-columns:1fr 2.4fr;gap:60px;align-items:center}
 .steps ol{list-style:none;padding:0;display:grid;grid-template-columns:repeat(4,1fr);gap:24px;position:relative}
@@ -130,10 +131,10 @@ section{padding:96px 0}
 .cta{background:var(--navy-deep);color:#fff;padding:72px 0}
 .cta .wrap{display:flex;align-items:center;justify-content:space-between;gap:32px;flex-wrap:wrap}
 .cta h2{font-size:clamp(28px,3.6vw,40px);font-weight:800}
-.cta p{color:#b9c7da;margin-top:10px}
-footer{background:#0a1626;color:#8fa1b8;font-size:13px;padding:26px 0}
+.cta p{color:#c3c7cc;margin-top:10px}
+footer{background:#0e0e0e;color:#9aa0a6;font-size:13px;padding:26px 0}
 footer .wrap{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
-footer .brand img{height:30px}
+
 footer .brand b{font-size:14px}
 footer .brand small{font-size:8px;margin-top:4px}
 footer a{text-decoration:none}
@@ -154,7 +155,7 @@ footer a:hover{color:var(--orange)}
   section{padding:68px 0}
   .hero{min-height:560px}
   .hero .wrap{padding:150px 0 70px}
-  .hero-mark{width:90vw;right:-25%;opacity:.12}
+  
   .bar .btn{padding:11px 14px;font-size:13px}
   .brand b{font-size:16px}.brand img{height:38px}
   .svc-grid{grid-template-columns:1fr}
@@ -184,14 +185,17 @@ footer a:hover{color:var(--orange)}
 .mv article:nth-child(2){background:var(--navy-deep)}
 .mv h3{font-size:20px;margin-bottom:10px;letter-spacing:0}
 .mv h3::before{content:"";display:inline-block;width:22px;height:3px;background:var(--orange);vertical-align:middle;margin-right:12px;border-radius:2px}
-.mv p{font-size:15px;color:#cdd8e6;line-height:1.6}
+.mv p{font-size:15px;color:#d0d4d8;line-height:1.6}
 .contact-list{display:grid;gap:14px;margin-top:26px;font-style:normal}
-.contact-list div{display:flex;gap:14px;align-items:baseline;color:#dbe3ee;font-size:16px;flex-wrap:wrap}
+.contact-list div{display:flex;gap:14px;align-items:baseline;color:#e3e6ea;font-size:16px;flex-wrap:wrap}
 .contact-list b{font:700 11px/1 var(--font-display);letter-spacing:.14em;text-transform:uppercase;color:var(--orange);min-width:78px}
 .contact-list span{overflow-wrap:anywhere;user-select:all}
 .cta .wrap{align-items:flex-start}
-.brand .mark{width:42px;height:42px;flex:none}
-.hero-mark{width:min(46vw,560px)!important;opacity:.14!important}
+.brand{gap:14px}
+.brand img{height:auto}
+.brand .ic{width:40px}
+.brand .tx{width:150px}
+footer .brand .ic{width:32px}footer .brand .tx{width:120px}
 @media(max-width:980px){.values{grid-template-columns:1fr 1fr}.about2{grid-template-columns:1fr;gap:36px}}
 @media(max-width:620px){.values{grid-template-columns:1fr}.svc-grid.two{grid-template-columns:1fr}.svc-grid.two .svc:nth-child(n){border-bottom:1px solid var(--mist)}.svc-grid.two .svc:last-child{border-bottom:0}}
 </style>
@@ -200,9 +204,9 @@ footer a:hover{color:var(--orange)}
 <div class="progress" aria-hidden="true"></div>
 <header>
   <div class="wrap bar">
-    <a class="brand" href="#inicio" aria-label="Construideas, construcción y remodelación">
-      <svg class="mark" viewBox="0 0 42 42" aria-hidden="true"><path d="M4 20 21 5l17 15" fill="none" stroke="#F28C28" stroke-width="5" stroke-linejoin="miter"/><path d="M10 22v16h22V22" fill="none" stroke="#fff" stroke-width="5"/><path d="M17 38V27h8v11" fill="#F28C28"/></svg>
-      <span><b>CONSTRUIDEAS</b><small>Construcción y remodelación</small></span>
+    <a class="brand" href="#inicio" aria-label="Construideas">
+      <img class="ic" src="assets/icono-color.png" alt="">
+      <img class="tx" src="assets/texto-blanco.png" alt="CONSTRUIDEAS">
     </a>
     <nav aria-label="Principal"><ul>
       <li><a href="#inicio">Inicio</a></li>
@@ -217,8 +221,7 @@ footer a:hover{color:var(--orange)}
 
 <main id="inicio">
   <div class="hero">
-    <svg class="hero-mark" viewBox="0 0 420 400" aria-hidden="true"><path d="M20 190 210 28l190 162" fill="none" stroke="#F28C28" stroke-width="46"/><path d="M80 210v170h260V210" fill="none" stroke="#fff" stroke-width="46"/><path d="M168 380V270h84v110" fill="#F28C28"/></svg>
-    <div class="wrap">
+        <div class="wrap">
       <p class="eyebrow">Desde 2017</p>
       <h1>Convertimos sueños en realidad</h1>
       <p class="lead">Somos una empresa dedicada a la construcción y remodelación de espacios, ubicada en Montevideo, Uruguay.</p>
@@ -271,7 +274,7 @@ footer a:hover{color:var(--orange)}
 
   <section id="proyectos" class="dark"><div class="wrap">
     <div class="dark-top">
-      <div class="head"><p class="eyebrow">Proyectos</p><h2>Nuestros proyectos</h2><p style="color:#b9c7da">En Construideas.uy, cada proyecto es una experiencia única y personalizada. Nuestro compromiso es construir confianza y calidad, dejando huellas positivas en cada espacio que transformamos.</p></div>
+      <div class="head"><p class="eyebrow">Proyectos</p><h2>Nuestros proyectos</h2><p style="color:#c3c7cc">En Construideas.uy, cada proyecto es una experiencia única y personalizada. Nuestro compromiso es construir confianza y calidad, dejando huellas positivas en cada espacio que transformamos.</p></div>
     </div>
     <div class="projects">
       <article class="project"><div class="ph"><span>Foto del proyecto<br>(a reemplazar)</span></div><h3>GYM Azotea</h3></article>
@@ -295,7 +298,7 @@ footer a:hover{color:var(--orange)}
 </div></div>
 
 <footer><div class="wrap">
-  <a class="brand" href="#inicio"><svg class="mark" viewBox="0 0 42 42" aria-hidden="true"><path d="M4 20 21 5l17 15" fill="none" stroke="#F28C28" stroke-width="5" stroke-linejoin="miter"/><path d="M10 22v16h22V22" fill="none" stroke="#fff" stroke-width="5"/><path d="M17 38V27h8v11" fill="#F28C28"/></svg><span><b>CONSTRUIDEAS</b><small>Construcción y remodelación</small></span></a>
+  <a class="brand" href="#inicio"><img class="ic" src="assets/icono-color.png" alt=""><img class="tx" src="assets/texto-blanco.png" alt="CONSTRUIDEAS"></a>
   <span>Montevideo · Uruguay</span>
   <span>© 2026 CONSTRUIDEAS. Todos los derechos reservados.</span>
 </div></footer>
@@ -341,9 +344,7 @@ footer a:hover{color:var(--orange)}
     .from(".hero .eyebrow", { y: 20, opacity: 0, duration: 0.9 }, "-=0.7")
     .from(".hero h1 .line > span", { yPercent: 115, duration: 1.2, stagger: 0.09 }, "-=0.6")
     .from(".hero .lead", { y: 24, opacity: 0, filter: "blur(8px)", duration: 1 }, "-=0.8")
-    .from(".hero .btn", { y: 20, opacity: 0, duration: 0.9 }, "-=0.7")
-    .from(".hero-mark", { x: 90, opacity: 0, scale: 0.9, duration: 1.8 }, 0.2);
-  gsap.to(".hero-mark", { yPercent: 14, ease: "none", scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true } });
+    .from(".hero .btn", { y: 20, opacity: 0, duration: 0.9 }, "-=0.7");
 
   /* títulos y bloques de texto */
   gsap.utils.toArray(".head, .dark-top .link, .quote, .cta .contact-list").forEach(function (el) {
