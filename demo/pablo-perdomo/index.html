@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pablo Perdomo — Albañilería y construcción</title>
+<meta name="description" content="Albañilería, reformas y construcción con atención al detalle y trato directo. Pedí tu presupuesto sin compromiso.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#173F70">
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#173F70; --navy-deep:#0F1E33; --orange:#F28C28; --orange-hover:#ff9d44;
+  --paper:#F5F3EE; --mist:#E0E4EA; --ink:#0F1E33; --ink-soft:#4a5a70;
+  --font-display:"Manrope",system-ui,sans-serif; --font-ui:"Inter",system-ui,sans-serif;
+  --r:10px; --wrap:1160px;
+}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-ui);color:var(--ink);background:var(--paper);line-height:1.6;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--orange);outline-offset:3px;border-radius:4px}
+.wrap{width:min(var(--wrap),100% - 40px);margin-inline:auto}
+h1,h2,h3{font-family:var(--font-display);line-height:1.1;letter-spacing:-.02em}
+.eyebrow{font:700 12px/1 var(--font-display);letter-spacing:.14em;text-transform:uppercase;color:var(--orange);margin-bottom:14px}
+.btn{display:inline-flex;align-items:center;gap:10px;background:var(--orange);color:#fff;font:700 15px/1 var(--font-display);padding:16px 26px;border-radius:var(--r);text-decoration:none;transition:background .2s,transform .2s}
+.btn:hover{background:var(--orange-hover);transform:translateY(-2px)}
+.btn svg{width:18px;height:18px;fill:currentColor}
+/* header */
+header{position:absolute;inset:0 0 auto;z-index:10}
+.bar{display:flex;align-items:center;justify-content:space-between;gap:24px;padding:22px 0}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:#fff}
+.brand img{height:44px;width:auto}
+.brand b{display:block;font:800 19px/1 var(--font-display);letter-spacing:.02em}
+.brand small{display:block;font:700 9.5px/1 var(--font-display);letter-spacing:.16em;text-transform:uppercase;color:var(--orange);margin-top:5px}
+nav ul{display:flex;gap:30px;list-style:none;padding:0}
+nav a{color:#fff;text-decoration:none;font:700 12px/1 var(--font-display);letter-spacing:.1em;text-transform:uppercase;opacity:.9}
+nav a:hover{opacity:1;color:var(--orange)}
+.bar .btn{padding:13px 20px;font-size:14px}
+/* hero */
+.hero{position:relative;background:var(--navy-deep);color:#fff;overflow:hidden;min-height:640px;display:flex;align-items:flex-end}
+.hero::before{content:"";position:absolute;inset:0;background:
+  linear-gradient(90deg,var(--navy-deep) 8%,rgba(15,30,51,.55) 70%),
+  repeating-linear-gradient(0deg,rgba(255,255,255,.035) 0 1px,transparent 1px 64px),
+  repeating-linear-gradient(90deg,rgba(255,255,255,.035) 0 1px,transparent 1px 64px),
+  linear-gradient(135deg,#173F70 0%,#0F1E33 70%)}
+.hero-mark{position:absolute;right:-4%;top:50%;transform:translateY(-46%);width:min(52vw,640px);opacity:.16;pointer-events:none}
+.hero .wrap{position:relative;padding:190px 0 90px}
+.hero h1{font-size:clamp(40px,6.4vw,76px);font-weight:800;max-width:11ch}
+.hero p{margin:24px 0 34px;max-width:46ch;font-size:18px;color:#dbe3ee}
+.hero-tag{position:absolute;right:20px;bottom:18px;z-index:2;font:600 10px/1 var(--font-display);letter-spacing:.14em;text-transform:uppercase;color:#9fb0c6}
+/* sections */
+section{padding:96px 0}
+.head{max-width:520px}
+.head h2{font-size:clamp(30px,4vw,44px);font-weight:800;color:var(--navy)}
+.head p{margin-top:16px;color:var(--ink-soft)}
+.link{display:inline-block;margin-top:22px;font:700 14px/1 var(--font-display);color:var(--navy);border-bottom:2px solid var(--orange);padding-bottom:5px;text-decoration:none}
+.services{display:grid;grid-template-columns:1fr 1.7fr;gap:60px;align-items:start}
+.svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-left:1px solid var(--mist)}
+.svc{padding:26px 26px 30px;border-right:1px solid var(--mist);border-bottom:1px solid var(--mist)}
+.svc:nth-child(n+4){border-bottom:0}
+.svc svg{width:34px;height:34px;stroke:var(--navy);fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;margin-bottom:16px}
+.svc h3{font-size:16px;font-weight:700;color:var(--navy);margin-bottom:6px;letter-spacing:0}
+.svc p{font-size:13.5px;color:var(--ink-soft);line-height:1.5}
+.dark{background:var(--navy);color:#fff}
+.dark .head h2{color:#fff}
+.dark-top{display:flex;justify-content:space-between;align-items:end;gap:20px;margin-bottom:40px}
+.dark .link{color:#fff}
+.projects{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.ph{aspect-ratio:4/3;border-radius:var(--r);position:relative;overflow:hidden;background:
+  repeating-linear-gradient(45deg,rgba(255,255,255,.05) 0 2px,transparent 2px 14px),
+  linear-gradient(135deg,#1f4f87,#0F1E33);display:grid;place-items:center;border:1px dashed rgba(255,255,255,.28)}
+.ph span{font:700 11px/1.4 var(--font-display);letter-spacing:.12em;text-transform:uppercase;color:#b9c7da;text-align:center;padding:0 16px}
+.project h3{font-size:16px;margin:16px 0 4px;letter-spacing:0}
+.project p{font-size:13.5px;color:#b9c7da}
+/* process */
+.steps{display:grid;grid-template-columns:1fr 2.4fr;gap:60px;align-items:center}
+.steps ol{list-style:none;padding:0;display:grid;grid-template-columns:repeat(4,1fr);gap:24px;position:relative}
+.steps ol::before{content:"";position:absolute;left:16px;right:16px;top:16px;height:1px;background:var(--mist)}
+.steps li{position:relative}
+.n{position:relative;z-index:1;display:grid;place-items:center;width:32px;height:32px;border-radius:50%;background:var(--orange);color:#fff;font:800 14px/1 var(--font-display);margin-bottom:16px}
+.steps h3{font-size:16px;color:var(--navy);margin-bottom:6px;letter-spacing:0}
+.steps p{font-size:13.5px;color:var(--ink-soft);line-height:1.5}
+/* about */
+.about{display:grid;grid-template-columns:.9fr 1.3fr .6fr;gap:56px;align-items:center;background:#fff;border-radius:16px;overflow:hidden}
+.about .ph{aspect-ratio:auto;height:100%;min-height:340px;border-radius:0;border:0;border-right:1px dashed var(--mist);background:linear-gradient(135deg,var(--navy),var(--navy-deep))}
+.about-text{padding:40px 0}
+.about-text h2{font-size:clamp(28px,3.4vw,40px);font-weight:800;color:var(--navy);margin-bottom:18px}
+.about-text p{color:var(--ink-soft);max-width:52ch}
+.about-text p b{color:var(--navy)}
+.stats{padding:40px 36px 40px 0;display:grid;gap:24px}
+.stats div{border-top:1px solid var(--mist);padding-top:16px}
+.stats strong{display:block;font:800 34px/1 var(--font-display);color:var(--navy)}
+.stats span{font-size:13px;color:var(--ink-soft)}
+.pend{border-bottom:2px dashed var(--orange)}
+/* testimonial */
+.testi{display:grid;grid-template-columns:1fr 2fr;gap:60px;align-items:center}
+.quote{background:#fff;border-radius:var(--r);padding:30px 34px;border-left:4px solid var(--orange)}
+.quote p{font-size:16px;color:var(--ink-soft);font-style:italic}
+.quote small{display:block;margin-top:14px;font:700 12px/1 var(--font-display);color:var(--navy);letter-spacing:.06em}
+/* cta */
+.cta{background:var(--navy-deep);color:#fff;padding:72px 0}
+.cta .wrap{display:flex;align-items:center;justify-content:space-between;gap:32px;flex-wrap:wrap}
+.cta h2{font-size:clamp(28px,3.6vw,40px);font-weight:800}
+.cta p{color:#b9c7da;margin-top:10px}
+footer{background:#0a1626;color:#8fa1b8;font-size:13px;padding:26px 0}
+footer .wrap{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
+footer .brand img{height:30px}
+footer .brand b{font-size:14px}
+footer .brand small{font-size:8px;margin-top:4px}
+footer a{text-decoration:none}
+footer a:hover{color:var(--orange)}
+/* responsive */
+@media(max-width:980px){
+  nav{display:none}
+  .services,.steps,.testi{grid-template-columns:1fr;gap:36px}
+  .svc-grid{grid-template-columns:repeat(2,1fr)}
+  .svc:nth-child(n+4){border-bottom:1px solid var(--mist)}
+  .projects{grid-template-columns:1fr 1fr}
+  .about{grid-template-columns:1fr;gap:0}
+  .about .ph{min-height:220px;border-right:0}
+  .about-text,.stats{padding:32px 28px}
+  .stats{grid-template-columns:repeat(3,1fr);padding-top:0}
+}
+@media(max-width:620px){
+  section{padding:68px 0}
+  .hero{min-height:560px}
+  .hero .wrap{padding:150px 0 70px}
+  .hero-mark{width:90vw;right:-25%;opacity:.12}
+  .bar .btn{padding:11px 14px;font-size:13px}
+  .brand b{font-size:16px}.brand img{height:38px}
+  .svc-grid{grid-template-columns:1fr}
+  .projects{grid-template-columns:1fr}
+  .dark-top{flex-direction:column;align-items:start}
+  .steps ol{grid-template-columns:1fr 1fr}
+  .steps ol::before{display:none}
+  .stats{grid-template-columns:1fr}
+}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap bar">
+    <a class="brand" href="#inicio" aria-label="Pablo Perdomo, albañilería y construcción">
+      <img src="assets/logo-icono-claro.png" alt="">
+      <span><b>PABLO PERDOMO</b><small>Albañilería y construcción</small></span>
+    </a>
+    <nav aria-label="Principal"><ul>
+      <li><a href="#servicios">Servicios</a></li>
+      <li><a href="#proyectos">Proyectos</a></li>
+      <li><a href="#sobre-mi">Sobre mí</a></li>
+      <li><a href="#contacto">Contacto</a></li>
+    </ul></nav>
+    <a class="btn js-wa" href="#contacto"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.8 14.2c-.2.7-1.4 1.3-1.9 1.3-.5.1-1.1.1-1.8-.1-.4-.1-1-.3-1.7-.6-3-1.3-4.9-4.3-5.1-4.5-.1-.2-1.2-1.6-1.2-3s.8-2.1 1-2.4c.3-.3.6-.3.8-.3h.6c.2 0 .4 0 .6.5l.9 2.1c.1.2.1.4 0 .6l-.4.6-.3.4c-.1.2-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.1 1 2.1 1.3 2.4 1.5.3.2.5.1.7-.1l.9-1.1c.2-.3.4-.2.7-.1l2 1c.3.1.5.2.6.3.1.2.1.8-.1 1.4Z"/></svg>WhatsApp</a>
+  </div>
+</header>
+
+<main id="inicio">
+  <div class="hero">
+    <img class="hero-mark" src="assets/logo-icono-claro.png" alt="">
+    <div class="wrap">
+      <p class="eyebrow">Reformas · Albañilería · Construcción</p>
+      <h1>Construimos espacios para vivirlos.</h1>
+      <p>Reformas y albañilería con atención al detalle, materiales adecuados y un trato directo.</p>
+      <a class="btn js-wa" href="#contacto">Solicitar presupuesto <span aria-hidden="true">↗</span></a>
+    </div>
+    <span class="hero-tag">Trabajo real · Resultados reales</span>
+  </div>
+
+  <section id="servicios"><div class="wrap services">
+    <div class="head">
+      <p class="eyebrow">Servicios</p>
+      <h2>¿Qué trabajos realizamos?</h2>
+      <p>Nos encargamos de todo tipo de obras de albañilería, desde pequeñas reparaciones hasta proyectos completos.</p>
+      <a class="link" href="#contacto">Consultá por tu obra →</a>
+    </div>
+    <div class="svc-grid">
+      <div class="svc"><svg viewBox="0 0 32 32"><path d="M3 15 16 4l13 11M7 13v14h18V13M13 27v-8h6v8"/></svg><h3>Construcción</h3><p>Obra nueva y ampliaciones de principio a fin.</p></div>
+      <div class="svc"><svg viewBox="0 0 32 32"><path d="M4 8h24v6H4zM4 14h12v6H4zM16 14h12v6H16zM4 20h24v6H4z"/></svg><h3>Albañilería</h3><p>Muros, tabiques, revoques y estructuras.</p></div>
+      <div class="svc"><svg viewBox="0 0 32 32"><path d="M4 18h24v3a6 6 0 0 1-6 6H10a6 6 0 0 1-6-6zM8 18V8a3 3 0 0 1 6 0M7 27v2M25 27v2"/></svg><h3>Baños y cocinas</h3><p>Diseño y funcionalidad para tus espacios.</p></div>
+      <div class="svc"><svg viewBox="0 0 32 32"><path d="M4 4h24v24H4zM4 16h24M16 4v24"/></svg><h3>Revestimientos y pisos</h3><p>Paredes, suelos y alicatados.</p></div>
+      <div class="svc"><svg viewBox="0 0 32 32"><path d="M3 15 16 4l13 11M7 13v14h18V13M12 20h8"/></svg><h3>Reformas integrales</h3><p>Viviendas, locales y oficinas.</p></div>
+      <div class="svc"><svg viewBox="0 0 32 32"><path d="M20 4a6 6 0 0 0-5 8L4 23l5 5 11-11a6 6 0 0 0 8-5l-4 4-4-1-1-4z"/></svg><h3>Pequeñas reparaciones</h3><p>Soluciones rápidas y efectivas.</p></div>
+    </div>
+  </div></section>
+
+  <section id="proyectos" class="dark"><div class="wrap">
+    <div class="dark-top">
+      <div class="head"><p class="eyebrow">Proyectos</p><h2>Cada proyecto habla por sí mismo.</h2></div>
+      <a class="link" href="https://www.instagram.com/pabloperdomo.uy/" target="_blank" rel="noopener">Ver más en Instagram →</a>
+    </div>
+    <div class="projects">
+      <article class="project"><div class="ph"><span>Foto de obra real<br>(a reemplazar)</span></div><h3>Baños y revestimientos</h3><p>Detalle y acabado</p></article>
+      <article class="project"><div class="ph"><span>Foto de obra real<br>(a reemplazar)</span></div><h3>Reformas y obra</h3><p>Del proceso al resultado</p></article>
+      <article class="project"><div class="ph"><span>Foto de obra real<br>(a reemplazar)</span></div><h3>Cocinas</h3><p>Diseño y funcionalidad</p></article>
+    </div>
+  </div></section>
+
+  <section><div class="wrap steps">
+    <div class="head"><p class="eyebrow">Cómo trabajamos</p><h2>Un proceso claro, sin sorpresas.</h2></div>
+    <ol>
+      <li><span class="n">1</span><h3>Contacto</h3><p>Contanos qué necesitás y te asesoramos.</p></li>
+      <li><span class="n">2</span><h3>Visita y presupuesto</h3><p>Revisamos el espacio y te damos un precio cerrado.</p></li>
+      <li><span class="n">3</span><h3>Ejecución</h3><p>Nos encargamos de todo con un equipo profesional.</p></li>
+      <li><span class="n">4</span><h3>Entrega</h3><p>Revisamos los detalles contigo. Tu satisfacción, nuestra prioridad.</p></li>
+    </ol>
+  </div></section>
+
+  <section id="sobre-mi" style="padding-top:0"><div class="wrap about">
+    <div class="ph"><span>Foto de Pablo<br>(a reemplazar)</span></div>
+    <div class="about-text">
+      <p class="eyebrow">Sobre mí</p>
+      <h2>La experiencia también se construye.</h2>
+      <p>Llevo años en el sector de la construcción y la reforma, comprometido con un trabajo bien hecho, <b>la seriedad</b> y el trato cercano. Cada proyecto es una nueva oportunidad para demostrar que las cosas se pueden hacer mejor.</p>
+    </div>
+    <!-- Datos a confirmar con Pablo antes de publicar -->
+    <div class="stats">
+      <div><strong><span class="pend">+XX</span></strong><span>Proyectos realizados</span></div>
+      <div><strong><span class="pend">XX</span>+</strong><span>Años de experiencia</span></div>
+    </div>
+  </div></section>
+
+  <section style="padding-top:0"><div class="wrap testi">
+    <div class="head"><p class="eyebrow">Testimonios</p><h2>Lo que dicen nuestros clientes.</h2></div>
+    <!-- Reseña real de un cliente de Pablo, a incorporar antes de publicar -->
+    <blockquote class="quote"><p>“Acá va una reseña real de un cliente de Pablo.”</p><small>— Nombre del cliente</small></blockquote>
+  </div></section>
+</main>
+
+<div class="cta" id="contacto"><div class="wrap">
+  <div><p class="eyebrow">¿Hablamos?</p><h2>Tu proyecto empieza aquí.</h2><p>Contanos qué necesitás y te preparamos un presupuesto sin compromiso.</p></div>
+  <a class="btn js-wa" href="https://www.instagram.com/pabloperdomo.uy/">Contactar por WhatsApp <span aria-hidden="true">→</span></a>
+</div></div>
+
+<footer><div class="wrap">
+  <a class="brand" href="#inicio"><img src="assets/logo-icono-claro.png" alt=""><span><b>PABLO PERDOMO</b><small>Albañilería y construcción</small></span></a>
+  <a href="https://www.instagram.com/pabloperdomo.uy/" target="_blank" rel="noopener">Instagram @pabloperdomo.uy</a>
+  <span>Construcción · Reformas · Albañilería</span>
+</div></footer>
+
+<script>
+  // Número de WhatsApp de Pablo (solo dígitos con código de país, p. ej. 598XXXXXXXX). Vacío = los botones llevan a #contacto / Instagram.
+  var WA_NUMBER = "";
+  if (WA_NUMBER) document.querySelectorAll(".js-wa").forEach(function (a) {
+    a.href = "https://wa.me/" + WA_NUMBER + "?text=" + encodeURIComponent("Hola Pablo, quiero pedir un presupuesto.");
+  });
+</script>
+</body>
+</html>
