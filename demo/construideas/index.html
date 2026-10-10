@@ -3,11 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pablo Perdomo — Albañilería y construcción</title>
-<meta name="description" content="Albañilería, reformas y construcción con atención al detalle y trato directo. Pedí tu presupuesto sin compromiso.">
+<title>Construideas — Construcción y remodelación</title>
+<meta name="description" content="Empresa dedicada a la construcción y remodelación de espacios en Montevideo, Uruguay. Desde 2017.">
 <meta name="robots" content="noindex, nofollow">
 <meta name="theme-color" content="#173F70">
-<link rel="icon" type="image/png" href="assets/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
@@ -166,21 +165,50 @@ footer a:hover{color:var(--orange)}
   .stats{grid-template-columns:1fr}
 }
 @media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important;animation:none!important}}
+
+.svc-grid.two{grid-template-columns:repeat(2,1fr)}
+.svc-grid.two .svc:nth-child(n+3){border-bottom:0}
+.svc-grid.two .svc:nth-child(-n+2){border-bottom:1px solid var(--mist)}
+.values-wrap{padding-top:96px}
+.values{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;margin-top:44px}
+.val{background:#fff;border-radius:16px;padding:30px 26px 32px;transition:transform .6s cubic-bezier(.32,.72,0,1),box-shadow .6s cubic-bezier(.32,.72,0,1)}
+.val:hover{transform:translateY(-6px);box-shadow:0 22px 40px -22px rgba(15,30,51,.35)}
+.val svg{width:34px;height:34px;stroke:var(--orange);fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;margin-bottom:18px}
+.val h3{font-size:18px;color:var(--navy);margin-bottom:8px;letter-spacing:0}
+.val p{font-size:14px;color:var(--ink-soft);line-height:1.55}
+.about2{display:grid;grid-template-columns:1.25fr 1fr;gap:64px;align-items:start}
+.about2 h2{font-size:clamp(28px,3.6vw,42px);font-weight:800;color:var(--navy);margin-bottom:22px}
+.about2 .scrub{font-size:17px;color:var(--ink-soft);max-width:56ch}
+.mv{display:grid;gap:18px}
+.mv article{background:var(--navy);color:#fff;border-radius:16px;padding:30px 30px 34px}
+.mv article:nth-child(2){background:var(--navy-deep)}
+.mv h3{font-size:20px;margin-bottom:10px;letter-spacing:0}
+.mv h3::before{content:"";display:inline-block;width:22px;height:3px;background:var(--orange);vertical-align:middle;margin-right:12px;border-radius:2px}
+.mv p{font-size:15px;color:#cdd8e6;line-height:1.6}
+.contact-list{display:grid;gap:14px;margin-top:26px;font-style:normal}
+.contact-list div{display:flex;gap:14px;align-items:baseline;color:#dbe3ee;font-size:16px;flex-wrap:wrap}
+.contact-list b{font:700 11px/1 var(--font-display);letter-spacing:.14em;text-transform:uppercase;color:var(--orange);min-width:78px}
+.contact-list span{overflow-wrap:anywhere;user-select:all}
+.cta .wrap{align-items:flex-start}
+.brand .mark{width:42px;height:42px;flex:none}
+.hero-mark{width:min(46vw,560px)!important;opacity:.14!important}
+@media(max-width:980px){.values{grid-template-columns:1fr 1fr}.about2{grid-template-columns:1fr;gap:36px}}
+@media(max-width:620px){.values{grid-template-columns:1fr}.svc-grid.two{grid-template-columns:1fr}.svc-grid.two .svc:nth-child(n){border-bottom:1px solid var(--mist)}.svc-grid.two .svc:last-child{border-bottom:0}}
 </style>
 </head>
 <body>
-
 <div class="progress" aria-hidden="true"></div>
 <header>
   <div class="wrap bar">
-    <a class="brand" href="#inicio" aria-label="Pablo Perdomo, albañilería y construcción">
-      <img src="assets/logo-icono-claro.png" alt="">
-      <span><b>PABLO PERDOMO</b><small>Albañilería y construcción</small></span>
+    <a class="brand" href="#inicio" aria-label="Construideas, construcción y remodelación">
+      <svg class="mark" viewBox="0 0 42 42" aria-hidden="true"><path d="M4 20 21 5l17 15" fill="none" stroke="#F28C28" stroke-width="5" stroke-linejoin="miter"/><path d="M10 22v16h22V22" fill="none" stroke="#fff" stroke-width="5"/><path d="M17 38V27h8v11" fill="#F28C28"/></svg>
+      <span><b>CONSTRUIDEAS</b><small>Construcción y remodelación</small></span>
     </a>
     <nav aria-label="Principal"><ul>
+      <li><a href="#inicio">Inicio</a></li>
+      <li><a href="#nosotros">Nosotros</a></li>
       <li><a href="#servicios">Servicios</a></li>
       <li><a href="#proyectos">Proyectos</a></li>
-      <li><a href="#sobre-mi">Sobre mí</a></li>
       <li><a href="#contacto">Contacto</a></li>
     </ul></nav>
     <a class="btn js-wa" href="#contacto"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.8 14.2c-.2.7-1.4 1.3-1.9 1.3-.5.1-1.1.1-1.8-.1-.4-.1-1-.3-1.7-.6-3-1.3-4.9-4.3-5.1-4.5-.1-.2-1.2-1.6-1.2-3s.8-2.1 1-2.4c.3-.3.6-.3.8-.3h.6c.2 0 .4 0 .6.5l.9 2.1c.1.2.1.4 0 .6l-.4.6-.3.4c-.1.2-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.1 1 2.1 1.3 2.4 1.5.3.2.5.1.7-.1l.9-1.1c.2-.3.4-.2.7-.1l2 1c.3.1.5.2.6.3.1.2.1.8-.1 1.4Z"/></svg>WhatsApp</a>
@@ -189,90 +217,87 @@ footer a:hover{color:var(--orange)}
 
 <main id="inicio">
   <div class="hero">
-    <img class="hero-mark" src="assets/logo-icono-claro.png" alt="">
+    <svg class="hero-mark" viewBox="0 0 420 400" aria-hidden="true"><path d="M20 190 210 28l190 162" fill="none" stroke="#F28C28" stroke-width="46"/><path d="M80 210v170h260V210" fill="none" stroke="#fff" stroke-width="46"/><path d="M168 380V270h84v110" fill="#F28C28"/></svg>
     <div class="wrap">
-      <p class="eyebrow">Reformas · Albañilería · Construcción</p>
-      <h1>Construimos espacios para vivirlos.</h1>
-      <p class="lead">Reformas y albañilería con atención al detalle, materiales adecuados y un trato directo.</p>
-      <a class="btn js-wa" href="#contacto">Solicitar presupuesto <span class="ico" aria-hidden="true">↗</span></a>
+      <p class="eyebrow">Desde 2017</p>
+      <h1>Convertimos sueños en realidad</h1>
+      <p class="lead">Somos una empresa dedicada a la construcción y remodelación de espacios, ubicada en Montevideo, Uruguay.</p>
+      <a class="btn js-wa" href="#contacto">Contáctenos <span class="ico" aria-hidden="true">↗</span></a>
     </div>
-    <span class="hero-tag">Trabajo real · Resultados reales</span>
+    <span class="hero-tag">Montevideo · Uruguay</span>
   </div>
 
   <div class="marquee" aria-hidden="true"><div class="marquee-track">
-    <span>Albañilería</span><span>Reformas integrales</span><span>Construcción</span><span>Presupuesto sin compromiso</span><span>Trato directo</span>
-    <span>Albañilería</span><span>Reformas integrales</span><span>Construcción</span><span>Presupuesto sin compromiso</span><span>Trato directo</span>
+    <span>Integridad</span><span>Compromiso</span><span>Atención al detalle</span><span>Trato personalizado</span>
+    <span>Integridad</span><span>Compromiso</span><span>Atención al detalle</span><span>Trato personalizado</span>
   </div></div>
 
-  <section id="servicios"><div class="wrap services">
+  <section class="values-wrap" id="valores"><div class="wrap">
+    <div class="head"><p class="eyebrow">Valores</p><h2>Lo que nos guía en cada obra.</h2></div>
+    <div class="values">
+      <div class="val"><svg viewBox="0 0 32 32"><path d="M16 3 5 8v8c0 7 5 11 11 13 6-2 11-6 11-13V8z"/><path d="m11 16 4 4 7-8"/></svg><h3>Integridad</h3><p>Actuamos con honestidad y ética en cada aspecto de nuestro trabajo.</p></div>
+      <div class="val"><svg viewBox="0 0 32 32"><path d="M4 18h6l4 4 4-4h6M7 18 12 8l4 3 4-3 5 10"/></svg><h3>Compromiso</h3><p>Nos dedicamos completamente a satisfacer las necesidades y expectativas de nuestros clientes.</p></div>
+      <div class="val"><svg viewBox="0 0 32 32"><circle cx="14" cy="14" r="9"/><path d="m21 21 7 7M10 14h8M14 10v8"/></svg><h3>Atención al detalle</h3><p>Cuidamos cada aspecto de nuestros proyectos, desde el diseño hasta la ejecución.</p></div>
+      <div class="val"><svg viewBox="0 0 32 32"><circle cx="11" cy="11" r="4"/><circle cx="22" cy="12" r="3"/><path d="M3 27c0-5 4-8 8-8s8 3 8 8M19 20c4-1 9 1 9 7"/></svg><h3>Trato personalizado</h3><p>Valoramos las relaciones personales, ofreciendo un servicio personalizado y de calidad.</p></div>
+    </div>
+  </div></section>
+
+  <section id="nosotros" style="padding-top:0"><div class="wrap about2">
+    <div>
+      <p class="eyebrow">Nosotros</p>
+      <h2>Quiénes somos | CONSTRUIDEAS</h2>
+      <p class="scrub">Somos una empresa dedicada a la construcción y remodelación de espacios, ubicada en Montevideo, Uruguay. Nuestra pasión es transformar lugares y crear ambientes que inspiren, siempre trabajando de la mano con nuestros clientes para materializar sus ideas. Cada proyecto es una oportunidad de innovar, impactar y mejorar la calidad de vida de quienes confían en nosotros.</p>
+    </div>
+    <div class="mv">
+      <article><h3>Misión</h3><p>Impactar hogares y empresas transformando lugares y espacios en ambientes cómodos y funcionales. Trabajamos junto a nuestros clientes para construir sus ideas, aportando profesionalismo y atención al detalle en cada proyecto.</p></article>
+      <article><h3>Visión</h3><p>Ser reconocidos como una empresa confiable y de calidad en el sector de remodelación y construcción en Uruguay, destacándonos por nuestro compromiso y excelencia en el servicio.</p></article>
+    </div>
+  </div></section>
+
+  <section id="servicios" style="padding-top:0"><div class="wrap services">
     <div class="head">
       <p class="eyebrow">Servicios</p>
-      <h2>¿Qué trabajos realizamos?</h2>
-      <p>Nos encargamos de todo tipo de obras de albañilería, desde pequeñas reparaciones hasta proyectos completos.</p>
-      <a class="link" href="#contacto">Consultá por tu obra →</a>
+      <h2>Nuestros servicios</h2>
+      <p>En Construideas.uy ofrecemos un amplio abanico de servicios para satisfacer las necesidades de nuestros clientes.</p>
+      <a class="link" href="#contacto">Consultá por tu proyecto →</a>
     </div>
-    <div class="svc-grid">
-      <div class="svc"><svg viewBox="0 0 32 32"><path d="M3 15 16 4l13 11M7 13v14h18V13M13 27v-8h6v8"/></svg><h3>Construcción</h3><p>Obra nueva y ampliaciones de principio a fin.</p></div>
-      <div class="svc"><svg viewBox="0 0 32 32"><path d="M4 8h24v6H4zM4 14h12v6H4zM16 14h12v6H16zM4 20h24v6H4z"/></svg><h3>Albañilería</h3><p>Muros, tabiques, revoques y estructuras.</p></div>
-      <div class="svc"><svg viewBox="0 0 32 32"><path d="M4 18h24v3a6 6 0 0 1-6 6H10a6 6 0 0 1-6-6zM8 18V8a3 3 0 0 1 6 0M7 27v2M25 27v2"/></svg><h3>Baños y cocinas</h3><p>Diseño y funcionalidad para tus espacios.</p></div>
-      <div class="svc"><svg viewBox="0 0 32 32"><path d="M4 4h24v24H4zM4 16h24M16 4v24"/></svg><h3>Revestimientos y pisos</h3><p>Paredes, suelos y alicatados.</p></div>
-      <div class="svc"><svg viewBox="0 0 32 32"><path d="M3 15 16 4l13 11M7 13v14h18V13M12 20h8"/></svg><h3>Reformas integrales</h3><p>Viviendas, locales y oficinas.</p></div>
-      <div class="svc"><svg viewBox="0 0 32 32"><path d="M20 4a6 6 0 0 0-5 8L4 23l5 5 11-11a6 6 0 0 0 8-5l-4 4-4-1-1-4z"/></svg><h3>Pequeñas reparaciones</h3><p>Soluciones rápidas y efectivas.</p></div>
+    <div class="svc-grid two">
+      <div class="svc"><svg viewBox="0 0 32 32"><path d="M3 15 16 4l13 11M7 13v14h18V13M13 27v-8h6v8"/></svg><h3>Remodelaciones Integrales</h3><p>Transformamos hogares y empresas, creando espacios funcionales y estéticos.</p></div>
+      <div class="svc"><svg viewBox="0 0 32 32"><path d="M4 18h24v3a6 6 0 0 1-6 6H10a6 6 0 0 1-6-6zM8 18V8a3 3 0 0 1 6 0M7 27v2M25 27v2"/></svg><h3>Reformas Personalizadas</h3><p>Adaptamos espacios a las necesidades y gustos de cada cliente.</p></div>
+      <div class="svc"><svg viewBox="0 0 32 32"><path d="M4 4h24v24H4zM4 12h24M12 12v16"/></svg><h3>Elaboración de planos 2D y 3D</h3><p>Diseñamos soluciones arquitectónicas innovadoras para visualizar cada proyecto antes de su ejecución.</p></div>
+      <div class="svc"><svg viewBox="0 0 32 32"><circle cx="16" cy="11" r="6"/><path d="M5 28c0-6 5-9 11-9s11 3 11 9"/></svg><h3>Asesoramiento Profesional</h3><p>Brindamos guía experta en cada etapa del proyecto para garantizar los mejores resultados.</p></div>
     </div>
   </div></section>
 
   <section id="proyectos" class="dark"><div class="wrap">
     <div class="dark-top">
-      <div class="head"><p class="eyebrow">Proyectos</p><h2>Cada proyecto habla por sí mismo.</h2></div>
-      <a class="link" href="https://www.instagram.com/pabloperdomo.uy/" target="_blank" rel="noopener">Ver más en Instagram →</a>
+      <div class="head"><p class="eyebrow">Proyectos</p><h2>Nuestros proyectos</h2><p style="color:#b9c7da">En Construideas.uy, cada proyecto es una experiencia única y personalizada. Nuestro compromiso es construir confianza y calidad, dejando huellas positivas en cada espacio que transformamos.</p></div>
     </div>
     <div class="projects">
-      <article class="project"><div class="ph"><span>Foto de obra real<br>(a reemplazar)</span></div><h3>Baños y revestimientos</h3><p>Detalle y acabado</p></article>
-      <article class="project"><div class="ph"><span>Foto de obra real<br>(a reemplazar)</span></div><h3>Reformas y obra</h3><p>Del proceso al resultado</p></article>
-      <article class="project"><div class="ph"><span>Foto de obra real<br>(a reemplazar)</span></div><h3>Cocinas</h3><p>Diseño y funcionalidad</p></article>
+      <article class="project"><div class="ph"><span>Foto del proyecto<br>(a reemplazar)</span></div><h3>GYM Azotea</h3></article>
+      <article class="project"><div class="ph"><span>Foto del proyecto<br>(a reemplazar)</span></div><h3>LIVING</h3></article>
+      <article class="project"><div class="ph"><span>Foto del proyecto<br>(a reemplazar)</span></div><h3>BAÑO</h3></article>
     </div>
-  </div></section>
-
-  <section><div class="wrap steps">
-    <div class="head"><p class="eyebrow">Cómo trabajamos</p><h2>Un proceso claro, sin sorpresas.</h2></div>
-    <ol>
-      <li><span class="n">1</span><h3>Contacto</h3><p>Contanos qué necesitás y te asesoramos.</p></li>
-      <li><span class="n">2</span><h3>Visita y presupuesto</h3><p>Revisamos el espacio y te damos un precio cerrado.</p></li>
-      <li><span class="n">3</span><h3>Ejecución</h3><p>Nos encargamos de todo con un equipo profesional.</p></li>
-      <li><span class="n">4</span><h3>Entrega</h3><p>Revisamos los detalles contigo. Tu satisfacción, nuestra prioridad.</p></li>
-    </ol>
-  </div></section>
-
-  <section id="sobre-mi" style="padding-top:0"><div class="wrap about reveal-card">
-    <div class="ph"><span>Foto de Pablo<br>(a reemplazar)</span></div>
-    <div class="about-text">
-      <p class="eyebrow">Sobre mí</p>
-      <h2>La experiencia también se construye.</h2>
-      <p class="scrub">Llevo años en el sector de la construcción y la reforma, comprometido con un trabajo bien hecho, <b>la seriedad</b> y el trato cercano. Cada proyecto es una nueva oportunidad para demostrar que las cosas se pueden hacer mejor.</p>
-    </div>
-    <!-- Datos a confirmar con Pablo antes de publicar -->
-    <div class="stats">
-      <div><strong><span class="pend">+XX</span></strong><span>Proyectos realizados</span></div>
-      <div><strong>2017</strong><span>En obra desde</span></div>
-    </div>
-  </div></section>
-
-  <section style="padding-top:0"><div class="wrap testi">
-    <div class="head"><p class="eyebrow">Testimonios</p><h2>Lo que dicen nuestros clientes.</h2></div>
-    <!-- Reseña real de un cliente de Pablo, a incorporar antes de publicar -->
-    <blockquote class="quote"><p>“Acá va una reseña real de un cliente de Pablo.”</p><small>— Nombre del cliente</small></blockquote>
   </div></section>
 </main>
 
 <div class="cta" id="contacto"><div class="wrap">
-  <div><p class="eyebrow">¿Hablamos?</p><h2 class="scrub">Tu proyecto empieza aquí.</h2><p>Contanos qué necesitás y te preparamos un presupuesto sin compromiso.</p></div>
-  <a class="btn js-wa" href="https://www.instagram.com/pabloperdomo.uy/">Contactar por WhatsApp <span class="ico" aria-hidden="true">→</span></a>
+  <div>
+    <p class="eyebrow">Contacto</p><h2 class="scrub">Hablemos de tu proyecto.</h2>
+    <address class="contact-list">
+      <div><b>Dirección</b><span>Montevideo, Uruguay, 11200</span></div>
+      <div><b>Teléfono</b><span>+598 92 049 995</span></div>
+      <div><b>Email</b><span>pablonicolas3823@gmail.com</span></div>
+      <div><b>Web</b><span>www.construideas.uy</span></div>
+    </address>
+  </div>
+  <a class="btn js-wa" href="#contacto">Contactar por WhatsApp <span class="ico" aria-hidden="true">→</span></a>
 </div></div>
 
 <footer><div class="wrap">
-  <a class="brand" href="#inicio"><img src="assets/logo-icono-claro.png" alt=""><span><b>PABLO PERDOMO</b><small>Albañilería y construcción</small></span></a>
-  <a href="https://www.instagram.com/pabloperdomo.uy/" target="_blank" rel="noopener">Instagram @pabloperdomo.uy</a>
-  <span>Construcción · Reformas · Albañilería</span>
+  <a class="brand" href="#inicio"><svg class="mark" viewBox="0 0 42 42" aria-hidden="true"><path d="M4 20 21 5l17 15" fill="none" stroke="#F28C28" stroke-width="5" stroke-linejoin="miter"/><path d="M10 22v16h22V22" fill="none" stroke="#fff" stroke-width="5"/><path d="M17 38V27h8v11" fill="#F28C28"/></svg><span><b>CONSTRUIDEAS</b><small>Construcción y remodelación</small></span></a>
+  <span>Montevideo · Uruguay</span>
+  <span>© 2026 CONSTRUIDEAS. Todos los derechos reservados.</span>
 </div></footer>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
@@ -321,7 +346,7 @@ footer a:hover{color:var(--orange)}
   gsap.to(".hero-mark", { yPercent: 14, ease: "none", scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true } });
 
   /* títulos y bloques de texto */
-  gsap.utils.toArray(".head, .dark-top .link, .quote, .cta .wrap > div:first-child .eyebrow, .cta p:not(.eyebrow)").forEach(function (el) {
+  gsap.utils.toArray(".head, .dark-top .link, .quote, .cta .contact-list").forEach(function (el) {
     gsap.from(el, { y: 50, opacity: 0, filter: "blur(10px)", duration: 1.2, ease: EASE, scrollTrigger: { trigger: el, start: "top 88%", once: true } });
   });
 
@@ -340,17 +365,15 @@ footer a:hover{color:var(--orange)}
   });
 
   /* proceso: la línea se dibuja con el scroll */
-  gsap.fromTo(".steps ol", { "--p": 0 }, { "--p": 1, ease: "none", scrollTrigger: { trigger: ".steps ol", start: "top 80%", end: "bottom 55%", scrub: true } });
-  gsap.from(".steps li", { y: 30, opacity: 0, duration: 1, ease: EASE, stagger: 0.14, scrollTrigger: { trigger: ".steps ol", start: "top 82%", once: true } });
-  gsap.from(".steps .n", { scale: 0, duration: 0.8, ease: SPRING, stagger: 0.14, scrollTrigger: { trigger: ".steps ol", start: "top 82%", once: true } });
+
+  gsap.from(".val", { y: 50, opacity: 0, duration: 1.1, ease: EASE, stagger: 0.12, scrollTrigger: { trigger: ".values", start: "top 85%", once: true } });
+  gsap.from(".mv article", { y: 50, opacity: 0, duration: 1.1, ease: EASE, stagger: 0.15, scrollTrigger: { trigger: ".mv", start: "top 88%", once: true } });
 
   /* sobre mí y llamado final: palabras que se encienden con el scroll */
-  gsap.from(".reveal-card", { y: 70, opacity: 0, scale: 0.97, duration: 1.3, ease: EASE, scrollTrigger: { trigger: ".reveal-card", start: "top 88%", once: true } });
   gsap.utils.toArray(".scrub").forEach(function (el) {
     splitWords(el, "sw");
     gsap.fromTo(el.querySelectorAll(".sw"), { opacity: 0.16 }, { opacity: 1, ease: "none", stagger: 0.12, scrollTrigger: { trigger: el, start: "top 82%", end: "bottom 50%", scrub: true } });
   });
-  gsap.from(".stats > div", { y: 30, opacity: 0, duration: 1, ease: EASE, stagger: 0.15, scrollTrigger: { trigger: ".stats", start: "top 90%", once: true } });
 
   /* botones magnéticos */
   if (matchMedia("(hover: hover)").matches) document.querySelectorAll(".btn").forEach(function (b) {
@@ -368,7 +391,7 @@ footer a:hover{color:var(--orange)}
   // Número de WhatsApp de Pablo (solo dígitos con código de país, p. ej. 598XXXXXXXX). Vacío = los botones llevan a #contacto / Instagram.
   var WA_NUMBER = "59892049995";
   if (WA_NUMBER) document.querySelectorAll(".js-wa").forEach(function (a) {
-    a.href = "https://wa.me/" + WA_NUMBER + "?text=" + encodeURIComponent("Hola Pablo, quiero pedir un presupuesto.");
+    a.href = "https://wa.me/" + WA_NUMBER + "?text=" + encodeURIComponent("Hola, quiero consultar por un proyecto.");
   });
 </script>
 </body>
