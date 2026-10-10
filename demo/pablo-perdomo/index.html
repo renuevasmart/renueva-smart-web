@@ -27,11 +27,21 @@ a{color:inherit}
 .wrap{width:min(var(--wrap),100% - 40px);margin-inline:auto}
 h1,h2,h3{font-family:var(--font-display);line-height:1.1;letter-spacing:-.02em}
 .eyebrow{font:700 12px/1 var(--font-display);letter-spacing:.14em;text-transform:uppercase;color:var(--orange);margin-bottom:14px}
-.btn{display:inline-flex;align-items:center;gap:10px;background:var(--orange);color:#fff;font:700 15px/1 var(--font-display);padding:16px 26px;border-radius:var(--r);text-decoration:none;transition:background .2s,transform .2s}
-.btn:hover{background:var(--orange-hover);transform:translateY(-2px)}
+p.eyebrow,.hero p.eyebrow,.head p.eyebrow,.dark .head p.eyebrow{color:var(--orange);margin:0 0 14px}
+.btn{display:inline-flex;align-items:center;gap:12px;background:var(--orange);color:#fff;font:700 15px/1 var(--font-display);padding:12px 12px 12px 26px;border-radius:999px;text-decoration:none;transition:background .3s cubic-bezier(.32,.72,0,1)}
+.btn:hover{background:var(--orange-hover)}
+.btn:active{scale:.97}
+.btn .ico{display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.24);transition:transform .5s cubic-bezier(.32,.72,0,1)}
+.btn:hover .ico{transform:translate(3px,-2px) scale(1.08)}
+.bar .btn{padding:11px 20px}
 .btn svg{width:18px;height:18px;fill:currentColor}
 /* header */
-header{position:absolute;inset:0 0 auto;z-index:10}
+header{position:fixed;inset:0 0 auto;z-index:10}
+header .wrap{transition:width .7s cubic-bezier(.32,.72,0,1)}
+.bar{transition:background .5s,padding .7s cubic-bezier(.32,.72,0,1),margin .7s cubic-bezier(.32,.72,0,1),border-color .5s;border:1px solid transparent;border-radius:999px}
+header.scrolled .wrap{width:min(980px,100% - 24px)}
+header.scrolled .bar{margin-top:12px;padding:10px 12px 10px 22px;background:rgba(15,30,51,.74);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-color:rgba(255,255,255,.12)}
+.progress{position:fixed;left:0;top:0;right:0;height:3px;background:var(--orange);transform-origin:0 50%;transform:scaleX(0);z-index:20}
 .bar{display:flex;align-items:center;justify-content:space-between;gap:24px;padding:22px 0}
 .brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:#fff}
 .brand img{height:44px;width:auto}
@@ -40,7 +50,7 @@ header{position:absolute;inset:0 0 auto;z-index:10}
 nav ul{display:flex;gap:30px;list-style:none;padding:0}
 nav a{color:#fff;text-decoration:none;font:700 12px/1 var(--font-display);letter-spacing:.1em;text-transform:uppercase;opacity:.9}
 nav a:hover{opacity:1;color:var(--orange)}
-.bar .btn{padding:13px 20px;font-size:14px}
+.bar .btn{font-size:14px}
 /* hero */
 .hero{position:relative;background:var(--navy-deep);color:#fff;overflow:hidden;min-height:640px;display:flex;align-items:flex-end}
 .hero::before{content:"";position:absolute;inset:0;background:
@@ -48,9 +58,17 @@ nav a:hover{opacity:1;color:var(--orange)}
   repeating-linear-gradient(0deg,rgba(255,255,255,.035) 0 1px,transparent 1px 64px),
   repeating-linear-gradient(90deg,rgba(255,255,255,.035) 0 1px,transparent 1px 64px),
   linear-gradient(135deg,#173F70 0%,#0F1E33 70%)}
-.hero-mark{position:absolute;right:-4%;top:50%;transform:translateY(-46%);width:min(52vw,640px);opacity:.16;pointer-events:none}
+.hero-mark{position:absolute;right:-4%;top:50%;translate:0 -46%;width:min(52vw,640px);opacity:.16;pointer-events:none}
 .hero .wrap{position:relative;padding:190px 0 90px}
 .hero h1{font-size:clamp(40px,6.4vw,76px);font-weight:800;max-width:11ch}
+.line{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.08em}
+.line>span{display:inline-block}
+.marquee{background:var(--orange);color:#fff;overflow:hidden;padding:18px 0;white-space:nowrap}
+.marquee-track{display:inline-flex;gap:44px;padding-right:44px;animation:marquee 34s linear infinite}
+.marquee span{font:800 clamp(18px,2.4vw,26px)/1 var(--font-display);letter-spacing:.02em;text-transform:uppercase;display:inline-flex;align-items:center;gap:44px}
+.marquee span::after{content:"";width:10px;height:10px;background:var(--navy-deep);transform:rotate(45deg)}
+.marquee:hover .marquee-track{animation-play-state:paused}
+@keyframes marquee{to{transform:translateX(-50%)}}
 .hero p{margin:24px 0 34px;max-width:46ch;font-size:18px;color:#dbe3ee}
 .hero-tag{position:absolute;right:20px;bottom:18px;z-index:2;font:600 10px/1 var(--font-display);letter-spacing:.14em;text-transform:uppercase;color:#9fb0c6}
 /* sections */
@@ -61,7 +79,10 @@ section{padding:96px 0}
 .link{display:inline-block;margin-top:22px;font:700 14px/1 var(--font-display);color:var(--navy);border-bottom:2px solid var(--orange);padding-bottom:5px;text-decoration:none}
 .services{display:grid;grid-template-columns:1fr 1.7fr;gap:60px;align-items:start}
 .svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-left:1px solid var(--mist)}
-.svc{padding:26px 26px 30px;border-right:1px solid var(--mist);border-bottom:1px solid var(--mist)}
+.svc{padding:26px 26px 30px;border-right:1px solid var(--mist);border-bottom:1px solid var(--mist);transition:background .5s cubic-bezier(.32,.72,0,1)}
+.svc:hover{background:#fff}
+.svc svg{transition:transform .6s cubic-bezier(.32,.72,0,1)}
+.svc:hover svg{transform:translateY(-4px) scale(1.08)}
 .svc:nth-child(n+4){border-bottom:0}
 .svc svg{width:34px;height:34px;stroke:var(--navy);fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;margin-bottom:16px}
 .svc h3{font-size:16px;font-weight:700;color:var(--navy);margin-bottom:6px;letter-spacing:0}
@@ -75,12 +96,16 @@ section{padding:96px 0}
   repeating-linear-gradient(45deg,rgba(255,255,255,.05) 0 2px,transparent 2px 14px),
   linear-gradient(135deg,#1f4f87,#0F1E33);display:grid;place-items:center;border:1px dashed rgba(255,255,255,.28)}
 .ph span{font:700 11px/1.4 var(--font-display);letter-spacing:.12em;text-transform:uppercase;color:#b9c7da;text-align:center;padding:0 16px}
+.project:hover .ph{border-color:var(--orange)}
+.project .ph{transition:border-color .5s}
+.sw{display:inline}
 .project h3{font-size:16px;margin:16px 0 4px;letter-spacing:0}
 .project p{font-size:13.5px;color:#b9c7da}
 /* process */
 .steps{display:grid;grid-template-columns:1fr 2.4fr;gap:60px;align-items:center}
 .steps ol{list-style:none;padding:0;display:grid;grid-template-columns:repeat(4,1fr);gap:24px;position:relative}
-.steps ol::before{content:"";position:absolute;left:16px;right:16px;top:16px;height:1px;background:var(--mist)}
+.steps ol::before{content:"";position:absolute;left:16px;right:16px;top:16px;height:2px;background:var(--orange);transform-origin:0 50%;transform:scaleX(var(--p,1))}
+.steps ol::after{content:"";position:absolute;left:16px;right:16px;top:16px;height:1px;background:var(--mist)}
 .steps li{position:relative}
 .n{position:relative;z-index:1;display:grid;place-items:center;width:32px;height:32px;border-radius:50%;background:var(--orange);color:#fff;font:800 14px/1 var(--font-display);margin-bottom:16px}
 .steps h3{font-size:16px;color:var(--navy);margin-bottom:6px;letter-spacing:0}
@@ -140,11 +165,12 @@ footer a:hover{color:var(--orange)}
   .steps ol::before{display:none}
   .stats{grid-template-columns:1fr}
 }
-@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important;animation:none!important}}
 </style>
 </head>
 <body>
 
+<div class="progress" aria-hidden="true"></div>
 <header>
   <div class="wrap bar">
     <a class="brand" href="#inicio" aria-label="Pablo Perdomo, albañilería y construcción">
@@ -167,11 +193,16 @@ footer a:hover{color:var(--orange)}
     <div class="wrap">
       <p class="eyebrow">Reformas · Albañilería · Construcción</p>
       <h1>Construimos espacios para vivirlos.</h1>
-      <p>Reformas y albañilería con atención al detalle, materiales adecuados y un trato directo.</p>
-      <a class="btn js-wa" href="#contacto">Solicitar presupuesto <span aria-hidden="true">↗</span></a>
+      <p class="lead">Reformas y albañilería con atención al detalle, materiales adecuados y un trato directo.</p>
+      <a class="btn js-wa" href="#contacto">Solicitar presupuesto <span class="ico" aria-hidden="true">↗</span></a>
     </div>
     <span class="hero-tag">Trabajo real · Resultados reales</span>
   </div>
+
+  <div class="marquee" aria-hidden="true"><div class="marquee-track">
+    <span>Albañilería</span><span>Reformas integrales</span><span>Construcción</span><span>Presupuesto sin compromiso</span><span>Trato directo</span>
+    <span>Albañilería</span><span>Reformas integrales</span><span>Construcción</span><span>Presupuesto sin compromiso</span><span>Trato directo</span>
+  </div></div>
 
   <section id="servicios"><div class="wrap services">
     <div class="head">
@@ -212,12 +243,12 @@ footer a:hover{color:var(--orange)}
     </ol>
   </div></section>
 
-  <section id="sobre-mi" style="padding-top:0"><div class="wrap about">
+  <section id="sobre-mi" style="padding-top:0"><div class="wrap about reveal-card">
     <div class="ph"><span>Foto de Pablo<br>(a reemplazar)</span></div>
     <div class="about-text">
       <p class="eyebrow">Sobre mí</p>
       <h2>La experiencia también se construye.</h2>
-      <p>Llevo años en el sector de la construcción y la reforma, comprometido con un trabajo bien hecho, <b>la seriedad</b> y el trato cercano. Cada proyecto es una nueva oportunidad para demostrar que las cosas se pueden hacer mejor.</p>
+      <p class="scrub">Llevo años en el sector de la construcción y la reforma, comprometido con un trabajo bien hecho, <b>la seriedad</b> y el trato cercano. Cada proyecto es una nueva oportunidad para demostrar que las cosas se pueden hacer mejor.</p>
     </div>
     <!-- Datos a confirmar con Pablo antes de publicar -->
     <div class="stats">
@@ -234,8 +265,8 @@ footer a:hover{color:var(--orange)}
 </main>
 
 <div class="cta" id="contacto"><div class="wrap">
-  <div><p class="eyebrow">¿Hablamos?</p><h2>Tu proyecto empieza aquí.</h2><p>Contanos qué necesitás y te preparamos un presupuesto sin compromiso.</p></div>
-  <a class="btn js-wa" href="https://www.instagram.com/pabloperdomo.uy/">Contactar por WhatsApp <span aria-hidden="true">→</span></a>
+  <div><p class="eyebrow">¿Hablamos?</p><h2 class="scrub">Tu proyecto empieza aquí.</h2><p>Contanos qué necesitás y te preparamos un presupuesto sin compromiso.</p></div>
+  <a class="btn js-wa" href="https://www.instagram.com/pabloperdomo.uy/">Contactar por WhatsApp <span class="ico" aria-hidden="true">→</span></a>
 </div></div>
 
 <footer><div class="wrap">
@@ -244,6 +275,95 @@ footer a:hover{color:var(--orange)}
   <span>Construcción · Reformas · Albañilería</span>
 </div></footer>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+(function () {
+  var header = document.querySelector("header");
+  if (!window.gsap || !window.ScrollTrigger || matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    window.addEventListener("scroll", function () { header.classList.toggle("scrolled", scrollY > 60); }, { passive: true });
+    return;
+  }
+  gsap.registerPlugin(ScrollTrigger);
+  var EASE = "expo.out", SPRING = "back.out(1.7)";
+
+  function splitWords(el, cls) {
+    (function walk(node) {
+      Array.prototype.slice.call(node.childNodes).forEach(function (n) {
+        if (n.nodeType === 3) {
+          var frag = document.createDocumentFragment();
+          n.textContent.split(/(\s+)/).forEach(function (t) {
+            if (!t) return;
+            if (/^\s+$/.test(t)) { frag.appendChild(document.createTextNode(t)); return; }
+            var w = document.createElement("span"); w.className = cls; w.textContent = t; frag.appendChild(w);
+          });
+          n.parentNode.replaceChild(frag, n);
+        } else if (n.nodeType === 1) walk(n);
+      });
+    })(el);
+  }
+
+  /* barra de progreso + cabecera tipo cápsula */
+  ScrollTrigger.create({ start: 60, end: "max", onToggle: function (s) { header.classList.toggle("scrolled", s.scroll() > 60 || s.isActive); } });
+  window.addEventListener("scroll", function () { header.classList.toggle("scrolled", scrollY > 60); }, { passive: true });
+  gsap.to(".progress", { scaleX: 1, ease: "none", scrollTrigger: { start: 0, end: "max", scrub: 0.3 } });
+
+  /* entrada de la portada */
+  var h1 = document.querySelector(".hero h1");
+  h1.innerHTML = h1.textContent.trim().split(/\s+/).map(function (w) { return '<span class="line"><span>' + w + "</span></span>"; }).join(" ");
+  gsap.timeline({ defaults: { ease: EASE } })
+    .from("header .bar > *", { y: -24, opacity: 0, duration: 1, stagger: 0.08 })
+    .from(".hero .eyebrow", { y: 20, opacity: 0, duration: 0.9 }, "-=0.7")
+    .from(".hero h1 .line > span", { yPercent: 115, duration: 1.2, stagger: 0.09 }, "-=0.6")
+    .from(".hero .lead", { y: 24, opacity: 0, filter: "blur(8px)", duration: 1 }, "-=0.8")
+    .from(".hero .btn", { y: 20, opacity: 0, duration: 0.9 }, "-=0.7")
+    .from(".hero-mark", { x: 90, opacity: 0, scale: 0.9, duration: 1.8 }, 0.2);
+  gsap.to(".hero-mark", { yPercent: 14, ease: "none", scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true } });
+
+  /* títulos y bloques de texto */
+  gsap.utils.toArray(".head, .dark-top .link, .quote, .cta .wrap > div:first-child .eyebrow, .cta p:not(.eyebrow)").forEach(function (el) {
+    gsap.from(el, { y: 50, opacity: 0, filter: "blur(10px)", duration: 1.2, ease: EASE, scrollTrigger: { trigger: el, start: "top 88%", once: true } });
+  });
+
+  /* servicios: tarjetas y trazo de iconos */
+  gsap.from(".svc", { y: 40, opacity: 0, duration: 1, ease: EASE, stagger: 0.09, scrollTrigger: { trigger: ".svc-grid", start: "top 82%", once: true } });
+  gsap.utils.toArray(".svc svg path").forEach(function (p) { p.setAttribute("pathLength", "1"); });
+  gsap.fromTo(".svc svg path", { strokeDasharray: 1, strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 1.6, ease: "power2.inOut", stagger: 0.04, scrollTrigger: { trigger: ".svc-grid", start: "top 82%", once: true } });
+
+  /* proyectos: escalan al entrar y se apagan al salir */
+  gsap.utils.toArray(".project").forEach(function (card) {
+    var ph = card.querySelector(".ph");
+    gsap.timeline({ scrollTrigger: { trigger: card, start: "top 96%", end: "bottom 4%", scrub: true } })
+      .fromTo(ph, { scale: 0.8, opacity: 0.45 }, { scale: 1, opacity: 1, ease: "none", duration: 0.35 })
+      .to(ph, { opacity: 1, duration: 0.3 })
+      .to(ph, { opacity: 0.3, ease: "none", duration: 0.35 });
+  });
+
+  /* proceso: la línea se dibuja con el scroll */
+  gsap.fromTo(".steps ol", { "--p": 0 }, { "--p": 1, ease: "none", scrollTrigger: { trigger: ".steps ol", start: "top 80%", end: "bottom 55%", scrub: true } });
+  gsap.from(".steps li", { y: 30, opacity: 0, duration: 1, ease: EASE, stagger: 0.14, scrollTrigger: { trigger: ".steps ol", start: "top 82%", once: true } });
+  gsap.from(".steps .n", { scale: 0, duration: 0.8, ease: SPRING, stagger: 0.14, scrollTrigger: { trigger: ".steps ol", start: "top 82%", once: true } });
+
+  /* sobre mí y llamado final: palabras que se encienden con el scroll */
+  gsap.from(".reveal-card", { y: 70, opacity: 0, scale: 0.97, duration: 1.3, ease: EASE, scrollTrigger: { trigger: ".reveal-card", start: "top 88%", once: true } });
+  gsap.utils.toArray(".scrub").forEach(function (el) {
+    splitWords(el, "sw");
+    gsap.fromTo(el.querySelectorAll(".sw"), { opacity: 0.16 }, { opacity: 1, ease: "none", stagger: 0.12, scrollTrigger: { trigger: el, start: "top 82%", end: "bottom 50%", scrub: true } });
+  });
+  gsap.from(".stats > div", { y: 30, opacity: 0, duration: 1, ease: EASE, stagger: 0.15, scrollTrigger: { trigger: ".stats", start: "top 90%", once: true } });
+
+  /* botones magnéticos */
+  if (matchMedia("(hover: hover)").matches) document.querySelectorAll(".btn").forEach(function (b) {
+    b.addEventListener("pointermove", function (e) {
+      var r = b.getBoundingClientRect();
+      gsap.to(b, { x: (e.clientX - r.left - r.width / 2) * 0.22, y: (e.clientY - r.top - r.height / 2) * 0.3, duration: 0.4, ease: "power3.out" });
+    });
+    b.addEventListener("pointerleave", function () { gsap.to(b, { x: 0, y: 0, duration: 0.9, ease: "elastic.out(1, 0.45)" }); });
+  });
+
+  window.addEventListener("load", function () { ScrollTrigger.refresh(); });
+})();
+</script>
 <script>
   // Número de WhatsApp de Pablo (solo dígitos con código de país, p. ej. 598XXXXXXXX). Vacío = los botones llevan a #contacto / Instagram.
   var WA_NUMBER = "";
