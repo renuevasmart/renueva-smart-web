@@ -4,8 +4,8 @@
 <meta charset="UTF-8">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; form-action 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com https://stats.g.doubleclick.net; media-src 'self'; connect-src 'self' https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com https://stats.g.doubleclick.net; frame-src 'self'">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>¿Cuánto cuesta renovar tu web? Precios orientativos — Renueva Smart</title>
-<meta name="description" content="Rediseño web: landing desde 400 €, web pequeña 700-1.200 €, mediana 1.200-2.200 € (aprox.). Precio cerrado tras ver tu web. Antes/después gratis, sin compromiso.">
+<title>¿Cuánto cuesta renovar tu web? Desde 400 € + IVA — Renueva Smart</title>
+<meta name="description" content="Rediseño web: landing desde 400 € + IVA, web pequeña 700-1.200 € + IVA, mediana 1.200-2.200 € + IVA (aprox.). Precio cerrado tras ver tu web. Antes/después gratis, sin compromiso.">
 <meta name="theme-color" content="#0b0c0e">
 <link rel="canonical" href="https://renuevasmart.com/precio-rediseno-web.html">
 <link rel="icon" href="assets/favicon.ico" sizes="any">
@@ -36,7 +36,7 @@
         {
           "@type": "Question",
           "name": "¿Cuánto cuesta renovar una web?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Como referencia orientativa: una landing (1 página) 400-650 €, una web pequeña de 2 a 5 páginas 700-1.200 €, y una de 6 a 10 páginas 1.200-2.200 €. El precio exacto y cerrado te lo damos tras ver tu web." }
+          "acceptedAnswer": { "@type": "Answer", "text": "Como referencia orientativa: una landing (1 página) 400-650 € + IVA, una web pequeña de 2 a 5 páginas 700-1.200 € + IVA, y una de 6 a 10 páginas 1.200-2.200 € + IVA. El precio exacto y cerrado te lo damos tras ver tu web." }
         },
         {
           "@type": "Question",
@@ -211,6 +211,7 @@
   .footer-links a { font-size: 13.5px; text-decoration: none; color: var(--color-text-secondary); }
   .footer-links a:hover { color: var(--color-text-primary); }
   .footer-copy { font-size: 12.5px; margin-top: 22px; text-align: center; color: var(--color-text-muted); }
+  .precio-col .iva { display: block; font-size: 12.5px; font-weight: 700; letter-spacing: 0.04em; color: var(--color-text-muted); margin-top: 2px; }
 </style>
 </head>
 <body>
@@ -239,20 +240,23 @@
       <div class="precio-col">
         <span class="etq">Landing · 1 página</span>
         <span class="cifra" data-precio="landing">400-650 €</span>
+        <span class="iva">+ IVA</span>
         <span class="detalle">Una sola página larga: todo lo importante en un scroll. Para quien quiere presencia sencilla y directa.</span>
       </div>
       <div class="precio-col">
         <span class="etq">Web pequeña · 2-5 páginas</span>
         <span class="cifra" data-precio="pequena">700-1.200 €</span>
+        <span class="iva">+ IVA</span>
         <span class="detalle">Micrositio con navegación: varias páginas cortas.</span>
       </div>
       <div class="precio-col">
         <span class="etq">Web mediana · 6-10 páginas</span>
         <span class="cifra" data-precio="mediana">1.200-2.200 €</span>
+        <span class="iva">+ IVA</span>
         <span class="detalle">El tamaño de un despacho: una página por área o servicio, equipo y contacto.</span>
       </div>
     </div>
-    <p style="font-size:14.5px;color:var(--color-text-muted);margin-top:14px;">Ver el <strong>antes/después</strong> de tu web —cómo quedaría— es <strong>gratis y sin compromiso</strong>. Estos rangos son para el proyecto completo, ya publicado.</p>
+    <p style="font-size:14.5px;color:var(--color-text-muted);margin-top:14px;">Ver el <strong>antes/después</strong> de tu web —cómo quedaría— es <strong>gratis y sin compromiso</strong>. Estos rangos son para el proyecto completo, ya publicado. <strong>Todos los precios son + IVA.</strong></p>
 
     <h2>Qué determina el precio</h2>
     <ul class="factores">
@@ -337,7 +341,7 @@
     <div class="faq-lista">
       <details class="faq-item">
         <summary>¿Cuánto cuesta renovar una web?<span class="faq-icono">+</span></summary>
-        <p>Como referencia orientativa: una <strong>landing</strong> (1 página) 400-650 €, una <strong>web pequeña</strong> de 2 a 5 páginas 700-1.200 €, y una de 6 a 10 páginas 1.200-2.200 €. El precio exacto y cerrado te lo damos tras ver tu web.</p>
+        <p>Como referencia orientativa: una <strong>landing</strong> (1 página) 400-650 € + IVA, una <strong>web pequeña</strong> de 2 a 5 páginas 700-1.200 € + IVA, y una de 6 a 10 páginas 1.200-2.200 € + IVA. El precio exacto y cerrado te lo damos tras ver tu web.</p>
       </details>
       <details class="faq-item">
         <summary>¿Ver el antes/después tiene coste?<span class="faq-icono">+</span></summary>
@@ -432,6 +436,8 @@
       function pintarTablaEstatica() {
         document.querySelectorAll('.tabla-precios [data-precio]').forEach(function (el) {
           el.textContent = pintarRango(BASE[moneda()][el.getAttribute('data-precio')]);
+          var iva = el.nextElementSibling;
+          if (iva && iva.classList.contains('iva')) iva.hidden = moneda() === 'usd';
         });
       }
 
@@ -448,7 +454,7 @@
         var base = BASE[moneda()][sel.paginas];
         var factor = 1 + (sel.contenido === 'cero' ? 0.20 : 0) - (sel.publicacion === 'proveedor' ? 0.15 : 0);
         elTitulo.textContent = TITULOS[sel.paginas];
-        elRango.textContent = pintarRango([base[0] * factor, base[1] * factor]) + ' aprox.';
+        elRango.textContent = pintarRango([base[0] * factor, base[1] * factor]) + (moneda() === 'eur' ? ' + IVA' : '') + ' aprox.';
         var plazo = PLAZOS[sel.paginas];
         if (sel.contenido === 'cero') plazo += ' (algo más si partimos de cero)';
         elPlazo.textContent = plazo;

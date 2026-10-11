@@ -7,7 +7,7 @@ Datos de contacto: contacto@renuevasmart.com · WhatsApp +34 602 555 026 (Españ
 ## Qué hacemos y cómo
 - [Inicio](https://renuevasmart.com/): servicio, método, reseñas y preguntas frecuentes.
 - [Cómo trabajamos](https://renuevasmart.com/como-empezar.html): proceso en 6 pasos, del primer mensaje a la web publicada; plazos de 2 a 5 semanas.
-- [Precios](https://renuevasmart.com/precio-rediseno-web.html): rangos de 400 a 2.200 € según el tamaño de la web. Ver también [pricing.md](https://renuevasmart.com/pricing.md).
+- [Precios](https://renuevasmart.com/precio-rediseno-web.html): rangos de 400 a 2.200 € + IVA según el tamaño de la web. Ver también [pricing.md](https://renuevasmart.com/pricing.md).
 - [Quiénes somos](https://renuevasmart.com/quienes-somos.html): quién está detrás de Renueva Smart y qué se publica con datos verificables.
 - [Caso real: notaría Acosta Pastore](https://renuevasmart.com/caso-acosta-pastore.html)
 - [Contacto](https://renuevasmart.com/contacto.html)

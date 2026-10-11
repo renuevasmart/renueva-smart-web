@@ -1,7 +1,7 @@
 # Precios — Renueva Smart
 
-Servicio: diseño y rediseño web para servicios profesionales (abogados, notarías, gestorías, inmobiliarias, clínicas dentales y estéticas). Moneda: euros. Los precios son rangos orientativos para el proyecto completo, ya publicado. El precio cerrado se da tras ver la web actual del cliente.
-Última actualización: 11 de octubre de 2026. Fuente: https://renuevasmart.com/precio-rediseno-web.html
+Servicio: diseño y rediseño web para servicios profesionales (abogados, notarías, gestorías, inmobiliarias, clínicas dentales y estéticas). Moneda: euros. **Todos los precios son + IVA.** Son rangos orientativos para el proyecto completo, ya publicado. El precio cerrado se da tras ver la web actual del cliente.
+Última actualización: 12 de octubre de 2026. Fuente: https://renuevasmart.com/precio-rediseno-web.html
 
 ## Antes/después
 - Precio: 0 €
@@ -9,16 +9,16 @@ Servicio: diseño y rediseño web para servicios profesionales (abogados, notar�
 - Compromiso: ninguno. Solo se paga si el cliente decide publicar la web nueva.
 
 ## Landing — 1 página
-- Precio: 400–650 €
+- Precio: 400–650 € + IVA
 - Una sola página larga con todo lo importante.
 
 ## Web pequeña — 2 a 5 páginas
-- Precio: 700–1.200 €
+- Precio: 700–1.200 € + IVA
 - Micrositio con navegación: varias páginas cortas.
 - Plazo de la web completa publicada: 2 a 3 semanas.
 
 ## Web mediana — 6 a 10 páginas
-- Precio: 1.200–2.200 €
+- Precio: 1.200–2.200 € + IVA
 - El tamaño de un despacho: una página por área o servicio, equipo y contacto.
 - Plazo de la web completa publicada: 3 a 5 semanas.
 - No se hacen webs de más de 10 páginas.
