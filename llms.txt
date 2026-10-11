@@ -1,0 +1,36 @@
+# Renueva Smart
+
+> Renueva Smart es un estudio de diseño y rediseño web para servicios profesionales que venden confianza: abogados, notarías y escribanías, gestorías y asesorías, inmobiliarias, y clínicas dentales y de estética. Trabaja desde Madrid (España) y también atiende a clientes en Uruguay. Su propuesta: rediseña la web del negocio y muestra el antes/después en un enlace privado, gratis y sin compromiso; solo se paga si el cliente decide publicarla. Titular: Alejandro Vidal Voglino (nombre comercial Renueva Smart, antes Publica Smart).
+
+Datos de contacto: contacto@renuevasmart.com · WhatsApp +34 602 555 026 (España) · +598 92 765 085 (Uruguay).
+
+## Qué hacemos y cómo
+- [Inicio](https://renuevasmart.com/): servicio, método, reseñas y preguntas frecuentes.
+- [Cómo trabajamos](https://renuevasmart.com/como-empezar.html): proceso en 6 pasos, del primer mensaje a la web publicada; plazos de 2 a 5 semanas.
+- [Precios](https://renuevasmart.com/precio-rediseno-web.html): rangos de 400 a 2.200 € según el tamaño de la web. Ver también [pricing.md](https://renuevasmart.com/pricing.md).
+- [Quiénes somos](https://renuevasmart.com/quienes-somos.html): quién está detrás de Renueva Smart y qué se publica con datos verificables.
+- [Caso real: notaría Acosta Pastore](https://renuevasmart.com/caso-acosta-pastore.html)
+- [Contacto](https://renuevasmart.com/contacto.html)
+
+## Diseño web por sector
+- [Abogados y estudios jurídicos](https://renuevasmart.com/abogados.html)
+- [Notarías y escribanías](https://renuevasmart.com/notarias.html)
+- [Gestorías y asesorías](https://renuevasmart.com/gestorias.html)
+- [Inmobiliarias](https://renuevasmart.com/inmobiliarias.html)
+- [Clínicas dentales](https://renuevasmart.com/clinicas-dentales.html)
+- [Clínicas estéticas](https://renuevasmart.com/clinicas-esteticas.html)
+
+## Guías del blog
+- [Cuánto cuesta una web para un despacho de abogados](https://renuevasmart.com/blog/cuanto-cuesta-web-despacho-abogados.html)
+- [Cuánto cuesta una web para una clínica dental](https://renuevasmart.com/blog/cuanto-cuesta-web-clinica-dental.html)
+- [Cuánto cuesta una web para una clínica estética](https://renuevasmart.com/blog/cuanto-cuesta-web-clinica-estetica.html)
+- [Cuánto cuesta una web para una gestoría o asesoría](https://renuevasmart.com/blog/cuanto-cuesta-web-gestoria-asesoria.html)
+- [Cuánto cuesta una web para una inmobiliaria](https://renuevasmart.com/blog/cuanto-cuesta-web-inmobiliaria.html)
+- [Cuánto cuesta una web para una notaría](https://renuevasmart.com/blog/cuanto-cuesta-web-notaria.html)
+- [Web a medida o plantilla: cómo elegir](https://renuevasmart.com/blog/web-a-medida-o-plantilla.html)
+- [Todos los artículos](https://renuevasmart.com/blog/index.html)
+
+## Información legal
+- [Aviso legal](https://renuevasmart.com/aviso-legal.html)
+- [Política de privacidad](https://renuevasmart.com/privacidad.html)
+- [Política de cookies](https://renuevasmart.com/politica-cookies.html)
