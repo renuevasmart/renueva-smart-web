@@ -2,6 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; form-action 'self' https://formsubmit.co; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com https://stats.g.doubleclick.net; media-src 'self'; connect-src 'self' blob: https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com https://stats.g.doubleclick.net; frame-src 'self' https://formsubmit.co">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Generar comprobante de pago — Renueva Smart</title>
 <meta name="robots" content="noindex, nofollow">
@@ -287,10 +288,10 @@
 
   <iframe name="iframeEnvioOculto" style="display:none"></iframe>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha384-Yv5O+t3uE3hunW8uyrbpPW3iw6/5/Y7HitWJBLgqfMoA36NogMmy+8wWZMpn3HWc" crossorigin="anonymous"></script>
   <!-- html2canvas-pro reemplaza el renderer viejo que trae html2pdf.bundle: en navegadores actualizados
        ese renderer viejo devuelve un canvas en blanco (fondo sólido, sin nada del contenido real). -->
-  <script src="https://cdn.jsdelivr.net/npm/html2canvas-pro@1.5.8/dist/html2canvas-pro.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas-pro@1.5.8/dist/html2canvas-pro.min.js" integrity="sha384-QbVSYhU9faw2C7l92rI0Dmke8Yod6KaOixC1kkbO/dGnMDKtbWhwcxSSOkmHXWom" crossorigin="anonymous"></script>
   <script>
     const CONFIG_PAIS = {
       UY: {

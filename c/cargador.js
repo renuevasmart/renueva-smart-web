@@ -1,4 +1,4 @@
-// Cargador de enlaces con nombre (renuevasmart.com/c/<tipo>-<cliente>/#clave).
+// Cargador de enlaces cortos (renuevasmart.com/c/<tipo>-<código aleatorio>/#clave).
 // Descifra en el navegador los datos guardados en la página (la clave viaja solo en el #,
 // nunca llega al servidor) y muestra el documento real con esos datos ya cargados.
 (async () => {

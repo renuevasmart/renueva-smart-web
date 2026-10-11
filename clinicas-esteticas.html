@@ -2,6 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; form-action 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com https://stats.g.doubleclick.net; media-src 'self'; connect-src 'self' https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com https://stats.g.doubleclick.net; frame-src 'self'">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Diseño web para clínicas de estética — Renueva Smart</title>
 <meta name="description" content="Rediseñamos la web de tu clínica de estética y te mostramos el antes/después gratis, sin compromiso. Si te gusta, la publicamos.">
@@ -329,12 +330,12 @@
       else if (variante === 'espana') aplicarTerminologiaEspana();
     }
     (function detectarVarianteDeLead() {
-      const controlador = new AbortController();
-      const limite = setTimeout(() => controlador.abort(), 2500);
-      fetch('https://ipapi.co/json/', { signal: controlador.signal })
-        .then((r) => r.json())
-        .then((datos) => { clearTimeout(limite); aplicarSegun(variantePorPais(datos && datos.country_code) || variantePorNavegador()); })
-        .catch(() => { clearTimeout(limite); aplicarSegun(variantePorNavegador()); });
+      /* País aproximado por la zona horaria del navegador: no se consulta a ningún tercero ni se envía la IP de nadie. */
+      var zonas = { 'Europe/Madrid': 'ES', 'Atlantic/Canary': 'ES', 'Africa/Ceuta': 'ES', 'America/Montevideo': 'UY', 'America/Asuncion': 'PY' };
+      var zona = '';
+      try { zona = Intl.DateTimeFormat().resolvedOptions().timeZone || ''; } catch (e) {}
+      var pais = zonas[zona] || (zona.indexOf('America/Argentina/') === 0 || zona === 'America/Buenos_Aires' ? 'AR' : null);
+      aplicarSegun(variantePorPais(pais) || variantePorNavegador());
     })();
   </script>
 </body>
