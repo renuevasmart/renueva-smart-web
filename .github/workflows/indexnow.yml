@@ -1,0 +1,45 @@
+name: Avisar a IndexNow
+
+# Cada vez que se publica algo en master, avisa a Bing (y otros buscadores con IndexNow)
+# de las páginas que han cambiado. Espera a que GitHub Pages termine de desplegar.
+on:
+  push:
+    branches: [master]
+    paths-ignore:
+      - ".github/**"
+      - "Redes Sociales/**"
+  workflow_dispatch:
+    inputs:
+      todas:
+        description: "Enviar todas las URLs del sitemap"
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: indexnow
+  cancel-in-progress: false
+
+jobs:
+  indexnow:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Esperar a que GitHub Pages despliegue
+        run: sleep 150
+
+      - name: Enviar a IndexNow
+        env:
+          TODAS: ${{ inputs.todas }}
+          ANTES: ${{ github.event.before }}
+        run: |
+          if [ "$TODAS" = "true" ] || [ -z "$ANTES" ]; then
+            python3 .github/scripts/indexnow.py --all
+          else
+            python3 .github/scripts/indexnow.py --since "$ANTES"
+          fi
