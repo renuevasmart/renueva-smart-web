@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rivas & Ortega Abogados</title>
+<meta name="robots" content="noindex">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Manrope:wght@400;500;700;800&display=swap" rel="stylesheet">
+<script src="_volver.js"></script>
+<style>
+  :root { --negro: #121212; --vino: #7a1f2b; --vino-2: #f4e9ea; --hueso: #f7f5f1; --gris: #646464; --linea: #e4e0d9; }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: Manrope, system-ui, sans-serif; color: var(--negro); background: var(--hueso); line-height: 1.6; }
+  h1, h2, h3 { font-family: "Playfair Display", Georgia, serif; margin: 0; line-height: 1.12; }
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 0 20px; }
+  header { background: var(--negro); color: #fff; }
+  .nav { height: 76px; display: flex; justify-content: space-between; align-items: center; }
+  .logo { font-family: "Playfair Display"; font-size: 23px; text-decoration: none; color: #fff; }
+  .logo span { color: #d4737f; }
+  .menu { display: flex; gap: 28px; align-items: center; font-size: 14.5px; font-weight: 500; }
+  .menu a { color: #cfcfcf; text-decoration: none; }
+  .btn { display: inline-block; border: 0; background: var(--vino); color: #fff !important; padding: 14px 26px; border-radius: 4px; font: 700 15px Manrope; text-decoration: none; cursor: pointer; }
+  .btn:hover { background: #63161f; }
+  .btn-linea { background: transparent; border: 1.5px solid currentColor; color: var(--negro) !important; }
+  .btn-linea:hover { background: rgba(0,0,0,.05); }
+  @media (max-width: 820px) { .menu a:not(.btn) { display: none; } .menu .btn { padding: 10px 16px; } }
+  .hero { background: var(--negro); color: #fff; padding: 70px 0 0; }
+  .hero .wrap { display: grid; grid-template-columns: 1.1fr .9fr; gap: 48px; }
+  @media (max-width: 900px) { .hero .wrap { grid-template-columns: 1fr; } }
+  .hero h1 { font-size: clamp(40px, 5.6vw, 70px); }
+  .hero h1 span { color: #d4737f; font-style: italic; }
+  .hero p { color: #bdbdbd; font-size: 18px; margin: 20px 0 32px; max-width: 48ch; }
+  .cifras { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid #2c2c2c; margin-top: 56px; }
+  .cifras div { padding: 26px 0; font-size: 14px; color: #9a9a9a; }
+  .cifras b { display: block; font-family: "Playfair Display"; font-size: clamp(28px, 4vw, 40px); color: #fff; }
+
+  /* Test */
+  .test { background: #fff; color: var(--negro); border-radius: 8px; padding: 28px; align-self: start; box-shadow: 0 30px 60px rgba(0,0,0,.35); }
+  .test small { color: var(--vino); font-weight: 800; letter-spacing: .14em; text-transform: uppercase; font-size: 11.5px; }
+  .test h3 { font-size: 26px; margin: 6px 0 18px; }
+  .barra { height: 4px; background: var(--linea); border-radius: 4px; margin-bottom: 20px; }
+  .barra i { display: block; height: 100%; background: var(--vino); border-radius: 4px; transition: width .3s; }
+  .resp { display: grid; gap: 10px; }
+  .resp button { text-align: left; background: var(--hueso); border: 1.5px solid var(--linea); border-radius: 6px; padding: 14px 16px; font: 600 15px Manrope; cursor: pointer; color: var(--negro); }
+  .resp button:hover { border-color: var(--vino); background: var(--vino-2); }
+  .resultado { background: var(--vino-2); border-left: 3px solid var(--vino); padding: 16px; border-radius: 4px; margin-bottom: 16px; }
+
+  section { padding: 80px 0; }
+  .cab { display: flex; justify-content: space-between; align-items: end; gap: 20px; flex-wrap: wrap; margin-bottom: 36px; }
+  .cab h2 { font-size: clamp(32px, 4.4vw, 48px); max-width: 16ch; }
+  .cab p { color: var(--gris); max-width: 42ch; margin: 0; }
+  .areas { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--linea); border: 1px solid var(--linea); }
+  @media (max-width: 900px) { .areas { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 560px) { .areas { grid-template-columns: 1fr; } }
+  .area { background: var(--hueso); padding: 30px; transition: background .2s; }
+  .area:hover { background: #fff; }
+  .area .n { font-family: "Playfair Display"; color: var(--vino); font-size: 15px; }
+  .area h3 { font-size: 25px; margin: 8px 0 10px; }
+  .area p { margin: 0; color: var(--gris); font-size: 15px; }
+  .form-sec { background: #fff; }
+  .form-sec .wrap { display: grid; grid-template-columns: .9fr 1.1fr; gap: 56px; }
+  @media (max-width: 900px) { .form-sec .wrap { grid-template-columns: 1fr; gap: 28px; } }
+  .form-sec h2 { font-size: clamp(32px, 4.4vw, 46px); }
+  .garantias { list-style: none; padding: 0; margin: 24px 0 0; display: grid; gap: 14px; }
+  .garantias li { display: flex; gap: 12px; color: var(--gris); }
+  .garantias li::before { content: "✓"; color: var(--vino); font-weight: 800; }
+  form { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  form .full { grid-column: 1 / -1; }
+  @media (max-width: 560px) { form { grid-template-columns: 1fr; } }
+  label { display: grid; gap: 6px; font-size: 13px; font-weight: 700; }
+  input, select, textarea { font: 15px Manrope; padding: 13px 14px; border: 1.5px solid var(--linea); border-radius: 6px; background: var(--hueso); width: 100%; color: var(--negro); }
+  .urg { display: flex; gap: 8px; flex-wrap: wrap; }
+  .urg label { display: flex; align-items: center; gap: 6px; border: 1.5px solid var(--linea); border-radius: 999px; padding: 8px 14px; cursor: pointer; font-weight: 600; }
+  .urg input { width: auto; accent-color: var(--vino); }
+  .urg label:has(input:checked) { border-color: var(--vino); background: var(--vino-2); }
+  .ok { border: 1.5px solid var(--vino); border-radius: 8px; padding: 32px; }
+  footer { background: var(--negro); color: #8a8a8a; padding: 30px 0 80px; font-size: 14px; }
+</style>
+</head>
+<body>
+<header><div class="wrap nav">
+  <a class="logo" href="#">Rivas <span>&</span> Ortega</a>
+  <nav class="menu"><a href="#areas">Áreas</a><a href="#consulta">Contacto</a><a class="btn" href="#consulta">Primera consulta</a></nav>
+</div></header>
+
+<div class="hero"><div class="wrap">
+  <div>
+    <h1>Defendemos lo que <span>te importa</span>.</h1>
+    <p>Despacho de abogados especializado en derecho laboral, familia, herencias y reclamaciones. Te decimos con claridad si tu caso tiene recorrido, antes de cobrarte nada.</p>
+    <a class="btn" href="#consulta">Solicitar primera consulta</a>
+    <div class="cifras"><div><b>22</b>años de ejercicio</div><div><b>1.900+</b>casos resueltos</div><div><b>87 %</b>de éxito en juicio</div></div>
+  </div>
+  <div class="test" id="test" aria-live="polite"></div>
+</div></div>
+
+<section id="areas"><div class="wrap">
+  <div class="cab"><h2>Áreas en las que te ayudamos</h2><p>Sin tecnicismos: te explicamos tu situación y tus opciones en lenguaje claro.</p></div>
+  <div class="areas">
+    <div class="area"><span class="n">01</span><h3>Laboral</h3><p>Despidos, reclamación de salarios, acoso laboral e incapacidades.</p></div>
+    <div class="area"><span class="n">02</span><h3>Familia</h3><p>Divorcios, custodia, pensiones de alimentos y modificación de medidas.</p></div>
+    <div class="area"><span class="n">03</span><h3>Herencias</h3><p>Testamentos, particiones, reclamación de legítima y conflictos entre herederos.</p></div>
+    <div class="area"><span class="n">04</span><h3>Reclamaciones</h3><p>Accidentes de tráfico, negligencias, seguros y cláusulas bancarias.</p></div>
+    <div class="area"><span class="n">05</span><h3>Penal</h3><p>Asistencia al detenido, defensa en juicio y acusación particular.</p></div>
+    <div class="area"><span class="n">06</span><h3>Empresas</h3><p>Contratos, impagos, recobro de deudas y asesoría mensual.</p></div>
+  </div>
+</div></section>
+
+<section class="form-sec" id="consulta"><div class="wrap">
+  <div>
+    <h2>Primera consulta</h2>
+    <p style="color:var(--gris)">Cuéntanos tu caso. Un abogado especialista lo revisa y te llama en menos de 24 horas.</p>
+    <ul class="garantias"><li>Valoración del caso sin compromiso</li><li>Presupuesto cerrado por escrito</li><li>Confidencialidad absoluta desde el primer contacto</li></ul>
+  </div>
+  <div id="form-cont">
+    <form id="form">
+      <label>Nombre<input required autocomplete="name"></label>
+      <label>Teléfono<input required type="tel" autocomplete="tel"></label>
+      <label class="full">Área<select id="f-area"><option>Laboral</option><option>Familia</option><option>Herencias</option><option>Reclamaciones</option><option>Penal</option><option>Empresas</option><option>No lo sé</option></select></label>
+      <div class="full"><label style="margin-bottom:8px">¿Cuánta urgencia tiene?</label><div class="urg">
+        <label><input type="radio" name="u" value="Hay plazos corriendo" checked>Hay plazos corriendo</label>
+        <label><input type="radio" name="u" value="Esta semana">Esta semana</label>
+        <label><input type="radio" name="u" value="Solo quiero informarme">Solo informarme</label>
+      </div></div>
+      <label class="full">Resumen del caso<textarea rows="4" placeholder="Qué ha pasado, cuándo y qué te gustaría conseguir"></textarea></label>
+      <div class="full"><button class="btn">Enviar y que me llamen</button></div>
+    </form>
+  </div>
+</div></section>
+
+<footer><div class="wrap">Rivas & Ortega Abogados · Despacho ficticio para la sala de demos de Renueva Smart</div></footer>
+
+<script>
+const PREGUNTAS = [
+  { q: "¿Con qué tiene que ver tu problema?", r: [["Mi trabajo o mi empresa", "Laboral"], ["Mi pareja o mis hijos", "Familia"], ["Una herencia", "Herencias"], ["Un accidente, banco o seguro", "Reclamaciones"]] },
+  { q: "¿Cuándo ocurrió?", r: [["Hace menos de 20 días", 3], ["Hace menos de un año", 2], ["Hace más de un año", 1]] },
+  { q: "¿Tienes documentos o pruebas?", r: [["Sí, bastantes", 3], ["Algunos", 2], ["No, ninguno", 1]] }
+];
+let paso = 0, area = null, puntos = 0;
+const test = document.getElementById("test");
+function pintar() {
+  if (paso < PREGUNTAS.length) {
+    const p = PREGUNTAS[paso];
+    test.innerHTML = `<small>¿Tienes caso? · Pregunta ${paso + 1} de 3</small><h3>${p.q}</h3>
+      <div class="barra"><i style="width:${paso / 3 * 100}%"></i></div>
+      <div class="resp">${p.r.map((r, i) => `<button data-i="${i}">${r[0]}</button>`).join("")}</div>`;
+    test.querySelectorAll(".resp button").forEach(b => b.onclick = () => {
+      const v = p.r[b.dataset.i][1];
+      if (paso === 0) area = v; else puntos += v;
+      paso++; pintar();
+    });
+  } else {
+    const urgente = area === "Laboral" && puntos >= 5;
+    const fuerte = puntos >= 5;
+    test.innerHTML = `<small>Resultado orientativo</small><h3>${fuerte ? "Tu caso tiene buena base" : "Merece la pena revisarlo"}</h3>
+      <div class="barra"><i style="width:100%"></i></div>
+      <div class="resultado"><b>Área: ${area}</b><br>${urgente ? "⚠️ En despidos hay solo 20 días hábiles para reclamar. Te recomendamos contactar hoy." : fuerte ? "Con la documentación que tienes, un especialista puede valorarlo rápido." : "Un abogado puede decirte qué pruebas reunir y si todavía estás en plazo."}</div>
+      <a class="btn" href="#consulta" id="ir" style="width:100%;text-align:center">Pedir mi primera consulta</a>
+      <button class="btn btn-linea" id="rep" style="width:100%;margin-top:10px">Repetir el test</button>`;
+    document.getElementById("ir").onclick = () => {
+      document.getElementById("f-area").value = area;
+      if (urgente) document.querySelector('input[name="u"]').checked = true;
+    };
+    document.getElementById("rep").onclick = () => { paso = 0; puntos = 0; area = null; pintar(); };
+  }
+}
+document.getElementById("form").onsubmit = e => {
+  e.preventDefault();
+  const a = document.getElementById("f-area").value, u = e.target.u.value;
+  document.getElementById("form-cont").innerHTML = `<div class="ok"><h3 style="font-size:30px;color:var(--vino)">Solicitud enviada</h3><p>Área: <b>${a}</b> · Urgencia: <b>${u}</b>.<br>Un abogado especialista te llamará en menos de 24 horas.</p></div>`;
+};
+pintar();
+</script>
+</body>
+</html>

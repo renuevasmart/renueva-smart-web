@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Muebles Madera · Taller de muebles a medida</title>
+<meta name="robots" content="noindex">
+<link href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Inter+Tight:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="_volver.js"></script>
+<style>
+  :root { --nogal: #5a3a22; --roble: #b07b47; --lino: #f3ece2; --papel: #faf7f2; --tinta: #2a211b; --gris: #7d7166; --linea: #e3d9cc; --musgo: #4d5b3c; }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: "Inter Tight", system-ui, sans-serif; color: var(--tinta); background: var(--papel); line-height: 1.55; }
+  h1, h2, h3 { font-family: "Young Serif", Georgia, serif; font-weight: 400; margin: 0; line-height: 1.08; }
+  .wrap { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+  .nav { height: 76px; display: flex; justify-content: space-between; align-items: center; }
+  .logo { font-family: "Young Serif"; font-size: 24px; text-decoration: none; color: var(--tinta); display: flex; gap: 10px; align-items: center; }
+  .logo i { width: 34px; height: 34px; border-radius: 50%; background: repeating-radial-gradient(circle at 40% 45%, var(--roble) 0 3px, #c99563 3px 6px); }
+  .menu { display: flex; gap: 26px; align-items: center; font-size: 15px; }
+  .menu a { text-decoration: none; color: var(--gris); }
+  @media (max-width: 760px) { .menu a:not(.btn) { display: none; } }
+  .btn { display: inline-block; background: var(--tinta); color: var(--papel) !important; border: 0; border-radius: 999px; padding: 13px 24px; font: 600 15px "Inter Tight"; text-decoration: none; cursor: pointer; }
+  .btn:hover { background: var(--nogal); }
+  .btn-m { background: var(--musgo); } .btn-m:hover { background: #3c4830; }
+  .hero { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; padding: 40px 0 70px; }
+  @media (max-width: 860px) { .hero { grid-template-columns: 1fr; } }
+  .hero h1 { font-size: clamp(42px, 6vw, 78px); }
+  .hero p { color: var(--gris); font-size: 18px; margin: 18px 0 26px; max-width: 44ch; }
+  .vetas { aspect-ratio: 1.15; border-radius: 28px; background:
+      repeating-linear-gradient(92deg, rgba(0,0,0,.05) 0 2px, transparent 2px 13px),
+      repeating-radial-gradient(ellipse 120% 30% at 30% 60%, #c48d55 0 6px, #b07b47 6px 13px, #a46e3c 13px 17px);
+    position: relative; box-shadow: inset 0 0 80px rgba(60,30,10,.3); }
+  .vetas span { position: absolute; left: 20px; bottom: 20px; background: var(--papel); border-radius: 999px; padding: 8px 14px; font-size: 13.5px; font-weight: 600; }
+  section { padding: 60px 0; }
+  .cab { margin-bottom: 26px; }
+  .cab small { font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--roble); font-size: 12px; }
+  .cab h2 { font-size: clamp(32px, 4.4vw, 50px); margin-top: 6px; }
+  .config { display: grid; grid-template-columns: 1.15fr .85fr; gap: 0; background: #fff; border: 1px solid var(--linea); border-radius: 26px; overflow: hidden; }
+  @media (max-width: 920px) { .config { grid-template-columns: 1fr; } }
+  .lienzo { background: var(--lino); display: flex; flex-direction: column; justify-content: center; padding: 30px; min-height: 420px; position: relative; }
+  .lienzo svg { width: 100%; height: auto; max-height: 340px; }
+  .medidas { position: absolute; left: 24px; top: 20px; font-size: 13.5px; color: var(--gris); }
+  .opciones { padding: 28px; display: grid; gap: 22px; align-content: start; }
+  .g b { display: block; font-size: 13px; letter-spacing: .1em; text-transform: uppercase; color: var(--gris); margin-bottom: 10px; }
+  .maderas { display: flex; gap: 10px; flex-wrap: wrap; }
+  .madera { border: 2px solid var(--linea); border-radius: 14px; padding: 6px 12px 6px 6px; display: flex; align-items: center; gap: 8px; background: #fff; cursor: pointer; font: 500 14.5px "Inter Tight"; }
+  .madera i { width: 30px; height: 30px; border-radius: 9px; }
+  .madera[aria-pressed="true"] { border-color: var(--tinta); }
+  .seg { display: flex; background: var(--lino); border-radius: 12px; padding: 4px; }
+  .seg button { flex: 1; border: 0; background: none; border-radius: 9px; padding: 9px 6px; font: 500 14px "Inter Tight"; cursor: pointer; color: var(--gris); }
+  .seg button[aria-pressed="true"] { background: #fff; color: var(--tinta); box-shadow: 0 1px 4px rgba(0,0,0,.08); }
+  .rango { display: grid; grid-template-columns: 70px 1fr 64px; gap: 10px; align-items: center; font-size: 14.5px; }
+  .rango input { accent-color: var(--nogal); width: 100%; }
+  .rango output { font-weight: 700; text-align: right; }
+  .precio { background: var(--tinta); color: var(--papel); border-radius: 18px; padding: 18px 20px; display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+  .precio b { font-family: "Young Serif"; font-size: 34px; }
+  .precio small { color: #cdbfb0; display: block; }
+  .proceso { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; counter-reset: p; }
+  @media (max-width: 860px) { .proceso { grid-template-columns: 1fr 1fr; } }
+  .proceso div { border-top: 2px solid var(--tinta); padding-top: 14px; }
+  .proceso div::before { counter-increment: p; content: "0" counter(p); font-family: "Young Serif"; color: var(--roble); font-size: 22px; }
+  .proceso h3 { font-size: 21px; margin: 6px 0; }
+  .proceso p { color: var(--gris); margin: 0; font-size: 15px; }
+  dialog { border: 0; border-radius: 22px; padding: 28px; width: min(500px, 92vw); background: var(--papel); }
+  dialog::backdrop { background: rgba(42,33,27,.5); }
+  dialog form { display: grid; gap: 12px; }
+  input[type=text], input[type=tel], input[type=email], textarea { font: 15px "Inter Tight"; padding: 12px 14px; border: 1.5px solid var(--linea); border-radius: 12px; width: 100%; background: #fff; }
+  footer { border-top: 1px solid var(--linea); padding: 30px 0 80px; color: var(--gris); font-size: 14px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav class="nav"><a class="logo" href="#"><i></i>Muebles Madera</a><div class="menu"><a href="#configurador">Configurador</a><a href="#proceso">Cómo trabajamos</a><a class="btn" href="#configurador">Diseña tu mesa</a></div></nav>
+  <div class="hero">
+    <div>
+      <h1>Muebles de madera maciza, hechos a tu medida.</h1>
+      <p>Mesas, aparadores y estanterías fabricados a mano en nuestro taller. Diseña tu mesa en el configurador y conoce el precio al momento.</p>
+      <a class="btn btn-m" href="#configurador">Diseñar mi mesa</a>
+    </div>
+    <div class="vetas"><span>🌳 Madera certificada FSC · 10 años de garantía</span></div>
+  </div>
+</div>
+
+<section id="configurador"><div class="wrap">
+  <div class="cab"><small>Configurador</small><h2>Diseña tu mesa de comedor</h2></div>
+  <div class="config">
+    <div class="lienzo"><div class="medidas" id="medidas"></div><svg id="svg" viewBox="0 0 520 300" aria-label="Vista previa de la mesa"></svg></div>
+    <div class="opciones">
+      <div class="g"><b>Madera</b><div class="maderas" id="maderas"></div></div>
+      <div class="g"><b>Patas</b><div class="seg" id="patas"></div></div>
+      <div class="g"><b>Medidas</b>
+        <div class="rango"><span>Largo</span><input type="range" id="largo" min="120" max="300" step="10" value="180"><output id="o-largo"></output></div>
+        <div class="rango"><span>Ancho</span><input type="range" id="ancho" min="70" max="120" step="5" value="90"><output id="o-ancho"></output></div>
+      </div>
+      <div class="g"><b>Acabado</b><div class="seg" id="acabado"></div></div>
+      <div class="precio"><div><small>Precio estimado</small><b id="precio">—</b><small id="plazo"></small></div><button class="btn btn-m" id="encargar">Pedir presupuesto final</button></div>
+    </div>
+  </div>
+</div></section>
+
+<section id="proceso"><div class="wrap">
+  <div class="cab"><small>Proceso</small><h2>Así trabajamos</h2></div>
+  <div class="proceso">
+    <div><h3>Diseño</h3><p>Ajustamos contigo medidas y detalles a partir de tu configuración.</p></div>
+    <div><h3>Madera</h3><p>Seleccionamos los tablones y te enviamos fotos de las vetas.</p></div>
+    <div><h3>Taller</h3><p>Fabricamos a mano con uniones tradicionales, sin tornillería vista.</p></div>
+    <div><h3>Entrega</h3><p>La llevamos y montamos en tu casa. Sin sorpresas.</p></div>
+  </div>
+</div></section>
+
+<footer><div class="wrap">Muebles Madera · Taller y precios de ejemplo para la sala de demos de Renueva Smart</div></footer>
+<dialog id="dlg"></dialog>
+
+<script>
+const MADERAS = [
+  { n: "Roble", c1: "#c99563", c2: "#a8723f", eur: 1.0 },
+  { n: "Nogal", c1: "#7a4f30", c2: "#553521", eur: 1.45 },
+  { n: "Fresno", c1: "#e2c9a3", c2: "#c7a77a", eur: .9 },
+  { n: "Pino", c1: "#ecd09a", c2: "#d4ad6a", eur: .6 }
+];
+const PATAS = [{ n: "Rectas", x: 0 }, { n: "Cónicas", x: 60 }, { n: "En X", x: 140 }, { n: "Caballete", x: 110 }];
+const ACABADOS = [{ n: "Aceite natural", x: 0 }, { n: "Barniz mate", x: 80 }, { n: "Cera", x: 40 }];
+const st = { madera: 0, patas: 1, acabado: 0, largo: 180, ancho: 90 };
+const eur = n => n.toLocaleString("es-ES", { style: "currency", currency: "EUR", maximumFractionDigits: 0 });
+
+function seg(id, arr, key) {
+  const el = document.getElementById(id);
+  el.innerHTML = arr.map((o, i) => `<button data-i="${i}" aria-pressed="${st[key] === i}">${o.n}</button>`).join("");
+  el.onclick = e => { const b = e.target.closest("button"); if (b) { st[key] = +b.dataset.i; pintar(); } };
+}
+function dibujar() {
+  const m = MADERAS[st.madera];
+  const w = 160 + (st.largo - 120) / 180 * 300;     // ancho visual del tablero
+  const d = 24 + (st.ancho - 70) / 50 * 26;         // profundidad en perspectiva
+  const x0 = (520 - w) / 2, y0 = 90, h = 130;
+  const grad = `<defs><linearGradient id="t" x1="0" x2="1"><stop offset="0" stop-color="${m.c2}"/><stop offset=".5" stop-color="${m.c1}"/><stop offset="1" stop-color="${m.c2}"/></linearGradient>
+    <pattern id="v" width="40" height="6" patternUnits="userSpaceOnUse"><path d="M0 3 Q10 0 20 3 T40 3" stroke="${m.c2}" stroke-opacity=".35" fill="none"/></pattern></defs>`;
+  const top = `<path d="M${x0 + d} ${y0 - d} h${w - d} l${-d} ${d} h${-(w - d)} z" fill="url(#t)"/><path d="M${x0 + d} ${y0 - d} h${w - d} l${-d} ${d} h${-(w - d)} z" fill="url(#v)"/><rect x="${x0}" y="${y0}" width="${w - d}" height="12" fill="${m.c2}"/><path d="M${x0 + w - d} ${y0} l${d} ${-d} v12 l${-d} ${d} z" fill="${m.c2}" opacity=".8"/>`;
+  const L = x0 + 18, R = x0 + w - d - 26, b = y0 + 12, f = y0 + 12 + h;
+  let patas = "";
+  const t = st.patas;
+  if (t === 0) patas = [L, R].map(x => `<rect x="${x}" y="${b}" width="10" height="${h}" fill="${m.c2}"/>`).join("") + [L + d * .7, R + d * .7].map(x => `<rect x="${x}" y="${b - d * .5}" width="8" height="${h - 6}" fill="${m.c2}" opacity=".55"/>`).join("");
+  if (t === 1) patas = [L, R].map(x => `<path d="M${x} ${b} h12 l-4 ${h} h-5 z" fill="${m.c2}"/>`).join("") + [L + d * .7, R + d * .7].map(x => `<path d="M${x} ${b - d * .5} h10 l-3 ${h - 6} h-4 z" fill="${m.c2}" opacity=".55"/>`).join("");
+  if (t === 2) patas = [L + 20, R - 20].map(x => `<path d="M${x - 26} ${b} L${x + 26} ${f} M${x + 26} ${b} L${x - 26} ${f}" stroke="${m.c2}" stroke-width="10" stroke-linecap="round"/>`).join("");
+  if (t === 3) patas = [L + 14, R - 14].map(x => `<path d="M${x - 22} ${f} L${x} ${b} L${x + 22} ${f}" stroke="${m.c2}" stroke-width="9" fill="none" stroke-linecap="round"/>`).join("") + `<rect x="${L + 14}" y="${b + h * .55}" width="${R - L - 28}" height="7" fill="${m.c2}"/>`;
+  const sombra = `<ellipse cx="260" cy="${f + 8}" rx="${w / 2 + 10}" ry="10" fill="#000" opacity=".08"/>`;
+  document.getElementById("svg").innerHTML = grad + sombra + patas + top;
+  document.getElementById("medidas").textContent = `${st.largo} × ${st.ancho} × 75 cm · aprox. ${Math.round(st.largo / 60) * 2} comensales`;
+}
+function pintar() {
+  document.getElementById("maderas").innerHTML = MADERAS.map((m, i) => `<button class="madera" data-i="${i}" aria-pressed="${st.madera === i}"><i style="background:linear-gradient(135deg,${m.c1},${m.c2})"></i>${m.n}</button>`).join("");
+  seg("patas", PATAS, "patas"); seg("acabado", ACABADOS, "acabado");
+  document.getElementById("o-largo").textContent = st.largo + " cm";
+  document.getElementById("o-ancho").textContent = st.ancho + " cm";
+  const sup = st.largo * st.ancho / 10000; // m²
+  const total = 380 + sup * 520 * MADERAS[st.madera].eur + PATAS[st.patas].x + ACABADOS[st.acabado].x;
+  document.getElementById("precio").textContent = eur(Math.round(total / 10) * 10);
+  document.getElementById("plazo").textContent = `Plazo de fabricación: ${st.largo > 240 ? "6–7" : "4–5"} semanas`;
+  dibujar();
+}
+document.getElementById("maderas").onclick = e => { const b = e.target.closest(".madera"); if (b) { st.madera = +b.dataset.i; pintar(); } };
+document.getElementById("largo").oninput = e => { st.largo = +e.target.value; pintar(); };
+document.getElementById("ancho").oninput = e => { st.ancho = +e.target.value; pintar(); };
+document.getElementById("encargar").onclick = () => {
+  const dlg = document.getElementById("dlg");
+  const res = `Mesa de ${MADERAS[st.madera].n.toLowerCase()} · ${st.largo}×${st.ancho} cm · patas ${PATAS[st.patas].n.toLowerCase()} · ${ACABADOS[st.acabado].n.toLowerCase()}`;
+  dlg.innerHTML = `<h3 style="font-size:28px">Tu mesa</h3><p style="color:var(--gris)">${res}<br>Estimado: <b style="color:var(--tinta)">${document.getElementById("precio").textContent}</b></p>
+    <form id="fp"><input type="text" required placeholder="Nombre"><input type="tel" required placeholder="Teléfono"><textarea rows="3" placeholder="¿Algo más? Cajón, bordes, alargable…"></textarea><button class="btn btn-m">Enviar al taller</button><button type="button" class="btn" style="background:var(--lino);color:var(--tinta)!important" id="cx">Seguir diseñando</button></form>`;
+  dlg.showModal();
+  dlg.querySelector("#cx").onclick = () => dlg.close();
+  dlg.querySelector("#fp").onsubmit = e => { e.preventDefault(); dlg.innerHTML = `<h3 style="font-size:28px">¡Recibido! 🪵</h3><p style="color:var(--gris)">Te llamamos en 48 h para cerrar detalles y enviarte fotos de la madera.</p><button class="btn" onclick="this.closest('dialog').close()">Cerrar</button>`; };
+};
+pintar();
+</script>
+</body>
+</html>

@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Habitat Inmobiliaria</title>
+<meta name="robots" content="noindex">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+<script src="_volver.js"></script>
+<style>
+  :root { --azul: #1d4ed8; --azul-2: #eef3ff; --tinta: #0f172a; --gris: #64748b; --linea: #e2e8f0; --bg: #f8fafc; --verde: #059669; }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: Outfit, system-ui, sans-serif; color: var(--tinta); background: var(--bg); line-height: 1.5; }
+  h1, h2, h3 { margin: 0; line-height: 1.1; font-weight: 700; letter-spacing: -.02em; }
+  .wrap { max-width: 1200px; margin: 0 auto; padding: 0 18px; }
+  header { background: #fff; border-bottom: 1px solid var(--linea); position: sticky; top: 0; z-index: 10; }
+  .nav { height: 68px; display: flex; align-items: center; justify-content: space-between; }
+  .logo { font-weight: 700; font-size: 22px; text-decoration: none; color: var(--tinta); display: flex; align-items: center; gap: 8px; }
+  .logo i { width: 30px; height: 30px; background: var(--azul); border-radius: 8px; display: grid; place-items: center; color: #fff; font-style: normal; font-size: 16px; }
+  .menu { display: flex; gap: 24px; align-items: center; font-size: 15px; }
+  .menu a { text-decoration: none; color: var(--gris); }
+  .btn { display: inline-block; background: var(--azul); color: #fff !important; border: 0; border-radius: 10px; padding: 12px 20px; font: 600 15px Outfit; text-decoration: none; cursor: pointer; }
+  .btn:hover { background: #1e40af; }
+  .btn-claro { background: var(--azul-2); color: var(--azul) !important; }
+  .btn-claro:hover { background: #dbe5ff; }
+  @media (max-width: 760px) { .menu a:not(.btn) { display: none; } }
+  .hero { background: linear-gradient(120deg, #0f172a, #1e3a8a); color: #fff; padding: 60px 0 90px; }
+  .hero h1 { font-size: clamp(36px, 5.4vw, 62px); font-weight: 600; max-width: 18ch; }
+  .hero p { color: #c7d2fe; font-size: 18px; margin: 14px 0 0; }
+  .buscador { background: #fff; border-radius: 16px; padding: 14px; display: grid; grid-template-columns: auto 1fr 1fr 1fr auto; gap: 10px; margin-top: -48px; box-shadow: 0 20px 50px rgba(15,23,42,.14); align-items: end; }
+  @media (max-width: 900px) { .buscador { grid-template-columns: 1fr 1fr; } .buscador .op { grid-column: 1 / -1; } }
+  .op { display: flex; background: var(--bg); border-radius: 10px; padding: 4px; }
+  .op button { border: 0; background: none; padding: 10px 16px; border-radius: 8px; font: 600 14.5px Outfit; cursor: pointer; color: var(--gris); flex: 1; }
+  .op button[aria-pressed="true"] { background: #fff; color: var(--azul); box-shadow: 0 1px 4px rgba(0,0,0,.08); }
+  label { display: grid; gap: 4px; font-size: 12.5px; font-weight: 600; color: var(--gris); }
+  select, input { font: 15px Outfit; padding: 11px 12px; border: 1px solid var(--linea); border-radius: 10px; background: #fff; color: var(--tinta); width: 100%; }
+  .barra-res { display: flex; justify-content: space-between; align-items: center; margin: 34px 0 16px; gap: 12px; flex-wrap: wrap; }
+  .barra-res h2 { font-size: 24px; }
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  @media (max-width: 960px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 600px) { .grid { grid-template-columns: 1fr; } }
+  .prop { background: #fff; border: 1px solid var(--linea); border-radius: 16px; overflow: hidden; cursor: pointer; transition: transform .15s, box-shadow .15s; }
+  .prop:hover { transform: translateY(-3px); box-shadow: 0 14px 30px rgba(15,23,42,.1); }
+  .foto { aspect-ratio: 16/10; position: relative; display: grid; place-items: center; font-size: 54px; }
+  .foto .et { position: absolute; left: 12px; top: 12px; background: #fff; border-radius: 6px; padding: 3px 9px; font-size: 12.5px; font-weight: 600; }
+  .fav { position: absolute; right: 12px; top: 12px; width: 36px; height: 36px; border-radius: 50%; border: 0; background: #fff; cursor: pointer; font-size: 17px; }
+  .info { padding: 16px; }
+  .precio { font-size: 22px; font-weight: 700; }
+  .info h3 { font-size: 16px; font-weight: 600; margin: 4px 0 8px; }
+  .carac { display: flex; gap: 14px; color: var(--gris); font-size: 14px; }
+  .vacio { grid-column: 1 / -1; text-align: center; color: var(--gris); padding: 50px 0; }
+  .tasacion { margin: 70px 0; background: var(--azul-2); border-radius: 22px; padding: clamp(24px, 4vw, 48px); display: grid; grid-template-columns: 1fr auto; gap: 24px; align-items: center; }
+  @media (max-width: 760px) { .tasacion { grid-template-columns: 1fr; } }
+  .tasacion h2 { font-size: clamp(26px, 3.6vw, 38px); }
+  /* Modal */
+  dialog { border: 0; border-radius: 20px; padding: 0; width: min(760px, 94vw); max-height: 92vh; }
+  dialog::backdrop { background: rgba(15,23,42,.55); }
+  .m-foto { aspect-ratio: 16/8; display: grid; place-items: center; font-size: 90px; position: relative; }
+  .m-cerrar { position: absolute; right: 14px; top: 14px; width: 38px; height: 38px; border: 0; border-radius: 50%; background: #fff; font-size: 18px; cursor: pointer; }
+  .m-cuerpo { padding: 24px; display: grid; grid-template-columns: 1.2fr 1fr; gap: 24px; }
+  @media (max-width: 640px) { .m-cuerpo { grid-template-columns: 1fr; } }
+  .m-carac { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 14px 0; font-size: 14.5px; }
+  .m-carac span { background: var(--bg); padding: 8px 10px; border-radius: 8px; }
+  .visita { background: var(--bg); border-radius: 14px; padding: 16px; display: grid; gap: 10px; }
+  .franjas { display: flex; gap: 6px; flex-wrap: wrap; }
+  .franjas button { border: 1px solid var(--linea); background: #fff; border-radius: 8px; padding: 7px 10px; font: 600 13.5px Outfit; cursor: pointer; }
+  .franjas button[aria-pressed="true"] { background: var(--azul); color: #fff; border-color: var(--azul); }
+  footer { border-top: 1px solid var(--linea); padding: 30px 0 80px; color: var(--gris); font-size: 14px; }
+</style>
+</head>
+<body>
+<header><div class="wrap nav">
+  <a class="logo" href="#"><i>⌂</i>Habitat</a>
+  <nav class="menu"><a href="#">Comprar</a><a href="#">Alquilar</a><a href="#tasar">Vender</a><a class="btn btn-claro" href="#" id="ver-favs">♡ Favoritos <span id="nfav">0</span></a></nav>
+</div></header>
+
+<div class="hero"><div class="wrap">
+  <h1>Encuentra tu próxima casa sin perder tiempo</h1>
+  <p>Propiedades verificadas y visitas en el día y la hora que te vengan bien.</p>
+</div></div>
+
+<main class="wrap">
+  <div class="buscador">
+    <div class="op" id="op"><button aria-pressed="true" data-v="venta">Comprar</button><button aria-pressed="false" data-v="alquiler">Alquilar</button></div>
+    <label>Zona<select id="zona"><option value="">Todas</option><option>Centro</option><option>Playa</option><option>Norte</option><option>Afueras</option></select></label>
+    <label>Dormitorios<select id="dorm"><option value="0">Cualquiera</option><option value="1">1+</option><option value="2">2+</option><option value="3">3+</option><option value="4">4+</option></select></label>
+    <label>Precio máximo<select id="max"></select></label>
+    <button class="btn" id="limpiar" type="button">Limpiar</button>
+  </div>
+
+  <div class="barra-res"><h2 id="n-res"></h2><label style="flex-direction:row;display:flex;align-items:center;gap:8px">Ordenar<select id="orden" style="width:auto"><option value="rel">Relevancia</option><option value="asc">Precio ↑</option><option value="desc">Precio ↓</option></select></label></div>
+  <div class="grid" id="grid"></div>
+
+  <div class="tasacion" id="tasar">
+    <div><h2>¿Quieres vender tu vivienda?</h2><p style="color:var(--gris);margin:8px 0 0">Te hacemos una tasación gratuita en 48 h, con datos reales de venta de tu zona.</p></div>
+    <a class="btn" href="#" onclick="alert('Demo: aquí se abriría el formulario de tasación gratuita.');return false">Tasar mi vivienda gratis</a>
+  </div>
+</main>
+<footer><div class="wrap">Habitat Inmobiliaria · Propiedades y precios de ejemplo para la sala de demos</div></footer>
+
+<dialog id="modal"></dialog>
+
+<script>
+const PROPS = [
+  { t: "Piso luminoso con terraza", op: "venta", z: "Centro", d: 3, b: 2, m: 112, p: 289000, e: "🏢", bg: "#dbeafe" },
+  { t: "Ático con vistas al mar", op: "venta", z: "Playa", d: 2, b: 2, m: 95, p: 345000, e: "🌊", bg: "#cffafe" },
+  { t: "Chalet con jardín y piscina", op: "venta", z: "Afueras", d: 4, b: 3, m: 240, p: 520000, e: "🏡", bg: "#dcfce7" },
+  { t: "Estudio reformado", op: "alquiler", z: "Centro", d: 1, b: 1, m: 42, p: 750, e: "🛋️", bg: "#fef3c7" },
+  { t: "Piso familiar junto al colegio", op: "alquiler", z: "Norte", d: 3, b: 2, m: 98, p: 1150, e: "🏫", bg: "#ede9fe" },
+  { t: "Apartamento primera línea", op: "alquiler", z: "Playa", d: 2, b: 1, m: 70, p: 1350, e: "🏖️", bg: "#e0f2fe" },
+  { t: "Dúplex con garaje", op: "venta", z: "Norte", d: 3, b: 2, m: 130, p: 239000, e: "🚗", bg: "#fee2e2" },
+  { t: "Casa de pueblo para reformar", op: "venta", z: "Afueras", d: 4, b: 1, m: 180, p: 129000, e: "🧱", bg: "#ffedd5" },
+  { t: "Loft industrial", op: "alquiler", z: "Centro", d: 1, b: 1, m: 65, p: 980, e: "🏭", bg: "#e2e8f0" }
+];
+const f = { op: "venta", zona: "", dorm: 0, max: 0, orden: "rel" };
+const favs = new Set();
+const eur = n => n.toLocaleString("es-ES", { style: "currency", currency: "EUR", maximumFractionDigits: 0 });
+const MAXES = { venta: [0, 150000, 250000, 350000, 500000], alquiler: [0, 800, 1000, 1200, 1500] };
+
+function opcionesMax() {
+  document.getElementById("max").innerHTML = MAXES[f.op].map(v => `<option value="${v}">${v ? "Hasta " + eur(v) : "Sin límite"}</option>`).join("");
+  f.max = 0;
+}
+function pintar() {
+  let res = PROPS.map((p, i) => ({ ...p, i })).filter(p => p.op === f.op && (!f.zona || p.z === f.zona) && p.d >= f.dorm && (!f.max || p.p <= f.max));
+  if (f.orden === "asc") res.sort((a, b) => a.p - b.p);
+  if (f.orden === "desc") res.sort((a, b) => b.p - a.p);
+  document.getElementById("n-res").textContent = `${res.length} ${res.length === 1 ? "propiedad" : "propiedades"} en ${f.op === "venta" ? "venta" : "alquiler"}`;
+  document.getElementById("grid").innerHTML = res.length ? res.map(p => `
+    <article class="prop" data-i="${p.i}">
+      <div class="foto" style="background:${p.bg}">${p.e}<span class="et">${p.z}</span><button class="fav" data-fav="${p.i}" aria-label="Guardar en favoritos">${favs.has(p.i) ? "❤️" : "🤍"}</button></div>
+      <div class="info"><div class="precio">${eur(p.p)}${p.op === "alquiler" ? "<small style='font-size:14px;color:var(--gris)'>/mes</small>" : ""}</div>
+      <h3>${p.t}</h3><div class="carac"><span>🛏 ${p.d}</span><span>🛁 ${p.b}</span><span>📐 ${p.m} m²</span></div></div>
+    </article>`).join("") : `<div class="vacio">No hay propiedades con esos filtros. <a href="#" id="l2">Limpiar filtros</a></div>`;
+  document.getElementById("nfav").textContent = favs.size;
+  document.getElementById("l2")?.addEventListener("click", e => { e.preventDefault(); limpiar(); });
+}
+function limpiar() { Object.assign(f, { zona: "", dorm: 0, max: 0 }); document.getElementById("zona").value = ""; document.getElementById("dorm").value = 0; document.getElementById("max").value = 0; pintar(); }
+
+document.getElementById("op").onclick = e => {
+  const b = e.target.closest("button"); if (!b) return;
+  f.op = b.dataset.v; document.querySelectorAll("#op button").forEach(x => x.setAttribute("aria-pressed", x === b));
+  opcionesMax(); pintar();
+};
+document.getElementById("zona").onchange = e => { f.zona = e.target.value; pintar(); };
+document.getElementById("dorm").onchange = e => { f.dorm = +e.target.value; pintar(); };
+document.getElementById("max").onchange = e => { f.max = +e.target.value; pintar(); };
+document.getElementById("orden").onchange = e => { f.orden = e.target.value; pintar(); };
+document.getElementById("limpiar").onclick = limpiar;
+document.getElementById("ver-favs").onclick = e => { e.preventDefault(); alert(favs.size ? "Favoritos:\n" + [...favs].map(i => "• " + PROPS[i].t).join("\n") : "Aún no tienes favoritos. Pulsa el corazón de una propiedad."); };
+
+const modal = document.getElementById("modal");
+document.getElementById("grid").onclick = e => {
+  const fav = e.target.closest("[data-fav]");
+  if (fav) { const i = +fav.dataset.fav; favs.has(i) ? favs.delete(i) : favs.add(i); pintar(); return; }
+  const card = e.target.closest(".prop"); if (!card) return;
+  abrir(PROPS[card.dataset.i]);
+};
+function abrir(p) {
+  const dias = [...Array(5)].map((_, k) => { const d = new Date(); d.setDate(d.getDate() + k + 1); return d; });
+  let dia = null, hora = null;
+  modal.innerHTML = `
+    <div class="m-foto" style="background:${p.bg}">${p.e}<button class="m-cerrar" aria-label="Cerrar">✕</button></div>
+    <div class="m-cuerpo">
+      <div><div class="precio">${eur(p.p)}${p.op === "alquiler" ? "/mes" : ""}</div><h3 style="font-size:22px;margin-top:4px">${p.t}</h3>
+        <div class="m-carac"><span>📍 ${p.z}</span><span>📐 ${p.m} m²</span><span>🛏 ${p.d} dormitorios</span><span>🛁 ${p.b} baños</span></div>
+        <p style="color:var(--gris);font-size:15px">Vivienda en excelente estado, con mucha luz natural y cerca de transporte, comercios y colegios. Gastos de comunidad incluidos en la ficha completa.</p></div>
+      <form class="visita" id="fv">
+        <b>Agendar una visita</b>
+        <div class="franjas" id="dias">${dias.map((d, k) => `<button type="button" data-k="${k}">${d.toLocaleDateString("es-ES", { weekday: "short", day: "numeric" })}</button>`).join("")}</div>
+        <div class="franjas" id="horas">${["10:00", "12:00", "17:00", "19:00"].map(h => `<button type="button">${h}</button>`).join("")}</div>
+        <input required placeholder="Nombre"><input required type="tel" placeholder="Teléfono">
+        <button class="btn">Solicitar visita</button>
+      </form>
+    </div>`;
+  modal.showModal();
+  modal.querySelector(".m-cerrar").onclick = () => modal.close();
+  const marcar = (cont, b) => cont.querySelectorAll("button").forEach(x => x.setAttribute("aria-pressed", x === b));
+  modal.querySelector("#dias").onclick = e => { const b = e.target.closest("button"); if (b) { dia = dias[b.dataset.k]; marcar(e.currentTarget, b); } };
+  modal.querySelector("#horas").onclick = e => { const b = e.target.closest("button"); if (b) { hora = b.textContent; marcar(e.currentTarget, b); } };
+  modal.querySelector("#fv").onsubmit = e => {
+    e.preventDefault();
+    if (!dia || !hora) { alert("Elige un día y una hora para la visita."); return; }
+    e.target.innerHTML = `<b style="color:var(--verde);font-size:18px">✓ Visita solicitada</b><p style="margin:0">${dia.toLocaleDateString("es-ES", { weekday: "long", day: "numeric", month: "long" })} a las ${hora}. Un agente te confirmará por teléfono.</p>`;
+  };
+}
+modal.addEventListener("click", e => { if (e.target === modal) modal.close(); });
+opcionesMax(); pintar();
+</script>
+</body>
+</html>

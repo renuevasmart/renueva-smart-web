@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sala de demos | Renueva Smart</title>
+<meta name="description" content="Webs de muestra para distintos negocios, cada una pensada para un objetivo: citas, pedidos, ventas, presupuestos, consultas o visitas. Pruébalas en ordenador y en móvil.">
+<meta name="theme-color" content="#0b0c0e">
+<link rel="canonical" href="https://renuevasmart.com/muestras.html">
+<link rel="icon" href="assets/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,700;0,800;1,500;1,600&family=Fraunces:ital,opsz,wght@0,9..144,600;0,9..144,700;1,9..144,500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --color-brand: #ff6a00;
+    --color-brand-hover: #ff7a1a;
+    --color-bg-primary: #0b0c0e;
+    --color-bg-secondary: #151719;
+    --color-bg-tertiary: #25282c;
+    --color-text-primary: #f5f3ee;
+    --color-text-secondary: #d9dce0;
+    --color-text-muted: #92979d;
+    --color-border-subtle: rgba(255, 255, 255, 0.08);
+    --color-border-default: rgba(255, 255, 255, 0.12);
+    --color-border-strong: rgba(255, 255, 255, 0.18);
+    --font-display: "Fraunces", Georgia, "Iowan Old Style", serif;
+    --font-ui: "Plus Jakarta Sans", "Segoe UI", -apple-system, Roboto, Arial, sans-serif;
+    --radius-2xl: 16px;
+    --radius-3xl: 24px;
+    --radius-pill: 999px;
+    --gutter: clamp(16px, 4vw, 56px);
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  :focus-visible { outline: 2px solid var(--color-brand); outline-offset: 2px; border-radius: 4px; }
+  body { margin: 0; background: var(--color-bg-primary); color: var(--color-text-primary); font-family: var(--font-ui); line-height: 1.55; overflow-x: hidden; }
+  a { color: inherit; }
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 700; line-height: 1.1; margin: 0; letter-spacing: -0.01em; }
+  em { font-style: italic; color: var(--color-brand); font-family: var(--font-display); font-weight: 500; }
+
+  /* Nav */
+  .nav {
+    position: sticky; top: 0; z-index: 40;
+    display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    padding: 16px var(--gutter);
+    background: rgba(11,12,14,0.92); backdrop-filter: blur(8px);
+    box-shadow: 0 1px 0 var(--color-border-subtle);
+  }
+  .nav-logo { height: 52px; width: auto; display: block; }
+  @media (max-width: 520px) { .nav-logo { height: 40px; } }
+  .nav-links { display: flex; align-items: center; gap: 28px; }
+  .nav-links a { font-weight: 600; font-size: 15px; text-decoration: none; color: var(--color-text-secondary); }
+  .nav-links a:hover { color: var(--color-text-primary); }
+  @media (max-width: 960px) { .nav-links .solo-escritorio { display: none; } }
+  .btn-cta {
+    font-weight: 800; font-size: 14.5px; color: var(--color-bg-primary) !important; background: var(--color-brand);
+    border: none; border-radius: var(--radius-pill); padding: 11px 22px; text-decoration: none;
+    display: inline-block; transition: background .15s ease, transform .15s ease; white-space: nowrap; cursor: pointer;
+  }
+  .btn-cta:hover { background: var(--color-brand-hover); transform: translateY(-1px); }
+  .btn-cta-lg { font-size: 16px; padding: 15px 28px; }
+  .btn-secundario {
+    font-weight: 700; font-size: 14.5px; color: var(--color-text-primary);
+    background: transparent; border: 1.5px solid var(--color-border-strong); border-radius: var(--radius-pill);
+    padding: 10px 20px; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; cursor: pointer;
+    transition: border-color .15s, background .15s;
+  }
+  .btn-secundario:hover { border-color: var(--color-text-primary); background: rgba(255,255,255,0.06); }
+
+  /* Hero */
+  .hero { padding: clamp(56px, 9vw, 120px) var(--gutter) clamp(40px, 6vw, 72px); max-width: 1280px; margin: 0 auto; }
+  .eyebrow { display: inline-flex; align-items: center; gap: 10px; font-size: 13px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--color-text-muted); }
+  .eyebrow::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--color-brand); box-shadow: 0 0 0 4px rgba(255,106,0,.18); }
+  .hero h1 { font-size: clamp(40px, 7vw, 84px); margin: 18px 0 22px; max-width: 14ch; }
+  .hero p { font-size: clamp(17px, 2vw, 20px); color: var(--color-text-secondary); max-width: 62ch; margin: 0 0 30px; }
+  .hero-stats { display: flex; flex-wrap: wrap; gap: 12px 40px; margin-top: 44px; padding-top: 28px; border-top: 1px solid var(--color-border-subtle); }
+  .hero-stats div { font-size: 14px; color: var(--color-text-muted); }
+  .hero-stats strong { display: block; font-family: var(--font-display); font-size: 34px; color: var(--color-text-primary); line-height: 1.1; }
+
+  /* Index */
+  .seccion { max-width: 1280px; margin: 0 auto; padding: 0 var(--gutter); }
+  .indice-cab { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 18px; margin-bottom: 22px; }
+  .indice-cab h2 { font-size: clamp(28px, 4vw, 40px); }
+  .filtros { display: flex; flex-wrap: wrap; gap: 8px; }
+  .filtro {
+    font: 600 13.5px var(--font-ui); color: var(--color-text-secondary); background: var(--color-bg-secondary);
+    border: 1px solid var(--color-border-default); border-radius: var(--radius-pill); padding: 8px 14px; cursor: pointer;
+  }
+  .filtro:hover { color: var(--color-text-primary); border-color: var(--color-border-strong); }
+  .filtro[aria-pressed="true"] { background: var(--color-brand); color: var(--color-bg-primary); border-color: var(--color-brand); }
+  .indice { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--color-border-default); }
+  .indice li { border-bottom: 1px solid var(--color-border-subtle); }
+  .indice a {
+    display: grid; grid-template-columns: 52px 1.3fr 1fr 170px 28px; align-items: center; gap: 16px;
+    padding: 18px 8px; text-decoration: none; transition: background .15s, padding .15s;
+  }
+  .indice a:hover { background: var(--color-bg-secondary); padding-left: 16px; }
+  .ind-num { font-family: var(--font-display); color: var(--color-text-muted); font-size: 18px; }
+  .ind-nombre { font-weight: 700; font-size: 17px; }
+  .ind-nicho { color: var(--color-text-muted); font-size: 15px; }
+  .ind-flecha { color: var(--color-text-muted); transition: transform .15s, color .15s; }
+  .indice a:hover .ind-flecha { transform: translateX(4px); color: var(--color-brand); }
+  .tag {
+    display: inline-flex; align-items: center; gap: 7px; justify-self: start;
+    font-size: 12.5px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase;
+    padding: 5px 11px; border-radius: var(--radius-pill); background: rgba(255,106,0,.12); color: #ffb27a; border: 1px solid rgba(255,106,0,.28);
+  }
+  .tag-real { background: rgba(46, 204, 113, .12); color: #8de0ae; border-color: rgba(46, 204, 113, .3); }
+  @media (max-width: 760px) {
+    .indice a { grid-template-columns: 36px 1fr 24px; gap: 4px 12px; }
+    .ind-nicho { grid-column: 2; grid-row: 2; }
+    .indice .tag { grid-column: 2; grid-row: 3; margin-top: 6px; }
+    .ind-flecha { grid-column: 3; grid-row: 1; }
+  }
+
+  /* Fichas */
+  .fichas { display: grid; gap: clamp(56px, 8vw, 110px); padding: clamp(64px, 9vw, 120px) 0; }
+  .ficha { display: grid; grid-template-columns: minmax(0, 380px) minmax(0, 1fr); gap: clamp(24px, 4vw, 56px); align-items: start; scroll-margin-top: 90px; }
+  .ficha[hidden] { display: none; }
+  @media (max-width: 1020px) { .ficha { grid-template-columns: minmax(0, 1fr); } }
+  .ficha-info { position: sticky; top: 100px; }
+  @media (max-width: 1020px) { .ficha-info { position: static; } }
+  .ficha-num { font-family: var(--font-display); font-size: 15px; color: var(--color-text-muted); margin-bottom: 10px; }
+  .ficha h3 { font-size: clamp(30px, 3.6vw, 42px); margin-bottom: 12px; }
+  .ficha-meta { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 18px; }
+  .ficha-meta .nicho { font-size: 14px; color: var(--color-text-muted); }
+  .ficha-resumen { color: var(--color-text-secondary); margin: 0 0 22px; }
+  .obs-titulo { font-size: 12.5px; letter-spacing: .12em; text-transform: uppercase; color: var(--color-text-muted); font-weight: 700; margin: 0 0 10px; }
+  .obs { list-style: none; padding: 0; margin: 0 0 26px; display: grid; gap: 10px; }
+  .obs li { position: relative; padding-left: 26px; color: var(--color-text-secondary); font-size: 15.5px; }
+  .obs li::before { content: ""; position: absolute; left: 2px; top: .55em; width: 12px; height: 2px; background: var(--color-brand); }
+  .ficha-acciones { display: flex; flex-wrap: wrap; gap: 10px; }
+
+  /* Visor */
+  .visor { background: var(--color-bg-secondary); border: 1px solid var(--color-border-default); border-radius: var(--radius-3xl); padding: 14px; min-width: 0; }
+  .visor-barra { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 2px 4px 14px; }
+  .puntos { display: flex; gap: 6px; }
+  .puntos i { width: 11px; height: 11px; border-radius: 50%; background: var(--color-bg-tertiary); }
+  .url { flex: 1; min-width: 0; font-size: 12.5px; color: var(--color-text-muted); background: var(--color-bg-primary); border-radius: var(--radius-pill); padding: 6px 14px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .modo { display: inline-flex; background: var(--color-bg-primary); border-radius: var(--radius-pill); padding: 3px; border: 1px solid var(--color-border-subtle); }
+  .modo button { font: 700 12.5px var(--font-ui); color: var(--color-text-muted); background: none; border: 0; border-radius: var(--radius-pill); padding: 7px 12px; cursor: pointer; display: inline-flex; gap: 6px; align-items: center; }
+  .modo button[aria-pressed="true"] { background: var(--color-bg-tertiary); color: var(--color-text-primary); }
+  .modo svg { width: 15px; height: 15px; }
+  @media (max-width: 520px) { .url { display: none; } .modo button span { display: none; } }
+
+  .escenario { position: relative; overflow: hidden; border-radius: 12px; background: var(--color-bg-primary); transition: height .3s ease; }
+  .escenario iframe { position: absolute; top: 0; left: 0; border: 0; background: #fff; transform-origin: 0 0; }
+  .escenario.escritorio iframe { width: 1280px; height: 800px; }
+  .escenario.movil { background: radial-gradient(circle at 50% 30%, #1d2023, var(--color-bg-primary)); }
+  .escenario.movil iframe { width: 390px; height: 800px; border-radius: 34px; }
+  .escenario.movil .telefono { position: absolute; border: 10px solid #000; border-radius: 44px; box-shadow: 0 0 0 1.5px #3a3d42, 0 30px 60px rgba(0,0,0,.5); pointer-events: none; }
+  .escenario.escritorio .telefono { display: none; }
+  .cargando { position: absolute; inset: 0; display: grid; place-items: center; color: var(--color-text-muted); font-size: 14px; }
+
+  /* CTA */
+  .cta { max-width: 1280px; margin: 0 auto clamp(56px, 8vw, 100px); padding: 0 var(--gutter); }
+  .cta-caja { background: linear-gradient(135deg, #1a1208, var(--color-bg-secondary) 55%); border: 1px solid rgba(255,106,0,.25); border-radius: var(--radius-3xl); padding: clamp(32px, 6vw, 72px); display: grid; gap: 20px; }
+  .cta h2 { font-size: clamp(30px, 4.5vw, 52px); max-width: 18ch; }
+  .cta p { color: var(--color-text-secondary); max-width: 58ch; margin: 0; font-size: 17px; }
+  footer { border-top: 1px solid var(--color-border-subtle); padding: 28px var(--gutter); color: var(--color-text-muted); font-size: 14px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; }
+  footer a { color: var(--color-text-secondary); text-decoration: none; }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="index.html"><img width="520" height="260" class="nav-logo" src="assets/logo.png" alt="Renueva Smart"></a>
+  <div class="nav-links">
+    <a class="solo-escritorio" href="index.html">Inicio</a>
+    <a class="solo-escritorio" href="#indice">Índice</a>
+    <a class="solo-escritorio" href="contacto.html">Contacto</a>
+    <a class="btn-cta" href="https://wa.me/34602555026?text=Hola%2C%20vi%20la%20sala%20de%20demos%20y%20quiero%20una%20web%20as%C3%AD" target="_blank" rel="noopener">Quiero la mía</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <span class="eyebrow">Sala de demos</span>
+  <h1>Una web para <em>cada</em> negocio. Y un objetivo para cada web.</h1>
+  <p>Una web no es solo un sitio bonito: tiene que conseguir algo para tu negocio. Aquí tienes nuestras muestras, cada una pensada para un objetivo distinto. Pruébalas aquí mismo en ordenador o en móvil, sin salir de esta página.</p>
+  <a class="btn-cta btn-cta-lg" href="#indice">Ver las demos</a>
+  <div class="hero-stats">
+    <div><strong id="stat-demos">—</strong>webs de muestra</div>
+    <div><strong id="stat-nichos">—</strong>negocios distintos</div>
+    <div><strong id="stat-obj">—</strong>objetivos de conversión</div>
+  </div>
+</header>
+
+<section class="seccion" id="indice" aria-labelledby="indice-titulo">
+  <div class="indice-cab">
+    <h2 id="indice-titulo">Índice</h2>
+    <div class="filtros" id="filtros" role="group" aria-label="Filtrar por objetivo"></div>
+  </div>
+  <ol class="indice" id="lista-indice"></ol>
+</section>
+
+<section class="seccion">
+  <div class="fichas" id="fichas"></div>
+</section>
+
+<section class="cta">
+  <div class="cta-caja">
+    <h2>¿Te imaginas la tuya aquí?</h2>
+    <p>Te preparamos una muestra de cómo quedaría la web de tu negocio, pensada para lo que necesitas conseguir: más citas, más pedidos o más consultas. Gratis y sin compromiso.</p>
+    <div><a class="btn-cta btn-cta-lg" href="https://wa.me/34602555026?text=Hola%2C%20quiero%20ver%20c%C3%B3mo%20quedar%C3%ADa%20mi%20web" target="_blank" rel="noopener">Pedir mi muestra gratis</a></div>
+  </div>
+</section>
+
+<footer>
+  <span>© Renueva Smart · Las demos usan negocios y datos de ejemplo.</span>
+  <span><a href="aviso-legal.html">Aviso legal</a> · <a href="privacidad.html">Privacidad</a></span>
+</footer>
+
+<script>
+/* Para añadir una demo nueva: crea el archivo en demos/ y añade un objeto aquí.
+   Para mostrar la web REAL de un cliente, añade `url: "https://..."`: se usa en lugar de `archivo`
+   (ver LEEME.md: hay que permitir ese dominio en frame-src y que la web del cliente acepte iframes). */
+const DEMOS = [
+  {
+    id: "clinica", archivo: "demos/clinica.html", nombre: "Clínica Lumen",
+    nicho: "Clínica dental", objetivo: "Citas",
+    resumen: "Web de clínica centrada en que el paciente reserve su cita en menos de un minuto, sin llamar por teléfono.",
+    obs: [
+      "Reserva en 3 pasos: tratamiento, día y hora, y datos.",
+      "Calendario con huecos libres reales y horarios ocupados bloqueados.",
+      "Precios orientativos visibles para quitar miedo antes de reservar.",
+      "Botón fijo de cita siempre a mano en el móvil."
+    ]
+  },
+  {
+    id: "chuches", archivo: "demos/chuches.html", nombre: "Chuches Bombón",
+    nicho: "Tienda de golosinas", objetivo: "Pedidos",
+    resumen: "Tienda de chuches donde el cliente arma su bolsa a granel y la pide directamente por WhatsApp.",
+    obs: [
+      "Bolsa personalizada por gramos con precio en tiempo real.",
+      "El pedido llega por WhatsApp ya redactado: cero formularios.",
+      "Packs listos para cumpleaños y mesas dulces.",
+      "Diseño alegre y colorido, a juego con el producto."
+    ]
+  },
+  {
+    id: "escribania", archivo: "demos/escribania.html", nombre: "Escribanía Acosta Pastore",
+    url: "", // ← pon aquí la URL real, p. ej. "https://www.escribaniaacostapastore.com/"
+    nicho: "Escribanía / notaría", objetivo: "Consultas",
+    resumen: "Escribanía que resuelve las dudas antes de la consulta: el cliente elige su trámite y ve qué documentación necesita.",
+    obs: [
+      "Guía de trámites con lista de documentación marcable.",
+      "La consulta llega con el trámite ya identificado.",
+      "Estética sobria y clásica que transmite confianza y trayectoria.",
+      "Preguntas frecuentes que ahorran llamadas al despacho."
+    ]
+  },
+  {
+    id: "abogados", archivo: "demos/abogados.html", nombre: "Rivas & Ortega Abogados",
+    nicho: "Despacho de abogados", objetivo: "Consultas",
+    resumen: "Despacho que filtra y cualifica al cliente con un pequeño test antes de pedir la primera consulta.",
+    obs: [
+      "Test de 3 preguntas que orienta al área legal correcta.",
+      "Formulario de primera consulta con urgencia y área ya rellenas.",
+      "Áreas de práctica explicadas en lenguaje claro, sin tecnicismos.",
+      "Cifras de casos y años para reforzar la autoridad."
+    ]
+  },
+  {
+    id: "inmobiliaria", archivo: "demos/inmobiliaria.html", nombre: "Habitat Inmobiliaria",
+    nicho: "Inmobiliaria", objetivo: "Visitas",
+    resumen: "Buscador de propiedades con filtros donde cada ficha termina en una petición de visita con día y hora.",
+    obs: [
+      "Filtros por operación, zona, dormitorios y precio máximo.",
+      "Ficha de propiedad con características y botón de visita.",
+      "Favoritos para comparar propiedades.",
+      "Captación de propietarios: tasación gratuita de su vivienda."
+    ]
+  },
+  {
+    id: "trofeos", archivo: "demos/trofeos.html", nombre: "Trofeos Podio",
+    nicho: "Trofeos y medallas", objetivo: "Presupuesto",
+    resumen: "Configurador de trofeos y medallas que calcula un precio orientativo y envía la solicitud de presupuesto.",
+    obs: [
+      "Configurador: modelo, tamaño, cantidad y grabado.",
+      "Precio orientativo al instante con descuento por volumen.",
+      "Vista previa del texto grabado.",
+      "Pensado para clubes, colegios y empresas que piden por cantidad."
+    ]
+  },
+  {
+    id: "chiches", archivo: "demos/chiches.html", nombre: "Chiches",
+    nicho: "Regalos y accesorios", objetivo: "Ventas",
+    resumen: "Tienda de regalos con un buscador de regalo ideal: el cliente dice para quién y cuánto quiere gastar.",
+    obs: [
+      "Buscador de regalos por destinatario y presupuesto.",
+      "Carrito con opción de envolver para regalo.",
+      "Barra de progreso hacia el envío gratis para subir el ticket.",
+      "Productos destacados por ocasión."
+    ]
+  },
+  {
+    id: "caballo", archivo: "demos/caballo.html", nombre: "Caballo Indumentaria",
+    nicho: "Moda / indumentaria", objetivo: "Ventas",
+    resumen: "Tienda online de ropa con estética editorial, selección de talle y carrito lateral siempre visible.",
+    obs: [
+      "Estética editorial que da valor de marca a las prendas.",
+      "Selección de talle y color antes de añadir al carrito.",
+      "Carrito lateral con checkout en pocos pasos.",
+      "Filtros por categoría y guía de talles."
+    ]
+  },
+  {
+    id: "bulgaria", archivo: "demos/bulgaria.html", nombre: "Sabores de Bulgaria",
+    nicho: "Tienda de alimentación", objetivo: "Pedidos",
+    resumen: "Tienda de productos típicos búlgaros con pedido a domicilio, elección de zona y franja de entrega.",
+    obs: [
+      "Catálogo por categorías con productos de origen.",
+      "Pedido mínimo y coste de envío según zona, calculados solos.",
+      "Elección de día y franja horaria de entrega.",
+      "Cuenta la historia de cada producto: genera confianza y antojo."
+    ]
+  },
+  {
+    id: "muebles", archivo: "demos/muebles.html", nombre: "Muebles Madera",
+    nicho: "Carpintería / muebles a medida", objetivo: "Presupuesto",
+    resumen: "Taller de muebles a medida con un configurador de mesas que da un precio estimado y recoge el encargo.",
+    obs: [
+      "Configurador: tipo de madera, medidas y acabado.",
+      "Vista previa del mueble que cambia con cada elección.",
+      "Precio estimado al momento para filtrar curiosos.",
+      "Proceso de trabajo explicado paso a paso."
+    ]
+  }
+];
+
+const ICONO_PC = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg>';
+const ICONO_MOVIL = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/></svg>';
+const ICONO_EXT = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg>';
+const dos = n => String(n).padStart(2, "0");
+const ruta = d => d.url || d.archivo;
+const barra = d => d.url ? d.url.replace(/^https?:\/\//, "").replace(/\/$/, "") : "renuevasmart.com/" + d.archivo;
+const objetivos = [...new Set(DEMOS.map(d => d.objetivo))];
+
+document.getElementById("stat-demos").textContent = DEMOS.length;
+document.getElementById("stat-nichos").textContent = new Set(DEMOS.map(d => d.nicho)).size;
+document.getElementById("stat-obj").textContent = objetivos.length;
+
+// Índice
+document.getElementById("lista-indice").innerHTML = DEMOS.map((d, i) => `
+  <li data-obj="${d.objetivo}"><a href="#${d.id}">
+    <span class="ind-num">${dos(i + 1)}</span>
+    <span class="ind-nombre">${d.nombre}</span>
+    <span class="ind-nicho">${d.nicho}</span>
+    <span class="tag">${d.objetivo}</span>
+    <span class="ind-flecha" aria-hidden="true">→</span>
+  </a></li>`).join("");
+
+// Fichas
+const movilInicial = window.matchMedia("(max-width: 700px)").matches;
+document.getElementById("fichas").innerHTML = DEMOS.map((d, i) => `
+  <article class="ficha" id="${d.id}" data-obj="${d.objetivo}">
+    <div class="ficha-info">
+      <div class="ficha-num">${dos(i + 1)} / ${dos(DEMOS.length)}</div>
+      <h3>${d.nombre}</h3>
+      <div class="ficha-meta"><span class="tag">Objetivo: ${d.objetivo}</span>${d.url ? '<span class="tag tag-real">Web real · cliente</span>' : ""}<span class="nicho">${d.nicho}</span></div>
+      <p class="ficha-resumen">${d.resumen}</p>
+      <p class="obs-titulo">Observaciones</p>
+      <ul class="obs">${d.obs.map(o => `<li>${o}</li>`).join("")}</ul>
+      <div class="ficha-acciones">
+        <a class="btn-secundario" href="${ruta(d)}" target="_blank" rel="noopener">${d.url ? "Visitar la web real" : "Abrir en pestaña nueva"} ${ICONO_EXT}</a>
+      </div>
+    </div>
+    <div class="visor">
+      <div class="visor-barra">
+        <div class="puntos" aria-hidden="true"><i></i><i></i><i></i></div>
+        <div class="url">${barra(d)}</div>
+        <div class="modo" role="group" aria-label="Formato de la vista previa">
+          <button type="button" data-modo="escritorio" aria-pressed="${!movilInicial}">${ICONO_PC}<span>Ordenador</span></button>
+          <button type="button" data-modo="movil" aria-pressed="${movilInicial}">${ICONO_MOVIL}<span>Móvil</span></button>
+        </div>
+      </div>
+      <div class="escenario ${movilInicial ? "movil" : "escritorio"}">
+        <div class="cargando">Cargando demo…</div>
+        <iframe data-src="${ruta(d)}" title="Vista previa: ${d.nombre}" loading="lazy"></iframe>
+        <div class="telefono" aria-hidden="true"></div>
+      </div>
+    </div>
+  </article>`).join("");
+
+// Escalado del visor: la demo se renderiza a tamaño real (1280 px o 390 px) y se escala al espacio disponible.
+function ajustar(esc) {
+  const iframe = esc.querySelector("iframe");
+  const tel = esc.querySelector(".telefono");
+  const ancho = esc.clientWidth;
+  if (esc.classList.contains("escritorio")) {
+    const s = ancho / 1280;
+    iframe.style.transform = `scale(${s})`;
+    iframe.style.left = "0px"; iframe.style.top = "0px"; iframe.style.borderRadius = "0";
+    esc.style.height = (800 * s) + "px";
+  } else {
+    const alto = Math.min(680, Math.max(520, window.innerHeight * 0.75));
+    const marco = 10;
+    let s = (alto - marco * 2) / 800;
+    s = Math.min(s, (ancho - 24 - marco * 2) / 390);
+    const w = 390 * s, h = 800 * s;
+    const total = h + marco * 2 + 40;
+    const x = (ancho - w) / 2, y = 20 + marco;
+    iframe.style.transform = `scale(${s})`;
+    iframe.style.left = x + "px"; iframe.style.top = y + "px";
+    iframe.style.borderRadius = (34 / s) + "px";
+    Object.assign(tel.style, { left: (x - marco) + "px", top: (y - marco) + "px", width: (w + marco * 2) + "px", height: (h + marco * 2) + "px" });
+    esc.style.height = total + "px";
+  }
+}
+
+const escenarios = [...document.querySelectorAll(".escenario")];
+const ro = new ResizeObserver(entradas => entradas.forEach(e => ajustar(e.target)));
+escenarios.forEach(esc => ro.observe(esc));
+window.addEventListener("resize", () => escenarios.forEach(ajustar));
+
+// Carga diferida real: solo se carga la demo cuando la ficha se acerca a la pantalla.
+const io = new IntersectionObserver(entradas => {
+  entradas.forEach(e => {
+    if (!e.isIntersecting) return;
+    const iframe = e.target.querySelector("iframe");
+    if (!iframe.src) {
+      iframe.src = iframe.dataset.src;
+      iframe.addEventListener("load", () => e.target.querySelector(".cargando")?.remove(), { once: true });
+    }
+    io.unobserve(e.target);
+  });
+}, { rootMargin: "400px" });
+escenarios.forEach(esc => io.observe(esc));
+
+document.querySelectorAll(".modo").forEach(grupo => {
+  grupo.addEventListener("click", ev => {
+    const btn = ev.target.closest("button"); if (!btn) return;
+    grupo.querySelectorAll("button").forEach(b => b.setAttribute("aria-pressed", b === btn));
+    const esc = grupo.closest(".visor").querySelector(".escenario");
+    esc.classList.toggle("escritorio", btn.dataset.modo === "escritorio");
+    esc.classList.toggle("movil", btn.dataset.modo === "movil");
+    ajustar(esc);
+  });
+});
+
+// Filtros por objetivo
+const filtros = document.getElementById("filtros");
+filtros.innerHTML = ["Todas", ...objetivos].map((o, i) => `<button type="button" class="filtro" data-obj="${o}" aria-pressed="${i === 0}">${o}</button>`).join("");
+filtros.addEventListener("click", ev => {
+  const btn = ev.target.closest("button"); if (!btn) return;
+  filtros.querySelectorAll("button").forEach(b => b.setAttribute("aria-pressed", b === btn));
+  const o = btn.dataset.obj;
+  document.querySelectorAll("#lista-indice li, .ficha").forEach(el => { el.hidden = o !== "Todas" && el.dataset.obj !== o; });
+  escenarios.forEach(ajustar);
+});
+</script>
+</body>
+</html>
