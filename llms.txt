@@ -1,6 +1,6 @@
 # Renueva Smart
 
-> Renueva Smart es un estudio de diseño y rediseño web para servicios profesionales que venden confianza: abogados, notarías y escribanías, gestorías y asesorías, inmobiliarias, y clínicas dentales y de estética. Trabaja desde Madrid (España) y también atiende a clientes en Uruguay. Su propuesta: rediseña la web del negocio y muestra el antes/después en un enlace privado, gratis y sin compromiso; solo se paga si el cliente decide publicarla. Titular: Alejandro Vidal Voglino (nombre comercial Renueva Smart, antes Publica Smart).
+> Renueva Smart es un estudio de diseño y rediseño web para servicios profesionales que venden confianza: abogados, notarías y escribanías, gestorías y asesorías, inmobiliarias, y clínicas dentales y de estética. También trabaja con otros profesionales (psicólogos, fisioterapeutas, arquitectos, clínicas veterinarias y academias) y con comercios de barrio (tiendas de ropa, jugueterías, tiendas de mascotas, ópticas y peluquerías), para los que hace webs escaparate sin tienda online. Trabaja desde Madrid (España) y también atiende a clientes en Uruguay. Su propuesta: rediseña la web del negocio y muestra el antes/después en un enlace privado, gratis y sin compromiso; solo se paga si el cliente decide publicarla. Titular: Alejandro Vidal Voglino (nombre comercial Renueva Smart, antes Publica Smart).
 
 Datos de contacto: contacto@renuevasmart.com · WhatsApp +34 602 555 026 (España) · +598 92 765 085 (Uruguay).
 
@@ -19,6 +19,8 @@ Datos de contacto: contacto@renuevasmart.com · WhatsApp +34 602 555 026 (Españ
 - [Inmobiliarias](https://renuevasmart.com/inmobiliarias.html)
 - [Clínicas dentales](https://renuevasmart.com/clinicas-dentales.html)
 - [Clínicas estéticas](https://renuevasmart.com/clinicas-esteticas.html)
+- [Otros profesionales: psicólogos, fisioterapeutas, arquitectos, veterinarias y academias](https://renuevasmart.com/blog/index.html#otros-profesionales)
+- [Comercios y pymes: tiendas de ropa, jugueterías, tiendas de mascotas, ópticas y peluquerías](https://renuevasmart.com/blog/index.html#comercios)
 
 ## Guías del blog
 - [Cuánto cuesta una web para un despacho de abogados](https://renuevasmart.com/blog/cuanto-cuesta-web-despacho-abogados.html)
