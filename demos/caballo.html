@@ -1,218 +1,1031 @@
-<!DOCTYPE html>
-<html lang="es">
+<!doctype html>
+<html lang="es-UY">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CABALLO · Indumentaria</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
-<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,500;1,6..96,500&family=Archivo:wght@400;500;700&display=swap" rel="stylesheet">
 <script src="_volver.js"></script>
+<title>Pelaje · Camisas criollas, ponchos y ropa de campo en Uruguay</title>
+<meta name="description" content="Ropa de campo uruguaya diseñada y fabricada por Pelaje: camisas criollas, ponchos, boinas y chalecos. Para Uruguay y la frontera con Rio Grande do Sul.">
+<meta name="theme-color" content="#16213A">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Imperial+Script&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-  :root { --negro: #0d0d0d; --hueso: #f2efe9; --arena: #d9cfbf; --gris: #7b766e; --linea: #d8d3ca; }
-  * { box-sizing: border-box; }
-  body { margin: 0; font-family: Archivo, system-ui, sans-serif; color: var(--negro); background: var(--hueso); }
-  h1, h2, h3 { font-family: "Bodoni Moda", Didot, serif; font-weight: 500; margin: 0; line-height: 1; }
-  .wrap { max-width: 1320px; margin: 0 auto; padding: 0 20px; }
-  .marquee { background: var(--negro); color: var(--hueso); font-size: 12px; letter-spacing: .2em; text-transform: uppercase; overflow: hidden; white-space: nowrap; padding: 9px 0; }
-  .marquee span { display: inline-block; animation: mq 22s linear infinite; }
-  @keyframes mq { to { transform: translateX(-50%); } }
-  @media (prefers-reduced-motion: reduce) { .marquee span { animation: none; } }
-  header { position: sticky; top: 0; z-index: 10; background: var(--hueso); border-bottom: 1px solid var(--linea); }
-  .nav { height: 66px; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; }
-  .nav .izq { display: flex; gap: 22px; font-size: 13px; letter-spacing: .12em; text-transform: uppercase; }
-  .nav .izq button { background: none; border: 0; font: inherit; letter-spacing: inherit; text-transform: inherit; cursor: pointer; padding: 4px 0; color: var(--gris); }
-  .nav .izq button[aria-pressed="true"] { color: var(--negro); border-bottom: 1px solid var(--negro); }
-  .logo { font-family: "Bodoni Moda"; font-size: 30px; letter-spacing: .28em; text-decoration: none; color: var(--negro); }
-  .bolsa { justify-self: end; background: none; border: 0; font: 500 13px Archivo; letter-spacing: .12em; text-transform: uppercase; cursor: pointer; }
-  @media (max-width: 760px) { .nav { grid-template-columns: auto 1fr; } .nav .izq { display: none; } .logo { font-size: 24px; } }
-  .cats-movil { display: none; gap: 18px; overflow-x: auto; padding: 12px 20px; font-size: 13px; letter-spacing: .1em; text-transform: uppercase; border-bottom: 1px solid var(--linea); }
-  .cats-movil button { background: none; border: 0; font: inherit; letter-spacing: inherit; text-transform: inherit; color: var(--gris); white-space: nowrap; }
-  .cats-movil button[aria-pressed="true"] { color: var(--negro); text-decoration: underline; }
-  @media (max-width: 760px) { .cats-movil { display: flex; } }
-  .hero { display: grid; grid-template-columns: 1.4fr 1fr; min-height: 560px; border-bottom: 1px solid var(--linea); }
-  @media (max-width: 860px) { .hero { grid-template-columns: 1fr; } }
-  .hero-img { background: linear-gradient(180deg, #b9ad98, #6f6352); position: relative; overflow: hidden; min-height: 380px; }
-  .hero-img::before { content: "C"; position: absolute; right: -4%; bottom: -18%; font-family: "Bodoni Moda"; font-size: min(60vw, 700px); line-height: 1; color: rgba(255,255,255,.12); }
-  .hero-img .lbl { position: absolute; left: 24px; bottom: 24px; color: #fff; font-size: 12px; letter-spacing: .2em; text-transform: uppercase; }
-  .hero-txt { padding: clamp(28px, 5vw, 64px); display: flex; flex-direction: column; justify-content: end; }
-  .hero-txt small { letter-spacing: .25em; text-transform: uppercase; font-size: 12px; color: var(--gris); }
-  .hero h1 { font-size: clamp(54px, 7vw, 108px); margin: 14px 0 20px; }
-  .hero h1 i { font-style: italic; }
-  .hero p { color: var(--gris); max-width: 36ch; margin: 0 0 28px; font-size: 16px; line-height: 1.6; }
-  .btn { display: inline-block; background: var(--negro); color: var(--hueso) !important; border: 1px solid var(--negro); padding: 15px 28px; font: 500 13px Archivo; letter-spacing: .16em; text-transform: uppercase; text-decoration: none; cursor: pointer; text-align: center; }
-  .btn:hover { background: #2a2a2a; }
-  .btn-o { background: transparent; color: var(--negro) !important; }
-  .btn:disabled { opacity: .4; cursor: not-allowed; }
-  .barra { display: flex; justify-content: space-between; align-items: end; padding: 40px 0 18px; }
-  .barra h2 { font-size: clamp(32px, 4vw, 48px); }
-  .barra span { color: var(--gris); font-size: 13px; letter-spacing: .1em; text-transform: uppercase; }
-  .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px 16px; padding-bottom: 60px; }
-  @media (max-width: 960px) { .grid { grid-template-columns: repeat(2, 1fr); } }
-  .prod { cursor: pointer; }
-  .foto { aspect-ratio: 3/4; position: relative; overflow: hidden; display: grid; place-items: center; }
-  .foto .silu { width: 55%; aspect-ratio: .8; border-radius: 40% 40% 6px 6px / 22% 22% 6px 6px; transition: transform .4s; }
-  .prod:hover .silu { transform: scale(1.05); }
-  .foto .nuevo { position: absolute; left: 10px; top: 10px; font-size: 11px; letter-spacing: .16em; text-transform: uppercase; background: var(--hueso); padding: 4px 8px; }
-  .prod h3 { font-family: Archivo; font-weight: 500; font-size: 14.5px; margin: 12px 0 4px; }
-  .prod .p { color: var(--gris); font-size: 14px; }
-  .colores { display: flex; gap: 5px; margin-top: 8px; }
-  .colores i { width: 12px; height: 12px; border-radius: 50%; border: 1px solid rgba(0,0,0,.2); }
-  /* Panel de producto y carrito */
-  .velo { position: fixed; inset: 0; background: rgba(13,13,13,.4); opacity: 0; pointer-events: none; transition: .2s; z-index: 30; }
-  .panel { position: fixed; top: 0; right: 0; height: 100%; width: min(460px, 100%); background: var(--hueso); z-index: 31; transform: translateX(100%); transition: transform .3s; display: flex; flex-direction: column; overflow: auto; }
-  .on .velo { opacity: 1; pointer-events: auto; } .panel.on { transform: none; }
-  .p-cab { display: flex; justify-content: space-between; align-items: center; padding: 18px 22px; border-bottom: 1px solid var(--linea); font-size: 13px; letter-spacing: .14em; text-transform: uppercase; }
-  .p-cab button { background: none; border: 0; font-size: 20px; cursor: pointer; }
-  .p-body { padding: 22px; display: grid; gap: 18px; flex: 1; align-content: start; }
-  .talles { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; }
-  .talles button, .cols button { border: 1px solid var(--linea); background: transparent; padding: 12px 0; font: 500 14px Archivo; cursor: pointer; }
-  .talles button[aria-pressed="true"] { background: var(--negro); color: var(--hueso); border-color: var(--negro); }
-  .talles button:disabled { color: #bbb; text-decoration: line-through; cursor: not-allowed; }
-  .cols { display: flex; gap: 8px; }
-  .cols button { width: 34px; height: 34px; border-radius: 50%; padding: 0; }
-  .cols button[aria-pressed="true"] { outline: 1.5px solid var(--negro); outline-offset: 3px; }
-  .lbl2 { font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--gris); display: flex; justify-content: space-between; }
-  .lbl2 a { color: var(--negro); }
-  .guia { font-size: 13px; border-collapse: collapse; width: 100%; }
-  .guia td, .guia th { border-bottom: 1px solid var(--linea); padding: 6px; text-align: left; }
-  .linea { display: grid; grid-template-columns: 70px 1fr auto; gap: 14px; align-items: start; padding-bottom: 14px; border-bottom: 1px solid var(--linea); }
-  .linea .mini { aspect-ratio: 3/4; }
-  .linea small { color: var(--gris); display: block; margin-top: 4px; }
-  .linea .quitar { background: none; border: 0; text-decoration: underline; color: var(--gris); cursor: pointer; font-size: 12.5px; padding: 0; margin-top: 8px; }
-  .p-pie { padding: 22px; border-top: 1px solid var(--linea); display: grid; gap: 12px; }
-  .p-pie .tot { display: flex; justify-content: space-between; font-size: 15px; }
-  .pasos-ck { display: flex; gap: 6px; font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--gris); }
-  .pasos-ck b { color: var(--negro); }
-  input, select { font: 15px Archivo; padding: 13px; border: 1px solid var(--linea); background: #fff; width: 100%; }
-  footer { border-top: 1px solid var(--linea); padding: 36px 0 80px; color: var(--gris); font-size: 13px; letter-spacing: .06em; }
+:root{
+  --crema:#F3ECE0; --crema-2:#EAE0CF; --arena:#D9C3A0;
+  --marino:#16213A; --marino-2:#1F2E52; --cuero:#9C5B2E; --cuero-claro:#C58A55;
+  --tinta:#1A1A1A; --gris:#5E5A52;
+  --display:"Cormorant Garamond", Georgia, serif;
+  --ui:"Manrope", system-ui, sans-serif;
+  --wrap:min(1200px, 100% - 32px);
+  --radius:14px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--crema);color:var(--tinta);font-family:var(--ui);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{display:block;max-width:100%}
+a{color:inherit}
+.wrap{width:var(--wrap);margin-inline:auto}
+.eyebrow{font-family:var(--ui);font-size:.78rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--cuero)}
+h1,h2,h3{font-family:var(--display);font-weight:600;line-height:1.02;letter-spacing:-.01em}
+h2{font-size:clamp(2.4rem,5.4vw,4.4rem)}
+h2 em,h1 em{font-style:italic;color:var(--cuero)}
+.btn{display:inline-flex;align-items:center;gap:.6em;padding:.95em 1.6em;border-radius:999px;font-weight:700;font-size:.95rem;text-decoration:none;transition:transform .25s, background .25s, color .25s}
+.btn:hover{transform:translateY(-2px)}
+.btn-dark{background:var(--marino);color:var(--crema)}
+.btn-dark:hover{background:var(--cuero)}
+.btn-line{border:1.5px solid currentColor}
+.btn-line:hover{background:var(--marino);color:var(--crema);border-color:var(--marino)}
+:focus-visible{outline:3px solid var(--cuero-claro);outline-offset:3px}
+
+/* Guarda pampa (motivo de los ponchos) */
+.guarda{height:28px;background-color:var(--marino);
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='28' viewBox='0 0 56 28'%3E%3Cpath fill='%23C58A55' d='M24 4h8v4h4v4h4v4h-4v4h-4v4h-8v-4h-4v-4h-4v-4h4V8h4zm2 6v8h4v-8z'/%3E%3Cpath fill='%23C58A55' d='M0 12h6v4H0zM50 12h6v4h-6z'/%3E%3C/svg%3E");
+  background-repeat:repeat-x;background-position:center}
+
+/* Fondos de video */
+.has-video{position:relative;isolation:isolate;overflow:hidden}
+.bg-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2}
+.bg-shade{position:absolute;inset:0;z-index:-1;pointer-events:none}
+.hero .bg-shade{background:linear-gradient(90deg,rgba(14,21,38,.9) 0%,rgba(14,21,38,.7) 45%,rgba(14,21,38,.25) 100%)}
+.manifiesto .bg-shade{background:rgba(10,16,30,.8)}
+.hero-logo{position:absolute;left:0;top:0;width:1250px;height:auto;aspect-ratio:633/640;z-index:-1;overflow:visible;opacity:0;pointer-events:none;transition:opacity .5s;clip-path:circle(0% at 29% 48%)}
+.hero-logo.show{opacity:1}
+.hero-logo.docked{filter:drop-shadow(0 0 5px rgba(240,170,105,.55)) drop-shadow(0 0 16px rgba(197,138,85,.45));animation:logoGlow 3.2s ease-in-out infinite}
+.hero-logo.draw.docked{animation:logoReveal 3.2s cubic-bezier(.45,0,.2,1) forwards,logoGlow 3.2s ease-in-out infinite}
+@keyframes logoGlow{0%,100%{filter:drop-shadow(0 0 4px rgba(240,170,105,.45)) drop-shadow(0 0 12px rgba(197,138,85,.3))}50%{filter:drop-shadow(0 0 9px rgba(255,205,150,.95)) drop-shadow(0 0 30px rgba(224,150,90,.75))}}
+@media (max-width:760px){.hero-logo.show{opacity:.85}}
+.logo-fill{fill:#835737;fill-rule:evenodd;fill-opacity:0}
+.logo-stroke path{fill:none;stroke:#C58A55;stroke-width:7;stroke-linejoin:round;stroke-linecap:round;stroke-dasharray:1 1;stroke-dashoffset:1}
+.hero-logo.draw .logo-stroke path{animation:logoDraw 2.4s cubic-bezier(.65,0,.35,1) forwards, logoRim 1.4s ease forwards;animation-delay:calc(var(--i)*.2s), 2.2s}
+.hero-logo.draw .logo-fill{animation:logoFill 1.4s ease forwards;animation-delay:2s}
+.hero-logo.draw{animation:logoReveal 3.2s cubic-bezier(.45,0,.2,1) forwards}
+@keyframes logoReveal{from{clip-path:circle(0% at 29% 48%)}to{clip-path:circle(125% at 29% 48%)}}
+@keyframes logoDraw{to{stroke-dashoffset:0}}
+@keyframes logoFill{to{fill-opacity:1}}
+@keyframes logoRim{to{stroke-opacity:0}}
+.hero.has-video h1{color:var(--crema)}
+.hero.has-video h1 em{color:var(--cuero-claro)}
+.hero.has-video .eyebrow,.manifiesto .eyebrow{color:var(--cuero-claro)}
+.hero.has-video p.lead{color:rgba(243,236,224,.85)}
+.hero.has-video .btn-dark{background:var(--crema);color:var(--marino)}
+.hero.has-video .btn-dark:hover{background:var(--cuero-claro)}
+.hero.has-video .btn-line{color:var(--crema)}
+.hero.has-video .btn-line:hover{background:var(--crema);color:var(--marino);border-color:var(--crema)}
+.manifiesto .reveal-text{color:var(--crema);font-family:"Imperial Script","Italianno","Segoe Script",cursive;font-weight:400;font-size:clamp(2.5rem,5.6vw,4.7rem);line-height:1.22;letter-spacing:.015em;text-shadow:0 1px 2px rgba(0,0,0,.85);-webkit-text-stroke:.6px var(--crema);paint-order:stroke fill}
+.manifiesto .reveal-text em{color:var(--cuero-claro);-webkit-text-stroke-color:var(--cuero-claro)}
+.reveal-text .w{display:inline-block;white-space:nowrap}
+.reveal-text .ch{--f:0;clip-path:inset(-.7em calc((1 - var(--f)) * 100% - .7em * var(--f)) -.7em calc(-.5em * var(--f)))}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.manifiesto .firma{margin-top:2rem;color:var(--crema);font-family:var(--display);font-style:italic;font-weight:600;font-size:clamp(1.35rem,2vw,1.7rem);letter-spacing:.01em;text-shadow:0 1px 3px rgba(0,0,0,.85)}
+.nav:not(.scrolled) .brand b,.nav:not(.scrolled) ul a{color:var(--crema)}
+.nav:not(.scrolled) .btn-dark{box-shadow:inset 0 0 0 1px rgba(243,236,224,.35)}
+.toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,20px);background:var(--marino);color:var(--crema);padding:.8em 1.3em;border-radius:10px;font-weight:600;font-size:.92rem;opacity:0;pointer-events:none;transition:opacity .3s,transform .3s;z-index:100;box-shadow:0 12px 30px -10px rgba(0,0,0,.5)}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+
+/* Text loop (encargos) */
+.tloop{display:inline-block;position:relative;vertical-align:bottom;overflow:hidden;padding-bottom:.12em;margin-bottom:-.12em;transition:width .5s cubic-bezier(.2,.8,.2,1)}
+.tloop-w{display:inline-block;white-space:nowrap;transition:transform .5s cubic-bezier(.2,.8,.2,1),opacity .5s,filter .5s}
+.tloop-w.out{transform:translateY(-100%);opacity:0;filter:blur(6px)}
+.tloop-w.pre{transform:translateY(100%);opacity:0;filter:blur(6px);transition:none}
+
+.hero h1 .h1-eyebrow{display:block;line-height:1.4;margin-bottom:.9rem}
+.hero h1 .h1-main{display:block}
+
+/* Uruguay y frontera */
+.frontera{background:var(--crema-2);padding:clamp(70px,9vw,120px) 0;text-align:center}
+.frontera .wrap{max-width:900px}
+.frontera h2{margin:.4rem 0 1.2rem}
+.frontera p{color:var(--gris);max-width:62ch;margin-inline:auto}
+.ciudades{list-style:none;display:flex;flex-wrap:wrap;gap:.6rem;justify-content:center;margin-top:2rem}
+.ciudades li{border:1px solid rgba(22,33,58,.2);border-radius:999px;padding:.5em 1.1em;font-size:.9rem;font-weight:600;color:var(--marino);background:rgba(255,255,255,.4)}
+
+/* Selector de idioma */
+.lang{position:relative}
+.lang-btn{display:inline-flex;align-items:center;gap:.45em;background:var(--marino);color:var(--crema);border:0;border-radius:999px;padding:.7em 1em;font:inherit;font-weight:700;font-size:.85rem;cursor:pointer;transition:background .25s}
+.lang-btn:hover{background:var(--cuero)}
+.lang-btn .chev{transition:transform .3s}
+.lang.open .lang-btn .chev{transform:rotate(180deg)}
+.nav:not(.scrolled) .lang-btn{box-shadow:inset 0 0 0 1px rgba(243,236,224,.35)}
+.lang-menu{position:absolute;right:0;top:calc(100% + 10px);min-width:170px;list-style:none;margin:0;padding:.4rem;background:var(--marino);border:1px solid rgba(243,236,224,.16);border-radius:14px;box-shadow:0 20px 40px -16px rgba(0,0,0,.6);opacity:0;visibility:hidden;transform:translateY(-6px);transition:opacity .25s,transform .25s,visibility .25s;z-index:60}
+.lang.open .lang-menu{opacity:1;visibility:visible;transform:none}
+.lang-menu a{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.65em .9em;border-radius:9px;color:var(--crema);text-decoration:none;font-weight:600;font-size:.9rem}
+.lang-menu a:hover,.lang-menu a:focus-visible{background:rgba(255,255,255,.1)}
+.lang-menu a[aria-current="true"]{color:var(--cuero-claro)}
+.lang-menu a[aria-current="true"]::after{content:"✓";font-size:.85rem}
+.lang-foot{display:inline-flex;gap:.6rem;align-items:center}
+.lang-foot a[aria-current="true"]{color:var(--crema);font-weight:700}
+@media (max-width:420px){.brand b{display:none}}
+
+/* NAV */
+.nav{position:fixed;inset:0 0 auto;z-index:50;transition:background .3s, box-shadow .3s}
+.nav.scrolled{background:rgba(243,236,224,.92);backdrop-filter:blur(10px);box-shadow:0 1px 0 rgba(22,33,58,.08)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;height:74px}
+.brand{display:flex;align-items:center;gap:.7rem;text-decoration:none}
+.brand img{width:42px;height:42px;object-fit:contain}
+.nav:not(.scrolled) .brand img,footer .brand img{filter:brightness(1.35) saturate(1.1)}   /* sobre fondo oscuro, el marrón de la marca un poco más claro */
+.brand b{font-weight:800;letter-spacing:.32em;font-size:1.05rem;color:var(--marino)}
+.nav ul{display:flex;gap:2rem;list-style:none;font-weight:600;font-size:.92rem}
+.nav ul a{text-decoration:none;color:var(--marino);position:relative}
+.nav ul a::after{content:"";position:absolute;left:0;bottom:-4px;height:1.5px;width:100%;background:var(--cuero);transform:scaleX(0);transform-origin:left;transition:transform .3s}
+.nav ul a:hover::after{transform:scaleX(1)}
+.nav .btn{padding:.7em 1.2em;font-size:.85rem}
+@media (max-width:860px){.nav ul{display:none}}
+
+/* HERO */
+.hero{min-height:100svh;display:grid;grid-template-columns:1fr;align-items:center;padding:110px max(16px,calc((100% - 1200px)/2)) 60px}
+.hero h1{font-size:clamp(3.2rem,8.4vw,7.6rem);color:var(--marino)}
+/* Masked heading (hero): letras rellenas con textil que se mueve bajo ellas; palabras suben escalonadas */
+.hero h1{position:relative;filter:drop-shadow(0 2px 20px rgba(14,21,38,.55))}
+.hero h1 .word{display:inline-block;overflow:hidden;padding:.04em .05em .16em;margin:-.04em -.05em -.16em;vertical-align:top}
+.hero h1 .mh-in{display:inline-block;transform:translateY(112%);transition:transform 1.1s cubic-bezier(.2,.75,.2,1);
+  color:var(--crema);
+  --mx:0px;--my:0px;--x0:0px;--y0:0px}
+.hero h1.mh-ready .mh-in{
+  color:transparent;-webkit-background-clip:text;background-clip:text;
+  background-image:linear-gradient(rgba(243,236,224,.3),rgba(243,236,224,.3)),url(caballo/textil-detalle.jpg);
+  background-repeat:no-repeat;
+  background-size:var(--sw,100%) var(--sh,100%);
+  background-position:calc(var(--x0) + var(--mx)) calc(var(--y0) + var(--my))}
+.hero h1.mh-ready .mh-in em{color:transparent}
+.hero h1.in .mh-in{transform:none}
+.hero p.lead{font-size:clamp(1.05rem,1.6vw,1.25rem);color:var(--gris);max-width:40ch;margin:1.6rem 0 2.2rem}
+.hero .ctas{display:flex;flex-wrap:wrap;gap:.8rem}
+@media (max-width:860px){
+  .hero{padding-top:100px}
+    }
+
+/* MARQUEE (scroll-velocity) */
+.velo{background:var(--marino);color:var(--crema);overflow:hidden;padding:1.4rem 0;border-block:1px solid rgba(255,255,255,.08)}
+.velo-row{display:flex;white-space:nowrap;will-change:transform}
+.velo-row span{font-family:var(--display);font-size:clamp(2rem,4.6vw,3.6rem);font-style:italic;padding-right:2.4rem}
+.velo-row span i{font-style:normal;color:var(--cuero-claro);padding-left:2.4rem}
+.velo-row.alt span{font-style:normal;font-family:var(--ui);font-weight:800;font-size:clamp(1rem,1.8vw,1.35rem);letter-spacing:.28em;text-transform:uppercase;color:var(--arena)}
+
+/* MANIFIESTO (scroll-reveal) */
+.manifiesto{padding:clamp(90px,14vw,170px) 0}
+.manifiesto .wrap{display:grid;grid-template-columns:220px 1fr;gap:3rem}
+.reveal-text{font-family:var(--display);font-size:clamp(1.9rem,4vw,3.4rem);line-height:1.15;color:var(--marino)}
+.reveal-text em{color:var(--cuero)}
+@media (max-width:760px){.manifiesto .wrap{grid-template-columns:1fr;gap:1rem}}
+
+/* COLECCIONES (accordion gallery) */
+.colecciones{padding-bottom:clamp(80px,10vw,130px)}
+.sec-head{display:flex;justify-content:space-between;align-items:end;gap:2rem;margin-bottom:2.6rem;flex-wrap:wrap}
+.sec-head p{max-width:40ch;color:var(--gris)}
+.acc{display:flex;gap:12px;height:560px}
+.acc-item{position:relative;flex:1;border-radius:var(--radius);overflow:hidden;cursor:pointer;transition:flex .7s cubic-bezier(.2,.8,.2,1);min-width:0;background:var(--marino);border:0;text-align:left;color:var(--crema);font:inherit}
+.acc-item img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform 1s, filter .6s;filter:saturate(.8) brightness(.8)}
+.acc-item::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(10,16,30,.85))}
+.acc-item.active{flex:4}
+.acc-item.active img{filter:none;transform:scale(1.03)}
+.acc-cap{position:absolute;left:0;right:0;bottom:0;padding:1.6rem;z-index:2}
+.acc-cap .num{font-size:.75rem;letter-spacing:.2em;font-weight:700;color:var(--arena)}
+.acc-cap h3{font-size:clamp(1.6rem,2.6vw,2.4rem);margin:.2rem 0 .4rem;white-space:nowrap}
+.acc-cap p{font-size:.95rem;max-width:36ch;opacity:0;transform:translateY(10px);transition:opacity .5s .15s, transform .5s .15s}
+.acc-item.active .acc-cap p{opacity:.92;transform:none}
+.acc-item:not(.active) h3{writing-mode:vertical-rl;transform:rotate(180deg);font-size:1.5rem}
+.acc-item:not(.active) .acc-cap{display:flex;flex-direction:column;align-items:center;gap:.6rem}
+@media (max-width:760px){
+  .acc{flex-direction:column;height:auto}
+  .acc-item,.acc-item.active{flex:none;height:300px}
+  .acc-item:not(.active) h3{writing-mode:horizontal-tb;transform:none;font-size:1.6rem}
+  .acc-item:not(.active) .acc-cap{display:block}
+  .acc-item .acc-cap p{opacity:.92;transform:none}
+  .acc-item img{filter:none}
+}
+
+/* ORIGEN */
+.origen{background:var(--crema-2);padding:clamp(80px,10vw,130px) 0}
+.origen .wrap{display:grid;grid-template-columns:1fr 1fr;gap:clamp(2rem,6vw,5rem);align-items:center}
+.origen .stack{position:relative;aspect-ratio:4/5}
+.origen .stack img{position:absolute;object-fit:cover;border-radius:var(--radius);box-shadow:0 24px 50px -24px rgba(22,33,58,.5)}
+.origen .stack .a{inset:0 22% 18% 0;width:78%;height:82%}
+.origen .stack .b{right:0;bottom:0;width:52%;height:52%;border:8px solid var(--crema-2)}
+.origen p{color:var(--gris);margin-top:1.2rem;max-width:46ch}
+.pilares{list-style:none;margin-top:2rem;display:grid;gap:1rem}
+.pilares li{display:grid;grid-template-columns:44px 1fr;gap:1rem;align-items:start;padding-top:1rem;border-top:1px solid rgba(22,33,58,.12)}
+.pilares li b{font-family:var(--display);font-size:1.6rem;color:var(--cuero);line-height:1}
+.pilares li strong{display:block;color:var(--marino)}
+.pilares li span{color:var(--gris);font-size:.95rem}
+@media (max-width:860px){.origen .wrap{grid-template-columns:1fr}}
+
+/* LOOKBOOK */
+.lookbook{padding:clamp(80px,10vw,130px) 0}
+.bento{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:260px;gap:12px}
+.bento figure{position:relative;overflow:hidden;border-radius:var(--radius);background:var(--arena)}
+.bento img{width:100%;height:100%;object-fit:cover;transition:transform .9s}
+.bento figure:hover img{transform:scale(1.05)}
+.bento figcaption{position:absolute;left:12px;bottom:12px;background:rgba(243,236,224,.92);color:var(--marino);font-size:.78rem;font-weight:700;padding:.35em .8em;border-radius:999px}
+.bento .t2{grid-row:span 2}
+.bento .w2{grid-column:span 2}
+@media (max-width:860px){.bento{grid-template-columns:repeat(2,1fr);grid-auto-rows:200px}}
+
+/* ENCARGOS */
+.encargos{background:var(--marino);color:var(--crema);padding:clamp(80px,10vw,130px) 0;position:relative}
+.encargos h2{color:var(--crema)}
+.encargos .eyebrow{color:var(--cuero-claro)}
+.encargos .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:3rem}
+.card{--mx:50%;--my:50%;position:relative;border:1px solid rgba(243,236,224,.16);border-radius:var(--radius);padding:0;overflow:hidden;cursor:pointer;background:rgba(255,255,255,.03);
+  opacity:0;transform:translateY(60px) rotateX(18deg) scale(.96);transform-origin:50% 100%;
+  transition:opacity .8s ease, transform .9s cubic-bezier(.2,.8,.2,1), border-color .3s, background .3s, box-shadow .4s}
+.encargos .grid{perspective:900px}
+.card.in{opacity:1;transform:none}
+.card.in:hover{transform:translateY(-8px);background:rgba(255,255,255,.06);border-color:transparent;box-shadow:0 24px 40px -20px rgba(0,0,0,.6)}
+.card::before{content:"";position:absolute;inset:0;z-index:2;border-radius:inherit;padding:1.5px;pointer-events:none;
+  background:radial-gradient(220px circle at var(--mx) var(--my),var(--cuero-claro),rgba(197,138,85,.25) 40%,transparent 70%);
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;opacity:0;transition:opacity .4s}
+.card::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;
+  background:radial-gradient(260px circle at var(--mx) var(--my),rgba(197,138,85,.12),transparent 70%);opacity:0;transition:opacity .4s}
+.card:hover::before,.card:hover::after{opacity:1}
+.card .ico{transition:transform .6s cubic-bezier(.2,.8,.2,1), background .3s}
+.card:hover .ico{transform:rotate(-12deg) scale(1.12);background:var(--cuero-claro)}
+.card.in .ico{animation:icoPop .7s cubic-bezier(.3,1.6,.5,1) backwards}
+@keyframes icoPop{from{transform:scale(0) rotate(-90deg)}to{transform:none}}
+.card .ico{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;background:var(--cuero);margin:-47px 0 1rem;position:relative;box-shadow:0 0 0 5px var(--marino)}
+.card-media{aspect-ratio:16/10;overflow:hidden}
+.card-media img{width:100%;height:100%;object-fit:cover;object-position:center 22%;transition:transform .9s cubic-bezier(.2,.8,.2,1)}
+.card:hover .card-media img{transform:scale(1.06)}
+.card-body{padding:0 1.8rem 1.8rem}
+.card-hint{display:inline-flex;align-items:center;gap:.4em;margin-top:1.1rem;font-size:.82rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--cuero-claro)}
+.card-hint b{display:inline-grid;place-items:center;width:22px;height:22px;border-radius:50%;border:1px solid currentColor;font-size:.9rem;transition:transform .4s}
+.card:hover .card-hint b{transform:rotate(90deg)}
+.card.is-source{visibility:hidden}
+
+/* Modal cards */
+.mc-backdrop{position:fixed;inset:0;z-index:200;background:radial-gradient(circle at 50% 10%,rgba(156,91,46,.35),rgba(10,16,30,.88) 60%);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);opacity:0;transition:opacity .45s}
+.mc-backdrop.show{opacity:1}
+.mc-modal{position:fixed;z-index:201;overflow:hidden;background:var(--marino);color:var(--crema);border-radius:var(--radius);box-shadow:0 40px 80px -30px rgba(0,0,0,.7)}
+.mc-img{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;object-position:center 22%;transition:width .55s cubic-bezier(.2,.8,.2,1),height .55s cubic-bezier(.2,.8,.2,1)}
+.mc-modal.open .mc-img{width:50%}
+.mc-content{position:absolute;top:0;right:0;width:50%;height:100%;overflow:auto;padding:clamp(1.6rem,4vw,3rem);display:flex;flex-direction:column;justify-content:center;opacity:0;transform:translateX(16px);transition:opacity .4s,transform .5s cubic-bezier(.2,.8,.2,1)}
+.mc-modal.open .mc-content{opacity:1;transform:none;transition-delay:.25s}
+.mc-content .ico{width:50px;height:50px;border-radius:50%;display:grid;place-items:center;background:var(--cuero);margin-bottom:1.2rem;flex:none}
+.mc-content h3{font-size:clamp(2.2rem,4vw,3.2rem);margin-bottom:1rem}
+.mc-content p{color:rgba(243,236,224,.8);margin-bottom:.9rem}
+.mc-content .btn-rect{align-self:flex-start;margin-top:1rem}
+.mc-close{position:absolute;top:14px;right:14px;z-index:3;width:42px;height:42px;border-radius:50%;border:0;background:var(--crema);color:var(--marino);font-size:1.5rem;line-height:1;cursor:pointer;display:grid;place-items:center;opacity:0;transform:scale(.6) rotate(-90deg);transition:opacity .3s,transform .5s cubic-bezier(.3,1.6,.5,1),background .25s}
+.mc-modal.open .mc-close{opacity:1;transform:none;transition-delay:.3s}
+.mc-close:hover{background:var(--cuero-claro)}
+@media (max-width:760px){
+  .mc-modal.open .mc-img{width:100%;height:40%}
+  .mc-content{top:auto;bottom:0;width:100%;height:60%;justify-content:flex-start;transform:translateY(16px)}
+}
+.card h3{font-size:1.8rem;margin-bottom:.5rem}
+.card p{color:rgba(243,236,224,.75);font-size:.97rem}
+.encargos .lead2{color:rgba(243,236,224,.75);max-width:52ch;margin-top:1rem}
+@media (max-width:860px){.encargos .grid{grid-template-columns:1fr}}
+.encargos-cta{display:flex;justify-content:center;margin-top:2.6rem}
+.btn-rect{display:inline-flex;align-items:center;gap:.7em;padding:1.05em 2.2em;border-radius:10px;background:var(--crema);color:var(--marino);font-weight:700;font-size:1rem;text-decoration:none;transition:transform .25s, background .25s}
+.btn-rect:hover{transform:translateY(-2px);background:var(--cuero-claro)}
+
+/* Botones de la cabecera */
+.nav-ctas{display:flex;gap:.6rem;align-items:center}
+.btn svg{flex:none}
+footer .social{display:flex;gap:.6rem}
+footer .social a{display:inline-flex;align-items:center;gap:.5em;padding:.55em 1em;border:1px solid rgba(243,236,224,.2);border-radius:999px;transition:background .25s,color .25s,border-color .25s}
+footer .social a:hover{background:var(--crema);color:var(--marino);border-color:var(--crema)}
+.btn-wa .wa-ico{flex:none}
+@media (max-width:480px){
+  .btn-wa{padding:.7em;}
+  .btn-wa span{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+}
+@media (max-width:480px){footer .btn-wa{padding:.7em 1.2em}footer .btn-wa span{position:static;width:auto;height:auto;overflow:visible;clip:auto}}
+
+/* ALIADOS */
+.aliados{display:grid;grid-template-columns:1.2fr 1fr;gap:clamp(2rem,5vw,4rem);align-items:center;padding:clamp(80px,10vw,130px) 0}
+.aliados img{border-radius:var(--radius);width:100%;aspect-ratio:16/9;object-fit:cover}
+.aliados p{color:var(--gris);margin-top:1rem}
+@media (max-width:860px){.aliados{grid-template-columns:1fr}}
+
+/* CONTACTO */
+.contacto{position:relative;color:var(--crema);overflow:hidden}
+.contacto .bg-shade{background:linear-gradient(90deg,rgba(14,21,38,.85) 0%,rgba(14,21,38,.5) 55%,rgba(14,21,38,.15))}
+.contacto .wrap{position:relative;padding:clamp(90px,12vw,150px) 0}
+.contacto h2{color:var(--crema);max-width:14ch}
+.contacto h2 em{color:var(--cuero-claro)}
+.contacto p{max-width:44ch;color:rgba(243,236,224,.8);margin:1.2rem 0 2.2rem}
+.canales{display:flex;flex-wrap:wrap;gap:.8rem}
+.contacto .btn-light{background:var(--crema);color:var(--marino)}
+.contacto .btn-light:hover{background:var(--cuero-claro);color:var(--marino)}
+.contacto .btn-line{color:var(--crema)}
+.contacto .btn-line:hover{background:var(--crema);color:var(--marino);border-color:var(--crema)}
+
+footer{background:#0E1526;color:rgba(243,236,224,.65);font-size:.88rem}
+footer .wrap{padding:2.4rem 0 2rem}
+.foot-top,.foot-bottom{display:flex;justify-content:space-between;align-items:center;gap:1.2rem;flex-wrap:wrap}
+.foot-top{padding-bottom:1.8rem;margin-bottom:1.6rem;border-bottom:1px solid rgba(243,236,224,.12)}
+footer nav ul{display:flex;flex-wrap:wrap;gap:.8rem 1.6rem;list-style:none;font-weight:600;font-size:.92rem}
+footer nav ul a{color:var(--crema);position:relative}
+footer nav ul a::after{content:"";position:absolute;left:0;bottom:-4px;height:1.5px;width:100%;background:var(--cuero-claro);transform:scaleX(0);transform-origin:left;transition:transform .3s}
+footer nav ul a:hover::after{transform:scaleX(1)}
+footer .btn-dark{color:var(--crema);box-shadow:inset 0 0 0 1px rgba(243,236,224,.3);padding:.7em 1.2em;font-size:.85rem}
+footer .btn-dark:hover{color:var(--crema)}
+footer .brand b{color:var(--crema)}
+footer a{text-decoration:none}
+footer a:hover{color:var(--crema)}
+
+/* Reveal genérico */
+.fade{opacity:0;transform:translateY(24px);transition:opacity .9s ease, transform .9s ease}
+.fade.in{opacity:1;transform:none}
+
+/* ===== MÓVIL ===== */
+html{scroll-padding-top:70px}
+.menu-btn,.nav li.only-m{display:none}
+.nav.scrolled{-webkit-backdrop-filter:blur(10px)}
+@media (max-width:860px){
+  .nav .wrap{height:68px}
+  .nav .btn,.lang-btn{min-height:44px}
+  .menu-btn{display:inline-grid;align-content:center;justify-items:center;gap:5px;width:44px;height:44px;border:0;border-radius:50%;background:transparent;color:var(--marino);cursor:pointer;margin-right:-8px}
+  .nav:not(.scrolled) .menu-btn,.nav.menu-open .menu-btn{color:var(--crema)}
+  .menu-btn span{display:block;width:22px;height:2px;border-radius:2px;background:currentColor;transition:transform .3s,opacity .2s}
+  .nav.menu-open .menu-btn span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+  .nav.menu-open .menu-btn span:nth-child(2){opacity:0}
+  .nav.menu-open .menu-btn span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+  .nav.menu-open{background:var(--marino);box-shadow:none}
+  .nav.menu-open .brand b{color:var(--crema)}
+  .nav ul{display:flex;flex-direction:column;gap:0;position:absolute;top:100%;left:0;right:0;padding:.4rem 16px 1.2rem;background:var(--marino);border-top:1px solid rgba(243,236,224,.12);box-shadow:0 24px 40px -20px rgba(0,0,0,.6);opacity:0;visibility:hidden;transform:translateY(-8px);transition:opacity .25s,transform .25s,visibility .25s}
+  .nav.menu-open ul{opacity:1;visibility:visible;transform:none}
+  .nav ul a,.nav:not(.scrolled) ul a{display:block;padding:1rem 0;font-size:1.15rem;color:var(--crema);border-bottom:1px solid rgba(243,236,224,.1)}
+  .nav ul a::after{display:none}
+  .nav ul li:last-child a{border-bottom:0}
+  footer nav ul a{display:inline-block;padding:.6rem 0}
+  footer nav ul{gap:0 1.4rem}
+  footer .social a,footer .btn-dark{min-height:44px}
+  .lang-foot a{display:inline-block;padding:.7rem .3rem}
+}
+@media (max-width:560px){
+  .nav .btn-consultar{display:none}
+  .nav li.only-m{display:block}
+  .nav .wrap{gap:.5rem}
+  .nav-ctas{gap:.4rem}
+  .manifiesto,.origen,.lookbook,.encargos,.frontera,.aliados{padding-block:64px}
+  .manifiesto{padding-block:80px}
+  .manifiesto .reveal-text{font-size:2.15rem;line-height:1.25}
+  .sec-head{margin-bottom:1.8rem}
+  h2{font-size:clamp(2.1rem,9.6vw,2.6rem)}
+  .hero .ctas .btn,.canales .btn{flex:1 1 100%;justify-content:center}
+  .hero .bg-shade{background:linear-gradient(90deg,rgba(14,21,38,.88) 0%,rgba(14,21,38,.66) 70%,rgba(14,21,38,.5) 100%)}
+  .contacto .bg-shade{background:rgba(14,21,38,.68)}
+  .bento{grid-auto-rows:170px;gap:10px}
+  .encargos .grid{margin-top:2rem}
+  .card-body{padding:0 1.4rem 1.5rem}
+}
+@media (max-width:760px){
+  /* colecciones: carrusel horizontal con snap en vez de 5 tarjetas apiladas */
+  .acc{flex-direction:row;height:auto;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;margin-inline:-16px;padding-inline:16px;scroll-padding-inline:16px}
+  .acc::-webkit-scrollbar{display:none}
+  .acc-item,.acc-item.active{flex:0 0 80%;height:440px;scroll-snap-align:start}
+  .acc-cap{padding:1.3rem}
+}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{transition:none!important;animation:none!important}
+  .hero h1 .mh-in,.fade,.card{filter:none;opacity:1;transform:none}
+  .reveal-text .ch{clip-path:none}
+}
 </style>
 </head>
 <body>
-<div class="marquee"><span>Envío gratis desde $ 120.000 · 3 cuotas sin interés · Cambios sin cargo por 30 días · Envío gratis desde $ 120.000 · 3 cuotas sin interés · Cambios sin cargo por 30 días · </span></div>
-<header>
-  <div class="wrap nav">
-    <div class="izq" id="cats"></div>
-    <a class="logo" href="#">CABALLO</a>
-    <button class="bolsa" id="abrir-bolsa">Bolsa (<span id="n">0</span>)</button>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-wa" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6.5-.1 1.5-.6 1.7-1.2s.2-1.1.2-1.2-.2-.2-.5-.3z"/></symbol>
+  <symbol id="i-ig" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/></g><circle cx="17.4" cy="6.6" r="1.2" fill="currentColor"/></symbol>
+  <symbol id="i-fb" viewBox="0 0 24 24"><path fill="currentColor" d="M13.5 21v-7.5h2.6l.4-3h-3V8.6c0-.9.3-1.5 1.5-1.5h1.6V4.4c-.3 0-1.2-.1-2.3-.1-2.3 0-3.9 1.4-3.9 4v2.2H7.8v3h2.6V21z"/></symbol>
+  <symbol id="i-globe" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.6 2.6 4 5.7 4 9s-1.4 6.4-4 9c-2.6-2.6-4-5.7-4-9s1.4-6.4 4-9z"/></g></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3.5 6.5 12 13l8.5-6.5"/></g></symbol>
+</svg>
+
+<header class="nav" id="nav">
+  <div class="wrap">
+    <a class="brand" href="#inicio" aria-label="Pelaje, inicio">
+      <b>Pelaje</b>
+    </a>
+    <nav aria-label="Principal">
+      <ul id="menu-m">
+        <li><a href="#colecciones">Colecciones</a></li>
+        <li><a href="#origen">La marca</a></li>
+        <li><a href="#lookbook">Lookbook</a></li>
+        <li><a href="#encargos">Encargos</a></li>
+        <li class="only-m"><a href="#contacto">Consultar</a></li>
+      </ul>
+    </nav>
+    <div class="nav-ctas">
+      <a class="btn btn-dark btn-wa" href="https://wa.me/598XXXXXXXX?text=Hola%20Pelaje%2C%20quiero%20hacer%20una%20consulta" target="_blank" rel="noopener" aria-label="Escríbenos por WhatsApp">
+        <svg class="wa-ico" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6.5-.1 1.5-.6 1.7-1.2s.2-1.1.2-1.2-.2-.2-.5-.3z"/></svg>
+        <span>WhatsApp</span>
+      </a>
+      <a class="btn btn-dark btn-consultar" href="#contacto">Consultar</a>
+      <button class="menu-btn" id="menuBtn" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="menu-m"><span></span><span></span><span></span></button>
+    </div>
   </div>
-  <div class="cats-movil" id="cats-m"></div>
 </header>
 
-<div class="hero">
-  <div class="hero-img"><span class="lbl">Colección Otoño · Invierno 26</span></div>
-  <div class="hero-txt">
-    <small>Nueva colección</small>
-    <h1>Hecho para <i>andar</i>.</h1>
-    <p>Prendas de algodón, lino y lana producidas en talleres locales. Básicos atemporales con cortes que duran más que una temporada.</p>
-    <a class="btn" href="#tienda" style="align-self:start">Comprar colección</a>
+<main id="inicio">
+
+<section class="hero has-video">
+  <video class="bg-video" src="caballo/caballo.mp4" poster="caballo/caballo-poster.jpg" autoplay muted loop playsinline preload="metadata" aria-hidden="true"></video>
+  <div class="bg-shade" aria-hidden="true"></div>
+  <svg class="hero-logo" data-at="24.5" data-w="1250" data-ox="257" data-oy="-175" data-t0="30.5" data-drift="15" viewBox="0 0 633 640" role="img" aria-label="Escudo de Pelaje: cabeza de caballo dentro de un escudo">
+    <path class="logo-fill" d="M251.3 6.3C242.8 7.7 235.0 9.0 225.7 11.0C216.3 13.0 207.9 14.8 195.3 18.3C182.8 21.9 162.3 28.2 150.3 32.3C138.4 36.4 131.3 39.8 123.7 43.0C116.0 46.2 112.8 47.5 104.3 51.7C95.9 55.8 85.6 60.8 73.0 68.0C60.4 75.2 39.7 87.8 29.0 94.7C18.3 101.6 12.8 105.9 9.0 109.3C5.2 112.7 6.7 113.3 6.0 115.0C5.3 116.7 5.6 115.1 5.0 119.7C4.4 124.3 3.0 133.9 2.3 142.7C1.7 151.4 1.0 159.8 1.0 172.0C1.0 184.2 1.2 201.2 2.3 216.0C3.5 230.8 6.2 248.8 8.0 260.7C9.8 272.6 11.1 278.4 13.0 287.3C14.9 296.2 16.6 303.8 19.7 314.0C22.7 324.2 27.9 339.2 31.3 348.7C34.8 358.1 35.5 360.5 40.3 370.7C45.2 380.8 52.2 395.9 60.3 409.7C68.4 423.4 80.7 441.7 89.0 453.3C97.3 464.9 103.4 471.7 110.0 479.3C116.6 487.0 120.4 491.1 128.7 499.3C136.9 507.6 152.4 522.4 159.3 528.7C166.2 534.9 166.1 533.4 170.0 536.7C173.9 539.9 174.8 541.8 183.0 548.0C191.2 554.2 206.0 565.1 219.0 573.7C232.0 582.3 247.7 592.2 261.0 599.7C274.3 607.2 285.3 612.3 298.7 618.7C312.1 625.1 332.8 634.7 341.3 638.0C349.8 641.3 345.3 639.9 349.7 638.7C354.1 637.4 356.0 637.4 367.7 630.7C379.3 623.9 403.9 608.8 419.7 598.3C435.4 587.9 451.3 576.1 462.0 568.0C472.7 559.9 475.7 556.9 483.7 550.0C491.6 543.1 499.6 536.3 509.7 526.3C519.8 516.3 535.7 499.8 544.3 490.0C553.0 480.2 556.2 475.1 561.7 467.3C567.2 459.6 572.9 450.8 577.3 443.7C581.8 436.6 584.3 432.4 588.3 424.7C592.3 416.9 597.4 406.5 601.3 397.3C605.2 388.2 608.0 381.8 611.7 369.7C615.3 357.6 620.6 337.6 623.3 324.7C626.1 311.8 627.1 301.1 628.3 292.3C629.6 283.6 630.1 280.1 630.7 272.3C631.2 264.6 631.6 256.0 631.7 246.0C631.8 236.0 631.8 224.4 631.3 212.3C630.8 200.3 630.0 187.8 628.7 173.7C627.3 159.5 624.7 137.1 623.3 127.3C621.9 117.6 621.8 118.7 620.3 115.0C618.9 111.3 617.9 109.1 614.7 105.3C611.4 101.6 608.3 98.2 601.0 92.7C593.7 87.1 580.7 78.3 570.7 72.0C560.7 65.7 552.1 60.8 541.0 55.0C529.9 49.2 516.5 42.8 504.0 37.3C491.5 31.9 476.4 26.1 466.0 22.3C455.6 18.6 449.1 17.0 441.7 15.0C434.2 13.0 430.0 12.1 421.3 10.3C412.7 8.6 398.8 6.1 389.7 4.7C380.5 3.3 375.4 2.7 366.3 2.0C357.3 1.3 345.3 0.8 335.3 0.7C325.3 0.5 316.1 0.6 306.3 1.0C296.6 1.4 286.2 2.1 277.0 3.0C267.8 3.9 259.9 5.0 251.3 6.3Z M508.0 281.3C508.5 281.9 508.9 281.4 509.7 284.7C510.4 287.9 512.1 294.9 512.7 301.0C513.3 307.1 513.5 311.8 513.3 321.3C513.2 330.9 512.9 345.5 511.7 358.3C510.4 371.2 507.3 390.3 506.0 398.3C504.7 406.4 504.2 404.2 503.7 406.7C503.2 409.2 504.2 407.1 503.0 413.3C501.8 419.6 499.6 432.1 496.3 444.0C493.1 455.9 487.4 474.1 483.3 484.7C479.3 495.2 476.0 500.3 472.0 507.3C468.0 514.4 463.1 522.2 459.3 527.0C455.6 531.8 454.1 532.4 449.7 536.0C445.2 539.6 444.7 540.1 432.7 548.7C420.6 557.2 389.3 579.1 377.3 587.3C365.4 595.6 365.6 595.5 361.0 598.0C356.4 600.5 353.2 601.6 349.7 602.3C346.1 603.1 342.8 602.8 339.7 602.3C336.6 601.8 343.2 605.4 331.0 599.3C318.8 593.3 280.1 573.3 266.3 566.0C252.6 558.7 251.6 557.3 248.3 555.3C245.1 553.3 247.3 554.6 247.0 554.0C246.7 553.4 246.3 552.7 246.7 552.0C247.0 551.3 239.6 554.4 249.0 549.7C258.4 544.9 285.3 533.1 303.3 523.7C321.3 514.3 343.9 501.2 357.0 493.3C370.1 485.4 375.9 480.7 382.0 476.3C388.1 472.0 386.7 473.3 393.3 467.3C400.0 461.4 414.7 447.9 422.0 440.7C429.3 433.4 432.7 429.3 437.3 424.0C441.9 418.7 445.6 414.3 449.7 409.0C453.7 403.7 457.3 398.9 461.7 392.0C466.0 385.1 470.7 377.1 475.7 367.7C480.7 358.2 487.9 343.5 491.7 335.3C495.4 327.2 496.5 324.2 498.3 318.7C500.2 313.1 501.5 307.9 502.7 302.0C503.8 296.1 504.7 286.8 505.3 283.3C506.0 279.9 506.2 281.7 506.7 281.3C507.1 281.0 507.5 280.8 508.0 281.3Z M525.3 239.7C526.5 240.4 527.6 240.7 531.0 245.0C534.4 249.3 542.1 259.6 546.0 265.3C549.9 271.1 551.2 273.7 554.3 279.7C557.4 285.7 560.7 291.8 564.7 301.3C568.7 310.9 575.4 327.9 578.3 337.0C581.2 346.1 581.4 350.4 582.0 355.7C582.6 360.9 582.2 364.7 582.0 368.7C581.8 372.6 581.7 375.7 581.0 379.3C580.3 383.0 579.0 386.8 577.7 390.7C576.3 394.5 574.6 398.8 573.0 402.3C571.4 405.9 571.2 406.9 568.0 412.0C564.8 417.1 558.8 426.1 554.0 432.7C549.2 439.3 543.7 446.3 539.3 451.7C535.0 457.0 532.2 460.2 528.0 464.7C523.8 469.1 516.9 476.1 514.3 478.3C511.8 480.6 513.1 478.6 512.7 478.3C512.2 478.1 511.8 477.3 511.7 476.7C511.6 476.0 510.3 479.4 512.0 474.3C513.7 469.3 518.7 456.9 521.7 446.3C524.7 435.8 527.7 424.7 530.0 411.0C532.3 397.3 534.2 379.4 535.7 364.3C537.1 349.3 538.2 331.3 538.7 320.7C539.2 310.0 539.2 307.6 538.7 300.3C538.2 293.1 537.1 284.5 535.7 277.3C534.2 270.2 531.9 262.9 530.0 257.3C528.1 251.7 525.3 246.4 524.3 243.7C523.3 240.9 523.8 241.3 524.0 240.7C524.2 240.0 524.2 238.9 525.3 239.7Z M305.3 121.7C306.3 121.4 307.2 121.7 308.7 122.3C310.1 123.0 310.4 122.8 314.0 125.7C317.6 128.5 326.3 136.5 330.0 139.3C333.7 142.2 334.0 141.8 336.3 142.7C338.7 143.5 339.9 143.8 344.0 144.3C348.1 144.9 357.1 145.3 361.0 146.0C364.9 146.7 364.8 147.7 367.3 148.3C369.8 149.0 369.7 148.0 376.0 150.0C382.3 152.0 397.3 157.0 405.3 160.3C413.3 163.7 418.3 166.6 424.0 170.0C429.7 173.4 434.0 176.3 439.3 180.7C444.7 185.1 451.7 191.6 456.0 196.3C460.3 201.1 462.9 205.4 465.3 209.0C467.7 212.6 468.5 214.0 470.3 217.7C472.2 221.3 474.3 225.7 476.3 231.0C478.4 236.3 481.2 243.7 482.7 249.3C484.1 255.0 485.3 256.7 485.0 265.0C484.7 273.3 482.3 291.2 481.0 299.3C479.7 307.5 478.4 309.6 477.0 314.0C475.6 318.4 474.3 321.6 472.3 326.0C470.3 330.4 467.8 335.6 465.0 340.7C462.2 345.7 460.9 348.3 455.7 356.3C450.4 364.3 439.0 381.5 433.7 388.7C428.3 395.8 425.6 397.6 423.7 399.3C421.7 401.1 422.7 399.9 422.0 399.3C421.3 398.7 420.4 398.4 419.7 395.7C418.9 392.9 419.4 390.4 417.7 383.0C415.9 375.6 411.9 359.6 409.0 351.0C406.1 342.4 401.3 335.6 400.0 331.7C398.7 327.8 398.7 330.6 401.0 327.7C403.3 324.8 410.7 318.2 414.0 314.3C417.3 310.5 418.7 308.9 421.0 304.7C423.3 300.4 425.8 294.8 427.7 289.0C429.5 283.2 431.1 274.9 432.0 270.0C432.9 265.1 433.1 263.6 433.3 259.7C433.6 255.8 433.9 251.6 433.3 246.7C432.8 241.8 431.2 234.2 430.0 230.3C428.8 226.5 427.0 225.1 426.0 223.7C425.0 222.2 424.9 222.2 424.0 221.7C423.1 221.2 422.4 220.8 420.7 220.7C418.9 220.6 415.6 220.2 413.7 221.0C411.8 221.8 410.2 222.4 409.3 225.3C408.5 228.3 408.6 233.1 408.7 238.7C408.7 244.2 409.6 253.9 409.7 258.7C409.8 263.4 409.6 264.4 409.3 267.0C409.1 269.6 408.9 271.3 408.0 274.0C407.1 276.7 406.1 279.9 404.0 283.3C401.9 286.7 398.3 291.3 395.7 294.3C393.0 297.3 391.9 298.5 388.0 301.3C384.1 304.2 380.4 306.6 372.0 311.3C363.6 316.1 355.2 319.7 337.7 329.7C320.1 339.6 279.2 363.4 266.7 371.0C254.2 378.6 263.7 373.9 262.7 375.3C261.6 376.8 262.6 374.2 260.3 379.7C258.1 385.1 251.7 402.9 249.3 408.0C246.9 413.1 247.1 409.8 246.0 410.3C244.9 410.8 244.9 410.9 243.0 411.0C241.1 411.1 241.4 411.7 234.7 410.7C227.9 409.7 209.1 406.3 202.7 405.0C196.3 403.7 198.1 403.7 196.3 402.7C194.6 401.7 193.6 401.3 192.3 399.0C191.1 396.7 189.6 392.1 188.7 389.0C187.7 385.9 186.9 382.7 186.7 380.3C186.4 378.0 186.5 377.1 187.0 375.0C187.5 372.9 182.8 380.8 189.7 368.0C196.5 355.2 220.7 311.1 228.0 298.0C235.3 284.9 230.4 295.0 233.3 289.7C236.2 284.3 242.8 271.4 245.3 266.0C247.9 260.6 247.3 264.0 248.7 257.3C250.1 250.7 252.3 232.7 253.7 226.0C255.0 219.3 253.9 222.0 256.7 217.3C259.4 212.7 265.1 204.8 270.3 198.0C275.6 191.2 283.1 183.6 288.3 176.3C293.6 169.1 299.5 159.1 302.0 154.7C304.5 150.2 303.0 152.9 303.3 149.7C303.7 146.4 304.1 139.6 304.0 135.3C303.9 131.1 302.8 126.3 303.0 124.0C303.2 121.7 304.4 121.9 305.3 121.7Z M587.7 125.0C593.3 129.4 590.8 128.0 592.0 130.0C593.2 132.0 593.6 129.8 594.7 137.0C595.7 144.2 597.6 161.1 598.3 173.0C599.1 184.9 598.6 200.3 599.0 208.3C599.4 216.4 600.4 215.1 600.7 221.3C600.9 227.6 601.1 233.7 600.7 246.0C600.3 258.3 598.8 286.4 598.3 295.3C597.8 304.2 598.0 298.4 597.7 299.3C597.3 300.3 596.8 300.7 596.3 301.0C595.9 301.3 595.6 301.3 595.0 301.0C594.4 300.7 598.1 307.3 593.0 299.0C587.9 290.7 571.4 262.1 564.7 251.0C557.9 239.9 556.7 238.4 552.3 232.3C547.9 226.2 544.8 221.7 538.3 214.3C531.9 206.9 520.0 194.2 513.7 188.0C507.3 181.8 505.1 180.6 500.3 177.0C495.6 173.4 492.7 171.1 485.3 166.3C477.9 161.6 466.4 154.1 456.0 148.7C445.6 143.3 431.9 137.7 423.0 134.0C414.1 130.3 409.3 128.7 402.7 126.7C396.0 124.7 388.7 123.1 383.0 122.0C377.3 120.9 372.9 120.9 368.3 120.0C363.8 119.1 359.4 117.8 355.7 116.7C351.9 115.5 348.8 114.3 346.0 113.0C343.2 111.7 344.3 112.8 339.0 109.0C333.7 105.2 320.7 94.5 314.3 90.0C307.9 85.5 304.8 83.9 300.7 82.0C296.5 80.1 295.1 79.2 289.3 78.7C283.6 78.1 270.4 78.2 266.3 78.7C262.3 79.1 265.1 80.3 265.0 81.3C264.9 82.3 264.3 82.5 265.7 84.7C267.1 86.8 271.2 90.3 273.3 94.3C275.5 98.4 277.6 104.8 278.7 109.0C279.8 113.2 279.9 115.0 280.0 119.3C280.1 123.7 279.8 131.7 279.3 135.0C278.9 138.3 280.4 134.7 277.3 139.3C274.3 143.9 268.7 152.2 261.0 162.7C253.3 173.1 236.7 194.2 231.3 202.0C226.0 209.8 229.6 206.8 229.0 209.3C228.4 211.8 229.2 212.2 228.0 217.0C226.8 221.8 224.4 231.1 222.0 238.0C219.6 244.9 217.6 248.9 213.3 258.3C209.1 267.7 205.2 277.7 196.7 294.3C188.2 311.0 168.4 346.3 162.3 358.3C156.2 370.4 160.4 363.9 160.0 366.7C159.6 369.4 158.3 367.4 160.0 374.7C161.7 381.9 167.7 402.9 170.0 410.0C172.3 417.1 172.1 415.0 173.7 417.3C175.3 419.7 177.8 422.3 179.7 424.0C181.5 425.7 182.8 426.4 184.7 427.3C186.5 428.3 185.3 428.2 190.7 429.7C196.1 431.1 210.2 434.7 217.0 436.0C223.8 437.3 227.5 437.0 231.3 437.7C235.2 438.3 236.6 439.3 240.0 440.0C243.4 440.7 248.4 441.4 252.0 441.7C255.6 441.9 258.9 442.3 261.3 441.7C263.8 441.0 265.2 439.3 266.7 437.7C268.1 436.1 268.8 434.7 270.0 432.0C271.2 429.3 272.9 424.4 273.7 421.7C274.4 418.9 273.9 418.6 274.7 415.7C275.4 412.7 277.1 407.3 278.3 404.0C279.6 400.7 280.9 397.8 282.0 396.0C283.1 394.2 283.6 394.2 285.0 393.0C286.4 391.8 286.3 391.6 290.7 389.0C295.1 386.4 300.3 383.4 311.3 377.7C322.4 371.9 348.4 358.8 357.0 354.3C365.6 349.8 359.6 352.2 362.7 350.7C365.8 349.1 372.7 345.3 375.7 345.0C378.6 344.7 378.4 345.7 380.3 348.7C382.2 351.6 385.2 358.5 387.0 362.7C388.8 366.8 389.7 369.3 391.0 373.7C392.3 378.0 394.1 384.8 395.0 388.7C395.9 392.6 396.1 392.9 396.3 397.0C396.6 401.1 396.5 409.6 396.3 413.3C396.2 417.1 395.9 417.0 395.3 419.3C394.7 421.7 394.6 423.8 392.7 427.3C390.7 430.8 387.6 435.9 383.7 440.3C379.7 444.8 374.8 449.4 369.0 454.0C363.2 458.6 355.3 463.8 348.7 468.0C342.1 472.2 339.5 473.8 329.3 479.3C319.2 484.8 302.2 494.1 287.7 501.0C273.2 507.9 253.5 516.4 242.3 521.0C231.2 525.6 225.5 527.3 220.7 528.7C215.8 530.0 216.3 529.6 213.3 529.0C210.3 528.4 207.4 528.1 202.7 525.3C197.9 522.6 190.7 517.4 184.7 512.7C178.7 507.9 173.0 502.9 166.7 497.0C160.3 491.1 153.2 483.8 146.7 477.0C140.2 470.2 134.2 463.6 127.7 456.0C121.2 448.4 113.1 438.6 107.7 431.7C102.2 424.7 98.6 419.6 95.0 414.3C91.4 409.1 89.8 406.8 86.3 400.3C82.8 393.8 77.8 384.1 74.0 375.3C70.2 366.6 67.1 358.5 63.7 348.0C60.2 337.5 56.4 323.7 53.3 312.3C50.3 301.0 47.5 289.8 45.3 280.0C43.2 270.2 42.0 264.2 40.3 253.3C38.7 242.5 36.6 226.2 35.3 215.0C34.1 203.8 33.4 195.7 33.0 186.0C32.6 176.3 32.3 165.2 32.7 156.7C33.0 148.2 34.1 139.8 35.0 135.0C35.9 130.2 37.2 129.5 38.3 127.7C39.5 125.8 37.4 127.3 42.0 124.0C46.6 120.7 57.5 112.9 65.7 107.7C73.8 102.4 81.9 97.4 91.0 92.3C100.1 87.3 108.7 82.8 120.3 77.3C131.9 71.9 149.8 64.1 160.7 59.7C171.6 55.2 176.4 53.6 185.7 50.7C194.9 47.7 205.1 44.8 216.3 42.0C227.6 39.2 245.4 35.4 253.0 34.0C260.6 32.6 256.7 34.1 262.0 33.3C267.3 32.6 275.9 30.6 284.7 29.7C293.4 28.7 303.9 27.9 314.7 27.7C325.4 27.4 341.9 28.0 349.0 28.3C356.1 28.7 353.0 29.3 357.0 29.7C361.0 30.1 363.0 29.2 373.0 30.7C383.0 32.2 405.7 36.2 417.0 38.7C428.3 41.1 431.1 42.2 440.7 45.3C450.2 48.5 463.9 53.4 474.3 57.7C484.8 61.9 494.4 66.2 503.3 70.7C512.3 75.1 518.9 78.9 528.0 84.3C537.1 89.8 548.1 96.6 558.0 103.3C567.9 110.1 582.0 120.6 587.7 125.0Z"/>
+    <g class="logo-stroke">
+      <path pathLength="1" style="--i:0" d="M251.3 6.3C242.8 7.7 235.0 9.0 225.7 11.0C216.3 13.0 207.9 14.8 195.3 18.3C182.8 21.9 162.3 28.2 150.3 32.3C138.4 36.4 131.3 39.8 123.7 43.0C116.0 46.2 112.8 47.5 104.3 51.7C95.9 55.8 85.6 60.8 73.0 68.0C60.4 75.2 39.7 87.8 29.0 94.7C18.3 101.6 12.8 105.9 9.0 109.3C5.2 112.7 6.7 113.3 6.0 115.0C5.3 116.7 5.6 115.1 5.0 119.7C4.4 124.3 3.0 133.9 2.3 142.7C1.7 151.4 1.0 159.8 1.0 172.0C1.0 184.2 1.2 201.2 2.3 216.0C3.5 230.8 6.2 248.8 8.0 260.7C9.8 272.6 11.1 278.4 13.0 287.3C14.9 296.2 16.6 303.8 19.7 314.0C22.7 324.2 27.9 339.2 31.3 348.7C34.8 358.1 35.5 360.5 40.3 370.7C45.2 380.8 52.2 395.9 60.3 409.7C68.4 423.4 80.7 441.7 89.0 453.3C97.3 464.9 103.4 471.7 110.0 479.3C116.6 487.0 120.4 491.1 128.7 499.3C136.9 507.6 152.4 522.4 159.3 528.7C166.2 534.9 166.1 533.4 170.0 536.7C173.9 539.9 174.8 541.8 183.0 548.0C191.2 554.2 206.0 565.1 219.0 573.7C232.0 582.3 247.7 592.2 261.0 599.7C274.3 607.2 285.3 612.3 298.7 618.7C312.1 625.1 332.8 634.7 341.3 638.0C349.8 641.3 345.3 639.9 349.7 638.7C354.1 637.4 356.0 637.4 367.7 630.7C379.3 623.9 403.9 608.8 419.7 598.3C435.4 587.9 451.3 576.1 462.0 568.0C472.7 559.9 475.7 556.9 483.7 550.0C491.6 543.1 499.6 536.3 509.7 526.3C519.8 516.3 535.7 499.8 544.3 490.0C553.0 480.2 556.2 475.1 561.7 467.3C567.2 459.6 572.9 450.8 577.3 443.7C581.8 436.6 584.3 432.4 588.3 424.7C592.3 416.9 597.4 406.5 601.3 397.3C605.2 388.2 608.0 381.8 611.7 369.7C615.3 357.6 620.6 337.6 623.3 324.7C626.1 311.8 627.1 301.1 628.3 292.3C629.6 283.6 630.1 280.1 630.7 272.3C631.2 264.6 631.6 256.0 631.7 246.0C631.8 236.0 631.8 224.4 631.3 212.3C630.8 200.3 630.0 187.8 628.7 173.7C627.3 159.5 624.7 137.1 623.3 127.3C621.9 117.6 621.8 118.7 620.3 115.0C618.9 111.3 617.9 109.1 614.7 105.3C611.4 101.6 608.3 98.2 601.0 92.7C593.7 87.1 580.7 78.3 570.7 72.0C560.7 65.7 552.1 60.8 541.0 55.0C529.9 49.2 516.5 42.8 504.0 37.3C491.5 31.9 476.4 26.1 466.0 22.3C455.6 18.6 449.1 17.0 441.7 15.0C434.2 13.0 430.0 12.1 421.3 10.3C412.7 8.6 398.8 6.1 389.7 4.7C380.5 3.3 375.4 2.7 366.3 2.0C357.3 1.3 345.3 0.8 335.3 0.7C325.3 0.5 316.1 0.6 306.3 1.0C296.6 1.4 286.2 2.1 277.0 3.0C267.8 3.9 259.9 5.0 251.3 6.3Z"/>
+      <path pathLength="1" style="--i:1" d="M508.0 281.3C508.5 281.9 508.9 281.4 509.7 284.7C510.4 287.9 512.1 294.9 512.7 301.0C513.3 307.1 513.5 311.8 513.3 321.3C513.2 330.9 512.9 345.5 511.7 358.3C510.4 371.2 507.3 390.3 506.0 398.3C504.7 406.4 504.2 404.2 503.7 406.7C503.2 409.2 504.2 407.1 503.0 413.3C501.8 419.6 499.6 432.1 496.3 444.0C493.1 455.9 487.4 474.1 483.3 484.7C479.3 495.2 476.0 500.3 472.0 507.3C468.0 514.4 463.1 522.2 459.3 527.0C455.6 531.8 454.1 532.4 449.7 536.0C445.2 539.6 444.7 540.1 432.7 548.7C420.6 557.2 389.3 579.1 377.3 587.3C365.4 595.6 365.6 595.5 361.0 598.0C356.4 600.5 353.2 601.6 349.7 602.3C346.1 603.1 342.8 602.8 339.7 602.3C336.6 601.8 343.2 605.4 331.0 599.3C318.8 593.3 280.1 573.3 266.3 566.0C252.6 558.7 251.6 557.3 248.3 555.3C245.1 553.3 247.3 554.6 247.0 554.0C246.7 553.4 246.3 552.7 246.7 552.0C247.0 551.3 239.6 554.4 249.0 549.7C258.4 544.9 285.3 533.1 303.3 523.7C321.3 514.3 343.9 501.2 357.0 493.3C370.1 485.4 375.9 480.7 382.0 476.3C388.1 472.0 386.7 473.3 393.3 467.3C400.0 461.4 414.7 447.9 422.0 440.7C429.3 433.4 432.7 429.3 437.3 424.0C441.9 418.7 445.6 414.3 449.7 409.0C453.7 403.7 457.3 398.9 461.7 392.0C466.0 385.1 470.7 377.1 475.7 367.7C480.7 358.2 487.9 343.5 491.7 335.3C495.4 327.2 496.5 324.2 498.3 318.7C500.2 313.1 501.5 307.9 502.7 302.0C503.8 296.1 504.7 286.8 505.3 283.3C506.0 279.9 506.2 281.7 506.7 281.3C507.1 281.0 507.5 280.8 508.0 281.3Z"/>
+      <path pathLength="1" style="--i:2" d="M525.3 239.7C526.5 240.4 527.6 240.7 531.0 245.0C534.4 249.3 542.1 259.6 546.0 265.3C549.9 271.1 551.2 273.7 554.3 279.7C557.4 285.7 560.7 291.8 564.7 301.3C568.7 310.9 575.4 327.9 578.3 337.0C581.2 346.1 581.4 350.4 582.0 355.7C582.6 360.9 582.2 364.7 582.0 368.7C581.8 372.6 581.7 375.7 581.0 379.3C580.3 383.0 579.0 386.8 577.7 390.7C576.3 394.5 574.6 398.8 573.0 402.3C571.4 405.9 571.2 406.9 568.0 412.0C564.8 417.1 558.8 426.1 554.0 432.7C549.2 439.3 543.7 446.3 539.3 451.7C535.0 457.0 532.2 460.2 528.0 464.7C523.8 469.1 516.9 476.1 514.3 478.3C511.8 480.6 513.1 478.6 512.7 478.3C512.2 478.1 511.8 477.3 511.7 476.7C511.6 476.0 510.3 479.4 512.0 474.3C513.7 469.3 518.7 456.9 521.7 446.3C524.7 435.8 527.7 424.7 530.0 411.0C532.3 397.3 534.2 379.4 535.7 364.3C537.1 349.3 538.2 331.3 538.7 320.7C539.2 310.0 539.2 307.6 538.7 300.3C538.2 293.1 537.1 284.5 535.7 277.3C534.2 270.2 531.9 262.9 530.0 257.3C528.1 251.7 525.3 246.4 524.3 243.7C523.3 240.9 523.8 241.3 524.0 240.7C524.2 240.0 524.2 238.9 525.3 239.7Z"/>
+      <path pathLength="1" style="--i:3" d="M305.3 121.7C306.3 121.4 307.2 121.7 308.7 122.3C310.1 123.0 310.4 122.8 314.0 125.7C317.6 128.5 326.3 136.5 330.0 139.3C333.7 142.2 334.0 141.8 336.3 142.7C338.7 143.5 339.9 143.8 344.0 144.3C348.1 144.9 357.1 145.3 361.0 146.0C364.9 146.7 364.8 147.7 367.3 148.3C369.8 149.0 369.7 148.0 376.0 150.0C382.3 152.0 397.3 157.0 405.3 160.3C413.3 163.7 418.3 166.6 424.0 170.0C429.7 173.4 434.0 176.3 439.3 180.7C444.7 185.1 451.7 191.6 456.0 196.3C460.3 201.1 462.9 205.4 465.3 209.0C467.7 212.6 468.5 214.0 470.3 217.7C472.2 221.3 474.3 225.7 476.3 231.0C478.4 236.3 481.2 243.7 482.7 249.3C484.1 255.0 485.3 256.7 485.0 265.0C484.7 273.3 482.3 291.2 481.0 299.3C479.7 307.5 478.4 309.6 477.0 314.0C475.6 318.4 474.3 321.6 472.3 326.0C470.3 330.4 467.8 335.6 465.0 340.7C462.2 345.7 460.9 348.3 455.7 356.3C450.4 364.3 439.0 381.5 433.7 388.7C428.3 395.8 425.6 397.6 423.7 399.3C421.7 401.1 422.7 399.9 422.0 399.3C421.3 398.7 420.4 398.4 419.7 395.7C418.9 392.9 419.4 390.4 417.7 383.0C415.9 375.6 411.9 359.6 409.0 351.0C406.1 342.4 401.3 335.6 400.0 331.7C398.7 327.8 398.7 330.6 401.0 327.7C403.3 324.8 410.7 318.2 414.0 314.3C417.3 310.5 418.7 308.9 421.0 304.7C423.3 300.4 425.8 294.8 427.7 289.0C429.5 283.2 431.1 274.9 432.0 270.0C432.9 265.1 433.1 263.6 433.3 259.7C433.6 255.8 433.9 251.6 433.3 246.7C432.8 241.8 431.2 234.2 430.0 230.3C428.8 226.5 427.0 225.1 426.0 223.7C425.0 222.2 424.9 222.2 424.0 221.7C423.1 221.2 422.4 220.8 420.7 220.7C418.9 220.6 415.6 220.2 413.7 221.0C411.8 221.8 410.2 222.4 409.3 225.3C408.5 228.3 408.6 233.1 408.7 238.7C408.7 244.2 409.6 253.9 409.7 258.7C409.8 263.4 409.6 264.4 409.3 267.0C409.1 269.6 408.9 271.3 408.0 274.0C407.1 276.7 406.1 279.9 404.0 283.3C401.9 286.7 398.3 291.3 395.7 294.3C393.0 297.3 391.9 298.5 388.0 301.3C384.1 304.2 380.4 306.6 372.0 311.3C363.6 316.1 355.2 319.7 337.7 329.7C320.1 339.6 279.2 363.4 266.7 371.0C254.2 378.6 263.7 373.9 262.7 375.3C261.6 376.8 262.6 374.2 260.3 379.7C258.1 385.1 251.7 402.9 249.3 408.0C246.9 413.1 247.1 409.8 246.0 410.3C244.9 410.8 244.9 410.9 243.0 411.0C241.1 411.1 241.4 411.7 234.7 410.7C227.9 409.7 209.1 406.3 202.7 405.0C196.3 403.7 198.1 403.7 196.3 402.7C194.6 401.7 193.6 401.3 192.3 399.0C191.1 396.7 189.6 392.1 188.7 389.0C187.7 385.9 186.9 382.7 186.7 380.3C186.4 378.0 186.5 377.1 187.0 375.0C187.5 372.9 182.8 380.8 189.7 368.0C196.5 355.2 220.7 311.1 228.0 298.0C235.3 284.9 230.4 295.0 233.3 289.7C236.2 284.3 242.8 271.4 245.3 266.0C247.9 260.6 247.3 264.0 248.7 257.3C250.1 250.7 252.3 232.7 253.7 226.0C255.0 219.3 253.9 222.0 256.7 217.3C259.4 212.7 265.1 204.8 270.3 198.0C275.6 191.2 283.1 183.6 288.3 176.3C293.6 169.1 299.5 159.1 302.0 154.7C304.5 150.2 303.0 152.9 303.3 149.7C303.7 146.4 304.1 139.6 304.0 135.3C303.9 131.1 302.8 126.3 303.0 124.0C303.2 121.7 304.4 121.9 305.3 121.7Z"/>
+      <path pathLength="1" style="--i:4" d="M587.7 125.0C593.3 129.4 590.8 128.0 592.0 130.0C593.2 132.0 593.6 129.8 594.7 137.0C595.7 144.2 597.6 161.1 598.3 173.0C599.1 184.9 598.6 200.3 599.0 208.3C599.4 216.4 600.4 215.1 600.7 221.3C600.9 227.6 601.1 233.7 600.7 246.0C600.3 258.3 598.8 286.4 598.3 295.3C597.8 304.2 598.0 298.4 597.7 299.3C597.3 300.3 596.8 300.7 596.3 301.0C595.9 301.3 595.6 301.3 595.0 301.0C594.4 300.7 598.1 307.3 593.0 299.0C587.9 290.7 571.4 262.1 564.7 251.0C557.9 239.9 556.7 238.4 552.3 232.3C547.9 226.2 544.8 221.7 538.3 214.3C531.9 206.9 520.0 194.2 513.7 188.0C507.3 181.8 505.1 180.6 500.3 177.0C495.6 173.4 492.7 171.1 485.3 166.3C477.9 161.6 466.4 154.1 456.0 148.7C445.6 143.3 431.9 137.7 423.0 134.0C414.1 130.3 409.3 128.7 402.7 126.7C396.0 124.7 388.7 123.1 383.0 122.0C377.3 120.9 372.9 120.9 368.3 120.0C363.8 119.1 359.4 117.8 355.7 116.7C351.9 115.5 348.8 114.3 346.0 113.0C343.2 111.7 344.3 112.8 339.0 109.0C333.7 105.2 320.7 94.5 314.3 90.0C307.9 85.5 304.8 83.9 300.7 82.0C296.5 80.1 295.1 79.2 289.3 78.7C283.6 78.1 270.4 78.2 266.3 78.7C262.3 79.1 265.1 80.3 265.0 81.3C264.9 82.3 264.3 82.5 265.7 84.7C267.1 86.8 271.2 90.3 273.3 94.3C275.5 98.4 277.6 104.8 278.7 109.0C279.8 113.2 279.9 115.0 280.0 119.3C280.1 123.7 279.8 131.7 279.3 135.0C278.9 138.3 280.4 134.7 277.3 139.3C274.3 143.9 268.7 152.2 261.0 162.7C253.3 173.1 236.7 194.2 231.3 202.0C226.0 209.8 229.6 206.8 229.0 209.3C228.4 211.8 229.2 212.2 228.0 217.0C226.8 221.8 224.4 231.1 222.0 238.0C219.6 244.9 217.6 248.9 213.3 258.3C209.1 267.7 205.2 277.7 196.7 294.3C188.2 311.0 168.4 346.3 162.3 358.3C156.2 370.4 160.4 363.9 160.0 366.7C159.6 369.4 158.3 367.4 160.0 374.7C161.7 381.9 167.7 402.9 170.0 410.0C172.3 417.1 172.1 415.0 173.7 417.3C175.3 419.7 177.8 422.3 179.7 424.0C181.5 425.7 182.8 426.4 184.7 427.3C186.5 428.3 185.3 428.2 190.7 429.7C196.1 431.1 210.2 434.7 217.0 436.0C223.8 437.3 227.5 437.0 231.3 437.7C235.2 438.3 236.6 439.3 240.0 440.0C243.4 440.7 248.4 441.4 252.0 441.7C255.6 441.9 258.9 442.3 261.3 441.7C263.8 441.0 265.2 439.3 266.7 437.7C268.1 436.1 268.8 434.7 270.0 432.0C271.2 429.3 272.9 424.4 273.7 421.7C274.4 418.9 273.9 418.6 274.7 415.7C275.4 412.7 277.1 407.3 278.3 404.0C279.6 400.7 280.9 397.8 282.0 396.0C283.1 394.2 283.6 394.2 285.0 393.0C286.4 391.8 286.3 391.6 290.7 389.0C295.1 386.4 300.3 383.4 311.3 377.7C322.4 371.9 348.4 358.8 357.0 354.3C365.6 349.8 359.6 352.2 362.7 350.7C365.8 349.1 372.7 345.3 375.7 345.0C378.6 344.7 378.4 345.7 380.3 348.7C382.2 351.6 385.2 358.5 387.0 362.7C388.8 366.8 389.7 369.3 391.0 373.7C392.3 378.0 394.1 384.8 395.0 388.7C395.9 392.6 396.1 392.9 396.3 397.0C396.6 401.1 396.5 409.6 396.3 413.3C396.2 417.1 395.9 417.0 395.3 419.3C394.7 421.7 394.6 423.8 392.7 427.3C390.7 430.8 387.6 435.9 383.7 440.3C379.7 444.8 374.8 449.4 369.0 454.0C363.2 458.6 355.3 463.8 348.7 468.0C342.1 472.2 339.5 473.8 329.3 479.3C319.2 484.8 302.2 494.1 287.7 501.0C273.2 507.9 253.5 516.4 242.3 521.0C231.2 525.6 225.5 527.3 220.7 528.7C215.8 530.0 216.3 529.6 213.3 529.0C210.3 528.4 207.4 528.1 202.7 525.3C197.9 522.6 190.7 517.4 184.7 512.7C178.7 507.9 173.0 502.9 166.7 497.0C160.3 491.1 153.2 483.8 146.7 477.0C140.2 470.2 134.2 463.6 127.7 456.0C121.2 448.4 113.1 438.6 107.7 431.7C102.2 424.7 98.6 419.6 95.0 414.3C91.4 409.1 89.8 406.8 86.3 400.3C82.8 393.8 77.8 384.1 74.0 375.3C70.2 366.6 67.1 358.5 63.7 348.0C60.2 337.5 56.4 323.7 53.3 312.3C50.3 301.0 47.5 289.8 45.3 280.0C43.2 270.2 42.0 264.2 40.3 253.3C38.7 242.5 36.6 226.2 35.3 215.0C34.1 203.8 33.4 195.7 33.0 186.0C32.6 176.3 32.3 165.2 32.7 156.7C33.0 148.2 34.1 139.8 35.0 135.0C35.9 130.2 37.2 129.5 38.3 127.7C39.5 125.8 37.4 127.3 42.0 124.0C46.6 120.7 57.5 112.9 65.7 107.7C73.8 102.4 81.9 97.4 91.0 92.3C100.1 87.3 108.7 82.8 120.3 77.3C131.9 71.9 149.8 64.1 160.7 59.7C171.6 55.2 176.4 53.6 185.7 50.7C194.9 47.7 205.1 44.8 216.3 42.0C227.6 39.2 245.4 35.4 253.0 34.0C260.6 32.6 256.7 34.1 262.0 33.3C267.3 32.6 275.9 30.6 284.7 29.7C293.4 28.7 303.9 27.9 314.7 27.7C325.4 27.4 341.9 28.0 349.0 28.3C356.1 28.7 353.0 29.3 357.0 29.7C361.0 30.1 363.0 29.2 373.0 30.7C383.0 32.2 405.7 36.2 417.0 38.7C428.3 41.1 431.1 42.2 440.7 45.3C450.2 48.5 463.9 53.4 474.3 57.7C484.8 61.9 494.4 66.2 503.3 70.7C512.3 75.1 518.9 78.9 528.0 84.3C537.1 89.8 548.1 96.6 558.0 103.3C567.9 110.1 582.0 120.6 587.7 125.0Z"/>
+    </g>
+  </svg>
+  <div>
+    <h1 id="heroTitle" aria-label="Indumentaria de campo en Uruguay: El pelaje de la Patria"><span class="eyebrow h1-eyebrow">Indumentaria de campo · Uruguay</span><span class="h1-main"><span class="word">El</span> <span class="word">pelaje</span> <span class="word">de</span> <span class="word">la</span> <span class="word"><em>Patria</em></span></span></h1>
+    <p class="lead">Camisas criollas, ponchos, boinas y chalecos diseñados y fabricados en Uruguay. Ropa de campo para la estancia, la fiesta criolla y la ciudad.</p>
+    <div class="ctas">
+      <a class="btn btn-dark" href="#colecciones">Ver colecciones →</a>
+      <a class="btn btn-line" href="https://wa.me/598XXXXXXXX?text=Hola%20Pelaje%2C%20quiero%20hacer%20una%20consulta" target="_blank" rel="noopener"><svg width="18" height="18" aria-hidden="true"><use href="#i-wa"/></svg>Escríbenos por WhatsApp</a>
+    </div>
   </div>
+</section>
+
+<div class="velo" aria-hidden="true">
+  <div class="velo-row" data-speed="1"></div>
+  <div class="velo-row alt" data-speed="-0.7"></div>
 </div>
 
-<main class="wrap" id="tienda">
-  <div class="barra"><h2 id="titulo">Todo</h2><span id="cuantos"></span></div>
-  <div class="grid" id="grid"></div>
+<section class="manifiesto has-video">
+  <video class="bg-video" src="caballo/vaca.mp4" poster="caballo/vaca-poster.jpg" autoplay muted loop playsinline preload="metadata" aria-hidden="true"></video>
+  <div class="bg-shade" aria-hidden="true"></div>
+  <div class="wrap">
+    <p class="eyebrow">Manifiesto</p>
+    <div>
+      <p class="reveal-text" id="reveal">El pelaje del caballo criollo: firme, noble y nuestro. Así queremos que sea cada prenda. Tomamos la guarda del poncho, el cuello de la camisa criolla y la boina de siempre, y las cosemos de nuevo para quienes llevan la <em>tradición uruguaya</em> puesta.</p>
+      <p class="firma">— Pelaje, diseño y fabricación propia</p>
+    </div>
+  </div>
+</section>
+
+<section class="colecciones" id="colecciones">
+  <div class="wrap">
+    <div class="sec-head fade">
+      <div>
+        <p class="eyebrow">Colecciones</p>
+        <h2>Prendas con <em>historia</em></h2>
+      </div>
+      <p>Camisas criollas, ponchos, boinas, chalecos y accesorios hechos en Uruguay. Pasa el cursor (o toca) cada colección y consulta por mensaje talles, colores y disponibilidad.</p>
+    </div>
+    <div class="acc" id="acc">
+      <button class="acc-item active" aria-expanded="true">
+        <img src="caballo/camisas.jpg" alt="Camisas criollas Pelaje con cuello de guarda">
+        <span class="acc-cap"><span class="num">01</span><h3>Camisas criollas</h3><p>Con cuello y puños de guarda, y el escudo Pelaje bordado. Para hombre y mujer.</p></span>
+      </button>
+      <button class="acc-item" aria-expanded="false">
+        <img src="caballo/ponchos.jpg" alt="Dos hombres con ponchos de guarda pampa, uno negro y beige y otro gris claro">
+        <span class="acc-cap"><span class="num">02</span><h3>Ponchos</h3><p>Guardas pampas en negro y arena, gris perla y azul marino, con flecos.</p></span>
+      </button>
+      <button class="acc-item" aria-expanded="false">
+        <img src="caballo/ellas-carteras.jpg" alt="Dos mujeres con sombreros, chaleco de cuero overo y carteras de cuero">
+        <span class="acc-cap"><span class="num">03</span><h3>Para ellas</h3><p>Camisas, chalecos overos, sombreros y carteras de cuero con impronta de campo.</p></span>
+      </button>
+      <button class="acc-item" aria-expanded="false">
+        <img src="caballo/boina-chaleco.jpg" alt="Joven con boina azul, chaleco marino Pelaje y pañuelo de guarda">
+        <span class="acc-cap"><span class="num">04</span><h3>Boinas y chalecos</h3><p>El conjunto clásico del paisano, con detalles Pelaje y escudo patrio.</p></span>
+      </button>
+      <button class="acc-item" aria-expanded="false">
+        <img src="caballo/poncho-sombrero.jpg" alt="Joven acomodándose el sombrero, con camisa negra, pañuelo y faja de cuero">
+        <span class="acc-cap"><span class="num">05</span><h3>Accesorios</h3><p>Pañuelos de guarda, fajas de cuero con rastra, sombreros y matras.</p></span>
+      </button>
+    </div>
+  </div>
+</section>
+
+<div class="guarda" role="presentation"></div>
+
+<section class="origen" id="origen">
+  <div class="wrap">
+    <div class="stack fade">
+      <img class="a" src="caballo/pareja-palmera.jpg" alt="Pareja vestida de campo junto a una palmera: ella con chaleco overo, él con camisa blanca y matra al hombro">
+      <img class="b" src="caballo/textil-detalle.jpg" alt="Detalle de un textil con guarda pampa en tonos arena y flecos de algodón">
+    </div>
+    <div class="fade">
+      <p class="eyebrow">La marca</p>
+      <h2>De la tradición <em>al taller</em></h2>
+      <p>Pelaje es una tienda de ropa campestre que diseña y fabrica sus propias prendas. Cada colección parte de lo que se ve en el campo uruguayo —la guarda, el cuero, el paño— y lo lleva a cortes que se usan todos los días.</p>
+      <ul class="pilares">
+        <li><b>I</b><div><strong>Diseño propio</strong><span>Las prendas se piensan y se dibujan en casa, no se revenden.</span></div></li>
+        <li><b>II</b><div><strong>Fabricación propia</strong><span>Del corte a la terminación, con atención a cada detalle.</span></div></li>
+        <li><b>III</b><div><strong>Raíz uruguaya</strong><span>Guardas, colores y siluetas tomados de nuestra tradición.</span></div></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="lookbook" id="lookbook">
+  <div class="wrap">
+    <div class="sec-head fade">
+      <div>
+        <p class="eyebrow">Lookbook</p>
+        <h2>Así se lleva <em>Pelaje</em></h2>
+      </div>
+    </div>
+    <div class="bento">
+      <figure class="t2 fade"><img src="caballo/camisa-mujer.jpg" alt="Mujer con sombrero, camisa marrón, faja de cuero y pantalón crudo" loading="lazy"><figcaption>Camisa de mujer</figcaption></figure>
+      <figure class="w2 fade"><img src="caballo/casco-estancia.jpg" alt="Pareja caminando frente a un casco de estancia de piedra" loading="lazy"><figcaption>Producción en la estancia</figcaption></figure>
+      <figure class="t2 fade"><img src="caballo/poncho-azul.jpg" alt="Poncho azul marino con guarda en tono cuero" loading="lazy"><figcaption>Poncho marino</figcaption></figure>
+      <figure class="fade"><img src="caballo/boina-chaleco.jpg" alt="Boina azul y chaleco Pelaje" loading="lazy" style="object-position:center 20%"><figcaption>Boina y chaleco</figcaption></figure>
+      <figure class="fade"><img src="caballo/poncho-sombrero.jpg" alt="Matra de guarda al hombro" loading="lazy" style="object-position:center 30%"><figcaption>Matra y pañuelo</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section class="encargos" id="encargos">
+  <div class="wrap">
+    <div class="fade">
+      <p class="eyebrow">Encargos y eventos</p>
+      <h2>Lo nuestro <em>se <span class="tloop" data-words="recuerda,viste,vive,siente"><span class="tloop-w">recuerda</span></span></em></h2>
+      <p class="lead2">Además de las colecciones, vestimos ocasiones especiales con impronta criolla: quinceañeras, certámenes, desfiles y fiestas camperas. Cuéntanos qué necesitas y lo vemos juntos.</p>
+    </div>
+    <div class="grid">
+      <article class="card" tabindex="0" role="button" aria-haspopup="dialog" data-wa="Hola%20Pelaje%2C%20quiero%20consultar%20por%20un%20look%20para%20quince">
+        <div class="card-media"><img src="caballo/camisa-mujer.jpg" alt="Joven con sombrero, camisa y faja de cuero, vestida de campo" loading="lazy"></div>
+        <div class="card-body">
+          <div class="ico" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#F3ECE0" stroke-width="1.8"><path d="M12 3l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.4 6.8 19.1l1-5.8L3.5 9.2l5.9-.9z"/></svg></div>
+          <h3>Quinceañeras</h3>
+          <p>Looks de campo para la fiesta de quince y la sesión de fotos, con la misma raíz que el resto de la marca.</p>
+          <span class="card-hint">Ver más <b aria-hidden="true">+</b></span>
+        </div>
+        <template class="card-more"><p>Escríbenos con la fecha y la idea que tienes para la fiesta o la sesión de fotos, y vemos juntos prendas, colores y talles.</p></template>
+      </article>
+      <article class="card" tabindex="0" role="button" aria-haspopup="dialog" data-wa="Hola%20Pelaje%2C%20quiero%20consultar%20por%20vestimenta%20para%20un%20certamen">
+        <div class="card-media"><img src="caballo/pareja-palmera.jpg" alt="Pareja vestida de campo junto a una palmera" loading="lazy"></div>
+        <div class="card-body">
+          <div class="ico" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#F3ECE0" stroke-width="1.8"><path d="M8 21h8M12 17v4M7 4h10v4a5 5 0 0 1-10 0z"/><path d="M17 5h3v2a3 3 0 0 1-3 3M7 5H4v2a3 3 0 0 0 3 3"/></svg></div>
+          <h3>Certámenes y desfiles</h3>
+          <p>Vestimenta para concursos y presentaciones criollas.</p>
+          <span class="card-hint">Ver más <b aria-hidden="true">+</b></span>
+        </div>
+        <template class="card-more"><p>Cuéntanos de qué evento se trata y para cuándo lo necesitas, y armamos juntos el conjunto.</p></template>
+      </article>
+      <article class="card" tabindex="0" role="button" aria-haspopup="dialog" data-wa="Hola%20Pelaje%2C%20quiero%20consultar%20por%20una%20ocasi%C3%B3n%20especial">
+        <div class="card-media"><img src="caballo/casco-estancia.jpg" alt="Pareja caminando frente a un casco de estancia de piedra" loading="lazy"></div>
+        <div class="card-body">
+          <div class="ico" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#F3ECE0" stroke-width="1.8"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.5"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6M15 20c0-2.5 1-4.5 4-4.5 1.5 0 2 .5 2 .5"/></svg></div>
+          <h3>Tu ocasión</h3>
+          <p>¿Una fiesta campera, una sesión de fotos o un regalo? Cuéntanos la idea y te asesoramos.</p>
+          <span class="card-hint">Ver más <b aria-hidden="true">+</b></span>
+        </div>
+        <template class="card-more"><p>Cada ocasión es distinta: escríbenos con lo que tienes en mente y te ayudamos a elegir las prendas que mejor le quedan.</p></template>
+      </article>
+    </div>
+    <div class="encargos-cta fade">
+      <a class="btn-rect" href="https://wa.me/598XXXXXXXX?text=Hola%20Pelaje%2C%20quiero%20consultar%20por%20un%20encargo" target="_blank" rel="noopener">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6.5-.1 1.5-.6 1.7-1.2s.2-1.1.2-1.2-.2-.2-.5-.3z"/></svg>
+        Consulta tu encargo por WhatsApp
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="wrap aliados">
+  <img class="fade" src="caballo/grupo.jpg" alt="Cuatro jóvenes vestidos de campo, en una producción conjunta con una marca amiga" loading="lazy">
+  <div class="fade">
+    <p class="eyebrow">Colaboraciones</p>
+    <h2>Junto a <em>marcas amigas</em></h2>
+    <p>Producciones compartidas con marcas amigas que comparten la misma mirada sobre la tradición: ponchos, matras y textiles que se combinan con las prendas Pelaje.</p>
+  </div>
+</section>
+
+<section class="frontera" id="frontera">
+  <div class="wrap fade">
+    <p class="eyebrow">Uruguay y frontera</p>
+    <h2>Del campo uruguayo a la <em>frontera gaucha</em></h2>
+    <p>Pelaje nace en el campo uruguayo y comparte con el sur de Brasil una misma cultura gaucha: el poncho, la boina, la guarda y el mate. Si estás en Uruguay o en Rio Grande do Sul, escríbenos por WhatsApp y te contamos cómo hacerte llegar tu prenda.</p>
+    <ul class="ciudades" aria-label="Ciudades gemelas de la frontera entre Uruguay y Brasil">
+      <li>Rivera · Santana do Livramento</li>
+      <li>Chuy · Chuí</li>
+      <li>Río Branco · Jaguarão</li>
+      <li>Artigas · Quaraí</li>
+      <li>Bella Unión · Barra do Quaraí</li>
+      <li>Aceguá · Aceguá</li>
+    </ul>
+  </div>
+</section>
+
+<section class="contacto" id="contacto">
+  <video class="bg-video" src="caballo/gramilla.mp4" poster="caballo/gramilla-poster.jpg" autoplay muted loop playsinline preload="metadata" aria-hidden="true"></video>
+  <div class="bg-shade" aria-hidden="true"></div>
+  <div class="wrap">
+    <p class="eyebrow" style="color:var(--cuero-claro)">Contacto</p>
+    <h2>Encuentra tu <em>Tradición</em></h2>
+    <p>Consúltanos por talles, colores, stock o encargos especiales. Te respondemos por mensaje.</p>
+    <div class="canales">
+      <a class="btn btn-light" href="https://wa.me/598XXXXXXXX?text=Hola%20Pelaje%2C%20quiero%20hacer%20una%20consulta" target="_blank" rel="noopener"><svg width="18" height="18" aria-hidden="true"><use href="#i-wa"/></svg>Escríbenos por WhatsApp</a>
+      <a class="btn btn-line copy-mail" href="mailto:hola@example.com" data-mail="hola@example.com" title="Clic para copiar el correo"><svg width="18" height="18" aria-hidden="true"><use href="#i-mail"/></svg>hola@example.com</a>
+    </div>
+  </div>
+</section>
+
 </main>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-<footer><div class="wrap">CABALLO Indumentaria · Tienda de ejemplo para la sala de demos de Renueva Smart</div></footer>
-
-<div class="velo" id="velo"></div>
-<aside class="panel" id="p-prod" aria-label="Producto"></aside>
-<aside class="panel" id="p-bolsa" aria-label="Bolsa"></aside>
+<div class="guarda" role="presentation"></div>
+<footer>
+  <div class="wrap">
+    <div class="foot-top">
+      <a class="brand" href="#inicio"><b>Pelaje</b></a>
+      <nav aria-label="Pie de página">
+        <ul>
+          <li><a href="#colecciones">Colecciones</a></li>
+          <li><a href="#origen">La marca</a></li>
+          <li><a href="#lookbook">Lookbook</a></li>
+          <li><a href="#encargos">Encargos</a></li>
+        </ul>
+      </nav>
+      <div class="nav-ctas">
+        <a class="btn btn-dark btn-wa" href="https://wa.me/598XXXXXXXX?text=Hola%20Pelaje%2C%20quiero%20hacer%20una%20consulta" target="_blank" rel="noopener" aria-label="Escríbenos por WhatsApp"><svg width="18" height="18" aria-hidden="true"><use href="#i-wa"/></svg><span>WhatsApp</span></a>
+        <a class="btn btn-dark" href="#contacto">Consultar</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+    <span>El pelaje de la Patria · Indumentaria de campo, Uruguay y frontera con Rio Grande do Sul</span>
+    <div class="social">
+      <a href="#" target="_blank" rel="noopener" aria-label="Instagram de Pelaje"><svg width="20" height="20" aria-hidden="true"><use href="#i-ig"/></svg><span>Instagram</span></a>
+      <a href="#" target="_blank" rel="noopener" aria-label="Facebook de Pelaje"><svg width="20" height="20" aria-hidden="true"><use href="#i-fb"/></svg><span>Facebook</span></a>
+    </div>
+    </div>
+  </div>
+</footer>
 
 <script>
-const COL = { Arena: "#cbbba1", Negro: "#1d1d1d", Crudo: "#ece4d6", Oliva: "#6c6b48", Azul: "#2f3e55", Óxido: "#9a4e2f" };
-const PRODS = [
-  { n: "Camisa de lino Ruta", c: "Camisas", p: 58900, cols: ["Crudo", "Arena", "Azul"], nuevo: true, sin: ["XS"] },
-  { n: "Remera pesada Galope", c: "Remeras", p: 24900, cols: ["Negro", "Crudo", "Oliva"] },
-  { n: "Pantalón cargo Monte", c: "Pantalones", p: 69900, cols: ["Oliva", "Negro", "Arena"], sin: ["XL"] },
-  { n: "Campera de lona Estribo", c: "Abrigos", p: 129000, cols: ["Óxido", "Negro"], nuevo: true },
-  { n: "Sweater de lana Crin", c: "Abrigos", p: 89500, cols: ["Crudo", "Azul", "Arena"] },
-  { n: "Remera manga larga Trote", c: "Remeras", p: 29900, cols: ["Crudo", "Negro"] },
-  { n: "Jean recto Herradura", c: "Pantalones", p: 74900, cols: ["Azul", "Negro"], sin: ["S"] },
-  { n: "Camisa overshirt Potro", c: "Camisas", p: 64900, cols: ["Oliva", "Óxido"], nuevo: true }
-];
-const TALLES = ["XS", "S", "M", "L", "XL"];
-const CATS = ["Todo", ...new Set(PRODS.map(p => p.c))];
-let cat = "Todo"; const bolsa = [];
-const ars = n => "$ " + n.toLocaleString("es-AR");
-const foto = (p, col) => `background:linear-gradient(160deg, ${COL[col]}22, ${COL[col]}55)`;
+(() => {
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-function pintar() {
-  const btns = CATS.map(c => `<button aria-pressed="${c === cat}">${c}</button>`).join("");
-  document.getElementById("cats").innerHTML = btns; document.getElementById("cats-m").innerHTML = btns;
-  const res = PRODS.map((p, i) => ({ ...p, i })).filter(p => cat === "Todo" || p.c === cat);
-  document.getElementById("titulo").textContent = cat;
-  document.getElementById("cuantos").textContent = res.length + " prendas";
-  document.getElementById("grid").innerHTML = res.map(p => `
-    <article class="prod" data-i="${p.i}"><div class="foto" style="${foto(p, p.cols[0])}"><div class="silu" style="background:${COL[p.cols[0]]}"></div>${p.nuevo ? '<span class="nuevo">Nuevo</span>' : ""}</div>
-    <h3>${p.n}</h3><span class="p">${ars(p.p)} · 3 cuotas de ${ars(Math.round(p.p / 3))}</span>
-    <div class="colores">${p.cols.map(c => `<i style="background:${COL[c]}"></i>`).join("")}</div></article>`).join("");
-}
-["cats", "cats-m"].forEach(id => document.getElementById(id).onclick = e => { if (e.target.matches("button")) { cat = e.target.textContent; pintar(); } });
+  // Nav con fondo al hacer scroll
+  const nav = document.getElementById('nav');
+  const onNav = () => nav.classList.toggle('scrolled', scrollY > 30);
+  addEventListener('scroll', onNav, {passive:true}); onNav();
 
-const velo = document.getElementById("velo");
-function abrirPanel(id) { document.querySelectorAll(".panel").forEach(p => p.classList.toggle("on", p.id === id)); document.body.classList.toggle("on", !!id); }
-velo.onclick = () => abrirPanel(null);
+  // Menú móvil (hamburguesa)
+  const menuBtn = document.getElementById('menuBtn');
+  const setMenu = open => {
+    nav.classList.toggle('menu-open', open);
+    menuBtn.setAttribute('aria-expanded', open);
+  };
+  menuBtn.addEventListener('click', () => setMenu(!nav.classList.contains('menu-open')));
+  document.querySelectorAll('#menu-m a').forEach(a => a.addEventListener('click', () => setMenu(false)));
+  addEventListener('keydown', e => { if (e.key === 'Escape') setMenu(false); });
+  addEventListener('resize', () => { if (innerWidth > 860) setMenu(false); });
 
-document.getElementById("grid").onclick = e => {
-  const card = e.target.closest(".prod"); if (!card) return;
-  const p = PRODS[card.dataset.i]; let talle = null, col = p.cols[0], guia = false;
-  const panel = document.getElementById("p-prod");
-  function r() {
-    panel.innerHTML = `<div class="p-cab"><span>${p.c}</span><button aria-label="Cerrar">✕</button></div>
-      <div class="foto" style="${foto(p, col)};aspect-ratio:4/3.4"><div class="silu" style="background:${COL[col]};width:38%"></div></div>
-      <div class="p-body">
-        <div><h3 style="font-size:32px">${p.n}</h3><p style="margin:8px 0 0">${ars(p.p)} <span style="color:var(--gris)">· 3 cuotas sin interés</span></p></div>
-        <div><div class="lbl2"><span>Color: ${col}</span></div><div class="cols" style="margin-top:8px">${p.cols.map(c => `<button data-col="${c}" aria-label="${c}" aria-pressed="${c === col}" style="background:${COL[c]}"></button>`).join("")}</div></div>
-        <div><div class="lbl2"><span>Talle</span><a href="#" id="ver-guia">Guía de talles</a></div>
-          <div class="talles" style="margin-top:8px">${TALLES.map(t => `<button data-t="${t}" ${p.sin?.includes(t) ? "disabled" : ""} aria-pressed="${t === talle}">${t}</button>`).join("")}</div></div>
-        ${guia ? `<table class="guia"><tr><th>Talle</th><th>Pecho</th><th>Largo</th></tr>${TALLES.map((t, k) => `<tr><td>${t}</td><td>${96 + k * 6} cm</td><td>${68 + k * 2} cm</td></tr>`).join("")}</table>` : ""}
-        <p style="color:var(--gris);font-size:14px;line-height:1.6;margin:0">Confeccionada en talleres locales. Fibras naturales, lavado a mano o en ciclo delicado.</p>
-      </div>
-      <div class="p-pie"><button class="btn" id="add" ${talle ? "" : "disabled"}>${talle ? "Agregar a la bolsa" : "Elegí un talle"}</button></div>`;
-    panel.querySelector(".p-cab button").onclick = () => abrirPanel(null);
-    panel.querySelectorAll("[data-col]").forEach(b => b.onclick = () => { col = b.dataset.col; r(); });
-    panel.querySelectorAll("[data-t]").forEach(b => b.onclick = () => { talle = b.dataset.t; r(); });
-    panel.querySelector("#ver-guia").onclick = ev => { ev.preventDefault(); guia = !guia; r(); };
-    panel.querySelector("#add").onclick = () => { bolsa.push({ i: +card.dataset.i, talle, col }); pintarBolsa(); abrirPanel("p-bolsa"); };
+  // Masked heading (hero): el textil se ve a través de las letras. Parallax con el puntero + deriva lenta;
+  // las palabras suben escalonadas al entrar en vista. Parámetros como en ReactBits (fill 1.25, parallax 26px, drift 18px).
+  const title = document.getElementById('heroTitle');
+  const MH = {src:'caballo/textil-detalle.jpg', fill:1.25, parallax:26, drift:18, stagger:.09, focusY:.3};
+  const heroWords = [...title.querySelectorAll('.word')];
+  heroWords.forEach((w,i) => {
+    const inner = document.createElement('span');
+    inner.className = 'mh-in';
+    inner.style.transitionDelay = (i*MH.stagger)+'s';
+    while (w.firstChild) inner.appendChild(w.firstChild);
+    w.appendChild(inner);
+  });
+  const inners = [...title.querySelectorAll('.mh-in')];
+  const reveal = () => requestAnimationFrame(() => setTimeout(() => title.classList.add('in'), 80));
+  const img = new Image();
+  const layout = () => {
+    const W = title.offsetWidth, H = title.offsetHeight;
+    const bw = W*MH.fill, bh = H*MH.fill;
+    const k = Math.max(bw/img.naturalWidth, bh/img.naturalHeight);
+    const sw = img.naturalWidth*k, sh = img.naturalHeight*k;
+    title.style.setProperty('--sw', sw+'px'); title.style.setProperty('--sh', sh+'px');
+    const hr = title.getBoundingClientRect();
+    inners.forEach(el => {
+      // el está dentro de .word (sin transform): su caja = rect de la palabra + padding
+      const wr = el.parentNode.getBoundingClientRect(), cs = getComputedStyle(el.parentNode);
+      const left = wr.left - hr.left + parseFloat(cs.paddingLeft), top = wr.top - hr.top + parseFloat(cs.paddingTop);
+      el.style.setProperty('--x0', (-left - (bw-W)/2 - (sw-bw)/2)+'px');
+      el.style.setProperty('--y0', (-top - (bh-H)/2 - (sh-bh)*MH.focusY)+'px');
+    });
+  };
+  img.onload = () => {
+    title.classList.add('mh-ready'); layout(); reveal();
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(layout);
+    addEventListener('resize', layout);
+    if (reduce) return;
+    const hero = title.closest('.hero');
+    let tx = 0, ty = 0, cx = 0, cy = 0, run = false;
+    hero.addEventListener('pointermove', e => {
+      const r = hero.getBoundingClientRect();
+      tx = ((e.clientX-r.left)/r.width - .5)*2*MH.parallax;
+      ty = ((e.clientY-r.top)/r.height - .5)*2*MH.parallax;
+    }, {passive:true});
+    const tick = t => {
+      if (!run) return;
+      cx += (tx-cx)*.06; cy += (ty-cy)*.06;
+      title.style.setProperty('--mx', (cx + Math.sin(t/2600)*MH.drift)+'px');
+      title.style.setProperty('--my', (cy + Math.cos(t/3300)*MH.drift*.6)+'px');
+      requestAnimationFrame(tick);
+    };
+    new IntersectionObserver(([en]) => {
+      const was = run; run = en.isIntersecting;
+      if (run && !was) requestAnimationFrame(tick);
+    }).observe(hero);
+  };
+  img.onerror = reveal;   // sin imagen: el titular se muestra sólido igualmente
+  img.src = MH.src;
+
+  // Scroll velocity: dos filas cuya velocidad sigue al scroll
+  const rows = [...document.querySelectorAll('.velo-row')];
+  const items = [['Camisas criollas','Ponchos','Boinas','Chalecos','Sombreros','Fajas de cuero','Pañuelos'],
+                 ['Diseño propio','Fabricación propia','Tradición uruguaya','El pelaje de la Patria']];
+  rows.forEach((row,r) => {
+    const html = items[r].map(t => `<span>${t}<i>✦</i></span>`).join('');
+    row.innerHTML = html.repeat(6);
+  });
+  if (!reduce) {
+    const pos = rows.map(() => 0); let lastY = scrollY, boost = 0;
+    const tick = () => {
+      const dy = scrollY - lastY; lastY = scrollY;
+      boost += (Math.min(Math.abs(dy), 60) * 0.12 - boost) * 0.1;
+      rows.forEach((row,i) => {
+        const sp = parseFloat(row.dataset.speed);
+        const half = row.scrollWidth / 2;
+        pos[i] -= sp * (0.6 + boost) * (dy < 0 ? -1 : 1);
+        if (pos[i] <= -half) pos[i] += half;
+        if (pos[i] > 0) pos[i] -= half;
+        row.style.transform = `translate3d(${pos[i]}px,0,0)`;
+      });
+      requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
   }
-  r(); abrirPanel("p-prod");
-};
 
-let paso = 0;
-function pintarBolsa() {
-  document.getElementById("n").textContent = bolsa.length;
-  const sub = bolsa.reduce((a, x) => a + PRODS[x.i].p, 0);
-  const envio = sub >= 120000 || !sub ? 0 : 6500;
-  const panel = document.getElementById("p-bolsa");
-  const pasos = `<div class="pasos-ck">${["Bolsa", "Envío", "Pago"].map((s, k) => k === paso ? `<b>${s}</b>` : s).join(" / ")}</div>`;
-  let cuerpo = "", boton = "";
-  if (paso === 0) {
-    cuerpo = bolsa.length ? bolsa.map((x, k) => `<div class="linea"><div class="mini" style="${foto(null, x.col)};display:grid;place-items:center"><div class="silu" style="background:${COL[x.col]};width:60%;aspect-ratio:.8;border-radius:40% 40% 4px 4px/22% 22% 4px 4px"></div></div>
-      <div>${PRODS[x.i].n}<small>Talle ${x.talle} · ${x.col}</small><button class="quitar" data-k="${k}">Quitar</button></div><span>${ars(PRODS[x.i].p)}</span></div>`).join("")
-      : '<p style="color:var(--gris)">Tu bolsa está vacía.</p>';
-    boton = `<button class="btn" id="seguir" ${bolsa.length ? "" : "disabled"}>Iniciar compra</button>`;
-  } else if (paso === 1) {
-    cuerpo = `<input placeholder="Nombre y apellido" required><input placeholder="Dirección"><input placeholder="Código postal" inputmode="numeric"><select><option>Envío a domicilio (48–72 h)</option><option>Retiro en el showroom (gratis)</option></select>`;
-    boton = `<button class="btn" id="seguir">Continuar al pago</button><button class="btn btn-o" id="volver">Volver</button>`;
-  } else if (paso === 2) {
-    cuerpo = `<select><option>Tarjeta de crédito · 3 cuotas sin interés</option><option>Tarjeta de débito</option><option>Transferencia (10 % off)</option><option>Mercado Pago</option></select><input placeholder="Número de tarjeta" inputmode="numeric"><p style="color:var(--gris);font-size:13px;margin:0">Demo: no se realiza ningún cobro.</p>`;
-    boton = `<button class="btn" id="seguir">Pagar ${ars(sub + envio)}</button><button class="btn btn-o" id="volver">Volver</button>`;
-  } else {
-    cuerpo = `<h3 style="font-size:34px">Gracias.</h3><p style="color:var(--gris);line-height:1.6">Tu pedido está confirmado. Te enviamos el número de seguimiento por e-mail.</p>`;
-    boton = `<button class="btn" id="fin">Seguir comprando</button>`;
+  // Escritura a mano al hacer scroll: cada letra se va trazando de izquierda a derecha, una tras otra
+  const rv = document.getElementById('reveal');
+  const fullText = rv.textContent.trim();
+  const inner = document.createElement('span'); inner.setAttribute('aria-hidden', 'true');
+  while (rv.firstChild) inner.appendChild(rv.firstChild);
+  const sr = document.createElement('span'); sr.className = 'sr-only'; sr.textContent = fullText;
+  rv.append(sr, inner);
+  const wrapChars = node => {
+    [...node.childNodes].forEach(n => {
+      if (n.nodeType === 3) {
+        const frag = document.createDocumentFragment();
+        n.textContent.split(/(\s+)/).forEach(part => {
+          if (!part.trim()) { frag.appendChild(document.createTextNode(part)); return; }
+          const w = document.createElement('span'); w.className = 'w';
+          [...part].forEach(c => { const s = document.createElement('span'); s.className = 'ch'; s.textContent = c; w.appendChild(s); });
+          frag.appendChild(w);
+        });
+        n.replaceWith(frag);
+      } else wrapChars(n);
+    });
+  };
+  wrapChars(inner);
+  const chars = [...inner.querySelectorAll('.ch')];
+  let prev = 0;
+  const onReveal = () => {
+    const r = rv.getBoundingClientRect(), vh = innerHeight;
+    // empieza cuando el párrafo asoma por abajo (92 %) y termina de escribirse en cuanto cabe entero en pantalla (su final en el 92 %)
+    const p = Math.min(1, Math.max(0, (vh*0.92 - r.top) / r.height));
+    const f = p * chars.length;
+    const a = Math.max(0, Math.floor(Math.min(prev, f)) - 1), b = Math.min(chars.length - 1, Math.ceil(Math.max(prev, f)) + 1);
+    for (let i = a; i <= b; i++) chars[i].style.setProperty('--f', Math.min(1, Math.max(0, f - i)).toFixed(3));
+    prev = f;
+  };
+  if (!reduce) { addEventListener('scroll', onReveal, {passive:true}); addEventListener('resize', onReveal); onReveal(); }
+
+  // Accordion gallery
+  const acc = [...document.querySelectorAll('.acc-item')];
+  const activate = el => acc.forEach(a => { const on = a === el; a.classList.toggle('active', on); a.setAttribute('aria-expanded', on); });
+  acc.forEach(a => {
+    a.addEventListener('mouseenter', () => matchMedia('(hover:hover)').matches && activate(a));
+    a.addEventListener('click', () => activate(a));
+    a.addEventListener('focus', () => activate(a));
+  });
+
+  // Fade-in genérico + count-up
+  const io = new IntersectionObserver(es => es.forEach(e => {
+    if (!e.isIntersecting) return;
+    e.target.classList.add('in'); io.unobserve(e.target);
+  }), {threshold:.15});
+  document.querySelectorAll('.fade').forEach((el,i) => { el.style.transitionDelay = (i%3)*0.08+'s'; io.observe(el); });
+
+  // Text loop: "se recuerda / viste / vive / siente"
+  document.querySelectorAll('.tloop').forEach(box => {
+    const words = box.dataset.words.split(',');
+    if (reduce) return;
+    let i = 0, w = box.querySelector('.tloop-w');
+    const measure = txt => { const s = w.cloneNode(); s.textContent = txt; s.style.cssText = 'position:absolute;visibility:hidden'; box.appendChild(s); const wd = s.getBoundingClientRect().width; s.remove(); return wd; };
+    const fit = () => box.style.width = measure(words[i]) + 'px';
+    fit(); document.fonts.ready.then(fit); addEventListener('resize', fit);
+    setInterval(() => {
+      i = (i + 1) % words.length;
+      w.classList.add('out');
+      setTimeout(() => {
+        box.style.width = measure(words[i]) + 'px';
+        w.textContent = words[i];
+        w.classList.remove('out'); w.classList.add('pre');
+        w.offsetWidth;
+        w.classList.remove('pre');
+      }, 450);
+    }, 2400);
+  });
+
+  // Modal cards: la tarjeta se expande y se transforma en un modal
+  (() => {
+    let open = null;
+    const rectOf = el => { const r = el.getBoundingClientRect(); return {left:r.left, top:r.top, width:r.width, height:r.height}; };
+    const finalRect = () => {
+      const vw = innerWidth, vh = innerHeight, mob = vw <= 760;
+      const w = mob ? vw - 24 : Math.min(940, vw - 64), hh = mob ? Math.min(vh - 40, 680) : Math.min(580, vh - 64);
+      return {left:(vw - w)/2, top:(vh - hh)/2, width:w, height:hh};
+    };
+    const px = r => ({left:r.left+'px', top:r.top+'px', width:r.width+'px', height:r.height+'px'});
+    const EASE = 'cubic-bezier(.2,.9,.25,1.06)';
+
+    const openCard = card => {
+      if (open) return;
+      const from = rectOf(card), to = finalRect();
+      const back = document.createElement('div'); back.className = 'mc-backdrop';
+      const m = document.createElement('div'); m.className = 'mc-modal';
+      m.setAttribute('role','dialog'); m.setAttribute('aria-modal','true');
+      const title = card.querySelector('h3').textContent;
+      m.setAttribute('aria-label', title);
+      const img = card.querySelector('.card-media img');
+      m.innerHTML = `<img class="mc-img" src="${img.src}" alt="${img.alt}">
+        <button class="mc-close" aria-label="Cerrar">&times;</button>
+        <div class="mc-content">
+          <div class="ico" aria-hidden="true">${card.querySelector('.ico').innerHTML}</div>
+          <h3>${title}</h3>
+          <p>${card.querySelector('.card-body p').textContent}</p>
+          ${card.querySelector('.card-more').innerHTML}
+          <a class="btn-rect" href="https://wa.me/598XXXXXXXX?text=${card.dataset.wa}" target="_blank" rel="noopener"><svg width="20" height="20" aria-hidden="true"><use href="#i-wa"/></svg>Consultar por WhatsApp</a>
+        </div>`;
+      Object.assign(m.style, px(to));
+      document.body.append(back, m);
+      document.documentElement.style.overflow = 'hidden';
+      card.classList.add('is-source');
+      open = {card, m, back, y: scrollY};
+      requestAnimationFrame(() => back.classList.add('show'));
+      const done = () => { m.classList.add('open'); m.querySelector('.mc-close').focus({preventScroll:true}); };
+      if (reduce) return done();
+      m.animate([px(from), px(to)], {duration:650, easing:EASE}).finished.then(done);
+    };
+
+    const closeCard = () => {
+      if (!open || open.closing) return;
+      open.closing = true;
+      const {card, m, back} = open;
+      m.classList.remove('open'); back.classList.remove('show');
+      const finish = () => {
+        m.remove(); back.remove(); card.classList.remove('is-source');
+        const y = open.y;
+        document.documentElement.style.overflow = '';
+        window.scrollTo({top:y, behavior:'instant'});
+        card.focus({preventScroll:true}); open = null;
+      };
+      if (reduce) return finish();
+      setTimeout(() => {
+        m.animate([px(rectOf(m)), px(rectOf(card))], {duration:480, easing:'cubic-bezier(.4,0,.2,1)', fill:'forwards'}).finished.then(finish);
+      }, 260);
+    };
+
+    document.querySelectorAll('.encargos .card').forEach(card => {
+      card.addEventListener('click', () => openCard(card));
+      card.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openCard(card); } });
+    });
+    document.addEventListener('click', e => {
+      if (!open) return;
+      if (e.target.closest('.mc-close') || e.target.classList.contains('mc-backdrop')) closeCard();
+    });
+    document.addEventListener('keydown', e => {
+      if (!open) return;
+      if (e.key === 'Escape') closeCard();
+      if (e.key === 'Tab') { // mantener el foco dentro del modal
+        const f = [...open.m.querySelectorAll('button, a')], first = f[0], last = f[f.length-1];
+        if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+        else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+      }
+    });
+    addEventListener('resize', () => { if (open && !open.closing) Object.assign(open.m.style, px(finalRect())); });
+  })();
+
+  // Tarjetas de encargos: entrada escalonada + brillo de borde que sigue al cursor
+  const cards = [...document.querySelectorAll('.encargos .card')];
+  const cio = new IntersectionObserver(es => es.forEach(e => {
+    if (!e.isIntersecting) return; cio.unobserve(e.target);
+    const i = cards.indexOf(e.target);
+    e.target.style.transitionDelay = (i*0.15)+'s';
+    e.target.querySelector('.ico').style.animationDelay = (0.35 + i*0.15)+'s';
+    e.target.classList.add('in');
+    setTimeout(() => e.target.style.transitionDelay = '0s', 1200 + i*150);
+  }), {threshold:.2});
+  cards.forEach(c => {
+    cio.observe(c);
+    c.addEventListener('pointermove', ev => {
+      const r = c.getBoundingClientRect();
+      c.style.setProperty('--mx', (ev.clientX - r.left)+'px');
+      c.style.setProperty('--my', (ev.clientY - r.top)+'px');
+    });
+  });
+
+  // Videos de fondo: pausados si se pide menos movimiento o están fuera de pantalla
+  const vids = [...document.querySelectorAll('.bg-video')];
+  if (reduce) vids.forEach(v => { v.removeAttribute('autoplay'); v.pause(); });
+  else {
+    // En móviles el autoplay exige muted por propiedad y a veces se bloquea (ahorro de batería, carga lenta):
+    // se reintenta al cargar, al volver a la pestaña y en el primer toque del usuario.
+    const kick = v => { v.muted = true; v.defaultMuted = true; const p = v.play(); if (p) p.catch(() => {}); };
+    const inView = v => { const r = v.getBoundingClientRect(); return r.bottom > 0 && r.top < innerHeight; };
+    const retry = () => vids.forEach(v => { if (v.paused && inView(v)) kick(v); });
+    const vo = new IntersectionObserver(es => es.forEach(e => e.isIntersecting ? kick(e.target) : e.target.pause()), {threshold:.01});
+    vids.forEach(v => {
+      v.muted = true;
+      vo.observe(v);
+      ['loadeddata', 'canplay'].forEach(t => v.addEventListener(t, () => { if (inView(v)) kick(v); }));
+    });
+    ['touchend', 'pointerup', 'click', 'scroll'].forEach(t => addEventListener(t, retry, {passive:true}));
+    document.addEventListener('visibilitychange', () => { if (!document.hidden) retry(); });
   }
-  panel.innerHTML = `<div class="p-cab"><span>Tu bolsa</span><button aria-label="Cerrar">✕</button></div>
-    <div class="p-body">${pasos}${cuerpo}</div>
-    <div class="p-pie">${paso < 3 ? `<div class="tot"><span>Subtotal</span><span>${ars(sub)}</span></div><div class="tot" style="color:var(--gris)"><span>Envío</span><span>${envio ? ars(envio) : "Gratis"}</span></div>` : ""}${boton}</div>`;
-  panel.querySelector(".p-cab button").onclick = () => abrirPanel(null);
-  panel.querySelectorAll(".quitar").forEach(b => b.onclick = () => { bolsa.splice(b.dataset.k, 1); pintarBolsa(); });
-  panel.querySelector("#seguir")?.addEventListener("click", () => { paso++; if (paso === 3) { bolsa.length = 0; document.getElementById("n").textContent = 0; } pintarBolsa(); });
-  panel.querySelector("#volver")?.addEventListener("click", () => { paso--; pintarBolsa(); });
-  panel.querySelector("#fin")?.addEventListener("click", () => { paso = 0; pintarBolsa(); abrirPanel(null); });
-}
-document.getElementById("abrir-bolsa").onclick = () => { pintarBolsa(); abrirPanel("p-bolsa"); };
-pintar(); pintarBolsa();
+
+  // Logo del hero: se dibuja (contorno -> relleno) cuando el video del caballo llega al perfil
+  (() => {
+    const logo = document.querySelector('.hero-logo'), hv = document.querySelector('.hero .bg-video');
+    if (!logo || !hv) return;
+    if (reduce) { logo.remove(); return; }   // sin movimiento: el video no se anima, así que el logo no aparece
+    const at = parseFloat(logo.dataset.at) || 24.5;
+    const lw = +logo.dataset.w, lox = +logo.dataset.ox, loy = +logo.dataset.oy, ft0 = +logo.dataset.t0, drift = +logo.dataset.drift;
+    let shown = false, docked = false, tid;
+    // Coloca el logo (enorme) sobre la cabeza: mismo calculo que object-fit:cover, y sigue la deriva del caballo
+    const place = () => {
+      const box = hv.getBoundingClientRect(), W = box.width, H = box.height;
+      const vw = hv.videoWidth || 1280, vh = hv.videoHeight || 720;
+      const px = W < 760 ? 0.6 : 0.5;                       // en vertical, encuadre desplazado para que se vea la cara
+      hv.style.objectPosition = (px * 100) + '% 50%';
+      const sc = Math.max(W / vw, H / vh), ox = (W - vw * sc) * px, oy = (H - vh * sc) / 2;
+      logo.style.width = (lw * sc) + 'px';
+      logo.style.left = (ox + (lox + drift * (hv.currentTime - ft0)) * sc) + 'px';
+      logo.style.top = (oy + loy * sc) + 'px';
+    };
+    // Al terminar la primera reproducción: el logo se achica y viaja a la derecha, donde se queda
+    const dockBox = () => {
+      const W = hv.getBoundingClientRect().width, mob = W < 760;
+      const tw = mob ? 96 : Math.min(210, Math.max(110, W * 0.15));
+      return {w: tw, left: W - Math.max(16, (W - 1200) / 2) - tw, top: mob ? 92 : 104};
+    };
+    const dock = () => {
+      docked = true; logo.classList.add('docked');
+      const e = '1.8s cubic-bezier(.6,0,.2,1)';
+      logo.style.transition = 'left ' + e + ', top ' + e + ', width ' + e + ', opacity .5s';
+      const d = dockBox();
+      logo.style.width = d.w + 'px'; logo.style.left = d.left + 'px'; logo.style.top = d.top + 'px';
+    };
+    addEventListener('resize', () => { if (docked) { logo.style.transition = 'none'; const d = dockBox(); logo.style.width = d.w + 'px'; logo.style.left = d.left + 'px'; logo.style.top = d.top + 'px'; } });
+    const check = () => {
+      if (docked) return;
+      const dur = hv.duration || 30.84, t = hv.currentTime;
+      if (shown && t >= dur - 0.8) { dock(); return; }
+      if (shown || t >= at) place();
+      const should = t >= at && t < dur - 0.8;
+      if (should && !shown) {
+        shown = true; clearTimeout(tid);
+        logo.classList.remove('draw'); void logo.getBoundingClientRect();
+        logo.classList.add('show', 'draw');
+      } else if (!should && shown) {
+        shown = false; logo.classList.remove('show');
+        tid = setTimeout(() => { if (!shown) logo.classList.remove('draw'); }, 800);
+      }
+    };
+    hv.addEventListener('timeupdate', check);   // red de seguridad (~4 veces/s)
+    hv.addEventListener('seeked', check);
+    addEventListener('resize', () => { if (!docked) place(); });
+    if ('requestVideoFrameCallback' in hv) {    // precisión por fotograma
+      const loop = () => { check(); hv.requestVideoFrameCallback(loop); };
+      hv.requestVideoFrameCallback(loop);
+    }
+  })();
+
+  // Selector de idioma (enlaces reales a /  y /pt/ para que también los rastreen los buscadores)
+  (() => {
+    const box = document.getElementById('lang'); if (!box) return;
+    const btn = box.querySelector('.lang-btn');
+    const set = on => { box.classList.toggle('open', on); btn.setAttribute('aria-expanded', on); };
+    btn.addEventListener('click', e => { e.stopPropagation(); set(!box.classList.contains('open')); });
+    document.addEventListener('click', e => { if (!box.contains(e.target)) set(false); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape' && box.classList.contains('open')) { set(false); btn.focus(); } });
+  })();
+
+  // Correo: clic = copiar al portapapeles
+  const toast = document.getElementById('toast'); let tt;
+  const showToast = msg => { toast.textContent = msg; toast.classList.add('show'); clearTimeout(tt); tt = setTimeout(() => toast.classList.remove('show'), 2200); };
+  document.querySelectorAll('.copy-mail').forEach(a => a.addEventListener('click', async ev => {
+    ev.preventDefault();
+    const mail = a.dataset.mail;
+    try { await navigator.clipboard.writeText(mail); }
+    catch { const t = document.createElement('textarea'); t.value = mail; document.body.appendChild(t); t.select(); document.execCommand('copy'); t.remove(); }
+    showToast('Correo copiado: ' + mail);
+  }));
+
+})();
 </script>
 </body>
 </html>
