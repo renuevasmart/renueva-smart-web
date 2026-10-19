@@ -1,174 +1,685 @@
-<!DOCTYPE html>
-<html lang="es">
+<!doctype html>
+<html lang="es-ES">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Rivas & Ortega Abogados</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Manrope:wght@400;500;700;800&display=swap" rel="stylesheet">
 <script src="_volver.js"></script>
+<title>Rivas &amp; Ortega Abogados · Despacho de abogados en Madrid</title>
+<meta name="description" content="Rivas &amp; Ortega Abogados: familia, herencias, laboral y mercantil en Madrid. Le explicamos su caso con claridad desde la primera consulta.">
+<meta name="theme-color" content="#F5F1E8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400;1,6..72,500&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="abogados/equipo.webp">
+
+
 <style>
-  :root { --negro: #121212; --vino: #7a1f2b; --vino-2: #f4e9ea; --hueso: #f7f5f1; --gris: #646464; --linea: #e4e0d9; }
-  * { box-sizing: border-box; }
-  body { margin: 0; font-family: Manrope, system-ui, sans-serif; color: var(--negro); background: var(--hueso); line-height: 1.6; }
-  h1, h2, h3 { font-family: "Playfair Display", Georgia, serif; margin: 0; line-height: 1.12; }
-  .wrap { max-width: 1180px; margin: 0 auto; padding: 0 20px; }
-  header { background: var(--negro); color: #fff; }
-  .nav { height: 76px; display: flex; justify-content: space-between; align-items: center; }
-  .logo { font-family: "Playfair Display"; font-size: 23px; text-decoration: none; color: #fff; }
-  .logo span { color: #d4737f; }
-  .menu { display: flex; gap: 28px; align-items: center; font-size: 14.5px; font-weight: 500; }
-  .menu a { color: #cfcfcf; text-decoration: none; }
-  .btn { display: inline-block; border: 0; background: var(--vino); color: #fff !important; padding: 14px 26px; border-radius: 4px; font: 700 15px Manrope; text-decoration: none; cursor: pointer; }
-  .btn:hover { background: #63161f; }
-  .btn-linea { background: transparent; border: 1.5px solid currentColor; color: var(--negro) !important; }
-  .btn-linea:hover { background: rgba(0,0,0,.05); }
-  @media (max-width: 820px) { .menu a:not(.btn) { display: none; } .menu .btn { padding: 10px 16px; } }
-  .hero { background: var(--negro); color: #fff; padding: 70px 0 0; }
-  .hero .wrap { display: grid; grid-template-columns: 1.1fr .9fr; gap: 48px; }
-  @media (max-width: 900px) { .hero .wrap { grid-template-columns: 1fr; } }
-  .hero h1 { font-size: clamp(40px, 5.6vw, 70px); }
-  .hero h1 span { color: #d4737f; font-style: italic; }
-  .hero p { color: #bdbdbd; font-size: 18px; margin: 20px 0 32px; max-width: 48ch; }
-  .cifras { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid #2c2c2c; margin-top: 56px; }
-  .cifras div { padding: 26px 0; font-size: 14px; color: #9a9a9a; }
-  .cifras b { display: block; font-family: "Playfair Display"; font-size: clamp(28px, 4vw, 40px); color: #fff; }
+:root{
+  --paper:#F5F1E8;
+  --paper-2:#ECE5D6;
+  --paper-3:#E2D9C6;
+  --ink:#1B1915;
+  --ink-2:#48433A;
+  --muted:#77705F;
+  --line:rgba(27,25,21,.14);
+  --gold:#B19840;
+  --gold-deep:#846C28;
+  --night:#17150F;
+  --night-2:#221F17;
+  --serif:"Newsreader", Georgia, "Times New Roman", serif;
+  --sans:"DM Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --wrap:1280px;
+  --gutter:clamp(20px, 4vw, 56px);
+  --ease:cubic-bezier(.22,.8,.24,1);
+  --shadow:0 30px 60px -30px rgba(70,55,20,.35), 0 12px 24px -16px rgba(70,55,20,.25);
+  --z-header:50; --z-drawer:60; --z-grain:70;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font:400 17px/1.65 var(--sans);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit}
+h1,h2,h3{font-family:var(--serif);font-weight:400;letter-spacing:-.02em;line-height:1.04;margin:0;text-wrap:balance}
+p{margin:0;text-wrap:pretty}
+em{font-style:italic;color:var(--gold-deep)}
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 var(--gutter)}
+.skip{position:absolute;left:-999px;top:12px;background:var(--ink);color:var(--paper);padding:10px 16px;border-radius:6px;z-index:100}
+.skip:focus{left:12px}
+:focus-visible{outline:2px solid var(--gold-deep);outline-offset:3px;border-radius:4px}
 
-  /* Test */
-  .test { background: #fff; color: var(--negro); border-radius: 8px; padding: 28px; align-self: start; box-shadow: 0 30px 60px rgba(0,0,0,.35); }
-  .test small { color: var(--vino); font-weight: 800; letter-spacing: .14em; text-transform: uppercase; font-size: 11.5px; }
-  .test h3 { font-size: 26px; margin: 6px 0 18px; }
-  .barra { height: 4px; background: var(--linea); border-radius: 4px; margin-bottom: 20px; }
-  .barra i { display: block; height: 100%; background: var(--vino); border-radius: 4px; transition: width .3s; }
-  .resp { display: grid; gap: 10px; }
-  .resp button { text-align: left; background: var(--hueso); border: 1.5px solid var(--linea); border-radius: 6px; padding: 14px 16px; font: 600 15px Manrope; cursor: pointer; color: var(--negro); }
-  .resp button:hover { border-color: var(--vino); background: var(--vino-2); }
-  .resultado { background: var(--vino-2); border-left: 3px solid var(--vino); padding: 16px; border-radius: 4px; margin-bottom: 16px; }
+/* grain */
+body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:var(--z-grain);opacity:.05;mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
 
-  section { padding: 80px 0; }
-  .cab { display: flex; justify-content: space-between; align-items: end; gap: 20px; flex-wrap: wrap; margin-bottom: 36px; }
-  .cab h2 { font-size: clamp(32px, 4.4vw, 48px); max-width: 16ch; }
-  .cab p { color: var(--gris); max-width: 42ch; margin: 0; }
-  .areas { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--linea); border: 1px solid var(--linea); }
-  @media (max-width: 900px) { .areas { grid-template-columns: 1fr 1fr; } }
-  @media (max-width: 560px) { .areas { grid-template-columns: 1fr; } }
-  .area { background: var(--hueso); padding: 30px; transition: background .2s; }
-  .area:hover { background: #fff; }
-  .area .n { font-family: "Playfair Display"; color: var(--vino); font-size: 15px; }
-  .area h3 { font-size: 25px; margin: 8px 0 10px; }
-  .area p { margin: 0; color: var(--gris); font-size: 15px; }
-  .form-sec { background: #fff; }
-  .form-sec .wrap { display: grid; grid-template-columns: .9fr 1.1fr; gap: 56px; }
-  @media (max-width: 900px) { .form-sec .wrap { grid-template-columns: 1fr; gap: 28px; } }
-  .form-sec h2 { font-size: clamp(32px, 4.4vw, 46px); }
-  .garantias { list-style: none; padding: 0; margin: 24px 0 0; display: grid; gap: 14px; }
-  .garantias li { display: flex; gap: 12px; color: var(--gris); }
-  .garantias li::before { content: "✓"; color: var(--vino); font-weight: 800; }
-  form { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-  form .full { grid-column: 1 / -1; }
-  @media (max-width: 560px) { form { grid-template-columns: 1fr; } }
-  label { display: grid; gap: 6px; font-size: 13px; font-weight: 700; }
-  input, select, textarea { font: 15px Manrope; padding: 13px 14px; border: 1.5px solid var(--linea); border-radius: 6px; background: var(--hueso); width: 100%; color: var(--negro); }
-  .urg { display: flex; gap: 8px; flex-wrap: wrap; }
-  .urg label { display: flex; align-items: center; gap: 6px; border: 1.5px solid var(--linea); border-radius: 999px; padding: 8px 14px; cursor: pointer; font-weight: 600; }
-  .urg input { width: auto; accent-color: var(--vino); }
-  .urg label:has(input:checked) { border-color: var(--vino); background: var(--vino-2); }
-  .ok { border: 1.5px solid var(--vino); border-radius: 8px; padding: 32px; }
-  footer { background: var(--negro); color: #8a8a8a; padding: 30px 0 80px; font-size: 14px; }
+.label{font:500 12.5px/1 var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--muted);display:inline-flex;align-items:center;gap:12px}
+.label::before{content:"";width:28px;height:1px;background:var(--gold)}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;gap:12px;padding:16px 26px;border-radius:999px;font:500 15.5px/1 var(--sans);text-decoration:none;transition:transform .25s var(--ease),background .25s,color .25s,box-shadow .25s;will-change:transform}
+.btn:active{transform:translateY(1px) scale(.98)}
+.btn-ink{background:var(--ink);color:var(--paper);box-shadow:0 10px 24px -12px rgba(27,25,21,.6)}
+.btn-ink:hover{background:#000;transform:translateY(-2px)}
+.btn-ink .dot{width:8px;height:8px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 4px rgba(177,152,64,.25)}
+.link{display:inline-flex;align-items:center;gap:10px;font:500 15.5px/1 var(--sans);text-decoration:none;padding:10px 0;border-bottom:1px solid var(--line);transition:border-color .25s,gap .25s var(--ease)}
+.link:hover{border-color:var(--ink);gap:16px}
+.arrow{width:16px;height:16px;flex:none}
+
+/* ---------- header ---------- */
+.site-header{position:sticky;top:0;z-index:var(--z-header);transition:background .3s,box-shadow .3s,backdrop-filter .3s}
+.site-header.scrolled{background:rgba(245,241,232,.82);backdrop-filter:saturate(1.4) blur(14px);-webkit-backdrop-filter:saturate(1.4) blur(14px);box-shadow:0 1px 0 var(--line)}
+.bar{display:flex;align-items:center;justify-content:space-between;gap:24px;height:84px}
+.brand{display:flex;align-items:center;gap:14px;text-decoration:none}
+.brand img{height:50px;width:auto}
+.brand .mono{font:500 30px/1 var(--serif);color:var(--ink);letter-spacing:-.02em}
+.hero-seal .seal-mono{font:500 22px/1 var(--serif);color:var(--ink);position:relative}
+.foot-mono{display:block;font:500 30px/1.1 var(--serif);color:inherit}
+.brand span{font:500 13px/1.25 var(--sans);letter-spacing:.02em;color:var(--ink-2);border-left:1px solid var(--line);padding-left:14px}
+.nav{display:flex;align-items:center;gap:4px}
+.nav a{font:500 15px/1 var(--sans);text-decoration:none;color:var(--ink-2);padding:10px 14px;border-radius:999px;transition:color .2s,background .2s}
+.nav a:hover{color:var(--ink);background:rgba(27,25,21,.05)}
+.nav a[aria-current]{color:var(--ink)}
+.nav a[aria-current]::after{content:"";display:block;height:1px;background:var(--gold);margin-top:6px}
+.bar-call{display:flex;align-items:center;gap:10px;font:600 15px/1 var(--sans);text-decoration:none;padding:12px 18px;border:1px solid var(--line);border-radius:999px;transition:border-color .2s,background .2s;font-variant-numeric:tabular-nums}
+.bar-call:hover{border-color:var(--ink);background:rgba(27,25,21,.03)}
+.menu-btn{display:none;background:none;border:1px solid var(--line);border-radius:999px;width:46px;height:46px;cursor:pointer;color:var(--ink)}
+.menu-btn span{display:block;width:18px;height:1.5px;background:currentColor;margin:4px auto;transition:transform .3s var(--ease),opacity .2s}
+.menu-btn[aria-expanded="true"] span:nth-child(1){transform:translateY(5.5px) rotate(45deg)}
+.menu-btn[aria-expanded="true"] span:nth-child(2){opacity:0}
+.menu-btn[aria-expanded="true"] span:nth-child(3){transform:translateY(-5.5px) rotate(-45deg)}
+
+/* ---------- hero ---------- */
+.hero{position:relative;padding:clamp(28px,5vw,64px) 0 clamp(64px,8vw,112px);overflow:hidden}
+.hero::before{content:"";position:absolute;right:-12vw;top:-18vw;width:62vw;height:62vw;border-radius:50%;background:radial-gradient(closest-side,rgba(177,152,64,.16),rgba(177,152,64,0));pointer-events:none}
+.hero-grid{display:grid;grid-template-columns:1.12fr .88fr;gap:clamp(32px,6vw,96px);align-items:center}
+.hero h1{font-size:clamp(44px,5.1vw,80px);margin:28px 0 30px;text-wrap:wrap}
+.hero h1 em{display:block}
+.lead{font-size:clamp(17.5px,1.35vw,20px);color:var(--ink-2);max-width:52ch;line-height:1.6}
+.hero-cta{display:flex;flex-wrap:wrap;align-items:center;gap:18px 28px;margin-top:40px}
+.hero-media{position:relative;justify-self:end;width:100%;max-width:500px}
+.arch{border-radius:260px 260px 18px 18px;overflow:hidden;box-shadow:var(--shadow);aspect-ratio:780/906;background:var(--paper-2)}
+.arch img{width:100%;height:100%;object-fit:cover;transform:scale(1.04);transition:transform 1.6s var(--ease)}
+.loaded .arch img{transform:scale(1)}
+.hero-seal{position:absolute;top:22px;left:-34px;width:108px;height:108px;border-radius:50%;background:var(--paper);display:grid;place-items:center;box-shadow:var(--shadow)}
+.hero-seal svg{position:absolute;inset:0;animation:spin 38s linear infinite}
+.hero-seal img{height:44px;width:auto}
+@keyframes spin{to{transform:rotate(360deg)}}
+.status-card{position:absolute;left:-56px;bottom:40px;background:rgba(245,241,232,.9);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.6);box-shadow:var(--shadow),inset 0 1px 0 rgba(255,255,255,.7);border-radius:16px;padding:18px 20px;min-width:250px}
+.status{display:flex;align-items:center;gap:10px;font:600 14.5px/1.2 var(--sans)}
+.status i{width:9px;height:9px;border-radius:50%;background:#9A9384;flex:none}
+.status.open i{background:#4E8A5B;box-shadow:0 0 0 0 rgba(78,138,91,.5);animation:pulse 2.2s infinite}
+@keyframes pulse{70%{box-shadow:0 0 0 9px rgba(78,138,91,0)}100%{box-shadow:0 0 0 0 rgba(78,138,91,0)}}
+.status-sub{font-size:14px;color:var(--muted);margin-top:6px;line-height:1.45}
+
+/* facts */
+.facts{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--line);margin-top:clamp(56px,7vw,96px)}
+.fact{padding:28px 28px 0 0}
+.fact + .fact{padding-left:28px;border-left:1px solid var(--line)}
+.fact b{display:block;font:400 clamp(34px,3.4vw,48px)/1 var(--serif);letter-spacing:-.02em;font-variant-numeric:lining-nums}
+.fact span{display:block;margin-top:12px;font-size:14.5px;color:var(--muted);line-height:1.45;max-width:24ch}
+
+/* ---------- section scaffolding ---------- */
+section{position:relative}
+section[id]{scroll-margin-top:72px}
+.section{padding:clamp(88px,11vw,160px) 0 clamp(96px,12vw,176px)}
+.section-head{display:grid;grid-template-columns:1fr 1fr;gap:40px 80px;align-items:end;margin-bottom:clamp(48px,6vw,80px)}
+.section-head h2{font-size:clamp(38px,4.6vw,68px);margin-top:22px}
+.section-head p{color:var(--ink-2);max-width:48ch}
+
+/* ---------- La G y la L ---------- */
+.gl{background:var(--paper-2)}
+.gl-grid{display:grid;grid-template-columns:5fr 7fr;gap:clamp(40px,7vw,120px);align-items:start}
+.gl-text h2{font-size:clamp(40px,5vw,74px);margin:22px 0 32px}
+.gl-text p{color:var(--ink-2);margin-bottom:20px;max-width:50ch}
+.gl-text p.big{font:400 clamp(21px,1.8vw,26px)/1.45 var(--serif);color:var(--ink);letter-spacing:-.005em}
+.gl-text .link{margin-top:16px}
+.people{display:grid;grid-template-columns:1fr 1fr;gap:clamp(16px,2.4vw,32px)}
+.person{text-decoration:none;display:block}
+.person:nth-child(2){margin-top:clamp(56px,9vw,140px)}
+.person figure{margin:0;border-radius:14px;overflow:hidden;aspect-ratio:4/5.4;background:var(--paper-3);box-shadow:0 24px 48px -30px rgba(70,55,20,.45)}
+.person img{width:100%;height:100%;object-fit:cover;object-position:50% 15%;transition:transform .9s var(--ease),filter .6s}
+.person:hover img{transform:scale(1.035)}
+.person-meta{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-top:18px;padding-bottom:14px;border-bottom:1px solid var(--line)}
+.person-meta h3{font-size:clamp(22px,2vw,28px);letter-spacing:-.01em}
+.person-meta small{font:500 13px/1 var(--sans);color:var(--muted);white-space:nowrap}
+.person p{font-size:15px;color:var(--ink-2);margin-top:12px;line-height:1.55}
+.letter{font:italic 400 1em var(--serif);color:var(--gold-deep)}
+
+/* ---------- servicios ---------- */
+.bento{display:grid;grid-template-columns:repeat(12,1fr);grid-auto-rows:minmax(0,auto);gap:clamp(14px,1.6vw,22px)}
+.tile{position:relative;border-radius:18px;overflow:hidden;min-height:340px;color:#F7F2E7;text-decoration:none;display:flex;flex-direction:column;justify-content:flex-end;padding:clamp(22px,2.4vw,34px);isolation:isolate;background:var(--night)}
+.tile img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;transition:transform 1.1s var(--ease)}
+.tile::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(23,21,15,0) 25%,rgba(23,21,15,.55) 58%,rgba(23,21,15,.92) 100%)}
+.tile:hover img{transform:scale(1.05)}
+.tile .num{position:absolute;top:clamp(20px,2.2vw,30px);left:clamp(22px,2.4vw,34px);font:500 12.5px/1 var(--sans);letter-spacing:.16em;color:rgba(247,242,231,.8)}
+.tile .go{position:absolute;top:clamp(16px,2vw,24px);right:clamp(16px,2vw,24px);width:46px;height:46px;border-radius:50%;display:grid;place-items:center;background:rgba(247,242,231,.14);border:1px solid rgba(247,242,231,.28);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);transition:background .3s,transform .4s var(--ease)}
+.tile:hover .go{background:var(--gold);border-color:var(--gold);transform:rotate(-45deg)}
+.tile h3{font-size:clamp(28px,2.6vw,40px);letter-spacing:-.015em}
+.tile p{font-size:15.5px;line-height:1.55;color:rgba(247,242,231,.84);margin-top:12px;max-width:44ch}
+.t1{grid-column:span 7;min-height:clamp(380px,38vw,520px)}
+.t2{grid-column:span 5}
+.t3{grid-column:span 5}
+.t4{grid-column:span 7}
+.t2,.t3,.t4{min-height:clamp(320px,30vw,420px)}
+.more{display:grid;grid-template-columns:4fr 8fr;gap:40px 80px;margin-top:clamp(72px,8vw,112px)}
+.more h3{font-size:clamp(28px,2.8vw,40px)}
+.more-intro p{color:var(--ink-2);margin-top:18px;max-width:34ch}
+.svc-list{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;column-gap:48px}
+.svc-list li{padding:22px 0;border-top:1px solid var(--line);display:grid;grid-template-columns:34px 1fr;gap:4px 12px}
+.svc-list li span{font:500 12.5px/1.9 var(--sans);color:var(--gold-deep);letter-spacing:.06em;font-variant-numeric:tabular-nums}
+.svc-list b{font:500 20px/1.3 var(--serif);letter-spacing:-.005em}
+.svc-list p{grid-column:2;font-size:15px;color:var(--muted);line-height:1.55}
+
+/* ---------- cita ---------- */
+.quote{position:relative;color:#F5EFE2;padding:clamp(110px,14vw,200px) 0;isolation:isolate;overflow:hidden;background:var(--night)}
+.quote > img{position:absolute;inset:-6% 0;width:100%;height:112%;object-fit:cover;z-index:-2;will-change:transform}
+.quote::before{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(120% 90% at 20% 50%,rgba(23,21,15,.86),rgba(23,21,15,.55) 60%,rgba(23,21,15,.35))}
+.quote .label{color:rgba(245,239,226,.7)}
+.quote blockquote{margin:28px 0 0;max-width:17ch;font:400 clamp(42px,5.6vw,84px)/1.04 var(--serif);letter-spacing:-.02em;text-wrap:balance}
+.quote blockquote em{color:#D8BF6A}
+.quote p{max-width:52ch;color:rgba(245,239,226,.82);margin-top:32px;font-size:18px}
+.quote .link{margin-top:36px;border-color:rgba(245,239,226,.35);color:#F5EFE2}
+.quote .link:hover{border-color:#F5EFE2}
+
+/* ---------- despacho ---------- */
+.space-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:clamp(14px,1.6vw,22px);align-items:start}
+.space-grid figure{margin:0;border-radius:16px;overflow:hidden;background:var(--paper-2)}
+.space-grid img{width:100%;height:100%;object-fit:cover;transition:transform 1.1s var(--ease)}
+.space-grid figure:hover img{transform:scale(1.04)}
+.space-grid{grid-template-columns:5fr 3fr 4fr;align-items:stretch}
+.s1{grid-column:1;grid-row:1 / span 2;min-height:100%}
+.s2{grid-column:2 / span 2;grid-row:1;aspect-ratio:16/8.4}
+.s3{grid-column:2;grid-row:2;aspect-ratio:3/4}
+.s4{grid-column:3;grid-row:2}
+.s3 img{object-position:50% 70%}
+
+/* ---------- blog ---------- */
+.blog{background:var(--paper-2)}
+.posts{display:grid;grid-template-columns:1.15fr 1fr;gap:clamp(28px,4vw,64px)}
+.post-feature{text-decoration:none;display:block}
+.post-feature figure{margin:0 0 26px;border-radius:16px;overflow:hidden;aspect-ratio:4/3}
+.post-feature img{width:100%;height:100%;object-fit:cover;transition:transform 1.1s var(--ease)}
+.post-feature:hover img{transform:scale(1.04)}
+.post-feature h3{font-size:clamp(28px,2.8vw,40px);letter-spacing:-.015em}
+.post-feature p{color:var(--ink-2);margin-top:14px;max-width:56ch}
+time{font:500 13px/1 var(--sans);letter-spacing:.06em;color:var(--muted);text-transform:uppercase;display:block;margin-bottom:14px}
+.post-list{display:flex;flex-direction:column}
+.post-row{display:grid;grid-template-columns:132px 1fr;gap:22px;align-items:center;padding:26px 0;border-top:1px solid var(--line);text-decoration:none}
+.post-row:last-child{border-bottom:1px solid var(--line)}
+.post-row figure{margin:0;border-radius:12px;overflow:hidden;aspect-ratio:1/1}
+.post-row img{width:100%;height:100%;object-fit:cover;transition:transform .9s var(--ease)}
+.post-row:hover img{transform:scale(1.06)}
+.post-row h3{font-size:clamp(21px,1.7vw,25px);line-height:1.2;letter-spacing:-.01em;transition:color .2s}
+.post-row:hover h3,.post-feature:hover h3{color:var(--gold-deep)}
+.post-list .link{align-self:flex-start;margin-top:30px}
+
+/* ---------- visita ---------- */
+.visit-grid{display:grid;grid-template-columns:5fr 7fr;gap:clamp(40px,6vw,96px);align-items:stretch}
+.visit h2{font-size:clamp(40px,4.8vw,70px);margin:22px 0 36px}
+.info{border-top:1px solid var(--line)}
+.info-row{display:grid;grid-template-columns:120px 1fr;gap:16px;padding:22px 0;border-bottom:1px solid var(--line)}
+.info-row dt{font:500 12.5px/1.8 var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.info-row dd{margin:0;font-size:17px}
+.info-row dd a{text-decoration:none;border-bottom:1px solid var(--line);transition:border-color .2s}
+.info-row dd a:hover{border-color:var(--ink)}
+.hours{list-style:none;margin:0;padding:0;font-variant-numeric:tabular-nums}
+.hours li{display:flex;justify-content:space-between;gap:16px;padding:3px 10px;margin:0 -10px;border-radius:8px}
+.hours li.today{background:rgba(177,152,64,.16);font-weight:500}
+.hours li span:last-child{color:var(--ink-2);text-align:right}
+.visit .btn{margin-top:36px}
+.map{border-radius:18px;overflow:hidden;min-height:460px;background:var(--paper-2) url(abogados/recepcion.webp) center/cover;box-shadow:var(--shadow);position:relative}
+.map::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(23,21,15,.05) 30%,rgba(23,21,15,.78))}
+.map iframe{position:absolute;inset:0;width:100%;height:100%;border:0;filter:grayscale(.85) sepia(.18) contrast(.95);z-index:2}
+.map-card{position:absolute;left:0;right:0;bottom:0;padding:clamp(24px,3vw,40px);color:#F5EFE2;z-index:1}
+.map-kicker{font:400 clamp(26px,2.4vw,36px)/1.1 var(--serif);letter-spacing:-.01em}
+.map-title{margin-top:6px;color:rgba(245,239,226,.8)}
+.map-actions{display:flex;flex-wrap:wrap;align-items:center;gap:14px 26px;margin-top:24px}
+.btn-paper{background:var(--paper);color:var(--ink);border:0;cursor:pointer}
+.btn-paper:hover{background:#fff;transform:translateY(-2px)}
+.link-light{color:#F5EFE2;border-color:rgba(245,239,226,.4)}
+.link-light:hover{border-color:#F5EFE2}
+.map-note{margin-top:18px;font-size:12.5px;color:rgba(245,239,226,.6)}
+
+/* ---------- footer ---------- */
+.site-footer{background:var(--night);color:#CFC8B8;padding:clamp(72px,8vw,112px) 0 36px;font-size:15px}
+.foot-top{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:48px;padding-bottom:56px;border-bottom:1px solid rgba(245,239,226,.12)}
+.foot-top .claim{font:400 clamp(28px,2.6vw,38px)/1.15 var(--serif);color:#F5EFE2;letter-spacing:-.015em;max-width:18ch;margin-top:28px}
+.foot-top .claim em{color:#D8BF6A}
+.foot-top h4{font:500 12.5px/1 var(--sans);letter-spacing:.16em;text-transform:uppercase;color:#8F8878;margin:6px 0 22px}
+.foot-top ul{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+.foot-top a{text-decoration:none;transition:color .2s}
+.foot-top a:hover{color:#F5EFE2}
+.kit{padding:36px 0;border-bottom:1px solid rgba(245,239,226,.12)}
+.kit img{max-width:640px;width:100%;background:#F5F1E8;border-radius:12px;padding:14px 20px}
+.foot-bottom{display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px;padding-top:28px;font-size:13.5px;color:#8F8878}
+.foot-bottom nav{display:flex;flex-wrap:wrap;gap:8px 22px}
+.foot-bottom a{text-decoration:none}
+.foot-bottom a:hover{color:#F5EFE2}
+
+/* mobile call */
+.call-fab{display:none}
+
+/* ---------- reveal ---------- */
+.js .rv{opacity:0;transform:translateY(28px);transition:opacity .9s var(--ease),transform .9s var(--ease);transition-delay:calc(var(--d,0) * 90ms)}
+.js .rv.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .js .rv{opacity:1;transform:none;transition:none}
+  .hero-seal svg,.status.open i{animation:none}
+  *{transition-duration:.01ms!important}
+}
+
+/* ---------- responsive ---------- */
+@media (max-width:1080px){
+  .nav,.bar-call{display:none}
+  .menu-btn{display:block}
+  .nav.open{display:flex;position:fixed;inset:84px 0 auto 0;flex-direction:column;align-items:stretch;gap:0;background:var(--paper);padding:12px var(--gutter) 28px;box-shadow:0 30px 40px -20px rgba(27,25,21,.25);z-index:var(--z-drawer)}
+  .nav.open a{font:400 26px/1.2 var(--serif);padding:16px 0;border-bottom:1px solid var(--line);border-radius:0}
+  .nav.open a[aria-current]::after{display:none}
+  .hero-grid{grid-template-columns:1fr}
+  .hero-media{justify-self:center;max-width:460px;margin-top:12px}
+  .status-card{left:-20px}
+  .hero-seal{left:-18px}
+  .facts{grid-template-columns:1fr 1fr}
+  .fact:nth-child(3){padding-left:0;border-left:0}
+  .fact:nth-child(n+3){border-top:1px solid var(--line);margin-top:28px}
+  .section-head,.gl-grid,.more,.visit-grid,.posts{grid-template-columns:1fr}
+  .t1,.t2,.t3,.t4{grid-column:span 12}
+  .space-grid{grid-template-columns:1fr 1fr}
+  .s1,.s2,.s3,.s4{grid-column:auto;grid-row:auto}
+  .s1{aspect-ratio:3/4;min-height:0}
+  .s2{grid-column:span 2;order:-1}
+  .s4{grid-column:span 2;aspect-ratio:16/10}
+  .foot-top{grid-template-columns:1fr 1fr}
+  .foot-top > div:first-child{grid-column:span 2}
+}
+@media (max-width:640px){
+  body{font-size:16.5px}
+  .bar{height:72px}
+  .nav.open{inset:72px 0 auto 0}
+  .brand img{height:42px}
+  .brand span{display:none}
+  .hero h1{margin:22px 0 22px}
+  .status-card{position:relative;left:auto;bottom:auto;margin:-48px 16px 0;min-width:0}
+  .hero-seal{width:88px;height:88px;left:-6px;top:10px}
+  .hero-seal img{height:36px}
+  .facts{grid-template-columns:1fr 1fr}
+  .fact{padding-right:14px}
+  .fact + .fact{padding-left:14px}
+  .fact:nth-child(3){padding-left:0}
+  .people{gap:14px}
+  .person p{display:none}
+  .person-meta{flex-direction:column;gap:6px}
+  .svc-list{grid-template-columns:1fr}
+  .post-row{grid-template-columns:92px 1fr;gap:16px}
+  .info-row{grid-template-columns:1fr;gap:6px}
+  .map{min-height:340px}
+  .foot-top{grid-template-columns:1fr}
+  .foot-top > div:first-child{grid-column:auto}
+  .call-fab{display:flex;position:fixed;right:16px;bottom:16px;z-index:var(--z-header);align-items:center;gap:10px;padding:15px 20px;border-radius:999px;background:var(--ink);color:var(--paper);text-decoration:none;font:600 15px/1 var(--sans);box-shadow:0 16px 30px -12px rgba(27,25,21,.6);transform:translateY(120px);transition:transform .4s var(--ease)}
+  .call-fab.show{transform:none}
+}
 </style>
 </head>
 <body>
-<header><div class="wrap nav">
-  <a class="logo" href="#">Rivas <span>&</span> Ortega</a>
-  <nav class="menu"><a href="#areas">Áreas</a><a href="#consulta">Contacto</a><a class="btn" href="#consulta">Primera consulta</a></nav>
-</div></header>
+<a class="skip" href="#main">Saltar al contenido</a>
 
-<div class="hero"><div class="wrap">
-  <div>
-    <h1>Defendemos lo que <span>te importa</span>.</h1>
-    <p>Despacho de abogados especializado en derecho laboral, familia, herencias y reclamaciones. Te decimos con claridad si tu caso tiene recorrido, antes de cobrarte nada.</p>
-    <a class="btn" href="#consulta">Solicitar primera consulta</a>
-    <div class="cifras"><div><b>22</b>años de ejercicio</div><div><b>1.900+</b>casos resueltos</div><div><b>87 %</b>de éxito en juicio</div></div>
+<header class="site-header" id="top">
+  <div class="wrap bar">
+    <a class="brand" href="#top" aria-label="Rivas &amp; Ortega Abogados, inicio">
+      <b class="mono">R&amp;O</b>
+      <span>Andrés Rivas<br>Martín Ortega</span>
+    </a>
+    <nav class="nav" id="nav" aria-label="Principal">
+      <a href="#top" aria-current="page">Inicio</a>
+      <a href="#servicios">Servicios</a>
+      <a href="#despacho">El despacho</a>
+      <a href="#blog">Blog</a>
+      <a href="#visitenos">Contacto</a>
+    </nav>
+    <a class="bar-call" href="tel:+34910000000">
+      <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>
+      910 00 00 00
+    </a>
+    <button class="menu-btn" aria-label="Abrir menú" aria-expanded="false" aria-controls="nav"><span></span><span></span><span></span></button>
   </div>
-  <div class="test" id="test" aria-live="polite"></div>
-</div></div>
+</header>
 
-<section id="areas"><div class="wrap">
-  <div class="cab"><h2>Áreas en las que te ayudamos</h2><p>Sin tecnicismos: te explicamos tu situación y tus opciones en lenguaje claro.</p></div>
-  <div class="areas">
-    <div class="area"><span class="n">01</span><h3>Laboral</h3><p>Despidos, reclamación de salarios, acoso laboral e incapacidades.</p></div>
-    <div class="area"><span class="n">02</span><h3>Familia</h3><p>Divorcios, custodia, pensiones de alimentos y modificación de medidas.</p></div>
-    <div class="area"><span class="n">03</span><h3>Herencias</h3><p>Testamentos, particiones, reclamación de legítima y conflictos entre herederos.</p></div>
-    <div class="area"><span class="n">04</span><h3>Reclamaciones</h3><p>Accidentes de tráfico, negligencias, seguros y cláusulas bancarias.</p></div>
-    <div class="area"><span class="n">05</span><h3>Penal</h3><p>Asistencia al detenido, defensa en juicio y acusación particular.</p></div>
-    <div class="area"><span class="n">06</span><h3>Empresas</h3><p>Contratos, impagos, recobro de deudas y asesoría mensual.</p></div>
-  </div>
-</div></section>
+<main id="main">
 
-<section class="form-sec" id="consulta"><div class="wrap">
-  <div>
-    <h2>Primera consulta</h2>
-    <p style="color:var(--gris)">Cuéntanos tu caso. Un abogado especialista lo revisa y te llama en menos de 24 horas.</p>
-    <ul class="garantias"><li>Valoración del caso sin compromiso</li><li>Presupuesto cerrado por escrito</li><li>Confidencialidad absoluta desde el primer contacto</li></ul>
-  </div>
-  <div id="form-cont">
-    <form id="form">
-      <label>Nombre<input required autocomplete="name"></label>
-      <label>Teléfono<input required type="tel" autocomplete="tel"></label>
-      <label class="full">Área<select id="f-area"><option>Laboral</option><option>Familia</option><option>Herencias</option><option>Reclamaciones</option><option>Penal</option><option>Empresas</option><option>No lo sé</option></select></label>
-      <div class="full"><label style="margin-bottom:8px">¿Cuánta urgencia tiene?</label><div class="urg">
-        <label><input type="radio" name="u" value="Hay plazos corriendo" checked>Hay plazos corriendo</label>
-        <label><input type="radio" name="u" value="Esta semana">Esta semana</label>
-        <label><input type="radio" name="u" value="Solo quiero informarme">Solo informarme</label>
-      </div></div>
-      <label class="full">Resumen del caso<textarea rows="4" placeholder="Qué ha pasado, cuándo y qué te gustaría conseguir"></textarea></label>
-      <div class="full"><button class="btn">Enviar y que me llamen</button></div>
-    </form>
-  </div>
-</div></section>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap">
+      <div class="hero-grid">
+        <div>
+          <p class="label rv">Rivas &amp; Ortega · Abogados en Madrid</p>
+          <h1 class="rv" style="--d:1">Abogados en Madrid, <em>claros desde la primera&nbsp;consulta</em></h1>
+          <p class="lead rv" style="--d:2">Andrés Rivas, abogado desde 2004, y Martín Ortega, abogado desde 2012. Le explicamos su caso y sus opciones antes de dar ningún paso, sin letra pequeña ni sorpresas en la factura.</p>
+          <div class="hero-cta rv" style="--d:3">
+            <a class="btn btn-ink" href="tel:+34910000000"><span class="dot" aria-hidden="true"></span>Llamar al 910 00 00 00</a>
+            <a class="link" href="#servicios">Ver servicios
+              <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          </div>
+        </div>
 
-<footer><div class="wrap">Rivas & Ortega Abogados · Despacho ficticio para la sala de demos de Renueva Smart</div></footer>
+        <div class="hero-media rv" style="--d:2">
+          <div class="arch">
+            <img src="abogados/equipo.webp" alt="Los abogados Andrés Rivas y Martín Ortega en la biblioteca del despacho (imagen difuminada)" width="780" height="906" fetchpriority="high">
+          </div>
+          <div class="hero-seal" aria-hidden="true">
+            <svg viewBox="0 0 108 108"><defs><path id="c" d="M54 54 m-41 0 a41 41 0 1 1 82 0 a41 41 0 1 1 -82 0"/></defs>
+              <text font-family="DM Sans, sans-serif" font-size="8.6" letter-spacing="3.1" fill="#77705F"><textPath href="#c">RIVAS &amp; ORTEGA · DESDE 2012 · </textPath></text></svg>
+            <b class="seal-mono">R&amp;O</b>
+          </div>
+          <div class="status-card" aria-live="polite">
+            <div class="status" id="status"><i></i><span>Horario de atención</span></div>
+            <p class="status-sub" id="status-sub">Lunes a viernes, 9:30 – 14:00<br>Martes y jueves, también 16:30 – 18:00</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="facts">
+        <div class="fact rv"><b>2004</b><span>Año en que Andrés Rivas empezó a ejercer como abogado</span></div>
+        <div class="fact rv" style="--d:1"><b>2012</b><span>Año en que se fundó el despacho</span></div>
+        <div class="fact rv" style="--d:2"><b>+600</b><span>Asuntos llevados, la mayoría resueltos sin llegar a juicio</span></div>
+        <div class="fact rv" style="--d:3"><b>12</b><span>Áreas de práctica: familia, herencias, laboral, empresa…</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LA G Y LA L -->
+  <section class="section gl" id="despacho">
+    <div class="wrap gl-grid">
+      <div class="gl-text">
+        <p class="label rv">El despacho</p>
+        <h2 class="rv" style="--d:1">La <span class="letter">R</span> es de Rivas. <em>La O, de Ortega.</em></h2>
+        <p class="big rv" style="--d:2">Dos abogados con un mismo propósito: que cada cliente entienda su caso y sepa qué esperar.</p>
+        <p class="rv" style="--d:3">Fundamos el despacho en 2012, después de coincidir durante años en los mismos juzgados. Compartimos una idea de la profesión: antes de pleitear hay que buscar el acuerdo, y si no lo hay, defender el caso hasta el final.</p>
+        <p class="rv" style="--d:3">Nuestro trabajo es encontrar la salida más rápida, segura y económica para usted, y explicársela con palabras claras.</p>
+        <a class="link rv" style="--d:4" href="#servicios">Ver en qué le ayudamos
+          <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </div>
+
+      <div class="people">
+        <a class="person rv" href="#">
+          <figure><img src="abogados/socio-rivas.webp" alt="Andrés Rivas, abogado (imagen difuminada)" width="780" height="1200" loading="lazy"></figure>
+          <div class="person-meta"><h3>Andrés Rivas</h3><small>Abogado desde 2004</small></div>
+          <p>Especialista en derecho de familia y sucesiones.</p>
+        </a>
+        <a class="person rv" style="--d:2" href="#">
+          <figure><img src="abogados/socio-ortega.webp" alt="Martín Ortega, abogado (imagen difuminada)" width="780" height="1200" loading="lazy"></figure>
+          <div class="person-meta"><h3>Martín Ortega</h3><small>Abogado desde 2012</small></div>
+          <p>Especialista en derecho laboral y mercantil.</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICIOS -->
+  <section class="section" id="servicios">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <p class="label rv">Servicios</p>
+          <h2 class="rv" style="--d:1">¿En qué podemos <em>ayudarle?</em></h2>
+        </div>
+        <p class="rv" style="--d:2">Del divorcio a una herencia complicada o un despido. Le decimos qué opciones tiene, cuánto puede tardar y cuánto le va a costar, antes de empezar.</p>
+      </div>
+
+      <div class="bento">
+        <a class="tile t1 rv" href="#">
+          <img src="abogados/sala-juntas.webp" alt="" loading="lazy" width="780" height="567">
+          <span class="num">01</span>
+          <span class="go" aria-hidden="true"><svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+          <h3>Familia y divorcios</h3>
+          <p>Divorcios de mutuo acuerdo y contenciosos, custodia, pensiones y modificación de medidas.</p>
+        </a>
+        <a class="tile t2 rv" style="--d:1" href="#">
+          <img src="abogados/biblioteca.webp" alt="" loading="lazy" width="780" height="567">
+          <span class="num">02</span>
+          <span class="go" aria-hidden="true"><svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+          <h3>Herencias y testamentos</h3>
+          <p>Repartos entre herederos, herencias con deudas, legítimas y conflictos familiares por la herencia.</p>
+        </a>
+        <a class="tile t3 rv" href="#">
+          <img src="abogados/acuerdo.webp" alt="" loading="lazy" width="780" height="567">
+          <span class="num">03</span>
+          <span class="go" aria-hidden="true"><svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+          <h3>Laboral</h3>
+          <p>Despidos, reclamaciones de salario, horas extra y negociación con la empresa.</p>
+        </a>
+        <a class="tile t4 rv" style="--d:1" href="#">
+          <img src="abogados/carpeta.webp" alt="" loading="lazy" width="780" height="567">
+          <span class="num">04</span>
+          <span class="go" aria-hidden="true"><svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+          <h3>Mercantil y empresa</h3>
+          <p>Contratos, constitución de sociedades y conflictos entre socios.</p>
+        </a>
+      </div>
+
+      <div class="more">
+        <div class="more-intro rv">
+          <h3>También nos <em>ocupamos de</em></h3>
+          <p>Si no encuentra su caso, llámenos y le orientamos sin compromiso.</p>
+        </div>
+        <ul class="svc-list">
+          <li class="rv"><span>05</span><b>Reclamación de deudas</b><p>Facturas impagadas y monitorios, con o sin juicio.</p></li>
+          <li class="rv" style="--d:1"><span>06</span><b>Arrendamientos</b><p>Impagos de alquiler, desahucios y fianzas.</p></li>
+          <li class="rv"><span>07</span><b>Consumo y banca</b><p>Cláusulas abusivas, gastos de hipoteca y tarjetas revolving.</p></li>
+          <li class="rv" style="--d:1"><span>08</span><b>Accidentes de tráfico</b><p>Reclamación de indemnizaciones a las aseguradoras.</p></li>
+          <li class="rv"><span>09</span><b>Extranjería</b><p>Permisos de residencia, arraigo y nacionalidad.</p></li>
+          <li class="rv" style="--d:1"><span>10</span><b>Penal</b><p>Asistencia en comisaría, denuncias y defensa en juicio.</p></li>
+          <li class="rv"><span>11</span><b>Mediación</b><p>Acuerdos fuera de los tribunales, más rápidos y baratos.</p></li>
+          <li class="rv" style="--d:1"><span>12</span><b>Presupuesto cerrado</b><p>Le decimos el coste de su caso antes de empezar.</p></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- CITA -->
+  <section class="quote" aria-labelledby="q-title">
+    <img src="abogados/libros.webp" alt="" loading="lazy" data-parallax>
+    <div class="wrap">
+      <p class="label rv" id="q-title">Opinión</p>
+      <blockquote class="rv" style="--d:1">Un buen abogado no solo gana pleitos: <em>muchas veces los evita.</em></blockquote>
+      <p class="rv" style="--d:2">Antes de ir a juicio estudiamos si hay un acuerdo mejor para usted. Si no lo hay, preparamos el caso a fondo y lo defendemos hasta el final.</p>
+      <a class="link rv" style="--d:3" href="#blog">Leer nuestros artículos
+        <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    </div>
+  </section>
+
+  <!-- DESPACHO -->
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <p class="label rv">El despacho</p>
+          <h2 class="rv" style="--d:1">Un lugar pensado <em>para recibirle</em></h2>
+        </div>
+        <p class="rv" style="--d:2">En el centro de Madrid, bien comunicado en metro y autobús. Un espacio tranquilo para contarnos su caso con calma y con total confidencialidad.</p>
+      </div>
+      <div class="space-grid">
+        <figure class="s1 rv"><img src="abogados/sala.webp" alt="Sala de reuniones del despacho con biblioteca jurídica" loading="lazy" width="780" height="1100"></figure>
+        <figure class="s2 rv" style="--d:1"><img src="abogados/recepcion-wide.webp" alt="Recepción del despacho con mostrador de madera" loading="lazy" width="1720" height="778"></figure>
+        <figure class="s3 rv" style="--d:2"><img src="abogados/placa.webp" alt="Placa del despacho sobre una mesa (imagen difuminada)" loading="lazy" width="306" height="500"></figure>
+        <figure class="s4 rv" style="--d:3"><img src="abogados/despacho.webp" alt="Martín Ortega revisando un expediente (imagen difuminada)" loading="lazy" width="780" height="715"></figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- BLOG -->
+  <section class="section blog" id="blog">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <p class="label rv">Blog</p>
+          <h2 class="rv" style="--d:1">Contado <em>desde el despacho</em></h2>
+        </div>
+        <p class="rv" style="--d:2">Artículos escritos por los propios abogados para resolver, con claridad, las dudas que más nos plantean.</p>
+      </div>
+      <div class="posts">
+        <a class="post-feature rv" href="#">
+          <figure><img src="abogados/post-clausula.webp" alt="" loading="lazy" width="720" height="540"></figure>
+          <time datetime="2026-09-15">15 de septiembre de 2026</time>
+          <h3>Despido durante una baja médica: qué dice la ley y qué puede reclamar</h3>
+          <p>Que le despidan estando de baja no siempre es ilegal, pero en muchos casos sí lo es. Le contamos cómo saber en cuál está y qué plazos tiene para reclamar.</p>
+        </a>
+        <div class="post-list">
+          <a class="post-row rv" style="--d:1" href="#">
+            <figure><img src="abogados/post-legitima.webp" alt="" loading="lazy" width="720" height="540"></figure>
+            <div><time datetime="2026-07-08">8 de julio de 2026</time><h3>Herencia con deudas: cuándo conviene aceptar a beneficio de inventario</h3></div>
+          </a>
+          <a class="post-row rv" style="--d:2" href="#">
+            <figure><img src="abogados/post-desheredar.webp" alt="" loading="lazy" width="720" height="540"></figure>
+            <div><time datetime="2026-05-21">21 de mayo de 2026</time><h3>Divorcio de mutuo acuerdo: pasos, plazos y costes</h3></div>
+          </a>
+          <a class="post-row rv" style="--d:3" href="#">
+            <figure><img src="abogados/post-donacion.webp" alt="" loading="lazy" width="720" height="540"></figure>
+            <div><time datetime="2026-03-02">2 de marzo de 2026</time><h3>Reclamar una deuda sin ir a juicio: el procedimiento monitorio</h3></div>
+          </a>
+          <a class="link rv" href="#">Ver todos los artículos
+            <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VISÍTENOS -->
+  <section class="section visit" id="visitenos">
+    <div class="wrap visit-grid">
+      <div>
+        <p class="label rv">Visítenos</p>
+        <h2 class="rv" style="--d:1">Estamos en el <em>centro de Madrid</em></h2>
+        <dl class="info rv" style="--d:2">
+          <div class="info-row"><dt>Dirección</dt><dd>Calle de Ejemplo, 10 · 2ª planta<br>28001 Madrid</dd></div>
+          <div class="info-row"><dt>Teléfono</dt><dd><a href="tel:+34910000000">+34 910 00 00 00</a></dd></div>
+          <div class="info-row"><dt>Horario</dt><dd>
+            <ul class="hours" id="hours">
+              <li data-day="1"><span>Lunes</span><span>9:30 – 14:00</span></li>
+              <li data-day="2"><span>Martes</span><span>9:30 – 14:00 · 16:30 – 18:00</span></li>
+              <li data-day="3"><span>Miércoles</span><span>9:30 – 14:00</span></li>
+              <li data-day="4"><span>Jueves</span><span>9:30 – 14:00 · 16:30 – 18:00</span></li>
+              <li data-day="5"><span>Viernes</span><span>9:30 – 14:00</span></li>
+              <li data-day="6 0"><span>Sábado y domingo</span><span>Cerrado</span></li>
+            </ul>
+          </dd></div>
+        </dl>
+        <a class="btn btn-ink rv" style="--d:3" href="mailto:hola@example.com"><span class="dot" aria-hidden="true"></span>Enviar una consulta</a>
+      </div>
+      <div class="map rv" style="--d:2" id="map">
+        <div class="map-card">
+          <p class="map-kicker">Calle de Ejemplo, 10</p>
+          <p class="map-title">2ª planta · 28001 Madrid</p>
+          <div class="map-actions">
+            <button type="button" class="btn btn-paper" id="map-load">Ver mapa</button>
+            <a class="link link-light" href="https://www.google.com/maps/search/?api=1&query=Madrid" target="_blank" rel="noopener">Cómo llegar
+              <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
+          </div>
+          <p class="map-note">El mapa se carga desde Google Maps al pulsar el botón.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="foot-top">
+      <div>
+        <b class="foot-mono">Rivas &amp; Ortega</b>
+        <p class="claim">Claridad y compromiso, <em>de la primera consulta a la sentencia.</em></p>
+      </div>
+      <div>
+        <h4>Servicios</h4>
+        <ul>
+          <li><a href="#servicios">Familia y divorcios</a></li>
+          <li><a href="#servicios">Herencias y testamentos</a></li>
+          <li><a href="#servicios">Laboral</a></li>
+          <li><a href="#servicios">Mercantil y empresa</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Rivas &amp; Ortega</h4>
+        <ul>
+          <li><a href="#despacho">El despacho</a></li>
+          <li><a href="#despacho">Andrés Rivas</a></li>
+          <li><a href="#despacho">Martín Ortega</a></li>
+          <li><a href="#blog">Blog</a></li>
+          <li><a href="tel:+34910000000">+34 910 00 00 00</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Rivas &amp; Ortega Abogados · Despacho de ejemplo de la sala de demos de Renueva Smart</span>
+      <nav aria-label="Legal">
+        <a href="#">Privacidad</a>
+        <a href="#">Cookies</a>
+        <a href="#">Políticas de actuación</a>
+        <a href="#">Accesibilidad</a>
+      </nav>
+    </div>
+  </div>
+</footer>
+
+<a class="call-fab" href="tel:+34910000000" aria-label="Llamar al despacho">
+  <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>
+  Llamar
+</a>
 
 <script>
-const PREGUNTAS = [
-  { q: "¿Con qué tiene que ver tu problema?", r: [["Mi trabajo o mi empresa", "Laboral"], ["Mi pareja o mis hijos", "Familia"], ["Una herencia", "Herencias"], ["Un accidente, banco o seguro", "Reclamaciones"]] },
-  { q: "¿Cuándo ocurrió?", r: [["Hace menos de 20 días", 3], ["Hace menos de un año", 2], ["Hace más de un año", 1]] },
-  { q: "¿Tienes documentos o pruebas?", r: [["Sí, bastantes", 3], ["Algunos", 2], ["No, ninguno", 1]] }
-];
-let paso = 0, area = null, puntos = 0;
-const test = document.getElementById("test");
-function pintar() {
-  if (paso < PREGUNTAS.length) {
-    const p = PREGUNTAS[paso];
-    test.innerHTML = `<small>¿Tienes caso? · Pregunta ${paso + 1} de 3</small><h3>${p.q}</h3>
-      <div class="barra"><i style="width:${paso / 3 * 100}%"></i></div>
-      <div class="resp">${p.r.map((r, i) => `<button data-i="${i}">${r[0]}</button>`).join("")}</div>`;
-    test.querySelectorAll(".resp button").forEach(b => b.onclick = () => {
-      const v = p.r[b.dataset.i][1];
-      if (paso === 0) area = v; else puntos += v;
-      paso++; pintar();
-    });
-  } else {
-    const urgente = area === "Laboral" && puntos >= 5;
-    const fuerte = puntos >= 5;
-    test.innerHTML = `<small>Resultado orientativo</small><h3>${fuerte ? "Tu caso tiene buena base" : "Merece la pena revisarlo"}</h3>
-      <div class="barra"><i style="width:100%"></i></div>
-      <div class="resultado"><b>Área: ${area}</b><br>${urgente ? "⚠️ En despidos hay solo 20 días hábiles para reclamar. Te recomendamos contactar hoy." : fuerte ? "Con la documentación que tienes, un especialista puede valorarlo rápido." : "Un abogado puede decirte qué pruebas reunir y si todavía estás en plazo."}</div>
-      <a class="btn" href="#consulta" id="ir" style="width:100%;text-align:center">Pedir mi primera consulta</a>
-      <button class="btn btn-linea" id="rep" style="width:100%;margin-top:10px">Repetir el test</button>`;
-    document.getElementById("ir").onclick = () => {
-      document.getElementById("f-area").value = area;
-      if (urgente) document.querySelector('input[name="u"]').checked = true;
-    };
-    document.getElementById("rep").onclick = () => { paso = 0; puntos = 0; area = null; pintar(); };
-  }
+document.documentElement.classList.add('js');
+window.addEventListener('load',()=>document.body.classList.add('loaded'));
+
+// Cabecera y botón de llamada móvil
+const header=document.querySelector('.site-header'), fab=document.querySelector('.call-fab');
+const onScroll=()=>{const y=scrollY;header.classList.toggle('scrolled',y>12);fab.classList.toggle('show',y>560)};
+addEventListener('scroll',onScroll,{passive:true});onScroll();
+
+// Menú móvil
+const btn=document.querySelector('.menu-btn'), nav=document.getElementById('nav');
+btn.addEventListener('click',()=>{const o=nav.classList.toggle('open');btn.setAttribute('aria-expanded',o);btn.setAttribute('aria-label',o?'Cerrar menú':'Abrir menú')});
+nav.addEventListener('click',e=>{if(e.target.closest('a')){nav.classList.remove('open');btn.setAttribute('aria-expanded',false)}});
+
+// Aparición al hacer scroll
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{rootMargin:'0px 0px -8% 0px',threshold:.08});
+document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+
+// Parallax suave en la cita
+const px=document.querySelector('[data-parallax]');
+if(px && !matchMedia('(prefers-reduced-motion: reduce)').matches){
+  const sec=px.parentElement;
+  const run=()=>{const r=sec.getBoundingClientRect();if(r.bottom>0&&r.top<innerHeight){const p=(r.top+r.height/2-innerHeight/2)/innerHeight;px.style.transform=`translate3d(0,${p*-40}px,0)`}};
+  addEventListener('scroll',()=>requestAnimationFrame(run),{passive:true});run();
 }
-document.getElementById("form").onsubmit = e => {
-  e.preventDefault();
-  const a = document.getElementById("f-area").value, u = e.target.u.value;
-  document.getElementById("form-cont").innerHTML = `<div class="ok"><h3 style="font-size:30px;color:var(--vino)">Solicitud enviada</h3><p>Área: <b>${a}</b> · Urgencia: <b>${u}</b>.<br>Un abogado especialista te llamará en menos de 24 horas.</p></div>`;
-};
-pintar();
+
+// Mapa bajo demanda (no carga Google hasta que el usuario lo pide)
+document.getElementById('map-load').addEventListener('click',()=>{
+  const f=document.createElement('iframe');
+  f.title='Mapa de Madrid';
+  f.src='https://www.google.com/maps?q=Madrid&z=13&output=embed';
+  document.getElementById('map').appendChild(f);
+});
+
+// Abierto / cerrado según la hora de Madrid
+(function(){
+  const parts=new Intl.DateTimeFormat('en-GB',{timeZone:'Europe/Madrid',weekday:'short',hour:'2-digit',minute:'2-digit',hour12:false}).formatToParts(new Date());
+  const get=t=>parts.find(p=>p.type===t).value;
+  const day={Sun:0,Mon:1,Tue:2,Wed:3,Thu:4,Fri:5,Sat:6}[get('weekday')];
+  const m=(+get('hour'))%24*60+(+get('minute'));
+  const slots=d=>d>=1&&d<=5?[[570,840]].concat(d===2||d===4?[[990,1080]]:[]):[];
+  const fmt=x=>Math.floor(x/60)+':'+String(x%60).padStart(2,'0');
+  const names=['domingo','lunes','martes','miércoles','jueves','viernes','sábado'];
+  const s=slots(day), now=s.find(([a,b])=>m>=a&&m<b);
+  const st=document.getElementById('status'), sub=document.getElementById('status-sub');
+  if(now){st.classList.add('open');st.querySelector('span').textContent='Abierto ahora';sub.textContent='Hoy atendemos hasta las '+fmt(now[1])+' h';}
+  else{
+    let d=day,next=s.find(([a])=>m<a),label='hoy';
+    for(let i=1;!next&&i<8;i++){d=(day+i)%7;next=slots(d)[0];label=i===1?'mañana':'el '+names[d];}
+    st.querySelector('span').textContent='Cerrado ahora';
+    sub.textContent='Abrimos '+label+' a las '+fmt(next[0])+' h';
+  }
+  document.querySelectorAll('#hours li').forEach(li=>{if(li.dataset.day.split(' ').includes(String(day)))li.classList.add('today')});
+})();
 </script>
 </body>
 </html>
