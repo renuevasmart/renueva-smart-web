@@ -1,168 +1,435 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sabores de Bulgaria · Productos típicos a domicilio</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
-<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,600;0,700;1,600&family=Rubik:wght@400;500;600&display=swap" rel="stylesheet">
 <script src="_volver.js"></script>
+<title>Sabores de Bulgaria · Tienda búlgara y rumana en Madrid</title>
+<meta name="description" content="Sabores de Bulgaria: tienda de alimentación búlgara y rumana en Madrid. Quesos, embutidos, cervezas, vinos, snacks, cosmética y souvenirs.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,800&family=Manrope:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
-  :root { --verde: #00866e; --verde-2: #e3f3ee; --rojo: #c8102e; --rojo-2: #fbe7ea; --crema: #fffdf8; --tinta: #1f2a26; --gris: #67736f; --linea: #e7e3d8; }
-  * { box-sizing: border-box; }
-  body { margin: 0; font-family: Rubik, system-ui, sans-serif; color: var(--tinta); background: var(--crema); line-height: 1.5; }
-  h1, h2, h3 { font-family: Lora, Georgia, serif; margin: 0; line-height: 1.1; }
-  .wrap { max-width: 1200px; margin: 0 auto; padding: 0 18px; }
-  .franja { height: 6px; background: linear-gradient(#fff 0 33%, var(--verde) 33% 66%, var(--rojo) 66%); }
-  header { background: #fff; border-bottom: 1px solid var(--linea); position: sticky; top: 0; z-index: 10; }
-  .nav { height: 70px; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
-  .logo { text-decoration: none; color: var(--tinta); display: flex; gap: 10px; align-items: center; }
-  .logo .rosa { font-size: 30px; }
-  .logo b { font-family: Lora; font-size: 21px; display: block; line-height: 1; }
-  .logo small { color: var(--gris); font-size: 12px; }
-  .cesta-btn { background: var(--verde); color: #fff; border: 0; border-radius: 12px; padding: 11px 16px; font: 600 15px Rubik; cursor: pointer; }
-  .hero { padding: 54px 0; display: grid; grid-template-columns: 1.1fr .9fr; gap: 40px; align-items: center; }
-  @media (max-width: 860px) { .hero { grid-template-columns: 1fr; padding: 36px 0; } }
-  .hero h1 { font-size: clamp(38px, 5.4vw, 64px); }
-  .hero h1 i { color: var(--rojo); }
-  .hero p { color: var(--gris); font-size: 18px; margin: 16px 0 24px; max-width: 46ch; }
-  .sellos { display: flex; gap: 16px; flex-wrap: wrap; font-size: 14px; color: var(--gris); margin-top: 26px; }
-  .sellos span { background: #fff; border: 1px solid var(--linea); border-radius: 999px; padding: 6px 12px; }
-  .bodegon { aspect-ratio: 1.1; border-radius: 30px; background: repeating-linear-gradient(45deg, var(--rojo-2) 0 18px, #fff 18px 36px); display: grid; grid-template-columns: 1fr 1fr; gap: 14px; padding: 26px; }
-  .bodegon div { background: #fff; border-radius: 22px; display: grid; place-items: center; font-size: 60px; box-shadow: 0 10px 24px rgba(0,0,0,.06); }
-  .btn { display: inline-block; background: var(--rojo); color: #fff !important; border: 0; border-radius: 12px; padding: 14px 24px; font: 600 15.5px Rubik; cursor: pointer; text-decoration: none; }
-  .btn:hover { background: #a80d26; }
-  .btn:disabled { background: #d9b2b9; cursor: not-allowed; }
-  .btn-v { background: var(--verde); } .btn-v:hover { background: #006c59; }
-  .layout { display: grid; grid-template-columns: 1fr 360px; gap: 30px; align-items: start; padding-bottom: 60px; }
-  @media (max-width: 980px) { .layout { grid-template-columns: 1fr; } }
-  .layout > * { min-width: 0; }
-  .tabs { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 6px; margin-bottom: 18px; }
-  .tab { white-space: nowrap; border: 1.5px solid var(--linea); background: #fff; border-radius: 999px; padding: 9px 16px; font: 500 14.5px Rubik; cursor: pointer; color: var(--tinta); }
-  .tab[aria-pressed="true"] { background: var(--tinta); color: #fff; border-color: var(--tinta); }
-  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-  @media (max-width: 760px) { .grid { grid-template-columns: repeat(2, 1fr); } }
-  .prod { background: #fff; border: 1px solid var(--linea); border-radius: 18px; padding: 14px; display: flex; flex-direction: column; gap: 4px; }
-  .prod .img { aspect-ratio: 1.25; border-radius: 12px; display: grid; place-items: center; font-size: 50px; background: var(--verde-2); margin-bottom: 6px; }
-  .prod h3 { font-size: 17px; }
-  .prod .bg { font-style: italic; color: var(--gris); font-size: 13.5px; }
-  .prod .hist { font-size: 13.5px; color: var(--gris); flex: 1; margin: 4px 0 8px; }
-  .fila { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
-  .fila b { font-size: 17px; }
-  .mas { width: 38px; height: 38px; border-radius: 10px; border: 0; background: var(--verde); color: #fff; font-size: 22px; cursor: pointer; }
-  .q { display: flex; align-items: center; gap: 8px; }
-  .q button { width: 30px; height: 30px; border-radius: 8px; border: 1px solid var(--linea); background: #fff; cursor: pointer; font-size: 16px; }
-  /* Cesta */
-  .cesta { background: #fff; border: 1px solid var(--linea); border-radius: 20px; padding: 20px; position: sticky; top: 90px; display: grid; gap: 14px; }
-  .cesta h3 { font-size: 24px; }
-  .lin { display: flex; justify-content: space-between; font-size: 14.5px; gap: 10px; }
-  .lineas { display: grid; gap: 8px; max-height: 220px; overflow: auto; }
-  label { display: grid; gap: 5px; font-size: 13px; font-weight: 500; color: var(--gris); }
-  select, input { font: 15px Rubik; padding: 11px 12px; border: 1.5px solid var(--linea); border-radius: 10px; background: #fff; width: 100%; color: var(--tinta); }
-  .franjas { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
-  .franjas button { border: 1.5px solid var(--linea); background: #fff; border-radius: 10px; padding: 9px 4px; font: 500 13.5px Rubik; cursor: pointer; }
-  .franjas button[aria-pressed="true"] { border-color: var(--verde); background: var(--verde-2); }
-  .aviso-min { background: var(--rojo-2); color: var(--rojo); border-radius: 10px; padding: 10px 12px; font-size: 13.5px; font-weight: 500; }
-  .total { display: flex; justify-content: space-between; font-family: Lora; font-size: 24px; font-weight: 700; border-top: 1px dashed var(--linea); padding-top: 12px; }
-  .ok { text-align: center; padding: 10px; }
-  footer { border-top: 1px solid var(--linea); padding: 30px 0 80px; color: var(--gris); font-size: 14px; }
+:root{
+  --cream:#f6f0e4;
+  --paper:#fbf8f1;
+  --ink:#1d1a16;
+  --muted:#6b6257;
+  --green:#0f5c3a;
+  --green-d:#0a3f28;
+  --red:#c8312b;
+  --line:rgba(29,26,22,.12);
+  --ease-out:cubic-bezier(.23,1,.32,1);
+  --ease-io:cubic-bezier(.77,0,.175,1);
+  --wrap:1200px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--cream);color:var(--ink);font:400 17px/1.6 Manrope,system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{display:block;max-width:100%}
+a{color:inherit}
+h1,h2,h3{font-family:Fraunces,Georgia,serif;font-weight:600;line-height:1.05;letter-spacing:-.02em}
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 24px}
+.eyebrow{font-size:12px;letter-spacing:.18em;text-transform:uppercase;font-weight:700;color:var(--red)}
+
+/* Bordado (shevitsa) */
+.shevitsa{height:18px;background:
+  url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='18' viewBox='0 0 36 18'%3E%3Cpath d='M0 9 9 0l9 9-9 9z' fill='%23c8312b'/%3E%3Cpath d='M18 9l9-9 9 9-9 9z' fill='%230f5c3a'/%3E%3Cpath d='M9 6l3 3-3 3-3-3zM27 6l3 3-3 3-3-3z' fill='%23fbf8f1'/%3E%3C/svg%3E") repeat-x;}
+
+/* Botones */
+.btn{display:inline-flex;align-items:center;gap:10px;padding:14px 22px;border-radius:999px;font-weight:700;font-size:15px;text-decoration:none;border:0;cursor:pointer;transition:transform 160ms var(--ease-out),background-color 200ms ease}
+.btn:active{transform:scale(.97)}
+.btn-red{background:var(--red);color:#fff}
+.btn-ghost{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--ink)}
+@media (hover:hover) and (pointer:fine){
+  .btn-red:hover{background:#a82620}
+  .btn-ghost:hover{background:var(--ink);color:var(--cream)}
+}
+
+/* Nav */
+.nav{position:sticky;top:0;z-index:50;background:rgba(246,240,228,.86);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;height:68px}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.logo b{display:grid;place-items:center;width:40px;height:40px;border-radius:10px;background:var(--green);color:#fff;font:800 17px Fraunces,serif}
+.logo span{font:600 18px Fraunces,serif}
+.nav ul{display:flex;gap:28px;list-style:none;font-size:15px;font-weight:500}
+.nav ul a{text-decoration:none;opacity:.75;transition:opacity 150ms ease}
+.nav ul a:hover{opacity:1}
+.nav .btn{padding:10px 18px;font-size:14px}
+@media (max-width:860px){.nav ul{display:none}}
+
+/* Hero */
+.hero{padding:64px 0 88px}
+.hero .wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center}
+.hero h1{font-size:clamp(42px,5.6vw,80px);margin:18px 0 24px}
+.hero h1 em{font-style:italic;color:var(--green)}
+.hero p.lead{font-size:19px;color:var(--muted);max-width:30em;margin-bottom:32px}
+.hero .actions{display:flex;flex-wrap:wrap;gap:12px}
+.hero .meta{display:flex;gap:28px;margin-top:40px;font-size:14px;color:var(--muted)}
+.hero .meta strong{display:block;color:var(--ink);font-size:15px}
+.hero-media{position:relative}
+.hero-media .frame{border-radius:200px 200px 24px 24px;overflow:hidden;aspect-ratio:4/5;box-shadow:0 30px 60px -30px rgba(15,92,58,.45)}
+.hero-media img{width:100%;height:100%;object-fit:cover;object-position:50% 62%}
+.hero-media .tag{position:absolute;left:-28px;bottom:48px;background:var(--paper);border-radius:16px;padding:14px 18px;box-shadow:0 18px 40px -18px rgba(0,0,0,.35);font-size:14px;max-width:220px}
+.hero-media .tag strong{display:block;font:600 18px Fraunces,serif}
+@media (max-width:900px){
+  .hero{padding:40px 0 64px}
+  .hero .wrap{grid-template-columns:1fr;gap:40px}
+  .hero-media .tag{left:12px}
+}
+
+/* blur-text (ReactBits) */
+.blur .word{display:inline-block;filter:blur(12px);opacity:0;transform:translateY(-14px);transition:filter 900ms var(--ease-out),opacity 900ms var(--ease-out),transform 900ms var(--ease-out)}
+.blur.in .word{filter:blur(0);opacity:1;transform:none}
+
+/* Entrada general */
+.fade{opacity:0;transform:translateY(16px);transition:opacity 700ms var(--ease-out),transform 700ms var(--ease-out)}
+.fade.in{opacity:1;transform:none}
+.reveal-img{clip-path:inset(0 0 100% 0);transition:clip-path 1100ms var(--ease-io)}
+.reveal-img.in{clip-path:inset(0 0 0 0)}
+
+/* scroll-velocity */
+.velo{background:var(--green);color:var(--cream);overflow:hidden;padding:22px 0;border-block:1px solid var(--green-d)}
+.velo-row{display:flex;white-space:nowrap;will-change:transform;font:italic 600 clamp(26px,3.4vw,42px) Fraunces,serif}
+.velo-row + .velo-row{margin-top:6px;opacity:.55}
+.velo-row span{padding:0 22px;display:inline-flex;align-items:center;gap:44px}
+.velo-row span::after{content:"";width:10px;height:10px;background:var(--red);transform:rotate(45deg);display:inline-block}
+
+/* Empresa */
+.about{padding:110px 0}
+.about .wrap{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start}
+.about h2{font-size:clamp(34px,4.4vw,56px);margin-top:14px}
+.about p{font-size:19px;color:var(--muted);margin-top:22px}
+.stats{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--line);margin-top:8px}
+.stat{padding:28px 0;border-bottom:1px solid var(--line)}
+.stat:nth-child(odd){padding-right:20px;border-right:1px solid var(--line)}
+.stat:nth-child(even){padding-left:28px}
+.stat .n{font:800 clamp(44px,5vw,64px)/1 Fraunces,serif;color:var(--green);font-variant-numeric:tabular-nums}
+.stat .l{font-size:14px;color:var(--muted);margin-top:8px}
+@media (max-width:860px){.about{padding:80px 0}.about .wrap{grid-template-columns:1fr;gap:40px}}
+
+/* Productos: accordion-gallery */
+.products{padding:110px 0;background:var(--paper)}
+.head{display:flex;justify-content:space-between;align-items:end;gap:32px;margin-bottom:44px;flex-wrap:wrap}
+.head h2{font-size:clamp(34px,4.4vw,56px);margin-top:14px;max-width:14em}
+.head p{max-width:26em;color:var(--muted)}
+.acc{display:flex;gap:12px;height:580px}
+.acc-item{position:relative;flex:1;min-width:0;border:0;padding:0;border-radius:22px;overflow:hidden;cursor:pointer;background:#222;text-align:left;color:#fff;font:inherit;transition:flex 700ms cubic-bezier(.2,.8,.2,1)}
+.acc-item.active{flex:4}
+.acc-item img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform 900ms var(--ease-out)}
+.acc-item::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 40%,rgba(0,0,0,.72))}
+.acc-cap{position:absolute;z-index:1;left:0;right:0;bottom:0;padding:28px}
+.acc-cap h3{font-size:30px;white-space:nowrap}
+.acc-cap p{font-size:15px;opacity:0;max-width:30em;margin-top:10px;transform:translateY(8px);transition:opacity 300ms ease,transform 400ms var(--ease-out)}
+.acc-item.active .acc-cap p{opacity:.9;transform:none;transition-delay:250ms}
+.acc-item:not(.active) .acc-cap h3{writing-mode:vertical-rl;transform:rotate(180deg);font-size:24px}
+.acc-item .num{position:absolute;z-index:1;top:20px;left:22px;font:600 13px Manrope;letter-spacing:.14em;opacity:.85}
+.acc-item:focus-visible{outline:3px solid var(--red);outline-offset:3px}
+.cats{display:flex;flex-wrap:wrap;gap:10px;margin-top:36px}
+.cats li{list-style:none;padding:9px 16px;border-radius:999px;background:var(--cream);font-size:14px;font-weight:500;border:1px solid var(--line)}
+.fb{margin-top:28px;font-size:15px;color:var(--muted)}
+.fb a{color:var(--green);font-weight:700}
+@media (max-width:760px){
+  .products{padding:80px 0}
+  .acc{flex-direction:column;height:auto}
+  .acc-item,.acc-item.active{flex:none;height:320px}
+  .acc-item:not(.active) .acc-cap h3{writing-mode:horizontal-tb;transform:none}
+  .acc-cap p{opacity:.9;transform:none}
+}
+
+/* FAQ */
+.faq{padding:110px 0}
+.faq .wrap{display:grid;grid-template-columns:.8fr 1.2fr;gap:64px}
+.faq h2{font-size:clamp(34px,4.4vw,56px);margin-top:14px}
+.faq .intro{color:var(--muted);margin-top:18px}
+.qa{border-top:1px solid var(--line)}
+.qa details{border-bottom:1px solid var(--line)}
+.qa summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:20px;padding:26px 0;font:600 22px Fraunces,serif}
+.qa summary::-webkit-details-marker{display:none}
+.qa .plus{flex:none;width:34px;height:34px;border-radius:50%;border:1.5px solid var(--ink);position:relative;transition:transform 250ms var(--ease-out),background-color 200ms ease}
+.qa .plus::before,.qa .plus::after{content:"";position:absolute;left:50%;top:50%;width:12px;height:1.5px;background:currentColor;transform:translate(-50%,-50%)}
+.qa .plus::after{transform:translate(-50%,-50%) rotate(90deg)}
+.qa details[open] .plus{transform:rotate(45deg);background:var(--ink);color:var(--cream)}
+.qa .ans{color:var(--muted);padding:0 0 26px;max-width:36em}
+.qa details[open] .ans{animation:ans 300ms var(--ease-out)}
+@keyframes ans{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+.hours{display:grid;grid-template-columns:auto 1fr;gap:6px 24px;margin-top:6px}
+.hours dt{color:var(--ink);font-weight:700}
+@media (max-width:860px){.faq{padding:80px 0}.faq .wrap{grid-template-columns:1fr;gap:32px}}
+
+/* Contacto */
+.contact{background:var(--green);color:var(--cream);padding:110px 0 0;position:relative}
+.contact .wrap{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:stretch}
+.contact h2{font-size:clamp(38px,5vw,68px);margin-top:14px}
+.contact .eyebrow{color:#f3a59f}
+.contact p{opacity:.8;margin-top:18px;max-width:28em}
+.cards{display:grid;gap:12px;margin-top:36px}
+.card{display:flex;align-items:center;gap:18px;padding:20px 22px;border-radius:18px;background:rgba(255,255,255,.07);text-decoration:none;transition:background-color 200ms ease,transform 160ms var(--ease-out)}
+.card:active{transform:scale(.98)}
+@media (hover:hover) and (pointer:fine){a.card:hover{background:rgba(255,255,255,.13)}}
+.card .ico{flex:none;display:grid;place-items:center;width:46px;height:46px;border-radius:12px;background:var(--cream);color:var(--green)}
+.card small{display:block;font-size:12px;letter-spacing:.14em;text-transform:uppercase;opacity:.65}
+.card strong{font-size:18px;font-weight:700;overflow-wrap:anywhere}
+.map{border-radius:24px;overflow:hidden;min-height:440px;background:var(--green-d)}
+.map iframe{width:100%;height:100%;min-height:440px;border:0;display:block;filter:saturate(.85)}
+.contact .shevitsa{margin-top:110px}
+.payments{display:flex;gap:10px;margin-top:22px;font-size:13px;opacity:.8;align-items:center}
+.payments b{padding:5px 10px;border-radius:6px;background:var(--cream);color:var(--green-d);font-size:12px;letter-spacing:.06em}
+@media (max-width:860px){.contact{padding-top:80px}.contact .wrap{grid-template-columns:minmax(0,1fr)}.contact .shevitsa{margin-top:80px}}
+
+footer{background:var(--green-d);color:rgba(246,240,228,.7);padding:40px 0;font-size:14px}
+footer .wrap{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap}
+footer .seo{font-size:12px;opacity:.6;margin-top:18px;max-width:none}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .blur .word,.fade,.reveal-img{filter:none;opacity:1;transform:none;clip-path:none;transition:none}
+  .acc-item,.acc-item img,.acc-cap p{transition:none}
+  .qa details[open] .ans{animation:none}
+}
 </style>
 </head>
 <body>
-<div class="franja"></div>
-<header><div class="wrap nav">
-  <a class="logo" href="#"><span class="rosa">🌹</span><span><b>Sabores de Bulgaria</b><small>Вкусът на България</small></span></a>
-  <button class="cesta-btn" id="ir-cesta">🧺 <span id="n-cesta">0</span> · <span id="t-cesta">0,00 €</span></button>
-</div></header>
 
-<main class="wrap">
-  <div class="hero">
-    <div>
-      <h1>El sabor de casa, <i>en tu puerta</i>.</h1>
-      <p>Sirene, kashkaval, lyutenitsa y yogur búlgaro auténtico, traídos directamente de productores de Bulgaria. Pide hoy y elige cuándo te lo llevamos.</p>
-      <a class="btn" href="#catalogo">Hacer mi pedido</a>
-      <div class="sellos"><span>🇧🇬 Origen Bulgaria</span><span>❄️ Cadena de frío</span><span>🚚 Entrega en tu franja</span></div>
-    </div>
-    <div class="bodegon" aria-hidden="true"><div>🧀</div><div>🫙</div><div>🥛</div><div>🍯</div></div>
+<nav class="nav" aria-label="Principal">
+  <div class="wrap">
+    <a class="logo" href="#inicio"><b>SB</b><span>Sabores de Bulgaria</span></a>
+    <ul>
+      <li><a href="#empresa">Empresa</a></li>
+      <li><a href="#productos">Productos</a></li>
+      <li><a href="#faq">Preguntas</a></li>
+      <li><a href="#contacto">Contacto</a></li>
+    </ul>
+    <a class="btn btn-red" href="tel:+34600000000">600 00 00 00</a>
   </div>
+</nav>
 
-  <div class="layout" id="catalogo">
+<header class="hero" id="inicio">
+  <div class="wrap">
     <div>
-      <h2 style="font-size:36px;margin-bottom:16px">Catálogo</h2>
-      <div class="tabs" id="tabs"></div>
-      <div class="grid" id="grid"></div>
+      <span class="eyebrow fade">Tienda búlgara en Madrid</span>
+      <h1 class="blur" id="hero-title" aria-label="Los sabores de Bulgaria y Rumanía, a la vuelta de la esquina.">
+        <span class="word">Los</span> <span class="word">sabores</span> <span class="word">de</span> <span class="word"><em>Bulgaria</em></span> <span class="word">y</span> <span class="word"><em>Rumanía,</em></span> <span class="word">a</span> <span class="word">la</span> <span class="word">vuelta</span> <span class="word">de</span> <span class="word">la</span> <span class="word">esquina.</span>
+      </h1>
+      <p class="lead fade">Productos alimenticios típicos de Bulgaria y Rumanía: desayunos, quesos, embutidos, bebidas, cosmética, souvenirs y mucho más.</p>
+      <div class="actions fade">
+        <a class="btn btn-red" href="#productos">Ver productos</a>
+        <a class="btn btn-ghost" href="#contacto">Cómo llegar</a>
+      </div>
+      <div class="meta fade">
+        <div><strong>C/ de Ejemplo, 12</strong>Madrid</div>
+        <div><strong>Pago con tarjeta</strong>Visa y Mastercard</div>
+      </div>
     </div>
-    <aside class="cesta" id="cesta" aria-live="polite"></aside>
+    <div class="hero-media">
+      <div class="frame reveal-img"><img src="bulgaria/img/foto1.jpg" alt="Ensalada shopska con queso sirene, aceitunas y un vaso de rakia"></div>
+      <div class="tag fade"><strong>Shopska y rakia</strong>El clásico de cualquier mesa búlgara, con productos de la tienda.</div>
+    </div>
   </div>
-</main>
-<footer><div class="wrap">Sabores de Bulgaria · Tienda de ejemplo para la sala de demos de Renueva Smart</div></footer>
+</header>
+
+<div class="velo" aria-hidden="true">
+  <div class="velo-row" data-speed="1"></div>
+  <div class="velo-row" data-speed="-0.7"></div>
+</div>
+
+<section class="about" id="empresa">
+  <div class="wrap">
+    <div class="fade">
+      <span class="eyebrow">Nuestra empresa</span>
+      <h2>Un pedacito de los Balcanes en tu barrio.</h2>
+      <p>Somos un mini mercado búlgaro especializado en llevar a vuestros hogares los mejores sabores de nuestra región. Estamos encantados de atenderos y daros nuestro mejor servicio.</p>
+    </div>
+    <div class="stats fade">
+      <div class="stat"><div class="n"><span class="count" data-to="165">0</span></div><div class="l">Productos</div></div>
+      <div class="stat"><div class="n"><span class="count" data-to="4">0</span></div><div class="l">Países de origen</div></div>
+      <div class="stat"><div class="n"><span class="count" data-to="58">0</span></div><div class="l">Tipos de bebidas</div></div>
+      <div class="stat"><div class="n"><span class="count" data-to="1346">0</span></div><div class="l">Clientes satisfechos</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="products" id="productos">
+  <div class="wrap">
+    <div class="head fade">
+      <div>
+        <span class="eyebrow">Nuestros productos</span>
+        <h2>Más de 100 productos, elegidos uno a uno.</h2>
+      </div>
+      <p>Bebidas, quesos, embutidos, condimentos, conservas, pizzas, bocadillos… la selección más variada de Bulgaria y Rumanía.</p>
+    </div>
+
+    <div class="acc fade" id="acc">
+      <button class="acc-item active" aria-expanded="true">
+        <img src="bulgaria/img/foto1.jpg" alt="Ensalada shopska con rakia" style="object-position:50% 70%">
+        <span class="num">01</span>
+        <span class="acc-cap"><h3>Mesa búlgara</h3><p>Queso sirene, aceitunas, rakia y todo lo que necesitas para una shopska como la de casa.</p></span>
+      </button>
+      <button class="acc-item" aria-expanded="false">
+        <img src="bulgaria/img/foto3.jpg" alt="Tarta de chocolate de cumpleaños en el mostrador de la tienda">
+        <span class="num">02</span>
+        <span class="acc-cap"><h3>Dulces y tartas</h3><p>Repostería para celebrar a lo grande, con el sabor de siempre.</p></span>
+      </button>
+      <button class="acc-item" aria-expanded="false">
+        <img src="bulgaria/img/foto2.jpg" alt="Helados Plombir Korovka crème brûlée en la nevera">
+        <span class="num">03</span>
+        <span class="acc-cap"><h3>Helados y antojos</h3><p>Plombir de crème brûlée y otros caprichos que no encontrarás en el súper.</p></span>
+      </button>
+      <button class="acc-item" aria-expanded="false">
+        <img src="bulgaria/img/foto4.jpg" alt="Gorras y banderas de Bulgaria">
+        <span class="num">04</span>
+        <span class="acc-cap"><h3>Souvenirs</h3><p>Gorras, banderas, cosmética de rosa y regalos para llevar Bulgaria contigo.</p></span>
+      </button>
+    </div>
+
+    <ul class="cats fade">
+      <li>Cerveza búlgara y rumana</li><li>Vinos</li><li>Quesos</li><li>Embutidos y salchichas</li><li>Snacks</li><li>Panadería</li><li>Conservas</li><li>Condimentos</li><li>Cosmética</li>
+    </ul>
+    <p class="fb fade">¿Quieres ver más? <a href="#contacto">Pregúntanos por el resto del catálogo →</a></p>
+  </div>
+</section>
+
+<section class="faq" id="faq">
+  <div class="wrap">
+    <div class="fade">
+      <span class="eyebrow">Preguntas frecuentes</span>
+      <h2>Resolvemos tus dudas.</h2>
+      <p class="intro">Y si no está aquí, llámanos al <a href="tel:+34600000000">600 00 00 00</a>.</p>
+    </div>
+    <div class="qa fade">
+      <details open>
+        <summary>¿Cuál es el horario de atención? <span class="plus" aria-hidden="true"></span></summary>
+        <div class="ans">
+          <dl class="hours">
+            <dt>Lunes a viernes</dt><dd>10:00 – 14:00 y 17:00 – 21:00</dd>
+            <dt>Sábados</dt><dd>09:30 – 21:00</dd>
+            <dt>Domingos</dt><dd>10:00 – 15:00</dd>
+          </dl>
+        </div>
+      </details>
+      <details>
+        <summary>¿Se puede pagar con tarjeta? <span class="plus" aria-hidden="true"></span></summary>
+        <div class="ans">Sí, aceptamos Visa y Mastercard.</div>
+      </details>
+      <details>
+        <summary>¿Tenéis servicio a domicilio? <span class="plus" aria-hidden="true"></span></summary>
+        <div class="ans">Sí, trabajamos con las más prestigiosas empresas de reparto a domicilio. Para más información, contacta con nosotros en el 600 00 00 00.</div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contacto">
+  <div class="wrap">
+    <div class="fade">
+      <span class="eyebrow">Contacto</span>
+      <h2>Ven a vernos o escríbenos.</h2>
+      <p>Respondemos tus dudas encantados. Tienda de alimentación típica búlgara y rumana con una gran variedad de productos de excelente calidad.</p>
+      <div class="cards">
+        <a class="card" href="tel:+34600000000">
+          <span class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg></span>
+          <span><small>Teléfono</small><strong>600 00 00 00</strong></span>
+        </a>
+        <a class="card" href="mailto:hola@example.com">
+          <span class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg></span>
+          <span><small>Correo</small><strong>hola@example.com</strong></span>
+        </a>
+        <a class="card" href="https://maps.google.com/?q=Madrid" target="_blank" rel="noopener">
+          <span class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg></span>
+          <span><small>Dirección</small><strong>C/ de Ejemplo, 12 · Madrid</strong></span>
+        </a>
+      </div>
+      <div class="payments">Aceptamos <b>VISA</b><b>MASTERCARD</b></div>
+    </div>
+    <div class="map fade">
+      <iframe title="Mapa de Madrid" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://maps.google.com/maps?q=Madrid&z=12&output=embed"></iframe>
+    </div>
+  </div>
+  <div class="shevitsa" aria-hidden="true"></div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div>© Sabores de Bulgaria · Tienda de ejemplo para la sala de demos de Renueva Smart</div>
+    <div>@saboresdebulgaria</div>
+    <p class="seo">Especialistas en productos búlgaros y rumanos: cerveza, quesos, salchichas, bebidas, snacks, vinos, panadería y embutidos búlgaros y rumanos. Tienda búlgara en Madrid, tienda rumana en Madrid.</p>
+  </div>
+</footer>
 
 <script>
-const PRODS = [
-  { n: "Queso sirene", bg: "Сирене", c: "Lácteos", p: 8.9, u: "500 g", e: "🧀", h: "Queso blanco en salmuera, el alma de la ensalada shopska." },
-  { n: "Kashkaval", bg: "Кашкавал", c: "Lácteos", p: 11.5, u: "400 g", e: "🧀", h: "Queso amarillo curado, ideal empanado o a la plancha." },
-  { n: "Yogur búlgaro", bg: "Кисело мляко", c: "Lácteos", p: 3.2, u: "400 g", e: "🥛", h: "Con Lactobacillus bulgaricus, espeso y ácido de verdad." },
-  { n: "Lyutenitsa casera", bg: "Лютеница", c: "Conservas", p: 5.4, u: "520 g", e: "🫙", h: "Pimiento y tomate asados a fuego lento. Untada en pan, perfecta." },
-  { n: "Pimientos asados", bg: "Печени чушки", c: "Conservas", p: 4.9, u: "680 g", e: "🫑", h: "Asados al carbón y pelados a mano." },
-  { n: "Lukanka", bg: "Луканка", c: "Embutidos", p: 9.8, u: "300 g", e: "🥓", h: "Embutido curado y especiado, tradicional de Panagyurishte." },
-  { n: "Sudzhuk", bg: "Суджук", c: "Embutidos", p: 8.6, u: "300 g", e: "🌭", h: "Embutido seco con comino, plano y sabroso." },
-  { n: "Miel de rosa", bg: "Розов мед", c: "Dulces", p: 7.5, u: "250 g", e: "🍯", h: "Del Valle de las Rosas de Kazanlak." },
-  { n: "Lokum de rosa", bg: "Локум", c: "Dulces", p: 4.2, u: "200 g", e: "🍬", h: "Delicia tierna espolvoreada con azúcar glas." },
-  { n: "Sharena sol", bg: "Шарена сол", c: "Especias", p: 3.6, u: "150 g", e: "🧂", h: "La sal de colores: ajedrea, pimentón y fenogreco." },
-  { n: "Chubritsa", bg: "Чубрица", c: "Especias", p: 2.9, u: "50 g", e: "🌿", h: "Ajedrea búlgara, la hierba de los guisos de la abuela." },
-  { n: "Boza", bg: "Боза", c: "Bebidas", p: 2.5, u: "1 l", e: "🥤", h: "Bebida fermentada de cereal, para acompañar la banitsa." }
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+// blur-text en el titular
+const title = document.getElementById('hero-title');
+title.querySelectorAll('.word').forEach((w, i) => w.style.transitionDelay = (i * 0.07) + 's');
+requestAnimationFrame(() => setTimeout(() => title.classList.add('in'), 80));
+
+// Entradas al hacer scroll (fade + revelado de imagen)
+const io = new IntersectionObserver(es => es.forEach(e => {
+  if (!e.isIntersecting) return;
+  e.target.classList.add('in');
+  io.unobserve(e.target);
+}), { rootMargin: '0px 0px -10% 0px' });
+document.querySelectorAll('.fade, .reveal-img').forEach((el) => {
+  // escalonar hermanos dentro del hero
+  if (el.closest('.hero')) el.style.transitionDelay = '.35s';
+  io.observe(el);
+});
+
+// count-up
+const fmt = v => Math.round(v).toLocaleString('es-ES');
+const co = new IntersectionObserver(es => es.forEach(e => {
+  if (!e.isIntersecting) return;
+  co.unobserve(e.target);
+  const el = e.target, to = +el.dataset.to;
+  if (reduce) { el.textContent = fmt(to); return; }
+  const t0 = performance.now(), dur = 1800;
+  const step = t => {
+    const k = Math.min(1, (t - t0) / dur);
+    el.textContent = fmt(to * (1 - Math.pow(1 - k, 3)));
+    if (k < 1) requestAnimationFrame(step);
+  };
+  requestAnimationFrame(step);
+}), { threshold: .6 });
+document.querySelectorAll('.count').forEach(el => co.observe(el));
+
+// scroll-velocity
+const rows = [...document.querySelectorAll('.velo-row')];
+const items = [
+  ['Quesos', 'Embutidos', 'Cerveza búlgara', 'Rakia', 'Vinos', 'Lyutenitsa', 'Panadería'],
+  ['Snacks', 'Conservas', 'Desayunos', 'Cosmética de rosa', 'Souvenirs', 'Dulces', 'Condimentos']
 ];
-const ZONAS = [{ n: "Centro ciudad", envio: 2.9, min: 15 }, { n: "Área metropolitana", envio: 4.9, min: 25 }, { n: "Resto de la provincia", envio: 7.9, min: 40 }, { n: "Recogida en tienda", envio: 0, min: 0 }];
-const FRANJAS = ["10:00–13:00", "13:00–16:00", "16:00–19:00", "19:00–21:00"];
-const CATS = ["Todo", ...new Set(PRODS.map(p => p.c))];
-const st = { cat: "Todo", zona: 0, dia: 0, franja: null, hecho: false }; const cesta = {};
-const eur = n => n.toLocaleString("es-ES", { style: "currency", currency: "EUR" });
-const dias = [...Array(6)].map((_, k) => { const d = new Date(); d.setDate(d.getDate() + k + 1); return d; }).filter(d => d.getDay() !== 0);
-
-function pintarCat() {
-  document.getElementById("tabs").innerHTML = CATS.map(c => `<button class="tab" aria-pressed="${c === st.cat}">${c}</button>`).join("");
-  document.getElementById("grid").innerHTML = PRODS.map((p, i) => (st.cat !== "Todo" && p.c !== st.cat) ? "" : `
-    <article class="prod"><div class="img">${p.e}</div><h3>${p.n}</h3><span class="bg">${p.bg} · ${p.u}</span><p class="hist">${p.h}</p>
-    <div class="fila"><b>${eur(p.p)}</b>${cesta[i] ? `<span class="q"><button data-i="${i}" data-d="-1" aria-label="Quitar uno">–</button>${cesta[i]}<button data-i="${i}" data-d="1" aria-label="Añadir uno">+</button></span>` : `<button class="mas" data-i="${i}" data-d="1" aria-label="Añadir ${p.n}">+</button>`}</div></article>`).join("");
+rows.forEach((row, r) => row.innerHTML = items[r].map(t => `<span>${t}</span>`).join('').repeat(6));
+if (!reduce) {
+  const pos = rows.map(() => 0); let lastY = scrollY, boost = 0;
+  (function tick() {
+    const dy = scrollY - lastY; lastY = scrollY;
+    boost += (Math.min(Math.abs(dy), 60) * .12 - boost) * .1;
+    rows.forEach((row, i) => {
+      const sp = +row.dataset.speed, half = row.scrollWidth / 2;
+      pos[i] -= sp * (.6 + boost) * (dy < 0 ? -1 : 1);
+      if (pos[i] <= -half) pos[i] += half;
+      if (pos[i] > 0) pos[i] -= half;
+      row.style.transform = `translate3d(${pos[i]}px,0,0)`;
+    });
+    requestAnimationFrame(tick);
+  })();
 }
-document.getElementById("tabs").onclick = e => { if (e.target.matches(".tab")) { st.cat = e.target.textContent; pintarCat(); } };
-document.getElementById("grid").onclick = e => {
-  const b = e.target.closest("[data-i]"); if (!b) return;
-  cesta[b.dataset.i] = (cesta[b.dataset.i] || 0) + +b.dataset.d; if (cesta[b.dataset.i] <= 0) delete cesta[b.dataset.i];
-  st.hecho = false; pintarCat(); pintarCesta();
-};
 
-function pintarCesta() {
-  const el = document.getElementById("cesta");
-  const items = Object.entries(cesta);
-  const sub = items.reduce((a, [i, q]) => a + PRODS[i].p * q, 0);
-  const z = ZONAS[st.zona];
-  const envio = sub >= 60 ? 0 : z.envio;
-  document.getElementById("n-cesta").textContent = items.reduce((a, [, q]) => a + q, 0);
-  document.getElementById("t-cesta").textContent = eur(sub);
-  if (st.hecho) {
-    el.innerHTML = `<div class="ok"><div style="font-size:50px">🌹</div><h3>Благодаря! ¡Gracias!</h3><p style="color:var(--gris)">Pedido confirmado para el ${dias[st.dia].toLocaleDateString("es-ES", { weekday: "long", day: "numeric" })}, ${st.franja}. Te avisamos por SMS cuando salga el repartidor.</p><button class="btn btn-v" id="nuevo">Hacer otro pedido</button></div>`;
-    el.querySelector("#nuevo").onclick = () => { st.hecho = false; st.franja = null; pintarCesta(); };
-    return;
-  }
-  const falta = z.min - sub;
-  el.innerHTML = `<h3>Tu cesta</h3>
-    <div class="lineas">${items.length ? items.map(([i, q]) => `<div class="lin"><span>${q} × ${PRODS[i].n}</span><span>${eur(PRODS[i].p * q)}</span></div>`).join("") : '<p style="color:var(--gris);margin:0">Añade productos con el botón +</p>'}</div>
-    <label>Zona de entrega<select id="zona">${ZONAS.map((x, k) => `<option value="${k}" ${k === st.zona ? "selected" : ""}>${x.n}${x.envio ? ` · ${eur(x.envio)}` : " · gratis"}</option>`).join("")}</select></label>
-    <label>Día<select id="dia">${dias.map((d, k) => `<option value="${k}" ${k === st.dia ? "selected" : ""}>${d.toLocaleDateString("es-ES", { weekday: "long", day: "numeric", month: "short" })}</option>`).join("")}</select></label>
-    <div><label style="margin-bottom:6px">Franja horaria</label><div class="franjas">${FRANJAS.map(f => `<button data-f="${f}" aria-pressed="${f === st.franja}">${f}</button>`).join("")}</div></div>
-    ${falta > 0 && items.length ? `<div class="aviso-min">Pedido mínimo en tu zona: ${eur(z.min)}. Te faltan ${eur(falta)}.</div>` : ""}
-    <div class="lin"><span>Subtotal</span><span>${eur(sub)}</span></div>
-    <div class="lin"><span>Envío ${sub >= 60 ? "(gratis desde 60 €)" : ""}</span><span>${envio ? eur(envio) : "Gratis"}</span></div>
-    <div class="total"><span>Total</span><span>${eur(sub + (items.length ? envio : 0))}</span></div>
-    <button class="btn" id="pedir" ${items.length && falta <= 0 && st.franja ? "" : "disabled"}>${!items.length ? "Tu cesta está vacía" : falta > 0 ? "No llega al mínimo" : !st.franja ? "Elige una franja" : "Confirmar pedido"}</button>`;
-  el.querySelector("#zona").onchange = e => { st.zona = +e.target.value; pintarCesta(); };
-  el.querySelector("#dia").onchange = e => { st.dia = +e.target.value; pintarCesta(); };
-  el.querySelectorAll("[data-f]").forEach(b => b.onclick = () => { st.franja = b.dataset.f; pintarCesta(); });
-  el.querySelector("#pedir").onclick = () => { st.hecho = true; for (const k in cesta) delete cesta[k]; pintarCat(); pintarCesta(); };
-}
-document.getElementById("ir-cesta").onclick = () => document.getElementById("cesta").scrollIntoView({ behavior: "smooth" });
-pintarCat(); pintarCesta();
+// accordion-gallery
+const accItems = [...document.querySelectorAll('.acc-item')];
+const activate = item => accItems.forEach(it => {
+  const on = it === item;
+  it.classList.toggle('active', on);
+  it.setAttribute('aria-expanded', on);
+});
+const canHover = matchMedia('(hover: hover)').matches;
+accItems.forEach(it => {
+  if (canHover) it.addEventListener('mouseenter', () => activate(it));
+  it.addEventListener('click', () => activate(it));
+  it.addEventListener('focus', () => activate(it));
+});
 </script>
 </body>
 </html>
