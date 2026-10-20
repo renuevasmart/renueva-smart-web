@@ -265,8 +265,9 @@
 
     <div class="fila">
       <div class="campo">
-        <label for="lugar" id="labelLugar">Departamento</label>
-        <select id="lugar"></select>
+        <label for="lugar">Ciudad</label>
+        <input type="text" id="lugar" list="ciudadesSugeridas" autocomplete="off">
+        <datalist id="ciudadesSugeridas"></datalist>
       </div>
       <div class="campo">
         <label for="fecha">Fecha</label>
@@ -327,14 +328,14 @@
       UY: {
         labelDoc: 'Cédula o RUT', monedas: ['UYU', 'USD'], ivaDefault: 22,
         mediosPago: ['Prex', 'Stripe'],
-        labelLugar: 'Departamento', lugarDefault: 'Montevideo',
-        regiones: ['Artigas', 'Canelones', 'Cerro Largo', 'Colonia', 'Durazno', 'Flores', 'Florida', 'Lavalleja', 'Maldonado', 'Montevideo', 'Paysandú', 'Río Negro', 'Rivera', 'Rocha', 'Salto', 'San José', 'Soriano', 'Tacuarembó', 'Treinta y Tres'],
+        nombrePais: 'Uruguay', ciudadDefault: 'Montevideo',
+        ciudades: ['Montevideo', 'Canelones', 'Ciudad de la Costa', 'Las Piedras', 'Maldonado', 'Punta del Este', 'Colonia del Sacramento', 'Salto', 'Paysandú', 'Rivera', 'Tacuarembó', 'Melo', 'Mercedes', 'Minas', 'Florida', 'San José de Mayo', 'Durazno', 'Rocha', 'Fray Bentos', 'Artigas', 'Treinta y Tres', 'Trinidad'],
       },
       ES: {
         labelDoc: 'DNI / NIF', monedas: ['EUR', 'USD'], ivaDefault: 21,
         mediosPago: ['Bizum', 'Transferencia bancaria', 'Stripe'],
-        labelLugar: 'Comunidad autónoma', lugarDefault: 'Comunidad de Madrid',
-        regiones: ['Andalucía', 'Aragón', 'Asturias', 'Baleares', 'Canarias', 'Cantabria', 'Castilla-La Mancha', 'Castilla y León', 'Cataluña', 'Comunidad de Madrid', 'Comunidad Valenciana', 'Extremadura', 'Galicia', 'La Rioja', 'Murcia', 'Navarra', 'País Vasco', 'Ceuta', 'Melilla'],
+        nombrePais: 'España', ciudadDefault: 'Madrid',
+        ciudades: ['Madrid', 'Barcelona', 'Valencia', 'Sevilla', 'Zaragoza', 'Málaga', 'Murcia', 'Palma', 'Las Palmas de Gran Canaria', 'Bilbao', 'Alicante', 'Córdoba', 'Valladolid', 'Vigo', 'Gijón', 'A Coruña', 'Granada', 'Vitoria-Gasteiz', 'Santa Cruz de Tenerife', 'Pamplona', 'San Sebastián', 'Santander', 'Salamanca', 'Toledo'],
       },
     };
 
@@ -466,9 +467,8 @@
       inputNumero.value = sugerirNumero(pais);
       numeroEditadoManualmente = false;
       if (!ivaEditadoManualmente) inputIvaPorcentaje.value = cfg.ivaDefault;
-      document.getElementById('labelLugar').textContent = cfg.labelLugar;
-      selectLugar.innerHTML = cfg.regiones.map((r) => '<option value="' + r + '">' + r + '</option>').join('');
-      selectLugar.value = cfg.lugarDefault;
+      document.getElementById('ciudadesSugeridas').innerHTML = cfg.ciudades.map((c) => '<option value="' + c + '">').join('');
+      selectLugar.value = cfg.ciudadDefault;
       validarDocActual();
       calcularYMostrar();
     }
@@ -692,7 +692,7 @@
       const porcentaje = document.getElementById('pdfPorcentaje');
       porcentaje.textContent = c.esParcial ? 'Primer pago: ' + formatoPorcentaje(c.porcentajePago) + ' del total del proyecto' : '';
       porcentaje.style.display = c.esParcial ? 'block' : 'none';
-      document.getElementById('pdfLugar').textContent = 'Lugar y fecha: ' + (lugar || '—') + ', ' + fecha;
+      document.getElementById('pdfLugar').textContent = 'Lugar y fecha: ' + CONFIG_PAIS[pais].nombrePais + ', ' + (lugar || '—') + ', ' + fecha;
     }
 
     function slug(texto) {
