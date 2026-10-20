@@ -104,6 +104,16 @@
 
   .modo-primer-pago { margin-bottom: 14px; }
   .modo-primer-pago label { padding: 9px 10px; font-size: 13.5px; text-transform: none; letter-spacing: normal; color: var(--color-text-primary); margin-bottom: 0; }
+  .historial { margin: -10px 0 24px; padding: 12px 14px; border: 1px dashed var(--color-border-strong); border-radius: var(--radius-lg); font-size: 13px; line-height: 1.55; color: var(--color-text-secondary); }
+  .historial.error { border-color: rgba(255,138,101,0.5); color: #ff8a65; }
+  .historial strong { color: var(--color-text-primary); }
+  .historial ul { margin: 6px 0 0; padding-left: 18px; }
+  .config-historial { margin-top: 28px; font-size: 13.5px; color: var(--color-text-muted); }
+  .config-historial summary { cursor: pointer; font-weight: 700; margin-bottom: 12px; }
+  .config-historial .fila-clave { display: flex; gap: 10px; }
+  .config-historial input { flex: 1; }
+  .btn-secundario { font-weight: 700; font-size: 14px; color: var(--color-text-primary); background: var(--color-bg-tertiary); border: 1px solid var(--color-border-default); border-radius: var(--radius-lg); padding: 0 18px; cursor: pointer; }
+  .btn-secundario:hover { border-color: var(--color-brand); }
   .aviso-porcentaje { font-size: 12.5px; color: #ff8a65; margin: 6px 0 0; min-height: 16px; }
   .campo-error { font-size: 12.5px; color: #ff8a65; margin: 6px 0 0; min-height: 16px; }
 
@@ -201,6 +211,8 @@
       </div>
     </div>
 
+    <div class="historial" id="historialCliente" hidden></div>
+
     <div class="campo">
       <label for="concepto">Concepto / descripción del servicio</label>
       <textarea id="concepto" placeholder="Ej: Diseño y desarrollo de sitio web — pago único">Diseño y desarrollo de sitio web</textarea>
@@ -237,11 +249,16 @@
       <select id="medioPago"></select>
     </div>
 
+    <div class="campo">
+      <label for="yaPagado">Ya pagado anteriormente (importe cobrado, con IVA si corresponde)</label>
+      <input type="number" id="yaPagado" step="0.01" min="0" value="0">
+    </div>
+
     <div class="tipo-pago-pills">
       <input type="radio" name="tipoPago" id="pagoTotal" value="total" checked>
-      <label for="pagoTotal">Cobro total</label>
+      <label for="pagoTotal" id="labelPagoTotal">Cobro total</label>
       <input type="radio" name="tipoPago" id="pagoParcial" value="parcial">
-      <label for="pagoParcial">Primer pago (a cuenta)</label>
+      <label for="pagoParcial" id="labelPagoParcial">Primer pago (a cuenta)</label>
     </div>
     <div class="campo" id="filaPorcentajePago" style="display:none">
       <div class="tipo-pago-pills modo-primer-pago">
@@ -251,11 +268,11 @@
         <label for="modoImporte">Importe neto</label>
       </div>
       <div id="bloquePorcentaje">
-        <label for="porcentajePago">Porcentaje del primer pago (mínimo 50%)</label>
+        <label for="porcentajePago" id="labelPorcentajePago">Porcentaje del primer pago (mínimo 50%)</label>
         <input type="number" id="porcentajePago" min="50" max="100" step="5" value="50">
       </div>
       <div id="bloqueImporte" style="display:none">
-        <label for="importePago">Importe neto del primer pago (sin IVA)</label>
+        <label for="importePago" id="labelImportePago">Importe neto del primer pago (sin IVA)</label>
         <input type="number" id="importePago" step="0.01" min="0" placeholder="0.00">
       </div>
       <p class="aviso-porcentaje" id="avisoPorcentaje"></p>
@@ -281,6 +298,16 @@
 
     <button type="button" class="btn-generar" id="btnGenerar">Descargar comprobante en PDF</button>
     <p class="estado" id="estado"></p>
+
+    <details class="config-historial" id="configHistorial" hidden>
+      <summary>Historial de pagos (Airtable)</summary>
+      <p>Con la clave puesta, al escribir el nombre, documento o email de un cliente se cargan sus pagos anteriores, y cada comprobante que generes queda registrado. La clave se guarda solo en este navegador.</p>
+      <div class="campo fila-clave">
+        <input type="password" id="claveHistorial" autocomplete="off" placeholder="Clave del historial" aria-label="Clave del historial">
+        <button type="button" class="btn-secundario" id="guardarClave">Guardar clave</button>
+      </div>
+      <p class="estado" id="estadoHistorial"></p>
+    </details>
   </div>
 
   <!-- Hoja usada solo para generar el PDF -->
@@ -354,6 +381,7 @@
     const bloquePorcentaje = document.getElementById('bloquePorcentaje');
     const bloqueImporte = document.getElementById('bloqueImporte');
     const inputImportePago = document.getElementById('importePago');
+    const inputYaPagado = document.getElementById('yaPagado');
     const resumenVivo = document.getElementById('resumenVivo');
     const selectLugar = document.getElementById('lugar');
     const inputDoc = document.getElementById('clienteDoc');
@@ -483,17 +511,22 @@
       filaPorcentajePago.style.display = tipoPagoActual() === 'parcial' ? 'block' : 'none';
       calcularYMostrar();
     }));
+    function pagadoAntes() {
+      return Math.max(0, parseFloat(inputYaPagado.value) || 0);
+    }
     inputPorcentajePago.addEventListener('input', () => {
       const v = parseFloat(inputPorcentajePago.value);
-      avisoPorcentaje.textContent = (inputPorcentajePago.value !== '' && v < 50) ? 'El primer pago no puede ser menor al 50%.' : '';
+      avisoPorcentaje.textContent = (pagadoAntes() === 0 && inputPorcentajePago.value !== '' && v < 50) ? 'El primer pago no puede ser menor al 50%.' : '';
       calcularYMostrar();
     });
     inputPorcentajePago.addEventListener('blur', () => {
       const v = parseFloat(inputPorcentajePago.value);
-      if (isNaN(v) || v < 50) inputPorcentajePago.value = 50;
+      const minimo = pagadoAntes() > 0 ? 1 : 50;
+      if (isNaN(v) || v < minimo) inputPorcentajePago.value = minimo === 50 ? 50 : 10;
       avisoPorcentaje.textContent = '';
       calcularYMostrar();
     });
+    inputYaPagado.addEventListener('input', calcularYMostrar);
     // Al cambiar de modo se traslada el valor actual, para no perder lo que ya se había puesto.
     radiosModoPrimerPago.forEach((r) => r.addEventListener('change', () => {
       const base = baseProyecto();
@@ -515,7 +548,7 @@
       let aviso = '';
       if (inputImportePago.value !== '' && base > 0) {
         if (v <= 0) aviso = 'El primer pago tiene que ser mayor que 0.';
-        else if (v > base) aviso = 'El primer pago no puede superar el total del proyecto (' + formatoMonto(base, selectMoneda.value) + ' neto).';
+        else if (v > restanteNeto()) aviso = 'El pago no puede superar lo que queda por pagar (' + formatoMonto(restanteNeto(), selectMoneda.value) + ' neto).';
       }
       avisoPorcentaje.textContent = aviso;
       calcularYMostrar();
@@ -525,7 +558,7 @@
       const v = parseFloat(inputImportePago.value);
       if (base > 0) {
         if (isNaN(v) || v <= 0) inputImportePago.value = (base * 0.5).toFixed(2);
-        else if (v > base) inputImportePago.value = base.toFixed(2);
+        else if (v > restanteNeto()) inputImportePago.value = restanteNeto().toFixed(2);
       }
       avisoPorcentaje.textContent = '';
       calcularYMostrar();
@@ -551,18 +584,40 @@
       const ivaRate = ivaIncluido ? (parseFloat(inputIvaPorcentaje.value) || 0) : 0;
       const ivaMonto = base * ivaRate / 100;
       const totalProyecto = base + ivaMonto;
+      // Lo ya pagado se descuenta del total: «Cobro total» cobra lo que queda (el saldo).
+      const yaPagado = Math.min(totalProyecto, pagadoAntes());
+      const restante = totalProyecto - yaPagado;
       const esParcial = tipoPagoActual() === 'parcial';
-      let porcentajePago = 100;
+      let importeComprobante = restante;
       if (esParcial && modoPrimerPagoActual() === 'importe') {
         const neto = parseFloat(inputImportePago.value);
-        // Por importe neto no hay mínimo: cualquier cantidad entre 0 y el total del proyecto.
-        porcentajePago = (base > 0 && neto > 0) ? Math.min(100, neto / base * 100) : 50;
+        // Por importe neto no hay mínimo: cualquier cantidad hasta lo que queda por pagar.
+        importeComprobante = neto > 0 ? neto * (1 + ivaRate / 100) : totalProyecto * 0.5;
       } else if (esParcial) {
-        porcentajePago = Math.max(50, parseFloat(inputPorcentajePago.value) || 50);
+        const minimo = yaPagado > 0 ? 0 : 50; // el mínimo del 50% es solo para el primer pago
+        importeComprobante = totalProyecto * Math.max(minimo, parseFloat(inputPorcentajePago.value) || 50) / 100;
       }
-      const importeComprobante = totalProyecto * porcentajePago / 100;
-      const saldoPendiente = totalProyecto - importeComprobante;
-      return { base, moneda, ivaIncluido, ivaRate, ivaMonto, totalProyecto, esParcial, porcentajePago, importeComprobante, saldoPendiente };
+      importeComprobante = Math.min(importeComprobante, restante);
+      const saldoPendiente = Math.max(0, restante - importeComprobante);
+      const porcentajePago = totalProyecto > 0 ? importeComprobante / totalProyecto * 100 : 0;
+      const quedaSaldo = saldoPendiente >= 0.005;
+      const modalidad = yaPagado > 0 ? (quedaSaldo ? 'Pago a cuenta' : 'Pago del saldo') : (quedaSaldo ? 'Primer pago' : 'Pago total');
+      return { base, moneda, ivaIncluido, ivaRate, ivaMonto, totalProyecto, yaPagado, esParcial, porcentajePago, importeComprobante, saldoPendiente, quedaSaldo, modalidad };
+    }
+
+    function restanteNeto() {
+      const ivaRate = checkIva.checked ? (parseFloat(inputIvaPorcentaje.value) || 0) : 0;
+      const total = baseProyecto() * (1 + ivaRate / 100);
+      return Math.max(0, (total - Math.min(total, pagadoAntes())) / (1 + ivaRate / 100));
+    }
+
+    // Con pagos previos ya no es «primer pago»: cambian los textos y desaparece el mínimo del 50%.
+    function actualizarEtiquetasPago(hayPagosPrevios) {
+      document.getElementById('labelPagoTotal').textContent = hayPagosPrevios ? 'Cobro del saldo' : 'Cobro total';
+      document.getElementById('labelPagoParcial').textContent = hayPagosPrevios ? 'Pago a cuenta' : 'Primer pago (a cuenta)';
+      document.getElementById('labelPorcentajePago').textContent = hayPagosPrevios ? 'Porcentaje de este pago (sobre el total del proyecto)' : 'Porcentaje del primer pago (mínimo 50%)';
+      document.getElementById('labelImportePago').textContent = hayPagosPrevios ? 'Importe neto de este pago (sin IVA)' : 'Importe neto del primer pago (sin IVA)';
+      inputPorcentajePago.min = hayPagosPrevios ? 1 : 50;
     }
 
     function calcularYMostrar() {
@@ -573,15 +628,157 @@
         html += '<div class="fila-resumen"><span class="k">IVA (' + c.ivaRate + '%)</span><span>' + formatoMonto(c.ivaMonto, c.moneda) + '</span></div>';
       }
       html += '<div class="fila-resumen"><span class="k">Total del proyecto</span><span>' + formatoMonto(c.totalProyecto, c.moneda) + '</span></div>';
-      if (c.esParcial) {
-        html += '<div class="fila-resumen"><span class="k">Saldo pendiente</span><span>' + formatoMonto(c.saldoPendiente, c.moneda) + '</span></div>';
+      if (c.yaPagado > 0) {
+        html += '<div class="fila-resumen"><span class="k">Ya pagado</span><span>' + formatoMonto(c.yaPagado, c.moneda) + '</span></div>';
       }
-      html += '<div class="fila-resumen total"><span>' + (c.esParcial ? 'A cobrar ahora (' + formatoPorcentaje(c.porcentajePago) + ')' : 'A cobrar ahora') + '</span><span>' + formatoMonto(c.importeComprobante, c.moneda) + '</span></div>';
+      if (c.quedaSaldo) {
+        html += '<div class="fila-resumen"><span class="k">Saldo pendiente después de este pago</span><span>' + formatoMonto(c.saldoPendiente, c.moneda) + '</span></div>';
+      }
+      html += '<div class="fila-resumen total"><span>' + (c.modalidad === 'Pago total' ? 'A cobrar ahora' : 'A cobrar ahora (' + formatoPorcentaje(c.porcentajePago) + ')') + '</span><span>' + formatoMonto(c.importeComprobante, c.moneda) + '</span></div>';
       resumenVivo.innerHTML = html;
+      actualizarEtiquetasPago(c.yaPagado > 0);
     }
 
     actualizarPorPais();
     calcularYMostrar();
+
+    // ---------- Historial de pagos en Airtable (vía el Worker «renueva-comprobantes») ----------
+    // La página es pública: nunca habla con Airtable directo. El Worker guarda la llave de
+    // Airtable y exige la clave del historial, que se guarda solo en este navegador.
+    const HISTORIAL_API = ''; // URL del Worker (https://renueva-comprobantes.<cuenta>.workers.dev), vacía = historial desactivado
+    const CLAVE_HISTORIAL = 'renueva_historial_clave';
+    const cajaHistorial = document.getElementById('historialCliente');
+    const estadoHistorial = document.getElementById('estadoHistorial');
+    let pagoPrevioAutocompletado = false;
+    let ultimaBusqueda = '';
+
+    function claveGuardada() {
+      try { return localStorage.getItem(CLAVE_HISTORIAL) || ''; } catch (e) { return ''; }
+    }
+    function historialActivo() {
+      return Boolean(HISTORIAL_API && claveGuardada());
+    }
+    async function llamarHistorial(ruta, cuerpo, clave) {
+      const res = await fetch(HISTORIAL_API + ruta, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'X-Clave': clave || claveGuardada() },
+        body: JSON.stringify(cuerpo || {}),
+      });
+      let datos = {};
+      try { datos = await res.json(); } catch (e) {}
+      if (!res.ok) throw new Error(datos.error || ('error ' + res.status));
+      return datos;
+    }
+    function mostrarHistorial(html, esError) {
+      cajaHistorial.innerHTML = html;
+      cajaHistorial.className = 'historial' + (esError ? ' error' : '');
+      cajaHistorial.hidden = !html;
+    }
+    function escaparHtml(t) {
+      return String(t).replace(/[&<>"']/g, (ch) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[ch]));
+    }
+
+    function aplicarHistorial(registros) {
+      if (!registros.length) {
+        if (pagoPrevioAutocompletado) { inputYaPagado.value = '0'; pagoPrevioAutocompletado = false; calcularYMostrar(); }
+        mostrarHistorial('Sin pagos anteriores registrados para este cliente.');
+        return;
+      }
+      // El «proyecto» es el último comprobante y los anteriores con el mismo concepto, moneda y total.
+      const ultimo = registros[registros.length - 1];
+      const delProyecto = registros.filter((r) => r.concepto === ultimo.concepto && r.moneda === ultimo.moneda && Math.abs(r.total - ultimo.total) < 0.01);
+      const pagado = delProyecto.reduce((suma, r) => suma + (Number(r.importe) || 0), 0);
+      const saldo = ultimo.total - pagado;
+
+      if (ultimo.pais && ultimo.pais !== paisActual() && CONFIG_PAIS[ultimo.pais]) {
+        document.getElementById(ultimo.pais === 'UY' ? 'paisUY' : 'paisES').checked = true;
+        actualizarPorPais();
+      }
+      const rellenar = (id, valor) => { const el = document.getElementById(id); if (el && !el.value.trim() && valor) el.value = valor; };
+      rellenar('clienteNombre', ultimo.cliente);
+      rellenar('clienteDoc', ultimo.documento);
+      rellenar('clienteEmail', ultimo.email);
+      validarDocActual();
+
+      const lista = delProyecto.map((r) => '<li>' + escaparHtml(r.numero) + ' · ' + fechaLegible(r.fecha) + ' · ' + formatoMonto(r.importe, r.moneda) + (r.medioPago ? ' (' + escaparHtml(r.medioPago) + ')' : '') + '</li>').join('');
+      if (saldo < 0.005) {
+        if (pagoPrevioAutocompletado) { inputYaPagado.value = '0'; pagoPrevioAutocompletado = false; }
+        mostrarHistorial('<strong>' + escaparHtml(ultimo.cliente) + '</strong>: su último proyecto («' + escaparHtml(ultimo.concepto) + '») ya está saldado (' + formatoMonto(ultimo.total, ultimo.moneda) + '). Se toma como proyecto nuevo, sin pagos previos.<ul>' + lista + '</ul>');
+        calcularYMostrar();
+        return;
+      }
+
+      document.getElementById('concepto').value = ultimo.concepto;
+      document.getElementById('monto').value = ultimo.base;
+      if ([...selectMoneda.options].some((o) => o.value === ultimo.moneda)) selectMoneda.value = ultimo.moneda;
+      checkIva.checked = Number(ultimo.ivaPct) > 0;
+      filaIva.style.display = checkIva.checked ? 'grid' : 'none';
+      if (checkIva.checked) { inputIvaPorcentaje.value = ultimo.ivaPct; ivaEditadoManualmente = true; }
+      inputYaPagado.value = (Math.round(pagado * 100) / 100).toFixed(2);
+      pagoPrevioAutocompletado = true;
+      calcularYMostrar();
+      mostrarHistorial('<strong>' + escaparHtml(ultimo.cliente) + '</strong> ya pagó <strong>' + formatoMonto(pagado, ultimo.moneda) + '</strong> de ' + formatoMonto(ultimo.total, ultimo.moneda) + ' por «' + escaparHtml(ultimo.concepto) + '». Saldo: ' + formatoMonto(saldo, ultimo.moneda) + '. Datos cargados.<ul>' + lista + '</ul>');
+    }
+
+    async function buscarHistorial(campo, valor) {
+      valor = (valor || '').trim();
+      if (!historialActivo() || valor.length < 3) return;
+      if (campo === 'email' && !emailValido(valor)) return;
+      const clave = campo + ':' + valor.toLowerCase();
+      if (clave === ultimaBusqueda) return;
+      ultimaBusqueda = clave;
+      mostrarHistorial('Buscando pagos anteriores…');
+      try {
+        const datos = await llamarHistorial('/buscar', { campo, valor });
+        aplicarHistorial(datos.registros || []);
+      } catch (e) {
+        ultimaBusqueda = '';
+        mostrarHistorial('No se pudo consultar el historial: ' + escaparHtml(e.message) + '.', true);
+      }
+    }
+    document.getElementById('clienteNombre').addEventListener('change', (e) => buscarHistorial('cliente', e.target.value));
+    inputDoc.addEventListener('change', (e) => buscarHistorial('documento', e.target.value));
+    inputEmail.addEventListener('change', (e) => buscarHistorial('email', e.target.value));
+
+    async function registrarEnHistorial(c, datos) {
+      if (!historialActivo()) return '';
+      try {
+        await llamarHistorial('/registrar', { comprobante: {
+          numero: datos.numero, fecha: document.getElementById('fecha').value, cliente: datos.nombreCliente,
+          documento: datos.doc, email: datos.email, pais: paisActual(), ciudad: document.getElementById('lugar').value.trim(),
+          moneda: c.moneda, concepto: datos.concepto, base: c.base, ivaPct: c.ivaRate, total: c.totalProyecto,
+          pagadoAntes: c.yaPagado, importe: c.importeComprobante, saldo: c.saldoPendiente,
+          medioPago: document.getElementById('medioPago').value, modalidad: c.modalidad,
+        } });
+        ultimaBusqueda = '';
+        return ' Registrado en el historial.';
+      } catch (e) {
+        return ' No se pudo registrar en el historial (' + e.message + ').';
+      }
+    }
+
+    if (HISTORIAL_API) {
+      document.getElementById('configHistorial').hidden = false;
+      const inputClave = document.getElementById('claveHistorial');
+      if (claveGuardada()) { inputClave.placeholder = 'Clave guardada · escribí otra para cambiarla'; estadoHistorial.textContent = 'Historial activo.'; estadoHistorial.className = 'estado ok'; }
+      document.getElementById('guardarClave').addEventListener('click', async () => {
+        const clave = inputClave.value.trim();
+        if (!clave) return;
+        estadoHistorial.textContent = 'Comprobando…';
+        estadoHistorial.className = 'estado';
+        try {
+          await llamarHistorial('/comprobar', {}, clave);
+          try { localStorage.setItem(CLAVE_HISTORIAL, clave); } catch (e) {}
+          inputClave.value = '';
+          inputClave.placeholder = 'Clave guardada · escribí otra para cambiarla';
+          estadoHistorial.textContent = 'Clave correcta: historial activo.';
+          estadoHistorial.className = 'estado ok';
+        } catch (e) {
+          estadoHistorial.textContent = 'No se pudo activar: ' + e.message + '.';
+          estadoHistorial.className = 'estado error';
+        }
+      });
+    }
 
     // html2canvas-pro no respeta los colores que llegan por hoja de estilos dentro de
     // #hojaPdf (ni literales ni var()): hay que ponerlos como estilo inline justo antes
@@ -681,17 +878,23 @@
         resumen += '<div class="linea"><span>IVA (' + c.ivaRate + '%)</span><span>' + formatoMonto(c.ivaMonto, c.moneda) + '</span></div>';
       }
       resumen += '<div class="linea destacada"><span>Total del proyecto</span><span>' + formatoMonto(c.totalProyecto, c.moneda) + '</span></div>';
+      if (c.yaPagado > 0) {
+        resumen += '<div class="linea"><span>Pagado anteriormente</span><span>' + formatoMonto(c.yaPagado, c.moneda) + '</span></div>';
+      }
       resumen += '<div class="linea"><span>Tipo de pago</span><span>' + document.getElementById('medioPago').value + '</span></div>';
-      if (c.esParcial) {
+      if (c.quedaSaldo) {
         resumen += '<div class="linea"><span>Saldo pendiente</span><span>' + formatoMonto(c.saldoPendiente, c.moneda) + '</span></div>';
       }
       document.getElementById('resumenPdf').innerHTML = resumen;
 
-      document.getElementById('pdfTotalLabel').textContent = c.esParcial ? 'Importe de este comprobante' : 'Total a pagar';
+      document.getElementById('pdfTotalLabel').textContent = c.modalidad === 'Pago total' ? 'Total a pagar' : 'Importe de este comprobante';
       document.getElementById('pdfTotal').textContent = formatoMonto(c.importeComprobante, c.moneda);
       const porcentaje = document.getElementById('pdfPorcentaje');
-      porcentaje.textContent = c.esParcial ? 'Primer pago: ' + formatoPorcentaje(c.porcentajePago) + ' del total del proyecto' : '';
-      porcentaje.style.display = c.esParcial ? 'block' : 'none';
+      const conPorcentaje = c.modalidad !== 'Pago total';
+      porcentaje.textContent = conPorcentaje
+        ? c.modalidad + ': ' + formatoPorcentaje(c.porcentajePago) + ' del total del proyecto' + (c.modalidad === 'Pago del saldo' ? ' · proyecto saldado' : '')
+        : '';
+      porcentaje.style.display = conPorcentaje ? 'block' : 'none';
       document.getElementById('pdfLugar').textContent = 'Lugar y fecha: ' + CONFIG_PAIS[pais].nombrePais + ', ' + (lugar || '—') + ', ' + fecha;
     }
 
@@ -733,6 +936,7 @@
         campo('N° de comprobante', datos.numero);
         campo('Importe de este comprobante', datos.importe);
         campo('Tipo de pago', datos.medioPago);
+        campo('Modalidad', datos.modalidad);
 
         const inputArchivo = document.createElement('input');
         inputArchivo.type = 'file';
@@ -802,7 +1006,7 @@
       const pdf = await html2pdf().set(opciones).from(canvas, 'canvas').toPdf().get('pdf');
       const blob = pdf.output('blob');
       const c = calcular();
-      const nombreArchivo = 'comprobante-' + slug(nombreCliente) + '-' + inputNumero.value.trim() + (c.esParcial ? '-1erpago' : '') + '.pdf';
+      const nombreArchivo = 'comprobante-' + slug(nombreCliente) + '-' + inputNumero.value.trim() + ({ 'Primer pago': '-1erpago', 'Pago a cuenta': '-a-cuenta', 'Pago del saldo': '-saldo' }[c.modalidad] || '') + '.pdf';
 
       const url = URL.createObjectURL(blob);
       const enlace = document.createElement('a');
@@ -822,9 +1026,17 @@
           numero: inputNumero.value.trim(),
           importe: formatoMonto(c.importeComprobante, c.moneda),
           medioPago: document.getElementById('medioPago').value,
+          modalidad: c.modalidad,
           email,
         });
       }
+
+      const resultadoHistorial = await registrarEnHistorial(c, {
+        numero: inputNumero.value.trim(), nombreCliente,
+        doc: document.getElementById('clienteDoc').value.trim(),
+        email: emailOk ? email : '',
+        concepto: document.getElementById('concepto').value.trim(),
+      });
 
       const pais = paisActual();
       const guardado = parseInt(localStorage.getItem(claveContador(pais)) || '0', 10);
@@ -840,6 +1052,7 @@
       } else {
         estado.textContent = 'Comprobante descargado y enviado a tu correo con copia a ' + email + '.';
       }
+      estado.textContent += resultadoHistorial;
       estado.className = (email && !emailOk) ? 'estado error' : 'estado ok';
     });
   </script>
