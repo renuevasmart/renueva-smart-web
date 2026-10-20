@@ -192,7 +192,8 @@
       </div>
       <div class="campo">
         <label for="clienteEmail">Email del cliente (opcional)</label>
-        <input type="email" id="clienteEmail" placeholder="para enviarle copia">
+        <input type="email" id="clienteEmail" placeholder="se le envía el comprobante al generarlo">
+        <p class="campo-error" id="avisoEmail"></p>
       </div>
     </div>
 
@@ -339,6 +340,21 @@
     const selectLugar = document.getElementById('lugar');
     const inputDoc = document.getElementById('clienteDoc');
     const avisoDoc = document.getElementById('avisoDoc');
+    const inputEmail = document.getElementById('clienteEmail');
+    const avisoEmail = document.getElementById('avisoEmail');
+
+    // Formato básico de correo: algo@dominio.ext (sin espacios). Vacío = no se envía al cliente.
+    function emailValido(valor) {
+      return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(valor);
+    }
+    function validarEmail() {
+      const valor = inputEmail.value.trim();
+      const ok = valor === '' || emailValido(valor);
+      avisoEmail.textContent = ok ? '' : 'El email no es válido: el comprobante no se le enviará al cliente.';
+      return ok;
+    }
+    inputEmail.addEventListener('blur', validarEmail);
+    inputEmail.addEventListener('input', () => { if (avisoEmail.textContent) validarEmail(); });
 
     function validarDocActual() {
       const pais = paisActual();
@@ -767,7 +783,8 @@
       enlace.click();
       URL.revokeObjectURL(url);
 
-      if (email) {
+      const emailOk = email !== '' && emailValido(email);
+      if (emailOk) {
         btnGenerar.textContent = 'Enviando por correo...';
         const archivo = new File([blob], nombreArchivo, { type: 'application/pdf' });
         await enviarPorCorreo(archivo, nombreArchivo, {
@@ -788,10 +805,13 @@
       btnGenerar.textContent = 'Descargar comprobante en PDF';
       if (!email) {
         estado.textContent = 'Comprobante descargado. No se envió por correo (no completaste el email del cliente).';
+      } else if (!emailOk) {
+        estado.textContent = 'Comprobante descargado. No se envió por correo: el email del cliente no es válido (' + email + ').';
+        validarEmail();
       } else {
         estado.textContent = 'Comprobante descargado y enviado a tu correo con copia a ' + email + '.';
       }
-      estado.className = 'estado ok';
+      estado.className = (email && !emailOk) ? 'estado error' : 'estado ok';
     });
   </script>
 </body>
