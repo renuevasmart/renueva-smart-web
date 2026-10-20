@@ -102,6 +102,8 @@
   }
   .tipo-pago-pills input:checked + label { border-color: var(--color-brand); color: var(--color-brand); }
 
+  .modo-primer-pago { margin-bottom: 14px; }
+  .modo-primer-pago label { padding: 9px 10px; font-size: 13.5px; text-transform: none; letter-spacing: normal; color: var(--color-text-primary); margin-bottom: 0; }
   .aviso-porcentaje { font-size: 12.5px; color: #ff8a65; margin: 6px 0 0; min-height: 16px; }
   .campo-error { font-size: 12.5px; color: #ff8a65; margin: 6px 0 0; min-height: 16px; }
 
@@ -232,8 +234,20 @@
       <label for="pagoParcial">Primer pago (a cuenta)</label>
     </div>
     <div class="campo" id="filaPorcentajePago" style="display:none">
-      <label for="porcentajePago">Porcentaje del primer pago (mínimo 50%)</label>
-      <input type="number" id="porcentajePago" min="50" max="100" step="5" value="50">
+      <div class="tipo-pago-pills modo-primer-pago">
+        <input type="radio" name="modoPrimerPago" id="modoPorcentaje" value="porcentaje" checked>
+        <label for="modoPorcentaje">Porcentaje</label>
+        <input type="radio" name="modoPrimerPago" id="modoImporte" value="importe">
+        <label for="modoImporte">Importe neto</label>
+      </div>
+      <div id="bloquePorcentaje">
+        <label for="porcentajePago">Porcentaje del primer pago (mínimo 50%)</label>
+        <input type="number" id="porcentajePago" min="50" max="100" step="5" value="50">
+      </div>
+      <div id="bloqueImporte" style="display:none">
+        <label for="importePago">Importe neto del primer pago (sin IVA · mínimo 50% del proyecto)</label>
+        <input type="number" id="importePago" step="0.01" min="0" placeholder="0.00">
+      </div>
       <p class="aviso-porcentaje" id="avisoPorcentaje"></p>
     </div>
 
@@ -317,6 +331,10 @@
     const filaPorcentajePago = document.getElementById('filaPorcentajePago');
     const inputPorcentajePago = document.getElementById('porcentajePago');
     const avisoPorcentaje = document.getElementById('avisoPorcentaje');
+    const radiosModoPrimerPago = document.querySelectorAll('input[name="modoPrimerPago"]');
+    const bloquePorcentaje = document.getElementById('bloquePorcentaje');
+    const bloqueImporte = document.getElementById('bloqueImporte');
+    const inputImportePago = document.getElementById('importePago');
     const resumenVivo = document.getElementById('resumenVivo');
     const selectLugar = document.getElementById('lugar');
     const inputDoc = document.getElementById('clienteDoc');
@@ -335,6 +353,14 @@
     function paisActual() {
       return document.querySelector('input[name="pais"]:checked').value;
     }
+    function modoPrimerPagoActual() {
+      return document.querySelector('input[name="modoPrimerPago"]:checked').value;
+    }
+
+    function baseProyecto() {
+      return parseFloat(document.getElementById('monto').value) || 0;
+    }
+
     function tipoPagoActual() {
       return document.querySelector('input[name="tipoPago"]:checked').value;
     }
@@ -443,10 +469,50 @@
       avisoPorcentaje.textContent = '';
       calcularYMostrar();
     });
+    // Al cambiar de modo se traslada el valor actual, para no perder lo que ya se había puesto.
+    radiosModoPrimerPago.forEach((r) => r.addEventListener('change', () => {
+      const base = baseProyecto();
+      const porImporte = modoPrimerPagoActual() === 'importe';
+      bloquePorcentaje.style.display = porImporte ? 'none' : 'block';
+      bloqueImporte.style.display = porImporte ? 'block' : 'none';
+      avisoPorcentaje.textContent = '';
+      if (porImporte && base > 0) {
+        const pct = Math.max(50, parseFloat(inputPorcentajePago.value) || 50);
+        inputImportePago.value = (base * pct / 100).toFixed(2);
+      } else if (!porImporte && base > 0 && inputImportePago.value !== '') {
+        inputPorcentajePago.value = Math.round(Math.min(100, Math.max(50, parseFloat(inputImportePago.value) / base * 100)) * 100) / 100;
+      }
+      calcularYMostrar();
+    }));
+    inputImportePago.addEventListener('input', () => {
+      const base = baseProyecto();
+      const v = parseFloat(inputImportePago.value);
+      let aviso = '';
+      if (inputImportePago.value !== '' && base > 0) {
+        if (v < base * 0.5) aviso = 'El primer pago no puede ser menor al 50% del proyecto (' + formatoMonto(base * 0.5, selectMoneda.value) + ' neto).';
+        else if (v > base) aviso = 'El primer pago no puede superar el total del proyecto (' + formatoMonto(base, selectMoneda.value) + ' neto).';
+      }
+      avisoPorcentaje.textContent = aviso;
+      calcularYMostrar();
+    });
+    inputImportePago.addEventListener('blur', () => {
+      const base = baseProyecto();
+      const v = parseFloat(inputImportePago.value);
+      if (base > 0) {
+        if (isNaN(v) || v < base * 0.5) inputImportePago.value = (base * 0.5).toFixed(2);
+        else if (v > base) inputImportePago.value = base.toFixed(2);
+      }
+      avisoPorcentaje.textContent = '';
+      calcularYMostrar();
+    });
     document.getElementById('monto').addEventListener('input', calcularYMostrar);
     selectMoneda.addEventListener('change', calcularYMostrar);
 
     document.getElementById('fecha').value = new Date().toISOString().slice(0, 10);
+
+    function formatoPorcentaje(p) {
+      return p.toLocaleString('es-UY', { maximumFractionDigits: 2 }) + '%';
+    }
 
     function formatoMonto(monto, moneda) {
       const num = parseFloat(monto || '0');
@@ -461,7 +527,13 @@
       const ivaMonto = base * ivaRate / 100;
       const totalProyecto = base + ivaMonto;
       const esParcial = tipoPagoActual() === 'parcial';
-      const porcentajePago = esParcial ? Math.max(50, parseFloat(inputPorcentajePago.value) || 50) : 100;
+      let porcentajePago = 100;
+      if (esParcial && modoPrimerPagoActual() === 'importe') {
+        const neto = parseFloat(inputImportePago.value);
+        porcentajePago = (base > 0 && !isNaN(neto)) ? Math.min(100, Math.max(50, neto / base * 100)) : 50;
+      } else if (esParcial) {
+        porcentajePago = Math.max(50, parseFloat(inputPorcentajePago.value) || 50);
+      }
       const importeComprobante = totalProyecto * porcentajePago / 100;
       const saldoPendiente = totalProyecto - importeComprobante;
       return { base, moneda, ivaIncluido, ivaRate, ivaMonto, totalProyecto, esParcial, porcentajePago, importeComprobante, saldoPendiente };
@@ -478,7 +550,7 @@
       if (c.esParcial) {
         html += '<div class="fila-resumen"><span class="k">Saldo pendiente</span><span>' + formatoMonto(c.saldoPendiente, c.moneda) + '</span></div>';
       }
-      html += '<div class="fila-resumen total"><span>' + (c.esParcial ? 'A cobrar ahora (' + c.porcentajePago + '%)' : 'A cobrar ahora') + '</span><span>' + formatoMonto(c.importeComprobante, c.moneda) + '</span></div>';
+      html += '<div class="fila-resumen total"><span>' + (c.esParcial ? 'A cobrar ahora (' + formatoPorcentaje(c.porcentajePago) + ')' : 'A cobrar ahora') + '</span><span>' + formatoMonto(c.importeComprobante, c.moneda) + '</span></div>';
       resumenVivo.innerHTML = html;
     }
 
@@ -571,7 +643,7 @@
       }
       resumen += '<div class="linea destacada"><span>Total del proyecto</span><span>' + formatoMonto(c.totalProyecto, c.moneda) + '</span></div>';
       if (c.esParcial) {
-        resumen += '<div class="linea"><span>Tipo de pago</span><span>Primer pago (' + c.porcentajePago + '%)</span></div>';
+        resumen += '<div class="linea"><span>Tipo de pago</span><span>Primer pago (' + formatoPorcentaje(c.porcentajePago) + ')</span></div>';
         resumen += '<div class="linea"><span>Saldo pendiente</span><span>' + formatoMonto(c.saldoPendiente, c.moneda) + '</span></div>';
       } else {
         resumen += '<div class="linea"><span>Tipo de pago</span><span>Pago total</span></div>';
