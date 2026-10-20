@@ -412,10 +412,6 @@
     function claveContador(pais) { return 'renueva_comprobante_num_' + pais; }
 
     function sugerirNumero(pais) {
-      if (pais === 'UY') {
-        const fechaVal = document.getElementById('fecha').value || new Date().toISOString().slice(0, 10);
-        return 'UY-' + fechaVal.replace(/-/g, '');
-      }
       const guardado = parseInt(localStorage.getItem(claveContador(pais)) || '0', 10);
       const siguiente = guardado + 1;
       const anio = new Date().getFullYear();
@@ -444,11 +440,6 @@
     }
     radiosPais.forEach((r) => r.addEventListener('change', actualizarPorPais));
 
-    document.getElementById('fecha').addEventListener('change', () => {
-      if (paisActual() === 'UY' && !numeroEditadoManualmente) {
-        inputNumero.value = sugerirNumero('UY');
-      }
-    });
 
     checkIva.addEventListener('change', () => {
       filaIva.style.display = checkIva.checked ? 'grid' : 'none';
@@ -620,10 +611,15 @@
       hoja.querySelectorAll('.pie-pdf').forEach((el) => { set(el, 'color', 'var(--pdf-texto-pie)'); set(el, 'border-top-color', 'var(--pdf-borde-tenue)'); set(el, 'display', 'flex'); set(el, 'justify-content', 'space-between'); });
     }
 
+    function fechaLegible(iso) {
+      const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(iso || '');
+      return m ? m[3] + '/' + m[2] + '/' + m[1] : (iso || '');
+    }
+
     function poblarHojaPdf() {
       const pais = paisActual();
       const numero = inputNumero.value.trim();
-      const fecha = document.getElementById('fecha').value;
+      const fecha = fechaLegible(document.getElementById('fecha').value);
       const lugar = document.getElementById('lugar').value.trim();
       const nombreCliente = document.getElementById('clienteNombre').value.trim();
       const doc = document.getElementById('clienteDoc').value.trim();
@@ -785,10 +781,8 @@
       }
 
       const pais = paisActual();
-      if (pais !== 'UY') {
-        const guardado = parseInt(localStorage.getItem(claveContador(pais)) || '0', 10);
-        localStorage.setItem(claveContador(pais), String(guardado + 1));
-      }
+      const guardado = parseInt(localStorage.getItem(claveContador(pais)) || '0', 10);
+      localStorage.setItem(claveContador(pais), String(guardado + 1));
 
       btnGenerar.disabled = false;
       btnGenerar.textContent = 'Descargar comprobante en PDF';
