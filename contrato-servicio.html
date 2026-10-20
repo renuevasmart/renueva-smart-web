@@ -609,6 +609,7 @@
         !aplicaTipoCambio ? null : ['Tipo de cambio', pais === 'UY'
           ? 'A los efectos de este contrato se toma el dólar estadounidense a $' + DOLAR + ' pesos uruguayos (1 USD = ' + DOLAR + ' UYU) para convertir los importes expresados en dólares y en pesos.'
           : 'El precio se pacta y se paga en dólares estadounidenses. Los importes de referencia de EL PROVEEDOR expresados en pesos uruguayos se convierten a dólares tomando el dólar a $' + DOLAR + ' pesos uruguayos (1 USD = ' + DOLAR + ' UYU); el importe en dólares pactado no varía por fluctuaciones del tipo de cambio.'],
+        ['Comprobantes de pago', 'EL PROVEEDOR emite a EL CLIENTE un comprobante por cada pago recibido, en el que constan el importe, la moneda y la fecha del pago, y se lo entrega por escrito (correo electrónico o WhatsApp). EL CLIENTE puede conservarlo como constancia de haber pagado.'],
         OFRECIDAS.length ? ['Opciones de descuento', 'Las opciones de descuento que EL CLIENTE marque en la sección "D. Opciones de descuento" se aplican en los términos allí descritos; las que no marque no se aplican.'] : null,
         SIN_DOMINIO || SIN_CORREO ? ['Costos no incluidos en el precio', SIN_DOMINIO && SIN_CORREO
           ? 'El costo del dominio y el del correo profesional no están incluidos en el precio de los servicios y se abonan por separado.'
