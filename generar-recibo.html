@@ -245,7 +245,7 @@
         <input type="number" id="porcentajePago" min="50" max="100" step="5" value="50">
       </div>
       <div id="bloqueImporte" style="display:none">
-        <label for="importePago">Importe neto del primer pago (sin IVA · mínimo 50% del proyecto)</label>
+        <label for="importePago">Importe neto del primer pago (sin IVA)</label>
         <input type="number" id="importePago" step="0.01" min="0" placeholder="0.00">
       </div>
       <p class="aviso-porcentaje" id="avisoPorcentaje"></p>
@@ -489,7 +489,7 @@
       const v = parseFloat(inputImportePago.value);
       let aviso = '';
       if (inputImportePago.value !== '' && base > 0) {
-        if (v < base * 0.5) aviso = 'El primer pago no puede ser menor al 50% del proyecto (' + formatoMonto(base * 0.5, selectMoneda.value) + ' neto).';
+        if (v <= 0) aviso = 'El primer pago tiene que ser mayor que 0.';
         else if (v > base) aviso = 'El primer pago no puede superar el total del proyecto (' + formatoMonto(base, selectMoneda.value) + ' neto).';
       }
       avisoPorcentaje.textContent = aviso;
@@ -499,7 +499,7 @@
       const base = baseProyecto();
       const v = parseFloat(inputImportePago.value);
       if (base > 0) {
-        if (isNaN(v) || v < base * 0.5) inputImportePago.value = (base * 0.5).toFixed(2);
+        if (isNaN(v) || v <= 0) inputImportePago.value = (base * 0.5).toFixed(2);
         else if (v > base) inputImportePago.value = base.toFixed(2);
       }
       avisoPorcentaje.textContent = '';
@@ -530,7 +530,8 @@
       let porcentajePago = 100;
       if (esParcial && modoPrimerPagoActual() === 'importe') {
         const neto = parseFloat(inputImportePago.value);
-        porcentajePago = (base > 0 && !isNaN(neto)) ? Math.min(100, Math.max(50, neto / base * 100)) : 50;
+        // Por importe neto no hay mínimo: cualquier cantidad entre 0 y el total del proyecto.
+        porcentajePago = (base > 0 && neto > 0) ? Math.min(100, neto / base * 100) : 50;
       } else if (esParcial) {
         porcentajePago = Math.max(50, parseFloat(inputPorcentajePago.value) || 50);
       }
