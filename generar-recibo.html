@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; form-action 'self' https://formsubmit.co; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com https://stats.g.doubleclick.net; media-src 'self'; connect-src 'self' blob: https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com https://stats.g.doubleclick.net; frame-src 'self' https://formsubmit.co">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; form-action 'self' https://formsubmit.co; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com https://stats.g.doubleclick.net; media-src 'self'; connect-src 'self' blob: https://renueva-comprobantes.renuevasmart.workers.dev https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com https://stats.g.doubleclick.net; frame-src 'self' https://formsubmit.co">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Generar comprobante de pago — Renueva Smart</title>
 <meta name="robots" content="noindex, nofollow">
@@ -645,7 +645,7 @@
     // ---------- Historial de pagos en Airtable (vía el Worker «renueva-comprobantes») ----------
     // La página es pública: nunca habla con Airtable directo. El Worker guarda la llave de
     // Airtable y exige la clave del historial, que se guarda solo en este navegador.
-    const HISTORIAL_API = ''; // URL del Worker (https://renueva-comprobantes.<cuenta>.workers.dev), vacía = historial desactivado
+    const HISTORIAL_API = 'https://renueva-comprobantes.renuevasmart.workers.dev'; // URL del Worker (https://renueva-comprobantes.<cuenta>.workers.dev), vacía = historial desactivado
     const CLAVE_HISTORIAL = 'renueva_historial_clave';
     const cajaHistorial = document.getElementById('historialCliente');
     const estadoHistorial = document.getElementById('estadoHistorial');
