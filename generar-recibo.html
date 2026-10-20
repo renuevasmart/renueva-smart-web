@@ -147,6 +147,10 @@
   #hojaPdf .parte-pdf h2 { font-size: 11px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-brand); margin: 0 0 10px; }
   #hojaPdf .parte-pdf p { margin: 0 0 8px; font-size: 13.5px; color: var(--pdf-texto-oscuro); }
   #hojaPdf .parte-pdf .t { color: var(--pdf-texto-tenue); font-size: 11.5px; }
+  #hojaPdf .concepto-pdf { background: var(--pdf-fondo-tarjeta); border: 1px solid var(--pdf-borde-suave); border-radius: 16px; padding: 18px 20px; margin: 0 0 22px; }
+  #hojaPdf .concepto-pdf h2 { font-size: 11px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-brand); margin: 0 0 10px; }
+  #hojaPdf .concepto-pdf p { margin: 0; font-size: 13.5px; line-height: 1.6; color: var(--pdf-texto-oscuro); white-space: pre-line; }
+  #hojaPdf .porcentaje-pdf { text-align: right; font-size: 12px; color: var(--pdf-texto-tenue); margin: -18px 0 24px; }
   #hojaPdf table.detalle-pdf { width: 100%; border-collapse: collapse; margin: 4px 0 22px; }
   #hojaPdf table.detalle-pdf th { text-align: left; font-size: 11px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: var(--pdf-texto-tenue); padding: 0 0 8px; border-bottom: 1px solid var(--pdf-borde-claro); }
   #hojaPdf table.detalle-pdf td { font-size: 13.5px; padding: 10px 0; border-bottom: 1px solid var(--pdf-borde-tenue); word-spacing: 2px; color: var(--pdf-texto-oscuro); }
@@ -228,6 +232,11 @@
       </div>
     </div>
 
+    <div class="campo">
+      <label for="medioPago">Tipo de pago</label>
+      <select id="medioPago"></select>
+    </div>
+
     <div class="tipo-pago-pills">
       <input type="radio" name="tipoPago" id="pagoTotal" value="total" checked>
       <label for="pagoTotal">Cobro total</label>
@@ -292,12 +301,17 @@
         <p class="t" id="pdfClienteEmail"></p>
       </div>
     </div>
+    <div class="concepto-pdf">
+      <h2>Concepto</h2>
+      <p id="pdfConcepto"></p>
+    </div>
     <table class="detalle-pdf">
-      <thead><tr><th>Concepto</th><th style="text-align:right">Importe</th></tr></thead>
-      <tbody><tr><td id="pdfConcepto"></td><td class="monto" id="pdfMonto"></td></tr></tbody>
+      <thead><tr><th>Detalle</th><th style="text-align:right">Importe</th></tr></thead>
+      <tbody><tr><td>Importe del proyecto (sin IVA)</td><td class="monto" id="pdfMonto"></td></tr></tbody>
     </table>
     <div class="resumen-pdf" id="resumenPdf"></div>
     <div class="total-pdf"><span id="pdfTotalLabel">Total</span><span class="num" id="pdfTotal"></span></div>
+    <div class="porcentaje-pdf" id="pdfPorcentaje"></div>
     <p id="pdfLugar"></p>
     <div class="pie-pdf"><span>RENUEVA SMART — RENUEVASMART.COM</span><span id="pdfPagina">Página 1/1</span></div>
   </div></div>
@@ -312,11 +326,13 @@
     const CONFIG_PAIS = {
       UY: {
         labelDoc: 'Cédula o RUT', monedas: ['UYU', 'USD'], ivaDefault: 22,
+        mediosPago: ['Prex', 'Stripe'],
         labelLugar: 'Departamento', lugarDefault: 'Montevideo',
         regiones: ['Artigas', 'Canelones', 'Cerro Largo', 'Colonia', 'Durazno', 'Flores', 'Florida', 'Lavalleja', 'Maldonado', 'Montevideo', 'Paysandú', 'Río Negro', 'Rivera', 'Rocha', 'Salto', 'San José', 'Soriano', 'Tacuarembó', 'Treinta y Tres'],
       },
       ES: {
         labelDoc: 'DNI / NIF', monedas: ['EUR', 'USD'], ivaDefault: 21,
+        mediosPago: ['Bizum', 'Transferencia bancaria', 'Stripe'],
         labelLugar: 'Comunidad autónoma', lugarDefault: 'Comunidad de Madrid',
         regiones: ['Andalucía', 'Aragón', 'Asturias', 'Baleares', 'Canarias', 'Cantabria', 'Castilla-La Mancha', 'Castilla y León', 'Cataluña', 'Comunidad de Madrid', 'Comunidad Valenciana', 'Extremadura', 'Galicia', 'La Rioja', 'Murcia', 'Navarra', 'País Vasco', 'Ceuta', 'Melilla'],
       },
@@ -446,6 +462,7 @@
       const cfg = CONFIG_PAIS[pais];
       labelDoc.textContent = cfg.labelDoc;
       selectMoneda.innerHTML = cfg.monedas.map((m) => '<option value="' + m + '">' + m + '</option>').join('');
+      document.getElementById('medioPago').innerHTML = cfg.mediosPago.map((m) => '<option value="' + m + '">' + m + '</option>').join('');
       inputNumero.value = sugerirNumero(pais);
       numeroEditadoManualmente = false;
       if (!ivaEditadoManualmente) inputIvaPorcentaje.value = cfg.ivaDefault;
@@ -625,6 +642,14 @@
       hoja.querySelectorAll('.resumen-pdf .linea.destacada').forEach((el) => { set(el, 'color', 'var(--pdf-texto-oscuro)'); set(el, 'border-top-color', 'var(--pdf-borde-claro)'); });
       hoja.querySelectorAll('.total-pdf').forEach((el) => { set(el, 'color', 'var(--pdf-texto-oscuro)'); set(el, 'display', 'flex'); set(el, 'justify-content', 'flex-end'); set(el, 'gap', '14px'); });
       hoja.querySelectorAll('.total-pdf .num').forEach((el) => set(el, 'color', 'var(--color-brand)'));
+      const concepto = hoja.querySelector('.concepto-pdf');
+      set(concepto, 'background', 'var(--pdf-fondo-tarjeta)');
+      set(concepto, 'border-color', 'var(--pdf-borde-suave)');
+      set(hoja.querySelector('.concepto-pdf h2'), 'color', 'var(--color-brand)');
+      set(hoja.querySelector('.concepto-pdf p'), 'color', 'var(--pdf-texto-oscuro)');
+      set(hoja.querySelector('.concepto-pdf p'), 'white-space', 'pre-line');
+      set(hoja.querySelector('.porcentaje-pdf'), 'color', 'var(--pdf-texto-tenue)');
+      set(hoja.querySelector('.porcentaje-pdf'), 'text-align', 'right');
       hoja.querySelectorAll('.pie-pdf').forEach((el) => { set(el, 'color', 'var(--pdf-texto-pie)'); set(el, 'border-top-color', 'var(--pdf-borde-tenue)'); set(el, 'display', 'flex'); set(el, 'justify-content', 'space-between'); });
     }
 
@@ -656,16 +681,17 @@
         resumen += '<div class="linea"><span>IVA (' + c.ivaRate + '%)</span><span>' + formatoMonto(c.ivaMonto, c.moneda) + '</span></div>';
       }
       resumen += '<div class="linea destacada"><span>Total del proyecto</span><span>' + formatoMonto(c.totalProyecto, c.moneda) + '</span></div>';
+      resumen += '<div class="linea"><span>Tipo de pago</span><span>' + document.getElementById('medioPago').value + '</span></div>';
       if (c.esParcial) {
-        resumen += '<div class="linea"><span>Tipo de pago</span><span>Primer pago (' + formatoPorcentaje(c.porcentajePago) + ')</span></div>';
         resumen += '<div class="linea"><span>Saldo pendiente</span><span>' + formatoMonto(c.saldoPendiente, c.moneda) + '</span></div>';
-      } else {
-        resumen += '<div class="linea"><span>Tipo de pago</span><span>Pago total</span></div>';
       }
       document.getElementById('resumenPdf').innerHTML = resumen;
 
       document.getElementById('pdfTotalLabel').textContent = c.esParcial ? 'Importe de este comprobante' : 'Total a pagar';
       document.getElementById('pdfTotal').textContent = formatoMonto(c.importeComprobante, c.moneda);
+      const porcentaje = document.getElementById('pdfPorcentaje');
+      porcentaje.textContent = c.esParcial ? 'Primer pago: ' + formatoPorcentaje(c.porcentajePago) + ' del total del proyecto' : '';
+      porcentaje.style.display = c.esParcial ? 'block' : 'none';
       document.getElementById('pdfLugar').textContent = 'Lugar y fecha: ' + (lugar || '—') + ', ' + fecha;
     }
 
@@ -706,6 +732,7 @@
         campo('Concepto', datos.concepto);
         campo('N° de comprobante', datos.numero);
         campo('Importe de este comprobante', datos.importe);
+        campo('Tipo de pago', datos.medioPago);
 
         const inputArchivo = document.createElement('input');
         inputArchivo.type = 'file';
@@ -794,6 +821,7 @@
           concepto: document.getElementById('concepto').value.trim(),
           numero: inputNumero.value.trim(),
           importe: formatoMonto(c.importeComprobante, c.moneda),
+          medioPago: document.getElementById('medioPago').value,
           email,
         });
       }
