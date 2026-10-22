@@ -1,0 +1,72 @@
+/* Tema claro (blanco y naranja) común a todas las páginas.
+   El oscuro es el tema por defecto y vive en el <style> de cada página; aquí
+   solo va lo compartido: el botón de cambio, el cambio de logo y los valores
+   claros de los tokens. Se activa con data-tema="claro" en <html>, que pone el
+   script del <head> de cada página (lee la elección guardada antes de pintar)
+   y el botón (assets/tema.js). Los ajustes propios de la home van en su <style>.
+   Naranja de texto más oscuro (#c04800, 5:1 sobre blanco) para que se lea;
+   el naranja de marca (#ff6a00) se queda para fondos y botones. */
+
+/* ---------- Logo: cada página lleva las dos versiones ---------- */
+.para-claro { display: none; }
+
+/* ---------- Botón de tema (sol / luna) ---------- */
+.nav-acciones { display: flex; align-items: center; gap: 12px; }
+.tema-boton {
+  display: none; place-items: center; width: 42px; height: 42px; padding: 0; cursor: pointer; flex-shrink: 0;
+  background: transparent; color: var(--color-text-primary);
+  border: 1.5px solid var(--color-border-strong); border-radius: 999px;
+  transition: border-color 0.15s ease, transform 0.15s ease;
+}
+/* Sin JS el botón no haría nada, así que solo se muestra si el script corre. */
+.tema-js .tema-boton { display: inline-grid; }
+.tema-boton:hover { border-color: var(--color-text-primary); }
+.tema-boton:active { transform: scale(0.95); }
+.tema-boton svg { width: 18px; height: 18px; }
+.tema-boton .icono-luna { display: none; }
+@media (max-width: 420px) { .nav-acciones { gap: 8px; } }
+
+/* ---------- Tema claro ---------- */
+:root[data-tema="claro"] {
+  color-scheme: light;
+  --color-brand-texto: #c04800;
+  --color-naranja: #f56300;
+  --color-bg-primary: #ffffff;
+  --color-bg-secondary: #fff4ec;
+  --color-bg-tertiary: #ffe7d6;
+  --color-text-primary: #17120e;
+  --color-text-secondary: #40372f;
+  --color-text-muted: #6b6159;
+  --color-border-subtle: rgba(23, 18, 14, 0.08);
+  --color-border-default: rgba(23, 18, 14, 0.12);
+  --color-border-strong: rgba(23, 18, 14, 0.22);
+  --shadow-card: 0 14px 32px -14px rgba(120, 55, 10, 0.22);
+}
+:root[data-tema="claro"] body::after { opacity: 0.025; }
+:root[data-tema="claro"] :focus-visible { outline-color: var(--color-brand-texto); }
+
+/* Nav siempre blanco, con el logo oscuro. */
+:root[data-tema="claro"] .nav,
+:root[data-tema="claro"] .nav.solida { background: rgba(255, 255, 255, 0.94); backdrop-filter: blur(8px); box-shadow: 0 1px 0 var(--color-border-subtle); }
+:root[data-tema="claro"] .para-oscuro { display: none; }
+:root[data-tema="claro"] .para-claro { display: block; }
+:root[data-tema="claro"] .tema-boton .icono-sol { display: none; }
+:root[data-tema="claro"] .tema-boton .icono-luna { display: block; }
+
+/* Botones: el naranja lleva texto oscuro (el blanco no llega al contraste). */
+:root[data-tema="claro"] .btn-cta { color: #17120e; }
+:root[data-tema="claro"] :is(.btn-secundario, .btn-sec):hover { background: rgba(23, 18, 14, 0.05); }
+
+/* ---------- Ajustes de páginas concretas ---------- */
+/* muestras.html */
+:root[data-tema="claro"] .tag { color: var(--color-brand-texto); }
+:root[data-tema="claro"] .tag-real { color: #1e7a46; }
+:root[data-tema="claro"] .filtro[aria-pressed="true"] { color: #17120e; }
+:root[data-tema="claro"] .escenario.movil { background: radial-gradient(circle at 50% 30%, #fff4ec, var(--color-bg-primary)); }
+:root[data-tema="claro"] .cta-caja { background: linear-gradient(135deg, #ffe7d6, var(--color-bg-secondary) 55%); }
+/* contacto.html */
+:root[data-tema="claro"] .preferencia-btn[aria-pressed="true"][data-metodo="whatsapp"] { color: #128c4a; }
+:root[data-tema="claro"] .captcha-error { color: #c62828; }
+/* blog: qué puede mostrar la web de una notaría */
+:root[data-tema="claro"] .seccion-bloque .si { color: #1e7a46; }
+:root[data-tema="claro"] .seccion-bloque .no { color: #b23a2a; }

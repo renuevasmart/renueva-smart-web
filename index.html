@@ -9,6 +9,7 @@
 <title>Rediseño web en España y Río de la Plata | Renueva Smart</title>
 <meta name="description" content="Rediseño web para abogados, notarías, gestorías, inmobiliarias, clínicas, profesionales y comercios de España, Uruguay y Argentina. Antes/después gratis.">
 <meta name="theme-color" content="#0b0c0e">
+<script>(function(){var r=document.documentElement;r.classList.add('tema-js');try{if(localStorage.getItem('rs-tema')==='claro'){r.setAttribute('data-tema','claro');var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute('content','#ffffff')}}catch(e){}})();</script>
 <link rel="canonical" href="https://renuevasmart.com/">
 <link rel="icon" href="assets/favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
@@ -179,6 +180,8 @@
     --color-brand: #ff6a00;
     --color-brand-hover: #ff7a1a;
     --color-brand-active: #e85f00;
+    /* Naranja para texto (en el tema claro se oscurece para que se lea). */
+    --color-brand-texto: var(--color-brand);
 
     --color-bg-primary: #0b0c0e;
     --color-bg-secondary: #151719;
@@ -336,7 +339,7 @@
     font-size: clamp(36px, 6vw, 68px); line-height: 1.06; letter-spacing: -0.01em;
     margin: 0 0 22px; text-wrap: balance;
   }
-  .hero h1 em, .banner h2 em { font-style: italic; font-weight: 500; color: var(--color-brand); }
+  .hero h1 em, .banner h2 em { font-style: italic; font-weight: 500; color: var(--color-brand-texto); }
   .h1-rota { display: block; text-align: center; white-space: nowrap; transition: opacity 0.35s ease; }
   .hero p.lead {
     font-size: clamp(16px, 1.7vw, 19px); line-height: 1.55; color: var(--color-text-secondary);
@@ -355,19 +358,19 @@
   .metrica .etq { font-size: calc(15px + 4pt); color: var(--color-text-secondary); margin-top: 2px; max-width: 22ch; }
   .hero-precio { margin: 22px auto 0; font-size: 14.5px; color: var(--color-text-secondary); }
   .hero-precio strong { color: var(--color-text-primary); }
-  .hero-precio a { color: var(--color-brand); font-weight: 700; text-decoration: none; white-space: nowrap; }
+  .hero-precio a { color: var(--color-brand-texto); font-weight: 700; text-decoration: none; white-space: nowrap; }
   .hero-precio a:hover { text-decoration: underline; }
 
   /* ---------- Marquee de servicios ---------- */
   .marquee { overflow: hidden; border-top: 1px solid var(--color-border-subtle); border-bottom: 1px solid var(--color-border-subtle); background: var(--color-bg-secondary); padding: 18px 0; }
   .marquee-track { display: flex; gap: 40px; white-space: nowrap; animation: marquee 32s linear infinite; width: max-content; }
   .marquee-track span { font-family: var(--font-ui); font-weight: 800; font-size: 14px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-text-muted); }
-  .marquee-track span.dot { color: var(--color-brand); }
+  .marquee-track span.dot { color: var(--color-brand-texto); }
   @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
   /* ---------- Título de sección ---------- */
   .titulo-seccion { display: flex; flex-direction: column; gap: 14px; max-width: 640px; margin-bottom: clamp(44px, 6vw, 64px); }
-  .eyebrow-oscuro { font-weight: 800; font-size: 12.5px; letter-spacing: 0.09em; text-transform: uppercase; color: var(--color-brand); }
+  .eyebrow-oscuro { font-weight: 800; font-size: 12.5px; letter-spacing: 0.09em; text-transform: uppercase; color: var(--color-brand-texto); }
   .titulo-seccion h2 { font-family: var(--font-display); font-weight: 700; font-size: clamp(28px, 3.4vw, 42px); line-height: 1.12; margin: 0; text-wrap: balance; }
   .titulo-seccion p { font-size: 16.5px; line-height: 1.6; color: var(--color-text-secondary); margin: 0; max-width: 56ch; }
 
@@ -379,12 +382,12 @@
   .problema-lista { display: flex; flex-direction: column; gap: 1px; background: var(--color-border-subtle); border: 1px solid var(--color-border-subtle); border-radius: var(--radius-3xl); overflow: hidden; max-width: 820px; }
   .problema-item { background: var(--color-bg-secondary); padding: 22px 26px; display: flex; align-items: center; justify-content: space-between; gap: 18px; }
   .problema-item .txt { display: flex; align-items: baseline; gap: 16px; }
-  .problema-item .n { font-family: var(--font-display); font-style: italic; font-weight: 500; font-size: 20px; color: var(--color-brand); flex-shrink: 0; }
+  .problema-item .n { font-family: var(--font-display); font-style: italic; font-weight: 500; font-size: 20px; color: var(--color-brand-texto); flex-shrink: 0; }
   .problema-item p { margin: 0; font-size: 16px; line-height: 1.5; color: var(--color-text-primary); }
   .problema-item .flecha { color: var(--color-text-muted); font-size: 18px; flex-shrink: 0; }
   .reencuadre { text-align: center; margin-top: 44px; }
   .reencuadre p { font-family: var(--font-display); font-weight: 600; font-size: clamp(20px, 2.6vw, 28px); line-height: 1.3; max-width: 700px; margin: 0 auto 20px; text-wrap: balance; }
-  .reencuadre p em { font-style: italic; color: var(--color-brand); }
+  .reencuadre p em { font-style: italic; color: var(--color-brand-texto); }
 
   /* ---------- Banner intermedio ---------- */
   .banner { position: relative; overflow: hidden; text-align: center; border-top: 1px solid var(--color-border-subtle); border-bottom: 1px solid var(--color-border-subtle); }
@@ -406,7 +409,7 @@
   #metodo .titulo-seccion p { color: var(--color-text-primary); }
   .pasos-tira { display: grid; grid-template-columns: repeat(5, minmax(180px, 1fr)); gap: 1px; background: rgba(255,255,255,0.12); border: 1px solid var(--color-border-default); border-radius: var(--radius-3xl); overflow: hidden; list-style: none; margin: 0; padding: 0; }
   .paso-tarjeta { background: rgba(21,23,25,0.5); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); padding: 28px 22px 26px; display: flex; flex-direction: column; gap: 12px; }
-  .paso-num { font-family: var(--font-display); font-style: italic; font-weight: 500; font-size: 32px; color: var(--color-brand); line-height: 1; }
+  .paso-num { font-family: var(--font-display); font-style: italic; font-weight: 500; font-size: 32px; color: var(--color-brand-texto); line-height: 1; }
   .paso-tarjeta h3 { font-family: var(--font-ui); font-weight: 800; font-size: 14.5px; letter-spacing: 0.01em; margin: 0; color: var(--color-text-primary); }
   .paso-tarjeta p { font-size: 13.5px; line-height: 1.55; color: var(--color-text-secondary); margin: 0; }
   @media (max-width: 900px) { .pasos-tira { grid-template-columns: 1fr 1fr; } }
@@ -420,7 +423,7 @@
   @media (max-width: 520px) { .garantias-grid { grid-template-columns: 1fr; } }
   .garantia { background: var(--color-bg-secondary); border: 1px solid var(--color-border-default); border-radius: var(--radius-2xl); padding: clamp(20px, 2.6vw, 28px); box-shadow: var(--shadow-card); }
   .garantia h3 { font-family: var(--font-display); font-weight: 700; font-size: 18px; margin: 0 0 10px; }
-  .garantia h3::before { content: "✓"; color: var(--color-brand); font-weight: 800; margin-right: 8px; }
+  .garantia h3::before { content: "✓"; color: var(--color-brand-texto); font-weight: 800; margin-right: 8px; }
   .garantia p { font-size: 14px; line-height: 1.55; color: var(--color-text-secondary); margin: 0; }
 
   /* ---------- Reseñas de cliente ---------- */
@@ -432,8 +435,8 @@
   .resena-vermas { display: inline-block; font-weight: 700; font-size: 15px; color: var(--color-text-primary); text-decoration: none; border-bottom: 1px solid var(--color-border-strong); padding-bottom: 2px; }
   .resena-vermas:hover { border-color: var(--color-text-primary); }
   .resena-cita { font-family: var(--font-display); font-style: italic; font-weight: 500; font-size: clamp(17px, 2.1vw, 22px); line-height: 1.45; color: var(--color-text-primary); margin: 0 auto 22px; max-width: 660px; text-wrap: balance; }
-  .resena-cita::before { content: "“"; color: var(--color-brand); }
-  .resena-cita::after { content: "”"; color: var(--color-brand); }
+  .resena-cita::before { content: "“"; color: var(--color-brand-texto); }
+  .resena-cita::after { content: "”"; color: var(--color-brand-texto); }
   .resena-autor { font-size: 14.5px; color: var(--color-text-muted); margin: 0 auto; max-width: 700px; }
   .resena-autor strong { font-weight: 800; color: var(--color-text-primary); }
   .resena-comparacion { position: relative; margin: 36px auto 0; max-width: 780px; display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 26px; }
@@ -461,7 +464,7 @@
   .valor-tarjeta:nth-child(2) { top: 122px; }
   .valor-tarjeta:nth-child(3) { top: 140px; }
   .valor-tarjeta h3 { font-family: var(--font-display); font-weight: 700; font-style: italic; font-size: clamp(36px, 6vw, 72px); line-height: 1; margin: 0; }
-  .valor-num { font-family: var(--font-display); font-style: italic; font-weight: 500; font-size: clamp(36px, 6vw, 72px); line-height: 1; color: var(--color-brand); }
+  .valor-num { font-family: var(--font-display); font-style: italic; font-weight: 500; font-size: clamp(36px, 6vw, 72px); line-height: 1; color: var(--color-brand-texto); }
   .valor-tarjeta p { grid-column: 1 / -1; align-self: end; font-size: clamp(15px, 1.4vw, 17px); line-height: 1.6; color: var(--color-text-secondary); margin: 0; max-width: 46ch; }
 
   /* ---------- Sectores ---------- */
@@ -483,7 +486,7 @@
   .encaje-col.no h3 { color: var(--color-text-muted); }
   .encaje-col ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 12px; }
   .encaje-col li { font-size: 14.5px; line-height: 1.55; color: var(--color-text-secondary); padding-left: 24px; position: relative; }
-  .encaje-col.si li::before { content: "✓"; position: absolute; left: 0; color: var(--color-brand); font-weight: 800; }
+  .encaje-col.si li::before { content: "✓"; position: absolute; left: 0; color: var(--color-brand-texto); font-weight: 800; }
   .encaje-col.no li::before { content: "×"; position: absolute; left: 0; color: var(--color-text-muted); font-weight: 800; }
 
   /* ---------- FAQ ---------- */
@@ -503,7 +506,7 @@
   .faq-item { background: rgba(21,23,25,0.5); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); padding: 22px 26px; }
   .faq-item summary { display: flex; align-items: center; justify-content: space-between; gap: 16px; cursor: pointer; list-style: none; font-family: var(--font-ui); font-weight: 700; font-size: 16px; color: var(--color-text-primary); }
   .faq-item summary::-webkit-details-marker { display: none; }
-  .faq-icono { flex-shrink: 0; font-size: 20px; font-weight: 400; color: var(--color-brand); transition: transform 0.2s ease; }
+  .faq-icono { flex-shrink: 0; font-size: 20px; font-weight: 400; color: var(--color-brand-texto); transition: transform 0.2s ease; }
   .faq-item[open] .faq-icono { transform: rotate(45deg); }
   .faq-item p { margin: 14px 0 0; font-size: 14.5px; line-height: 1.6; color: var(--color-text-secondary); }
 
@@ -527,20 +530,60 @@
     font-family: var(--font-ui); font-weight: 800; font-size: 13vw; line-height: 0.95;
     letter-spacing: -0.045em; white-space: nowrap; text-align: center; color: var(--color-text-primary);
   }
-  .footer-marca em { font-style: italic; font-weight: 600; color: var(--color-brand); }
+  .footer-marca em { font-style: italic; font-weight: 600; color: var(--color-brand-texto); }
   .footer-links { display: flex; justify-content: center; gap: 22px; flex-wrap: wrap; }
   .footer-links a { font-size: 13.5px; text-decoration: none; color: var(--color-text-secondary); }
   .footer-links a:hover { color: var(--color-text-primary); }
   .footer-copy { font-size: 12.5px; margin-top: 22px; text-align: center; color: var(--color-text-muted); }
+
+  /* ---------- Tema claro: ajustes propios de la home ----------
+     Tokens, nav, logo y botón de tema son comunes (assets/tema.css). Aquí:
+     las secciones con vídeo pasan a naranja (hero, banner, CTA final) o a
+     blanco (método, preguntas). Los fondos naranja usan --color-naranja
+     (#f56300), que admite texto oscuro y blanco grande. */
+
+  /* Secciones naranja: texto oscuro, cursivas en blanco, botón principal oscuro. */
+  :root[data-tema="claro"] :is(.hero, .banner, .cta-final) {
+    --color-text-primary: #17120e;
+    --color-text-secondary: #2a1f17;
+    --color-text-muted: #2a1f17;
+    --color-brand-texto: #ffffff;
+    --color-border-strong: rgba(23, 18, 14, 0.35);
+    color: var(--color-text-primary);
+  }
+  :root[data-tema="claro"] .hero-overlay { background: linear-gradient(180deg, rgba(236, 92, 0, 0.86) 0%, rgba(236, 92, 0, 0.94) 100%); }
+  :root[data-tema="claro"] :is(.banner-overlay, .cta-final-overlay) { background: rgba(236, 92, 0, 0.9); }
+  :root[data-tema="claro"] .eyebrow { color: #17120e; }
+  :root[data-tema="claro"] .eyebrow::before { background: #17120e; }
+  :root[data-tema="claro"] .hero-precio a { color: #17120e; text-decoration: underline; text-underline-offset: 3px; }
+  :root[data-tema="claro"] :is(.hero, .cta-final) .btn-cta { background: #17120e; color: #ffffff; }
+  :root[data-tema="claro"] :is(.hero, .cta-final) .btn-cta:hover { background: #2e241c; }
+
+  /* Secciones con vídeo que pasan a blanco. */
+  :root[data-tema="claro"] :is(.metodo-overlay, .preguntas-overlay) { background: linear-gradient(180deg, rgba(255, 255, 255, 0.86) 0%, rgba(255, 255, 255, 0.94) 100%); }
+  :root[data-tema="claro"] :is(.pasos-tira, .faq-lista) { background: rgba(23, 18, 14, 0.1); }
+  :root[data-tema="claro"] :is(.paso-tarjeta, .faq-item) { background: rgba(255, 255, 255, 0.72); }
+
+  /* Tarjetas apiladas de "Qué hacemos" en naranja macizo. */
+  :root[data-tema="claro"] .valor-tarjeta { background: var(--color-naranja); border-color: transparent; box-shadow: 0 -16px 36px -20px rgba(120, 45, 0, 0.35), var(--shadow-card); }
+  :root[data-tema="claro"] .valor-tarjeta p { color: #2a1f17; }
+  :root[data-tema="claro"] .valor-num { color: #ffffff; }
+
+  :root[data-tema="claro"] .sector-tarjeta { background: #ffffff; }
+  :root[data-tema="claro"] .sector-tarjeta:hover { background: var(--color-bg-tertiary); }
+  :root[data-tema="claro"] .footer-marca em { color: var(--color-brand); }
 :where(img[data-ar]){width:auto;height:auto}
 </style>
+<link rel="stylesheet" href="assets/tema.css">
+<script src="assets/tema.js" defer></script>
 </head>
 <body>
 
   <a class="skip-link" href="#contenido">Saltar al contenido</a>
 
   <nav class="nav" id="nav">
-    <img width="520" height="260" data-ar class="nav-logo" src="assets/logo.png" alt="Renueva Smart">
+    <img width="520" height="260" data-ar class="nav-logo para-oscuro" src="assets/logo.png" alt="Renueva Smart">
+    <img width="520" height="260" data-ar class="nav-logo para-claro" src="assets/logo-oscuro.png" alt="Renueva Smart">
     <div class="nav-links">
       <a href="#resenas">Reseñas</a>
       <a href="#metodo">Cómo trabajamos</a>
@@ -550,7 +593,13 @@
       <a href="contacto.html">Contacto</a>
       <a href="blog/index.html">Blog</a>
     </div>
-    <a href="https://wa.me/34602555026?text=Hola%2C%20quiero%20m%C3%A1s%20informaci%C3%B3n" target="_blank" rel="noopener" class="btn-cta" data-i18n="cta_nav">Escríbenos ahora</a>
+    <div class="nav-acciones">
+      <button type="button" class="tema-boton" id="tema-boton" aria-label="Cambiar a modo claro" title="Modo claro">
+        <svg class="icono-sol" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+        <svg class="icono-luna" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+      </button>
+      <a href="https://wa.me/34602555026?text=Hola%2C%20quiero%20m%C3%A1s%20informaci%C3%B3n" target="_blank" rel="noopener" class="btn-cta" data-i18n="cta_nav">Escríbenos ahora</a>
+    </div>
   </nav>
 
   <header class="hero" id="contenido">

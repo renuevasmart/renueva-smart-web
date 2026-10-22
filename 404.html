@@ -7,6 +7,7 @@
 <title>Página no encontrada — Renueva Smart</title>
 <meta name="robots" content="noindex">
 <meta name="theme-color" content="#0b0c0e">
+<script>(function(){var r=document.documentElement;r.classList.add('tema-js');try{if(localStorage.getItem('rs-tema')==='claro'){r.setAttribute('data-tema','claro');var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute('content','#ffffff')}}catch(e){}})();</script>
 <link rel="icon" href="assets/favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png">
@@ -17,6 +18,7 @@
 <style>
   :root {
     --color-brand: #ff6a00;
+    --color-brand-texto: var(--color-brand);
     --color-brand-hover: #ff7a1a;
     --color-bg-primary: #0b0c0e;
     --color-text-primary: #f5f3ee;
@@ -34,7 +36,7 @@
     gap: 20px; text-align: center; padding: 40px 24px;
     background: var(--color-bg-primary); color: var(--color-text-primary); font-family: var(--font-ui);
   }
-  .code { font-family: var(--font-display); font-weight: 700; font-size: clamp(64px, 14vw, 120px); line-height: 1; color: var(--color-brand); }
+  .code { font-family: var(--font-display); font-weight: 700; font-size: clamp(64px, 14vw, 120px); line-height: 1; color: var(--color-brand-texto); }
   h1 { font-family: var(--font-display); font-weight: 700; font-size: clamp(24px, 4vw, 34px); margin: 0; }
   p { font-size: 16px; line-height: 1.6; color: var(--color-text-muted); margin: 0; max-width: 44ch; }
   .acciones { display: flex; flex-wrap: wrap; gap: 14px; justify-content: center; margin-top: 8px; }
@@ -49,6 +51,8 @@
   }
   .btn-sec:hover { border-color: var(--color-text-primary); }
 </style>
+<link rel="stylesheet" href="/assets/tema.css">
+<script src="/assets/tema.js" defer></script>
 </head>
 <body>
   <div class="code">404</div>
