@@ -7,7 +7,7 @@
 <title>Contacto — Renueva Smart</title>
 <meta name="description" content="Escríbenos y cuéntanos sobre tu negocio. Te respondemos hoy mismo y te preparamos el antes/después de tu web, gratis.">
 <meta name="theme-color" content="#0b0c0e">
-<script>(function(){var r=document.documentElement;r.classList.add('tema-js');try{if(localStorage.getItem('rs-tema')==='claro'){r.setAttribute('data-tema','claro');var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute('content','#ffffff')}}catch(e){}})();</script>
+<script>(function(){var r=document.documentElement,t='claro';r.classList.add('tema-js');try{if(localStorage.getItem('rs-tema')==='oscuro')t='oscuro'}catch(e){}if(t==='claro'){r.setAttribute('data-tema','claro');var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute('content','#ffffff')}})();</script>
 <meta name="robots" content="noindex, follow">
 <link rel="canonical" href="https://renuevasmart.com/contacto.html">
 <link rel="icon" href="assets/favicon.ico" sizes="any">
@@ -188,7 +188,7 @@
   .form-gracias strong { color: var(--color-brand-texto); }
 
   /* ---------- Footer (igual que en la landing) ---------- */
-  .footer { background: var(--color-bg-secondary); color: var(--color-text-secondary); padding: 48px clamp(20px, 4vw, 56px) 40px; border-top: 1px solid var(--color-border-subtle); }
+  .footer { background: var(--color-bg-primary); color: var(--color-text-secondary); padding: 48px clamp(20px, 4vw, 56px) 40px; border-top: 1px solid var(--color-border-subtle); }
   .footer-fila { max-width: 1120px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 20px; }
   .footer-logo { height: 52px; opacity: 0.9; }
   .footer-links { display: flex; justify-content: center; gap: 22px; flex-wrap: wrap; }

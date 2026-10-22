@@ -1,5 +1,5 @@
-/* Botón de tema: alterna entre el oscuro (por defecto) y el claro blanco y
-   naranja (estilos en assets/tema.css). La elección se recuerda en este
+/* Botón de tema: alterna entre el claro blanco y naranja (por defecto) y el
+   oscuro (estilos en assets/tema.css). La elección se recuerda en este
    navegador; el script del <head> de cada página la aplica antes de pintar
    para que no parpadee. */
 (function () {

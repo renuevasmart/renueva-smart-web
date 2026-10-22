@@ -1,9 +1,11 @@
 /* Tema claro (blanco y naranja) común a todas las páginas.
-   El oscuro es el tema por defecto y vive en el <style> de cada página; aquí
+   El claro es el que ve quien entra por primera vez; el oscuro vive en el
+   <style> de cada página y se usa si el visitante lo elige (o sin JS). Aquí
    solo va lo compartido: el botón de cambio, el cambio de logo y los valores
    claros de los tokens. Se activa con data-tema="claro" en <html>, que pone el
-   script del <head> de cada página (lee la elección guardada antes de pintar)
-   y el botón (assets/tema.js). Los ajustes propios de la home van en su <style>.
+   script del <head> de cada página salvo que la elección guardada sea
+   "oscuro", y el botón (assets/tema.js). Los ajustes propios de la home van
+   en su <style>.
    Naranja de texto más oscuro (#c04800, 5:1 sobre blanco) para que se lea;
    el naranja de marca (#ff6a00) se queda para fondos y botones. */
 

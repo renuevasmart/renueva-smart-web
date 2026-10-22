@@ -7,7 +7,7 @@
 <title>¿Web a medida o plantilla? Cómo elegir — Renueva Smart</title>
 <meta name="description" content="¿Web a medida o plantilla? Cinco preguntas para decidir según tu negocio, cuándo basta una plantilla, cuándo compensa un diseño a medida y qué pasa con el SEO.">
 <meta name="theme-color" content="#0b0c0e">
-<script>(function(){var r=document.documentElement;r.classList.add('tema-js');try{if(localStorage.getItem('rs-tema')==='claro'){r.setAttribute('data-tema','claro');var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute('content','#ffffff')}}catch(e){}})();</script>
+<script>(function(){var r=document.documentElement,t='claro';r.classList.add('tema-js');try{if(localStorage.getItem('rs-tema')==='oscuro')t='oscuro'}catch(e){}if(t==='claro'){r.setAttribute('data-tema','claro');var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute('content','#ffffff')}})();</script>
 <link rel="canonical" href="https://renuevasmart.com/blog/web-a-medida-o-plantilla.html">
 <link rel="icon" href="../assets/favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
@@ -131,7 +131,7 @@
   .caso-cta { margin-top: 44px; padding-top: 32px; border-top: 1px solid var(--color-border-subtle); }
   .caso-cta p { font-size: 16.5px; color: var(--color-text-primary); margin: 0 0 20px; }
   .caso-cta-acciones { display: flex; flex-wrap: wrap; gap: 14px; }
-  .footer { background: var(--color-bg-secondary); color: var(--color-text-secondary); padding: 48px clamp(20px, 4vw, 56px) 40px; border-top: 1px solid var(--color-border-subtle); margin-top: 56px; }
+  .footer { background: var(--color-bg-primary); color: var(--color-text-secondary); padding: 48px clamp(20px, 4vw, 56px) 40px; border-top: 1px solid var(--color-border-subtle); margin-top: 56px; }
   .footer-fila { max-width: 1120px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 20px; }
   .footer-logo { height: 52px; opacity: 0.9; }
   .footer-links { display: flex; justify-content: center; gap: 22px; flex-wrap: wrap; }
