@@ -209,21 +209,6 @@ dialog.lb .close{position:fixed;top:calc(16px + env(safe-area-inset-top,0px));ri
 .factors small{display:block;color:var(--bone-dim);font-size:13px;margin-top:2px}
 @media (max-width:900px){.enc .wrap{grid-template-columns:1fr;gap:48px}}
 
-/* Obra propia */
-.personal{position:relative;background:#120f0c}
-.personal figure{margin:0;position:relative}
-.personal img{width:100%;height:min(80vh,780px);object-fit:cover;object-position:50% 22%}
-.personal .over{position:absolute;inset:auto 0 0 0;background:linear-gradient(to top,rgba(18,15,12,.96),rgba(18,15,12,0));padding-block:160px 56px}
-.personal .over .wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:48px;align-items:end}
-.personal h2{font-size:clamp(42px,5.6vw,76px);font-weight:500;letter-spacing:-.01em}
-.personal h2 em{font-style:italic;font-weight:400}
-.personal .txt{display:flex;flex-direction:column;gap:14px;color:#ddd2c3;max-width:52ch}
-@media (max-width:900px){
-  .personal img{height:440px}
-  .personal .over{position:static;background:#120f0c;padding-block:40px 64px}
-  .personal .over .wrap{grid-template-columns:1fr;gap:20px}
-}
-
 /* Contacto */
 .contact .wrap{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:72px}
 .contact h2{font-size:clamp(40px,5.2vw,68px);font-weight:500;letter-spacing:-.01em}
@@ -236,6 +221,7 @@ dialog.lb .close{position:fixed;top:calc(16px + env(safe-area-inset-top,0px));ri
 .direct{display:flex;flex-direction:column;gap:6px;margin-top:8px}
 .direct a{font:italic 500 22px/1.3 var(--f-display);text-decoration:none}
 .direct a:hover{text-decoration:underline;text-underline-offset:4px}
+.direct .dir{font:400 16px/1.4 var(--f-body);color:var(--graphite)}
 .demo-note{font-size:13.5px;color:var(--graphite-dim)}
 form{display:flex;flex-direction:column;gap:18px;background:#f5f0e7;border:1px solid #d9cfbd;padding:32px}
 .row{display:grid;grid-template-columns:1fr 1fr;gap:18px}
@@ -253,6 +239,76 @@ form{display:flex;flex-direction:column;gap:18px;background:#f5f0e7;border:1px s
 .form-note{font-size:14px;color:var(--graphite-dim);min-height:1.4em}
 @media (max-width:900px){.contact .wrap{grid-template-columns:1fr;gap:40px}.row{grid-template-columns:1fr}form{padding:22px}}
 
+/* Disciplinas: tarjetas apiladas. Cada una se queda fija arriba y la siguiente sube por encima;
+   la figura recortada asoma desde abajo. La línea punteada es la cuerda de sinopia con que se marcaba el muro. */
+.disc{padding-block:56px 120px}
+.disc-head{text-align:center;max-width:760px;margin:0 auto 64px;display:flex;flex-direction:column;align-items:center;gap:18px}
+.disc-head .script{font:italic 400 26px/1 var(--f-display);color:var(--ochre)}
+.disc-head h2{font-size:clamp(44px,6vw,84px);font-weight:500;letter-spacing:-.01em}
+.disc-head p{color:var(--bone-dim);max-width:52ch}
+.cards{display:flex;flex-direction:column;gap:56px}
+.card{--cov:0;position:sticky;top:calc(96px + var(--i)*14px);height:min(74vh,660px);min-height:480px;border-radius:22px;overflow:hidden;
+  background:var(--bg);color:var(--fg);transform-origin:50% 0;transform:scale(calc(1 - var(--cov)*.05));box-shadow:0 -18px 40px rgba(0,0,0,.28)}
+.card::after{content:"";position:absolute;inset:0;background:#0d0b09;opacity:calc(var(--cov)*.45);pointer-events:none;z-index:4}
+.card-txt{position:relative;z-index:2;padding:clamp(28px,5vw,72px);padding-top:clamp(96px,11vw,120px);max-width:560px;display:flex;flex-direction:column;gap:14px}
+.card .script{font:italic 400 clamp(22px,2.2vw,30px)/1 var(--f-display);color:var(--acc)}
+.card h3{font:500 clamp(46px,6.4vw,92px)/.95 var(--f-roman);letter-spacing:.01em}
+.card p{font-size:18px;max-width:34ch;opacity:.82}
+.card .num{position:absolute;right:3%;top:2%;font:500 clamp(160px,26vw,380px)/1 var(--f-roman);opacity:.07;z-index:0;pointer-events:none}
+.card .fig{position:absolute;z-index:1;right:var(--fx,6%);bottom:0;height:var(--fh,92%);width:auto;max-width:none;will-change:transform;pointer-events:none}
+.card .fig.fade{-webkit-mask-image:linear-gradient(to bottom,#000 62%,transparent 98%);mask-image:linear-gradient(to bottom,#000 62%,transparent 98%)}
+.card .sheet{position:absolute;z-index:1;right:9%;bottom:-6%;height:88%;width:auto;max-width:none;rotate:5deg;box-shadow:0 24px 60px rgba(0,0,0,.4);will-change:transform;pointer-events:none}
+.card .cuerda{position:absolute;z-index:3;left:var(--lx,63%);top:0;height:var(--ly,30%);border-left:2px dashed var(--acc);pointer-events:none}
+.card .cuerda::after{content:"";position:absolute;left:-7px;bottom:-6px;width:12px;height:12px;border-radius:50%;background:var(--acc)}
+.card .ver{position:absolute;z-index:3;left:clamp(16px,2.4vw,28px);top:clamp(16px,2.4vw,28px);width:84px;height:84px;border-radius:50%;background:var(--ochre);color:var(--umber);
+  display:grid;place-items:center;text-align:center;text-decoration:none;font:600 11.5px/1.2 var(--f-roman);letter-spacing:.08em;text-transform:uppercase;transition:transform 160ms var(--ease-out)}
+.card .ver:active{transform:scale(.97)}
+@media (hover:hover) and (pointer:fine){.card .ver:hover{background:#dd7454}}
+@media (max-width:760px){
+  .card{top:calc(84px + var(--i)*10px);height:min(80svh,640px);border-radius:16px}
+  .card-txt{padding:96px 22px 0}
+  .card p{font-size:16px}
+  .card .fig{right:50%;translate:50% 0;height:var(--fhm,58%)}
+  .card .sheet{right:50%;translate:50% 0;height:52%}
+  .card .cuerda{display:none}
+}
+
+/* Sala: cuatro franjas y, debajo, la columnata de Bernini partida en dos.
+   Al bajar, las dos mitades se apartan y descubren «El Juicio Final». */
+.rasgos{padding-block:24px 64px;display:flex;flex-direction:column;gap:14px}
+.rasgos-head{margin-bottom:28px}
+.rasgo{display:grid;grid-template-columns:56px minmax(0,1fr) minmax(0,1fr);align-items:center;gap:20px;padding:26px 32px;border-radius:16px;background:var(--bg);color:var(--fg)}
+.rasgo:nth-child(odd){margin-inline:1.5%}
+.rasgo .label{opacity:.7}
+.rasgo h3{font:500 clamp(24px,2.4vw,34px)/1.1 var(--f-display)}
+.rasgo p{text-align:right;font-size:15px;opacity:.85}
+@media (max-width:760px){.rasgo{grid-template-columns:40px 1fr;padding:20px}.rasgo p{grid-column:2;text-align:left}.rasgo:nth-child(odd){margin-inline:0}}
+.sala-track{position:relative;height:280vh}
+.sala-stage{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;background:#120f0c}
+.sala-fondo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 26%;max-width:none;will-change:transform}
+.sala-stage::before{content:"";position:absolute;inset:0;z-index:1;background:radial-gradient(ellipse at 50% 45%,rgba(18,15,12,0) 30%,rgba(18,15,12,.65) 100%)}
+/* Los dos brazos de la columnata son la misma foto, uno reflejado, recortada por la silueta de las últimas columnas.
+   Juntos cubren el ancho: alto mínimo 104% de la pantalla o 62vw (cada brazo mide .83 de su alto). */
+.lado{position:absolute;z-index:2;bottom:0;height:max(104%,62vw);aspect-ratio:.83;will-change:transform;pointer-events:none;filter:drop-shadow(0 0 18px rgba(18,15,12,.55))}
+.lado img{width:100%;height:100%;max-width:none}
+.lado-izq{left:0;transform-origin:0 100%}
+.lado-der{right:0;transform-origin:100% 100%}
+.lado-der img{transform:scaleX(-1)}
+.sala-pie{position:absolute;z-index:3;inset:auto 0 0 0;height:26%;background:linear-gradient(to bottom,rgba(18,15,12,0),#120f0c);pointer-events:none}
+.sala-boton{position:absolute;z-index:4;left:50%;top:50%;translate:-50% -50%;width:clamp(150px,13vw,190px);aspect-ratio:1;border-radius:50%;background:var(--ochre);color:var(--umber);
+  display:grid;place-items:center;text-align:center;text-decoration:none;font:600 clamp(13px,1vw,15px)/1.25 var(--f-roman);letter-spacing:.08em;text-transform:uppercase;padding:18px;
+  box-shadow:0 0 0 8px color-mix(in srgb,var(--ochre) 28%,transparent);opacity:0;pointer-events:none;transition:background-color 200ms ease}
+.sala-boton.on{pointer-events:auto}
+@media (hover:hover) and (pointer:fine){.sala-boton:hover{background:#dd7454}}
+.sala-boton:active{scale:.97}
+.sala-txt{position:absolute;z-index:4;left:0;right:0;bottom:36px;opacity:0}
+.sala-txt .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:end;gap:16px 40px}
+.sala-txt h2{font-size:clamp(34px,4.4vw,60px);font-weight:500;max-width:16ch}
+.sala-txt h2 em{font-style:italic;font-weight:400}
+.sala-txt p{color:#ddd2c3;max-width:46ch}
+.sala-txt .label{color:var(--ochre);display:block;margin-bottom:10px}
+@media (max-width:760px){.sala-txt p{display:none}.sala-boton{top:42%}}
+
 /* Pie */
 footer{background:var(--paper);color:var(--graphite-dim);border-top:1px solid #cfc6b4;padding-bottom:60px}
 footer .wrap{display:flex;flex-wrap:wrap;gap:16px 32px;justify-content:space-between;align-items:center;padding-block:28px}
@@ -263,6 +319,8 @@ footer a:hover{text-decoration:underline}
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
   .acc-item,.acc-item img,.acc-cap .body,.work img{transition:none}
+  .sala-track{height:auto}
+  .sala-stage{position:relative}
   dialog.lb{transition:opacity 150ms ease;transform:none}
 }
 </style>
@@ -277,7 +335,7 @@ footer a:hover{text-decoration:underline}
       <a href="#tecnicas">Técnicas</a>
       <a href="#obra">Obra</a>
       <a href="#encargos">Encargos</a>
-      <a href="#propia">Obra propia</a>
+      <a href="#propia">El taller</a>
       <a href="#contacto">Contacto</a>
       <a class="btn btn-solid" href="#contacto">Encargar una obra</a>
     </nav>
@@ -315,6 +373,62 @@ footer a:hover{text-decoration:underline}
           <span class="stars">Años · 1508–1512</span>
           <small>pintando la bóveda de la Capilla Sixtina, de pie sobre un andamio diseñado para la obra.</small>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="disc" id="disciplinas">
+    <div class="wrap">
+      <div class="disc-head">
+        <span class="script">¿Qué quieres levantar?</span>
+        <h2>Cuatro oficios, una sola mano</h2>
+        <p>Del techo de una capilla a la cúpula de una basílica: cada encargo se piensa desde el oficio que pide.</p>
+      </div>
+      <div class="cards" id="cards">
+        <article class="card" style="--i:0;--bg:#1f2b42;--fg:var(--bone);--acc:#e9a27f;--fx:-2%;--fh:84%;--fhm:44%;--lx:58%;--ly:22%">
+          <a class="ver" href="#obra" data-filter="pintura">Ver obra</a>
+          <span class="num" aria-hidden="true">I</span>
+          <div class="card-txt">
+            <span class="script">Dar forma a la bóveda</span>
+            <h3>Pintura</h3>
+            <p>¿Un muro o una bóveda entera que cuente una historia de punta a punta?</p>
+          </div>
+          <img class="fig" src="miguelangel/sala/c-dios.webp" alt="Dios rodeado de ángeles extiende el brazo, detalle de «La creación de Adán»" loading="lazy">
+          <span class="cuerda" aria-hidden="true"></span>
+        </article>
+        <article class="card" style="--i:1;--bg:#e3dccd;--fg:var(--graphite);--acc:var(--ochre-ink);--fx:14%;--fh:96%;--fhm:56%;--lx:76%;--ly:6%">
+          <a class="ver" href="#encargos">Encargar</a>
+          <span class="num" aria-hidden="true">II</span>
+          <div class="card-txt">
+            <span class="script">Sacar la figura del bloque</span>
+            <h3>Escultura</h3>
+            <p>¿Una figura en mármol que se sostenga sola, a la escala que pida la plaza?</p>
+          </div>
+          <img class="fig" src="miguelangel/sala/c-david.webp" alt="El David de Miguel Ángel, mármol, Galería de la Academia de Florencia" loading="lazy">
+          <span class="cuerda" aria-hidden="true"></span>
+        </article>
+        <article class="card" style="--i:2;--bg:#7a3320;--fg:var(--bone);--acc:#f0c29a;--fx:2%;--fh:90%;--fhm:50%;--lx:72%;--ly:8%">
+          <a class="ver" href="#encargos">Encargar</a>
+          <span class="num" aria-hidden="true">III</span>
+          <div class="card-txt">
+            <span class="script">Proyectar la cúpula</span>
+            <h3>Arquitectura</h3>
+            <p>¿Un edificio que se vea desde toda Roma? La cúpula de San Pedro se cerró en 1590, siguiendo su proyecto.</p>
+          </div>
+          <img class="fig fade" src="miguelangel/sala/c-cupula.webp" alt="La cúpula de la basílica de San Pedro, en el Vaticano" loading="lazy">
+          <span class="cuerda" aria-hidden="true"></span>
+        </article>
+        <article class="card" style="--i:3;--bg:#4f5040;--fg:var(--bone);--acc:#e9a27f;--lx:70%;--ly:10%">
+          <a class="ver" href="#obra" data-filter="dibujo">Ver dibujos</a>
+          <span class="num" aria-hidden="true">IV</span>
+          <div class="card-txt">
+            <span class="script">Estudiar del natural</span>
+            <h3>Dibujo</h3>
+            <p>¿Ver la obra en papel, a sanguina, antes de que se empiece a picar o a pintar?</p>
+          </div>
+          <img class="sheet" src="miguelangel/d-libica.jpg" alt="Estudios a sanguina para la Sibila líbica" loading="lazy">
+          <span class="cuerda" aria-hidden="true"></span>
+        </article>
       </div>
     </div>
   </section>
@@ -429,22 +543,38 @@ footer a:hover{text-decoration:underline}
     </div>
   </section>
 
-  <section class="personal" id="propia">
-    <figure>
-      <img src="miguelangel/p-juicio.jpg" alt="El Juicio Final, fresco del muro del altar de la Capilla Sixtina" loading="lazy">
-      <div class="over">
-        <div class="wrap">
-          <div>
-            <span class="label eyebrow">Obra propia · «El Juicio Final»</span>
-            <h2>Un muro entero para <em>una sola escena</em></h2>
-          </div>
-          <div class="txt">
-            <p>Entre 1536 y 1541 pinté el muro del altar de la Capilla Sixtina: cientos de figuras que giran alrededor de Cristo juez, sin arquitectura que las sostenga.</p>
-            <p>Junto a los encargos, la poesía y el dibujo fueron siempre obra propia: sonetos, madrigales y estudios que nadie pidió.</p>
+  <section class="sala" id="propia">
+    <div class="wrap rasgos">
+      <div class="sec-head rasgos-head">
+        <div>
+          <span class="label eyebrow">El taller</span>
+          <h2>Lo que lo <em>distingue</em></h2>
+        </div>
+        <p>Más de setenta años de oficio, de 1490 a 1564, para los Médici, varios papas y la República de Florencia.</p>
+      </div>
+      <div class="rasgo" style="--bg:#2c3a52;--fg:var(--bone)"><span class="label">01</span><h3>Oficio y estudio</h3><p>disecciones en Santo Spirito · anatomía del natural</p></div>
+      <div class="rasgo" style="--bg:#d9d0bd;--fg:var(--graphite)"><span class="label">02</span><h3>Pintura, escultura y arquitectura</h3><p>la Sixtina, el David y la cúpula de San Pedro</p></div>
+      <div class="rasgo" style="--bg:#e3c49a;--fg:var(--graphite)"><span class="label">03</span><h3>Exigente y personal</h3><p>terribilità · la bóveda casi sin ayudantes</p></div>
+      <div class="rasgo" style="--bg:#7a3320;--fg:var(--bone)"><span class="label">04</span><h3>Un taller fuerte</h3><p>el mármol, elegido en Carrara · un andamio de su invención</p></div>
+    </div>
+    <div class="sala-track" id="sala">
+      <div class="sala-stage">
+        <img class="sala-fondo" src="miguelangel/sala/fondo-juicio.jpg" alt="El Juicio Final, fresco del muro del altar de la Capilla Sixtina" loading="lazy">
+        <div class="lado lado-izq"><img src="miguelangel/sala/lado.webp" alt="" loading="lazy"></div>
+        <div class="lado lado-der"><img src="miguelangel/sala/lado.webp" alt="" loading="lazy"></div>
+        <div class="sala-pie"></div>
+        <a class="sala-boton" id="salaBtn" href="#contacto">Más sobre el taller</a>
+        <div class="sala-txt" id="salaTxt">
+          <div class="wrap">
+            <div>
+              <span class="label">Encargo de Clemente VII y Pablo III · «El Juicio Final» · 1536–1541</span>
+              <h2>Un muro entero para <em>una sola escena</em></h2>
+            </div>
+            <p>Junto a San Pedro, en la Capilla Sixtina, el muro del altar: casi cuatrocientas figuras que giran alrededor de Cristo juez, sin arquitectura que las sostenga.</p>
           </div>
         </div>
       </div>
-    </figure>
+    </div>
   </section>
 
   <section class="sec paper contact" id="contacto">
@@ -463,7 +593,9 @@ footer a:hover{text-decoration:underline}
           <span class="label" style="color:var(--graphite-dim)">O directamente</span>
           <a href="https://wa.me/390550000000" target="_blank" rel="noopener">WhatsApp · +39 055 000 0000</a>
           <a href="mailto:taller@example.com">taller@example.com</a>
-          <span class="demo-note">Datos de ejemplo de esta demo.</span>
+          <span class="dir">Bottega · Via Mozza, Firenze</span>
+          <span class="dir">Casa · Macel de' Corvi, Roma</span>
+          <span class="demo-note">Teléfono y correo de ejemplo. Las direcciones son históricas: el taller de Via Mozza (hoy Via San Zanobi) y la casa de Roma donde murió en 1564, desaparecida.</span>
         </div>
       </div>
       <form id="form" novalidate>
@@ -486,7 +618,8 @@ footer a:hover{text-decoration:underline}
 
 <footer>
   <div class="wrap">
-    <span>Demo de Renueva Smart · Obras de Miguel Ángel Buonarroti (1475–1564), dominio público</span>
+    <span>Demo de Renueva Smart · Obras de Miguel Ángel Buonarroti (1475–1564), dominio público.<br>
+      Fotos: David, Livioandronico2013 (CC BY-SA 4.0) · Cúpula de San Pedro, Staselnik (CC BY-SA 3.0) · Columnata de Bernini, John Samuel (CC BY-SA 4.0), recortadas.</span>
     <nav>
       <a href="https://commons.wikimedia.org/wiki/Category:Michelangelo" target="_blank" rel="noopener">Wikimedia Commons</a>
       <a href="../muestras.html">Más demos</a>
@@ -557,6 +690,49 @@ nav.addEventListener('click',e=>{if(e.target.closest('a')){nav.classList.remove(
   document.querySelectorAll('.count').forEach(el=>co.observe(el));
 })();
 
+/* Tarjetas apiladas y columnata que se abre: todo depende del scroll */
+(function(){
+  const cards=[...document.querySelectorAll('#cards .card')];
+  const sala=document.getElementById('sala'),stage=sala.querySelector('.sala-stage');
+  const izq=stage.querySelector('.lado-izq'),der=stage.querySelector('.lado-der'),fondo=stage.querySelector('.sala-fondo');
+  const btn=document.getElementById('salaBtn'),txt=document.getElementById('salaTxt');
+  const cl=v=>Math.min(1,Math.max(0,v)),inOut=t=>t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2;
+  if(reduce){
+    izq.style.transform='translate3d(-76%,0,0)';der.style.transform='translate3d(76%,0,0)';
+    btn.style.opacity=1;btn.classList.add('on');txt.style.opacity=1;return;
+  }
+  let tops=[];
+  const measure=()=>{tops=cards.map(c=>parseFloat(getComputedStyle(c).top)||0)};
+  let ticking=false;
+  function update(){
+    ticking=false;const H=innerHeight;
+    cards.forEach((c,i)=>{
+      const fig=c.querySelector('.fig,.sheet'),r=c.getBoundingClientRect();
+      // la figura sube mientras la tarjeta llega a su sitio
+      const t=cl((H-r.top)/(H-tops[i]));
+      fig.style.transform=`translate3d(0,${((1-t)*24).toFixed(2)}%,0)`;
+      // la tarjeta se encoge y oscurece cuando la siguiente la tapa
+      const n=cards[i+1];
+      c.style.setProperty('--cov',n?cl((H-n.getBoundingClientRect().top)/(H-tops[i+1])).toFixed(3):0);
+    });
+    const r=sala.getBoundingClientRect(),p=cl(-r.top/(r.height-H));
+    const o=inOut(cl((p-.06)/.6));
+    // abiertas, cada mitad deja asomar solo su borde exterior: el 16% del ancho de pantalla
+    const sc=1+o*.18,tx=o*(izq.offsetWidth*sc-innerWidth*.16);
+    izq.style.transform=`translate3d(${(-tx).toFixed(1)}px,0,0) scale(${sc})`;
+    der.style.transform=`translate3d(${tx.toFixed(1)}px,0,0) scale(${sc})`;
+    fondo.style.transform=`scale(${1.14-o*.14})`;
+    const b=cl((p-.5)/.2);
+    btn.style.opacity=b;btn.style.transform=`scale(${.9+b*.1})`;btn.classList.toggle('on',b>.5);
+    const k=cl((p-.62)/.2);
+    txt.style.opacity=k;txt.style.transform=`translate3d(0,${(1-k)*16}px,0)`;
+  }
+  measure();
+  addEventListener('scroll',()=>{if(!ticking){ticking=true;requestAnimationFrame(update)}},{passive:true});
+  addEventListener('resize',()=>{measure();update()});
+  update();
+})();
+
 /* Acordeón de técnicas */
 (function(){
   const items=[...document.querySelectorAll('#acc .acc-item')];
@@ -580,8 +756,8 @@ const WORKS={
   ],
   dibujo:[
     ['d-libica','Estudios para la Sibila líbica','Sanguina'],['d-cleopatra','Cleopatra','Piedra negra'],['d-haman','Estudio para Amán','Sanguina'],
-    ['d-pie','Estudio de pie para la Sibila líbica','Sanguina'],['d-cabeza','Estudio de cabeza','Dibujo'],['d-ignudo','Estudio para un ignudo','Dibujo'],
-    ['d-panos','Estudio de paños para la Sibila eritrea','Dibujo'],['d-deposicion','Estudio para un Descendimiento','Dibujo']
+    ['d-pie','Estudio de pie para la Sibila líbica','Sanguina'],['d-cabeza','Estudio de cabeza para Leda','Sanguina'],['d-ignudo','Estudio para un ignudo','Sanguina'],
+    ['d-panos','Estudio de paños para la Sibila eritrea','Pincel y aguada'],['d-deposicion','Estudio para un Descendimiento','Sanguina']
   ]
 };
 const grid=document.getElementById('grid'),tabs=[...document.querySelectorAll('.tab')];
