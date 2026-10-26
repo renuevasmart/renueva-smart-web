@@ -1,0 +1,622 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<script src="_volver.js"></script>
+<title>Miguel Ángel · Pintura al fresco, dibujo y encargos</title>
+<meta name="description" content="Demo de Renueva Smart: web de artista con las obras de Miguel Ángel Buonarroti (dominio público). Fresco, dibujo a sanguina y obra por encargo.">
+<meta name="theme-color" content="#1d1915">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Hanken+Grotesk:wght@400;500;600&display=swap">
+<style>
+/* Layout: la bóveda en dos materias. Arriba el revoque (intonaco) del fresco; las secciones oscuras son el negro de vid.
+   Las cartelas van en mayúsculas romanas, como las placas de las sibilas. Un solo acento: la sinopia, el rojo del dibujo preparatorio. */
+:root{
+  --umber:#1d1915;      /* negro de vid */
+  --umber-2:#28221d;
+  --umber-line:#3d342c;
+  --bone:#f0e9dd;
+  --bone-dim:#b8ab98;
+  --paper:#ece5d8;      /* intonaco */
+  --paper-2:#e0d8c8;
+  --graphite:#221d19;
+  --graphite-dim:#6a5f53;
+  --ochre:#d0603f;      /* sinopia */
+  --ochre-ink:#9a3d25;
+  --plaster:#c9c2ad;    /* revoque de «La creación de Adán» */
+  --f-display:"EB Garamond",Garamond,"Times New Roman",serif;
+  --f-roman:"Cinzel","Trajan Pro",Georgia,serif;
+  --f-body:"Hanken Grotesk",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:var(--f-roman);
+  --ease-out:cubic-bezier(.23,1,.32,1);
+  --wrap:1240px;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--umber);color:var(--bone);font:400 17px/1.6 var(--f-body);-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--umber)}
+img{display:block;max-width:100%}
+a{color:inherit}
+h1,h2,h3{font-family:var(--f-display);font-weight:400;text-wrap:balance;margin:0;line-height:1.05}
+p{margin:0}
+.wrap{max-width:var(--wrap);margin-inline:auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+@media (min-width:760px){.wrap{padding-left:max(40px,env(safe-area-inset-left,0px));padding-right:max(40px,env(safe-area-inset-right,0px))}}
+.label{font:500 11.5px/1.3 var(--f-mono);letter-spacing:.16em;text-transform:uppercase}
+:focus-visible{outline:2px solid var(--ochre);outline-offset:3px}
+
+/* Botones */
+.btn{display:inline-flex;align-items:center;gap:.6em;padding:.95em 1.5em;border-radius:2px;font:600 15px/1 var(--f-body);text-decoration:none;border:1px solid transparent;cursor:pointer;transition:transform 160ms var(--ease-out),background-color 200ms ease,color 200ms ease,border-color 200ms ease}
+.btn:active{transform:scale(.97)}
+.btn-solid{background:var(--ochre);color:var(--umber)}
+.btn-line{border-color:currentColor;color:inherit;background:transparent}
+@media (hover:hover) and (pointer:fine){
+  .btn-solid:hover{background:#dd7454}
+  .btn-line:hover{background:var(--bone);color:var(--umber);border-color:var(--bone)}
+}
+
+/* Cabecera */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:color-mix(in srgb,var(--umber) 90%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--umber-line)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:24px;padding-block:14px}
+.brand{display:flex;flex-direction:column;text-decoration:none;line-height:1.1}
+.brand b{font:500 21px/1 var(--f-roman);letter-spacing:.06em}
+.brand span{font:italic 400 15px/1.2 var(--f-display);color:var(--bone-dim);margin-top:4px}
+.nav{display:flex;gap:28px;align-items:center}
+.nav a{text-decoration:none;font-size:14.5px;color:var(--bone-dim);transition:color 200ms ease}
+.nav a:hover{color:var(--bone)}
+.nav .btn{padding:.7em 1.1em;font-size:14px;color:var(--umber)}
+.menu-btn{display:none;background:none;border:1px solid var(--umber-line);color:var(--bone);border-radius:2px;padding:9px 12px;font:500 12px var(--f-mono);letter-spacing:.12em;text-transform:uppercase;cursor:pointer}
+@media (max-width:900px){
+  .menu-btn{display:block}
+  .nav{position:absolute;top:100%;left:0;right:0;flex-direction:column;align-items:stretch;gap:0;background:var(--umber);border-bottom:1px solid var(--umber-line);padding:8px max(16px,env(safe-area-inset-right,0px)) 18px max(16px,env(safe-area-inset-left,0px));
+    opacity:0;transform:translateY(-6px);pointer-events:none;transition:opacity 180ms var(--ease-out),transform 180ms var(--ease-out)}
+  .nav.open{opacity:1;transform:none;pointer-events:auto}
+  .nav a{padding:13px 0;border-bottom:1px solid var(--umber-line);font-size:16px}
+  .nav .btn{margin-top:14px;justify-content:center;border-bottom:0}
+}
+
+/* Escena en capas: «La creación de Adán» separada en revoque, Adán con su colina y Dios con su manto.
+   Al hacer scroll el revoque se queda atrás, el nombre se hunde tras Adán y Dios avanza. */
+.scene{position:relative;background:var(--umber)}
+.stage{position:relative;height:calc(100vh - 77px);height:calc(100svh - 77px);min-height:540px;overflow:hidden;background:var(--plaster)}
+.layer{position:absolute;inset:-4% 0 0 0;width:100%;height:104%;object-fit:cover;object-position:42% 30%;pointer-events:none;will-change:transform;max-width:none}
+.title-wrap{position:absolute;left:6%;top:6%;will-change:transform;pointer-events:none}
+.scene h1{font:500 clamp(48px,6.6vw,132px)/.9 var(--f-roman);letter-spacing:.02em;color:var(--graphite)}
+.scene h1 span{display:block}
+.scene h1 em{display:block;font:italic 400 .3em/1.2 var(--f-display);letter-spacing:0;margin-top:.35em;color:var(--ochre-ink);white-space:nowrap}
+.seal{position:absolute;left:43%;top:66%;width:clamp(108px,10vw,150px);aspect-ratio:1;border-radius:50%;background:var(--ochre-ink);color:var(--bone);
+  display:grid;place-items:center;text-align:center;text-decoration:none;font:600 clamp(11px,.95vw,13.5px)/1.25 var(--f-roman);letter-spacing:.08em;text-transform:uppercase;
+  box-shadow:0 0 0 6px color-mix(in srgb,var(--ochre-ink) 25%,transparent);will-change:transform;padding:14px;rotate:-8deg;transition:scale 160ms var(--ease-out)}
+.seal:active{scale:.97}
+.melt{position:absolute;inset:auto 0 0 0;height:22%;background:linear-gradient(to bottom,rgba(29,25,21,0) 0%,rgba(29,25,21,.6) 55%,var(--umber) 100%);z-index:3;pointer-events:none}
+.stage-cartela{position:absolute;right:max(16px,env(safe-area-inset-right,0px));bottom:22px;z-index:5;color:rgba(240,233,221,.85)}
+.scroll-hint{position:absolute;left:50%;bottom:22px;translate:-50% 0;z-index:5;color:var(--bone)}
+@media (max-width:760px){
+  .layer{object-position:36% 30%}
+  .title-wrap{top:auto!important;left:0!important;bottom:8%;right:0;text-align:center;z-index:4;padding-inline:16px}
+  .scene h1{font-size:clamp(44px,13vw,64px);color:var(--bone)}
+  .scene h1 em{color:#f3b9a4;font-size:.36em}
+  .melt{height:42%}
+  .stage-cartela{display:none}
+}
+/* Intro */
+.intro{padding-block:72px 40px}
+.intro .wrap{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:56px;align-items:end}
+.intro-copy{display:flex;flex-direction:column;gap:24px;min-width:0}
+.intro h2{font-size:clamp(36px,4.6vw,62px);letter-spacing:-.01em;font-weight:500}
+.intro h2 em{font-style:italic;font-weight:400}
+.hero-lede{max-width:54ch;color:var(--bone-dim);font-size:18px}
+.hero-lede strong{color:var(--bone);font-weight:500}
+.hero-cta{display:flex;flex-wrap:wrap;gap:12px}
+.rating{display:flex;align-items:center;gap:18px;padding-top:22px;border-top:1px solid var(--umber-line)}
+.rating .score{font:500 64px/1 var(--f-roman);font-variant-numeric:tabular-nums;color:var(--ochre)}
+.rating .stars{display:block;font:500 13px/1.3 var(--f-roman);letter-spacing:.14em;color:var(--bone)}
+.rating small{display:block;color:var(--bone-dim);font-size:14.5px;margin-top:4px}
+@media (max-width:900px){.intro .wrap{grid-template-columns:1fr;gap:32px}}
+
+/* Secciones */
+section{scroll-margin-top:80px}
+.sec{padding-block:96px}
+.sec-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:end;gap:20px 40px;margin-bottom:48px}
+.sec-head h2{font-size:clamp(40px,5.2vw,68px);letter-spacing:-.01em;font-weight:500}
+.sec-head h2 em{font-style:italic;font-weight:400}
+.sec-head p{max-width:46ch;color:var(--bone-dim)}
+.eyebrow{color:var(--ochre);margin-bottom:16px;display:block}
+@media (max-width:760px){.sec{padding-block:64px}.sec-head{margin-bottom:32px}}
+
+/* Técnicas: acordeón */
+.acc{display:flex;gap:12px;height:620px}
+.acc-item{position:relative;flex:1;min-width:0;overflow:hidden;border:0;padding:0;margin:0;cursor:pointer;text-align:left;color:var(--bone);background:var(--umber-2);font:inherit;transition:flex .7s cubic-bezier(.2,.8,.2,1)}
+.acc-item.active{flex:3.6;cursor:default}
+.acc-item img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 45%;transition:filter .6s ease}
+.acc-item:not(.active) img{filter:brightness(.55) saturate(.8)}
+.acc-item::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(22,18,15,.94) 0%,rgba(22,18,15,.55) 40%,rgba(22,18,15,0) 66%)}
+.acc-cap{position:absolute;z-index:1;left:0;right:0;bottom:0;padding:32px;display:flex;flex-direction:column;gap:14px}
+.acc-cap h3{font:500 40px/1 var(--f-roman);letter-spacing:.04em;white-space:nowrap}
+.acc-cap .body{display:flex;flex-direction:column;gap:12px;max-width:54ch;color:#e6dccd;opacity:0;transform:translateY(8px);transition:opacity .3s ease,transform .4s var(--ease-out)}
+.acc-item.active .acc-cap .body{opacity:1;transform:none;transition-delay:.35s}
+.acc-cap .body p:first-child{font:italic 400 24px/1.3 var(--f-display);color:var(--bone)}
+.acc-cap .more{color:var(--ochre);font-weight:600;text-decoration:none;font-size:15px;margin-top:4px}
+.acc-item:not(.active) .acc-cap h3{writing-mode:vertical-rl;transform:rotate(180deg);font-size:32px}
+.acc-item:not(.active) .acc-cap .body{position:absolute;visibility:hidden}
+.acc-item .label{color:var(--ochre)}
+@media (max-width:760px){
+  .acc{flex-direction:column;height:auto}
+  .acc-item,.acc-item.active{flex:none;min-height:440px;cursor:default}
+  .acc-item:not(.active) img{filter:none}
+  .acc-item:not(.active) .acc-cap h3{writing-mode:horizontal-tb;transform:none;font-size:34px}
+  .acc-item:not(.active) .acc-cap .body,.acc-cap .body{position:static;visibility:visible;opacity:1;transform:none}
+  .acc-cap{padding:24px}
+}
+
+/* Galería sobre el revoque */
+.paper{background:var(--paper);color:var(--graphite);color-scheme:light}
+.paper .sec-head p{color:var(--graphite-dim)}
+.paper .eyebrow{color:var(--ochre-ink)}
+.tabs{display:inline-flex;border:1px solid var(--graphite);border-radius:2px;padding:3px;gap:3px}
+.tab{appearance:none;border:0;background:transparent;color:var(--graphite);font:500 12px/1 var(--f-mono);letter-spacing:.14em;text-transform:uppercase;padding:12px 18px;border-radius:1px;cursor:pointer;transition:background-color 200ms ease,color 200ms ease,transform 160ms var(--ease-out)}
+.tab:active{transform:scale(.97)}
+.tab[aria-selected="true"]{background:var(--graphite);color:var(--paper)}
+.tab .n{opacity:.6;margin-left:6px;font-variant-numeric:tabular-nums}
+.grid{columns:3 280px;column-gap:20px;transition:opacity 220ms ease}
+.grid.fading{opacity:0;transition:opacity 160ms ease}
+.work{break-inside:avoid;margin:0 0 28px;cursor:zoom-in;display:block;width:100%;padding:0;border:0;background:none;text-align:left;color:inherit;font:inherit}
+.work .img{overflow:hidden;background:var(--paper-2)}
+.work img{width:100%;height:auto;transition:transform .6s var(--ease-out)}
+@media (hover:hover) and (pointer:fine){.work:hover img{transform:scale(1.025)}}
+.cartela{display:flex;justify-content:space-between;gap:12px;margin-top:10px}
+.work .cartela{color:var(--graphite-dim)}
+.gal-foot{display:flex;flex-wrap:wrap;gap:16px 28px;align-items:center;justify-content:space-between;border-top:1px solid #cfc6b4;padding-top:28px;margin-top:12px}
+.gal-foot p{color:var(--graphite-dim);max-width:62ch}
+.gal-foot a:not(.btn){color:var(--ochre-ink)}
+.paper .btn-line:hover{background:var(--graphite);color:var(--paper);border-color:var(--graphite)}
+
+/* Lightbox */
+dialog.lb{border:0;padding:0;background:transparent;max-width:min(92vw,1100px);max-height:92vh;color:var(--bone);opacity:0;transform:scale(.96);transition:opacity 200ms var(--ease-out),transform 200ms var(--ease-out),overlay 200ms allow-discrete,display 200ms allow-discrete}
+dialog.lb[open]{opacity:1;transform:none}
+@starting-style{dialog.lb[open]{opacity:0;transform:scale(.96)}}
+dialog.lb::backdrop{background:rgba(14,11,9,.9)}
+dialog.lb img{max-height:82vh;width:auto;max-width:100%;margin-inline:auto}
+dialog.lb .cartela{color:var(--bone-dim);justify-content:center}
+dialog.lb .close{position:fixed;top:calc(16px + env(safe-area-inset-top,0px));right:calc(16px + env(safe-area-inset-right,0px));background:var(--umber-2);color:var(--bone);border:1px solid var(--umber-line);border-radius:2px;padding:10px 14px;font:500 12px var(--f-mono);letter-spacing:.12em;text-transform:uppercase;cursor:pointer}
+
+/* Encargos */
+.enc .wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:72px}
+.enc-intro{display:flex;flex-direction:column;gap:22px}
+.enc-intro h2{font-size:clamp(40px,5.2vw,68px);letter-spacing:-.01em;font-weight:500}
+.enc-intro h2 em{font-style:italic;font-weight:400}
+.enc-intro p{color:var(--bone-dim);max-width:50ch}
+.kinds{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px;padding:0;list-style:none}
+.kinds li{border:1px solid var(--umber-line);padding:8px 13px;font-size:14.5px;border-radius:2px;color:var(--bone)}
+.enc-img{margin:12px 0 0}
+.enc-img img{width:100%;aspect-ratio:4/3;object-fit:cover;object-position:50% 25%}
+.enc-img .cartela{color:var(--bone-dim)}
+.steps{list-style:none;margin:0;padding:0;counter-reset:s;display:flex;flex-direction:column}
+.steps li{counter-increment:s;display:grid;grid-template-columns:64px minmax(0,1fr);gap:20px;padding-block:24px;border-top:1px solid var(--umber-line)}
+.steps li:last-child{border-bottom:1px solid var(--umber-line)}
+.steps li::before{content:counter(s,upper-roman);font:500 26px/1 var(--f-roman);color:var(--ochre);padding-top:2px}
+.steps h3{font:500 20px/1.3 var(--f-body);margin-bottom:6px}
+.steps p{color:var(--bone-dim);font-size:16px}
+.price{margin-top:40px;background:var(--umber-2);border:1px solid var(--umber-line);padding:32px;display:flex;flex-direction:column;gap:18px}
+.price h3{font-size:32px;font-style:italic}
+.price p{color:var(--bone-dim)}
+.factors{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;background:var(--umber-line);border:1px solid var(--umber-line);margin:4px 0}
+.factors div{background:var(--umber-2);padding:14px 16px;font-size:15px}
+.factors .label{display:block;color:var(--ochre);margin-bottom:4px;font-size:10.5px}
+.factors small{display:block;color:var(--bone-dim);font-size:13px;margin-top:2px}
+@media (max-width:900px){.enc .wrap{grid-template-columns:1fr;gap:48px}}
+
+/* Obra propia */
+.personal{position:relative;background:#120f0c}
+.personal figure{margin:0;position:relative}
+.personal img{width:100%;height:min(80vh,780px);object-fit:cover;object-position:50% 22%}
+.personal .over{position:absolute;inset:auto 0 0 0;background:linear-gradient(to top,rgba(18,15,12,.96),rgba(18,15,12,0));padding-block:160px 56px}
+.personal .over .wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:48px;align-items:end}
+.personal h2{font-size:clamp(42px,5.6vw,76px);font-weight:500;letter-spacing:-.01em}
+.personal h2 em{font-style:italic;font-weight:400}
+.personal .txt{display:flex;flex-direction:column;gap:14px;color:#ddd2c3;max-width:52ch}
+@media (max-width:900px){
+  .personal img{height:440px}
+  .personal .over{position:static;background:#120f0c;padding-block:40px 64px}
+  .personal .over .wrap{grid-template-columns:1fr;gap:20px}
+}
+
+/* Contacto */
+.contact .wrap{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:72px}
+.contact h2{font-size:clamp(40px,5.2vw,68px);font-weight:500;letter-spacing:-.01em}
+.contact h2 em{font-style:italic;font-weight:400}
+.c-copy{display:flex;flex-direction:column;gap:20px}
+.c-copy>p{color:var(--graphite-dim);max-width:50ch}
+.send{list-style:none;padding:0;margin:8px 0 0;display:flex;flex-direction:column;border-top:1px solid #cfc6b4}
+.send li{padding:12px 0;border-bottom:1px solid #cfc6b4;display:flex;gap:14px;align-items:baseline}
+.send li .label{color:var(--ochre-ink);min-width:32px}
+.direct{display:flex;flex-direction:column;gap:6px;margin-top:8px}
+.direct a{font:italic 500 22px/1.3 var(--f-display);text-decoration:none}
+.direct a:hover{text-decoration:underline;text-underline-offset:4px}
+.demo-note{font-size:13.5px;color:var(--graphite-dim)}
+form{display:flex;flex-direction:column;gap:18px;background:#f5f0e7;border:1px solid #d9cfbd;padding:32px}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.field{display:flex;flex-direction:column;gap:7px;min-width:0}
+.field label{color:var(--graphite-dim)}
+.field input,.field textarea{font:400 16px/1.4 var(--f-body);color:var(--graphite);background:var(--paper);border:1px solid #cbc0ac;border-radius:2px;padding:12px 14px;transition:border-color 160ms ease}
+.field input:focus,.field textarea:focus{outline:none;border-color:var(--graphite)}
+.field textarea{min-height:130px;resize:vertical}
+.drop{position:relative;border:1px dashed #a3978a;border-radius:2px;padding:20px;text-align:center;color:var(--graphite-dim);font-size:15px;cursor:pointer;transition:border-color 160ms ease,background-color 160ms ease}
+.drop:hover,.drop.over{border-color:var(--graphite);background:var(--paper)}
+.drop input{position:absolute;opacity:0;width:1px;height:1px}
+.drop strong{color:var(--graphite);text-decoration:underline;text-underline-offset:3px}
+.paper .btn-solid{background:var(--graphite);color:var(--paper)}
+.paper .btn-solid:hover{background:#000}
+.form-note{font-size:14px;color:var(--graphite-dim);min-height:1.4em}
+@media (max-width:900px){.contact .wrap{grid-template-columns:1fr;gap:40px}.row{grid-template-columns:1fr}form{padding:22px}}
+
+/* Pie */
+footer{background:var(--paper);color:var(--graphite-dim);border-top:1px solid #cfc6b4;padding-bottom:60px}
+footer .wrap{display:flex;flex-wrap:wrap;gap:16px 32px;justify-content:space-between;align-items:center;padding-block:28px}
+footer nav{display:flex;flex-wrap:wrap;gap:22px}
+footer a{text-decoration:none;color:var(--graphite)}
+footer a:hover{text-decoration:underline}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .acc-item,.acc-item img,.acc-cap .body,.work img{transition:none}
+  dialog.lb{transition:opacity 150ms ease;transform:none}
+}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#inicio"><b>Miguel Ángel</b><span>Buonarroti · Florencia y Roma</span></a>
+    <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="nav">Menú</button>
+    <nav class="nav" id="nav">
+      <a href="#tecnicas">Técnicas</a>
+      <a href="#obra">Obra</a>
+      <a href="#encargos">Encargos</a>
+      <a href="#propia">Obra propia</a>
+      <a href="#contacto">Contacto</a>
+      <a class="btn btn-solid" href="#contacto">Encargar una obra</a>
+    </nav>
+  </div>
+</header>
+
+<main id="inicio">
+  <section class="scene" id="escena" aria-label="La creación de Adán, fresco de Miguel Ángel">
+    <div class="stage">
+      <img class="layer l-plaster" src="miguelangel/capas/l0-revoque.webp" alt="" fetchpriority="high">
+      <div class="title-wrap" id="ttl"><h1><span>Miguel</span><span>Ángel</span><em>pintura, escultura y dibujo</em></h1></div>
+      <a class="seal" id="seal" href="#contacto">Encargue su obra</a>
+      <img class="layer l-adan" src="miguelangel/capas/l1-adan.webp" alt="Adán recostado sobre la colina tiende la mano">
+      <img class="layer l-dios" src="miguelangel/capas/l2-dios.webp" alt="Dios, envuelto en su manto rojo, extiende el dedo hacia Adán">
+      <div class="melt"></div>
+      <span class="stage-cartela label">«La creación de Adán» · Fresco · h. 1511</span>
+      <span class="scroll-hint label" id="hint">Baja</span>
+    </div>
+  </section>
+
+  <section class="intro">
+    <div class="wrap">
+      <div class="intro-copy">
+        <span class="label" style="color:var(--ochre)">Fresco, tabla y sanguina · Florencia y Roma</span>
+        <h2>Obra monumental, pintada <em>jornada a jornada</em></h2>
+        <p class="hero-lede">El fresco se pinta sobre el revoque aún húmedo, así que cada día se prepara solo la superficie que da tiempo a terminar. Así está hecha la escena que acabas de recorrer. <strong>Del boceto a sanguina al andamio, cada obra se plantea para el lugar donde va a vivir.</strong></p>
+        <div class="hero-cta">
+          <a class="btn btn-solid" href="#contacto">Encargar una obra</a>
+          <a class="btn btn-line" href="#obra">Ver obra</a>
+        </div>
+      </div>
+      <div class="rating">
+        <span class="score"><span class="count" data-to="4" data-dec="0">4</span></span>
+        <div>
+          <span class="stars">Años · 1508–1512</span>
+          <small>pintando la bóveda de la Capilla Sixtina, de pie sobre un andamio diseñado para la obra.</small>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="tecnicas" style="padding-top:40px">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <span class="label eyebrow">Tres maneras de trabajar</span>
+          <h2>La materia <em>decide</em> la obra</h2>
+        </div>
+        <p>Cada técnica se elige según el lugar, la escala y el tiempo de que se dispone.</p>
+      </div>
+      <div class="acc" id="acc">
+        <div class="acc-item active" tabindex="0" role="button" aria-expanded="true">
+          <img src="miguelangel/p-delfica.jpg" alt="Sibila délfica, fresco de la bóveda de la Capilla Sixtina" loading="lazy">
+          <div class="acc-cap">
+            <span class="label">Pintura mural</span>
+            <h3>Fresco</h3>
+            <div class="body">
+              <p>El fresco no admite arrepentimientos.</p>
+              <p>El color entra en el revoque mientras está húmedo y queda fijado para siempre. Por eso cada jornada se prepara solo el trozo de muro que da tiempo a pintar antes de que seque.</p>
+              <a class="more" href="#obra" data-filter="pintura">Ver pintura →</a>
+            </div>
+          </div>
+        </div>
+        <div class="acc-item" tabindex="0" role="button" aria-expanded="false">
+          <img src="miguelangel/d-libica.jpg" alt="Estudios a sanguina para la Sibila líbica" loading="lazy">
+          <div class="acc-cap">
+            <span class="label">Sanguina y piedra negra</span>
+            <h3>Dibujo</h3>
+            <div class="body">
+              <p>Antes de subir al andamio, la figura se estudia en papel.</p>
+              <p>Un pie, una espalda, los pliegues de un manto: cada pose se dibuja del natural hasta entenderla. Muchos de estos estudios se conservan hoy en museos de todo el mundo.</p>
+              <a class="more" href="#obra" data-filter="dibujo">Ver dibujos →</a>
+            </div>
+          </div>
+        </div>
+        <div class="acc-item" tabindex="0" role="button" aria-expanded="false">
+          <img src="miguelangel/p-doni.jpg" alt="Tondo Doni, la Sagrada Familia en tabla circular con su marco dorado" loading="lazy">
+          <div class="acc-cap">
+            <span class="label">Por encargo</span>
+            <h3>Encargo</h3>
+            <div class="body">
+              <p>El Tondo Doni se pintó para la casa de Agnolo Doni, en Florencia.</p>
+              <p>Capillas, retablos, tablas para una casa o un sepulcro entero. Cada encargo empieza por entender para quién se hace la obra y dónde se va a mirar.</p>
+              <a class="more" href="#encargos">Cómo encargar →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec paper" id="obra">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <span class="label eyebrow">Galería</span>
+          <h2>Obra <em>escogida</em></h2>
+        </div>
+        <div class="tabs" role="tablist" aria-label="Filtrar por técnica">
+          <button class="tab" role="tab" aria-selected="true" data-f="pintura" id="tab-pintura">Pintura<span class="n"></span></button>
+          <button class="tab" role="tab" aria-selected="false" data-f="dibujo" id="tab-dibujo">Dibujo<span class="n"></span></button>
+        </div>
+      </div>
+      <div class="grid" id="grid" role="tabpanel"></div>
+      <div class="gal-foot">
+        <p>Las obras se conservan en la Capilla Sixtina, los Uffizi, la National Gallery y otros museos. Reproducciones de dominio público vía <a href="https://commons.wikimedia.org/wiki/Category:Michelangelo" target="_blank" rel="noopener">Wikimedia Commons</a>.</p>
+        <a class="btn btn-line" href="#contacto">Preguntar por un encargo</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec enc" id="encargos">
+    <div class="wrap">
+      <div class="enc-intro">
+        <span class="label eyebrow" style="margin-bottom:0">Obra por encargo</span>
+        <h2>Una obra pensada para <em>durar siglos</em></h2>
+        <p>Papas, banqueros y familias florentinas encargaron capillas, retablos y tablas para sus casas. Cada proyecto se plantea a medida: el lugar, la luz que recibe y quién la va a mirar.</p>
+        <ul class="kinds">
+          <li>Frescos murales</li><li>Retablos</li><li>Tondos para casas</li><li>Escultura en mármol</li>
+          <li>Sepulcros</li><li>Arquitectura</li><li>Dibujos de presentación</li><li>Proyectos a medida</li>
+        </ul>
+        <figure class="enc-img">
+          <img src="miguelangel/p-manchester.jpg" alt="Virgen con el Niño, san Juan y ángeles, conocida como la Virgen de Manchester" loading="lazy">
+          <figcaption class="cartela label"><span>Virgen de Manchester · temple sobre tabla</span><span>Inacabada</span></figcaption>
+        </figure>
+      </div>
+      <div>
+        <ol class="steps">
+          <li><div><h3>Visito el lugar</h3><p>Antes de proponer nada veo el muro, la capilla o la sala: la luz, la altura y desde dónde se mirará la obra.</p></div></li>
+          <li><div><h3>Dibujos y cartones</h3><p>Preparo estudios a sanguina y un cartón a tamaño real para trasladar la composición al muro o a la tabla.</p></div></li>
+          <li><div><h3>Propuesta y presupuesto</h3><p>Con los dibujos delante acordamos tema, figuras, materiales y plazos.</p></div></li>
+          <li><div><h3>Ejecución</h3><p>En el fresco, jornada a jornada sobre el revoque húmedo. En tabla, por capas de temple u óleo.</p></div></li>
+          <li><div><h3>Se retira el andamio</h3><p>La obra se descubre en su sitio, terminada y lista para quedarse.</p></div></li>
+        </ol>
+        <div class="price" id="precio">
+          <span class="label" style="color:var(--ochre)">Precio de un encargo</span>
+          <h3>Cada obra se presupuesta aparte</h3>
+          <p>El precio depende de varios factores. Envíame fotos o planos del lugar y una idea del tema, y te respondo con una propuesta.</p>
+          <div class="factors">
+            <div><span class="label">I</span>Superficie a pintar</div>
+            <div><span class="label">II</span>Número de figuras</div>
+            <div><span class="label">III</span>Pigmentos<small>El azul de lapislázuli es el más caro</small></div>
+            <div><span class="label">IV</span>Andamiaje</div>
+            <div><span class="label">V</span>Plazo de entrega</div>
+          </div>
+          <div><a class="btn btn-solid" href="#contacto">Solicitar presupuesto</a></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="personal" id="propia">
+    <figure>
+      <img src="miguelangel/p-juicio.jpg" alt="El Juicio Final, fresco del muro del altar de la Capilla Sixtina" loading="lazy">
+      <div class="over">
+        <div class="wrap">
+          <div>
+            <span class="label eyebrow">Obra propia · «El Juicio Final»</span>
+            <h2>Un muro entero para <em>una sola escena</em></h2>
+          </div>
+          <div class="txt">
+            <p>Entre 1536 y 1541 pinté el muro del altar de la Capilla Sixtina: cientos de figuras que giran alrededor de Cristo juez, sin arquitectura que las sostenga.</p>
+            <p>Junto a los encargos, la poesía y el dibujo fueron siempre obra propia: sonetos, madrigales y estudios que nadie pidió.</p>
+          </div>
+        </div>
+      </div>
+    </figure>
+  </section>
+
+  <section class="sec paper contact" id="contacto">
+    <div class="wrap">
+      <div class="c-copy">
+        <span class="label eyebrow" style="margin-bottom:0">Contacto</span>
+        <h2>Cuéntame tu <em>proyecto</em></h2>
+        <p>Si estás pensando en una obra por encargo, escríbeme sin compromiso. Respondo personalmente para valorar el proyecto contigo.</p>
+        <ul class="send">
+          <li><span class="label">i</span>Fotos o planos del lugar</li>
+          <li><span class="label">ii</span>Medidas del muro, la tabla o el bloque</li>
+          <li><span class="label">iii</span>El tema y las figuras que imaginas</li>
+          <li><span class="label">iv</span>El plazo que tienes en mente</li>
+        </ul>
+        <div class="direct">
+          <span class="label" style="color:var(--graphite-dim)">O directamente</span>
+          <a href="https://wa.me/390550000000" target="_blank" rel="noopener">WhatsApp · +39 055 000 0000</a>
+          <a href="mailto:taller@example.com">taller@example.com</a>
+          <span class="demo-note">Datos de ejemplo de esta demo.</span>
+        </div>
+      </div>
+      <form id="form" novalidate>
+        <div class="row">
+          <div class="field"><label class="label" for="f-nombre">Tu nombre</label><input id="f-nombre" name="nombre" autocomplete="name" required></div>
+          <div class="field"><label class="label" for="f-email">Tu correo</label><input id="f-email" name="email" type="email" autocomplete="email" required></div>
+        </div>
+        <div class="field"><label class="label" for="f-asunto">Qué te gustaría encargar</label><input id="f-asunto" name="asunto" placeholder="Fresco para la capilla familiar, 4 × 6 m"></div>
+        <div class="field"><label class="label" for="f-msg">Tu mensaje (opcional)</label><textarea id="f-msg" name="mensaje"></textarea></div>
+        <label class="drop" id="drop" for="f-fotos">
+          <input id="f-fotos" type="file" accept="image/*,application/pdf" multiple>
+          <span id="dropTxt">Arrastra aquí fotos o planos del lugar o <strong>elígelos</strong></span>
+        </label>
+        <div><button class="btn btn-solid" type="submit">Enviar consulta</button></div>
+        <p class="form-note" id="formNote" aria-live="polite"></p>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Demo de Renueva Smart · Obras de Miguel Ángel Buonarroti (1475–1564), dominio público</span>
+    <nav>
+      <a href="https://commons.wikimedia.org/wiki/Category:Michelangelo" target="_blank" rel="noopener">Wikimedia Commons</a>
+      <a href="../muestras.html">Más demos</a>
+    </nav>
+  </div>
+</footer>
+
+<dialog class="lb" id="lb">
+  <button class="close" id="lbClose">Cerrar</button>
+  <img id="lbImg" alt="">
+  <p class="cartela label" id="lbCap"></p>
+</dialog>
+
+<script>
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* Menú móvil */
+const menuBtn=document.getElementById('menuBtn'), nav=document.getElementById('nav');
+menuBtn.addEventListener('click',()=>{const o=nav.classList.toggle('open');menuBtn.setAttribute('aria-expanded',o)});
+nav.addEventListener('click',e=>{if(e.target.closest('a')){nav.classList.remove('open');menuBtn.setAttribute('aria-expanded','false')}});
+
+/* Escena en capas (parallax al scroll): el revoque se queda atrás, el nombre se hunde tras Adán y Dios avanza */
+(function(){
+  const scene=document.getElementById('escena'); if(!scene) return;
+  const q=s=>scene.querySelector(s);
+  const ttl=document.getElementById('ttl'),seal=document.getElementById('seal'),hint=document.getElementById('hint'),stage=q('.stage');
+  // desplazamiento de cada capa por cada píxel de scroll (positivo = se queda atrás)
+  const L=[[q('.l-plaster'),.45],[ttl,.6],[seal,.12],[q('.l-adan'),.2],[q('.l-dios'),-.06]];
+  // El fresco mide 2400×1088 y se encuadra con object-position 42% 30% (36% en móvil, para centrar las manos).
+  // Revoque libre para el nombre: x .14–.48, y .04–.34. Hueco bajo las manos para el sello: x≈.50, y≈.60.
+  const IW=2400,IH=1088;
+  function place(){
+    const W=stage.clientWidth,H=stage.clientHeight,bh=H*1.04,top0=-H*.04,mob=innerWidth<=760;
+    const k=Math.max(W/IW,bh/IH),iw=IW*k,ih=IH*k,left=(W-iw)*(mob?.36:.42),top=top0+(bh-ih)*.3;
+    seal.style.left=(left+(mob?.435:.5)*iw-seal.offsetWidth/2)+'px';
+    seal.style.top=(top+.6*ih)+'px';
+    if(!mob){
+      ttl.style.left=Math.max(16,left+.165*iw)+'px';
+      ttl.style.top=Math.max(16,top+.05*ih)+'px';
+    }
+  }
+  place(); document.fonts&&document.fonts.ready.then(place); addEventListener('resize',place);
+  if(reduce) return;
+  // entrada: Adán y Dios se buscan desde los lados; el nombre baja a su sitio
+  [[ttl,0,'0 -24px'],[q('.l-adan'),80,'-56px 0'],[q('.l-dios'),80,'56px 0']].forEach(([el,d,from])=>{
+    el.animate([{translate:from},{translate:'0 0'}],{duration:1300,delay:d,easing:'cubic-bezier(.23,1,.32,1)',fill:'backwards'});
+  });
+  let ticking=false;
+  function update(){
+    ticking=false;
+    const r=scene.getBoundingClientRect();
+    const y=Math.min(r.height,Math.max(0,-r.top));
+    for(const [el,k] of L) el.style.transform=`translate3d(0,${(y*k).toFixed(1)}px,0)`;
+    hint.style.opacity=1-Math.min(1,y/120);
+  }
+  addEventListener('scroll',()=>{if(!ticking){ticking=true;requestAnimationFrame(update)}},{passive:true});
+  addEventListener('resize',update);
+  update();
+})();
+
+/* Count-up */
+(function(){
+  const co=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return;co.unobserve(e.target);
+    const el=e.target,to=+el.dataset.to;if(reduce){el.textContent=to;return}
+    const t0=performance.now(),dur=1400;
+    const step=t=>{const k=Math.min(1,(t-t0)/dur);el.textContent=Math.round(to*(1-Math.pow(1-k,3)));if(k<1)requestAnimationFrame(step)};
+    requestAnimationFrame(step)}),{threshold:.6});
+  document.querySelectorAll('.count').forEach(el=>co.observe(el));
+})();
+
+/* Acordeón de técnicas */
+(function(){
+  const items=[...document.querySelectorAll('#acc .acc-item')];
+  const act=it=>items.forEach(i=>{const on=i===it;i.classList.toggle('active',on);i.setAttribute('aria-expanded',on)});
+  const hov=matchMedia('(hover:hover) and (pointer:fine)').matches;
+  items.forEach(it=>{
+    if(hov) it.addEventListener('mouseenter',()=>act(it));
+    it.addEventListener('click',()=>act(it));
+    it.addEventListener('focus',()=>act(it));
+    it.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();act(it)}});
+  });
+})();
+
+/* Galería */
+const WORKS={
+  pintura:[
+    ['p-delfica','Sibila délfica','Fresco · Sixtina'],['p-libica','Sibila líbica','Fresco · Sixtina'],['p-doni','Tondo Doni','Temple sobre tabla'],
+    ['p-jeremias','Profeta Jeremías','Fresco · Sixtina'],['p-eritrea','Sibila eritrea','Fresco · Sixtina'],['p-entierro','El Santo Entierro','Óleo sobre tabla'],
+    ['p-ezequiel','Profeta Ezequiel','Fresco · Sixtina'],['p-cumana','Sibila de Cumas','Fresco · Sixtina'],['p-ignudo','Ignudo','Fresco · Sixtina'],
+    ['p-juicio','El Juicio Final','Fresco · Sixtina'],['p-manchester','Virgen de Manchester','Temple sobre tabla']
+  ],
+  dibujo:[
+    ['d-libica','Estudios para la Sibila líbica','Sanguina'],['d-cleopatra','Cleopatra','Piedra negra'],['d-haman','Estudio para Amán','Sanguina'],
+    ['d-pie','Estudio de pie para la Sibila líbica','Sanguina'],['d-cabeza','Estudio de cabeza','Dibujo'],['d-ignudo','Estudio para un ignudo','Dibujo'],
+    ['d-panos','Estudio de paños para la Sibila eritrea','Dibujo'],['d-deposicion','Estudio para un Descendimiento','Dibujo']
+  ]
+};
+const grid=document.getElementById('grid'),tabs=[...document.querySelectorAll('.tab')];
+tabs.forEach(t=>t.querySelector('.n').textContent=WORKS[t.dataset.f].length);
+function render(f){
+  grid.innerHTML=WORKS[f].map(([file,title,tech])=>`<button class="work" data-src="miguelangel/${file}.jpg" data-cap="${title} · ${tech}"><div class="img"><img src="miguelangel/${file}.jpg" alt="${title}, de Miguel Ángel" loading="lazy"></div><div class="cartela label"><span>${title}</span><span>${tech}</span></div></button>`).join('');
+}
+function setFilter(f,anim){
+  tabs.forEach(t=>t.setAttribute('aria-selected',t.dataset.f===f));
+  if(!anim||reduce){render(f);return}
+  grid.classList.add('fading');setTimeout(()=>{render(f);grid.classList.remove('fading')},160);
+}
+tabs.forEach(t=>t.addEventListener('click',()=>setFilter(t.dataset.f,true)));
+document.querySelectorAll('[data-filter]').forEach(a=>a.addEventListener('click',()=>setFilter(a.dataset.filter,false)));
+render('pintura');
+
+/* Lightbox */
+const lb=document.getElementById('lb'),lbImg=document.getElementById('lbImg'),lbCap=document.getElementById('lbCap');
+grid.addEventListener('click',e=>{const w=e.target.closest('.work');if(!w)return;lbImg.src=w.dataset.src;lbImg.alt=w.dataset.cap;lbCap.textContent=w.dataset.cap;lb.showModal()});
+document.getElementById('lbClose').addEventListener('click',()=>lb.close());
+lb.addEventListener('click',e=>{if(e.target===lb)lb.close()});
+
+/* Formulario (demo) */
+const drop=document.getElementById('drop'),fotos=document.getElementById('f-fotos'),dropTxt=document.getElementById('dropTxt');
+const showFiles=n=>dropTxt.innerHTML=n?`<strong>${n} archivo${n>1?'s':''}</strong> listo${n>1?'s':''} para enviar`:'Arrastra aquí fotos o planos del lugar o <strong>elígelos</strong>';
+fotos.addEventListener('change',()=>showFiles(fotos.files.length));
+['dragenter','dragover'].forEach(ev=>drop.addEventListener(ev,e=>{e.preventDefault();drop.classList.add('over')}));
+['dragleave','drop'].forEach(ev=>drop.addEventListener(ev,e=>{e.preventDefault();drop.classList.remove('over')}));
+drop.addEventListener('drop',e=>{if(e.dataTransfer.files.length){fotos.files=e.dataTransfer.files;showFiles(fotos.files.length)}});
+document.getElementById('form').addEventListener('submit',e=>{
+  e.preventDefault();const note=document.getElementById('formNote'),n=document.getElementById('f-nombre'),m=document.getElementById('f-email');
+  if(!n.value.trim()){note.textContent='Escribe tu nombre para que pueda responderte.';n.focus();return}
+  if(!m.validity.valid||!m.value){note.textContent='Revisa el correo: hace falta una dirección válida para enviarte el presupuesto.';m.focus();return}
+  note.textContent='Esto es una demo: en una web real, la consulta llegaría directamente al taller.';
+});
+</script>
+</body>
+</html>
