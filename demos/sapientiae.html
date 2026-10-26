@@ -1,0 +1,532 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<script src="_volver.js"></script>
+<title>Sapientiae Estudio</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Demo de Renueva Smart: web de un estudio de diseño e identidad de marca en Madrid (marca ficticia).">
+<meta name="theme-color" content="#121419">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400;6..96,500&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+/* Layout: retícula de 8 columnas visible (líneas finas), bandas a sangre que alternan piedra / tinta / foto,
+   tipografía mono en mayúsculas para todo y un logotipo Bodoni estirado como única voz serif. */
+:root{
+  --piedra:#ECEBE4;      /* fondo papel, gris cálido apenas frío */
+  --tinta:#121419;       /* negro azulado */
+  --grafito:#5A5C62;     /* texto secundario sobre piedra */
+  --niebla:#A9AAA6;      /* texto secundario sobre tinta */
+  --ocre:#A8843A;        /* ocre de la lechuza: solo puntos y detalles */
+  --linea:rgba(120,122,128,.13);
+  --vidrio:rgba(18,20,25,.62);
+
+  --f-mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace;
+  --f-serif:"Bodoni Moda","Didot","Bodoni 72",Georgia,serif;
+
+  --t-xs:.72rem; --t-s:.8rem; --t-m:.95rem; --t-l:clamp(1.35rem,2.3vw,1.9rem); --t-xl:clamp(1.7rem,3.6vw,3.1rem);
+
+  --ease-out:cubic-bezier(.23,1,.32,1);
+  --ease-io:cubic-bezier(.77,0,.175,1);
+  --gut:max(16px, env(safe-area-inset-left,0px));
+  --gutR:max(16px, env(safe-area-inset-right,0px));
+  --pad:clamp(16px,2.6vw,40px);
+  color-scheme:light;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--piedra);color:var(--tinta);font-family:var(--f-mono);font-size:var(--t-m);line-height:1.5;letter-spacing:-.02em;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+h1,h2,h3,p{margin:0}
+h2,h3{font-weight:600;text-transform:uppercase;letter-spacing:-.03em;line-height:1.08;text-wrap:balance}
+h2{font-size:var(--t-xl)}
+h3{font-size:var(--t-l)}
+.eyebrow,.cap{font-size:var(--t-xs);font-weight:600;text-transform:uppercase;letter-spacing:.02em;line-height:1.35}
+:focus-visible{outline:2px solid var(--ocre);outline-offset:3px}
+
+.wrap{padding-left:max(var(--pad),var(--gut));padding-right:max(var(--pad),var(--gutR))}
+
+/* Retícula visible */
+.grid-lines{position:fixed;inset:0;pointer-events:none;z-index:40;display:grid;grid-template-columns:repeat(8,1fr);padding-left:max(var(--pad),var(--gut));padding-right:max(var(--pad),var(--gutR))}
+.grid-lines i{border-left:1px solid var(--linea)}
+.grid-lines i:last-child{border-right:1px solid var(--linea)}
+@media (max-width:700px){.grid-lines{grid-template-columns:repeat(4,1fr)}.grid-lines i:nth-child(n+5){display:none}.grid-lines i:nth-child(4){border-right:1px solid var(--linea)}}
+
+/* Enlace con subrayado */
+.link{display:inline-flex;gap:.5em;align-items:center;font-size:var(--t-xs);font-weight:600;text-transform:uppercase;padding-bottom:4px;background:linear-gradient(currentColor,currentColor) 0 100%/100% 1px no-repeat;transition:background-size 300ms var(--ease-out)}
+.link .arr{display:inline-block;transition:transform 200ms var(--ease-out)}
+@media (hover:hover) and (pointer:fine){.link:hover .arr{transform:translateX(4px)}.link:hover{background-size:40% 1px}}
+.link:active{transform:scale(.97)}
+
+/* ===== Preloader ===== */
+.loader{position:fixed;inset:0;z-index:100;background:var(--piedra);display:grid;place-items:center;transition:opacity 500ms var(--ease-out),visibility 0s 500ms}
+.loader.done{opacity:0;visibility:hidden}
+.loader svg{width:clamp(84px,11vw,130px);height:auto;overflow:visible}
+.loader svg path,.loader svg circle{fill:none;stroke:var(--tinta);stroke-width:1.1;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1 1;stroke-dashoffset:1;animation:draw 1500ms var(--ease-io) forwards;animation-delay:calc(var(--i,0) * 70ms)}
+.loader svg .ghost{stroke:var(--linea);stroke-dashoffset:0;animation:none}
+@keyframes draw{to{stroke-dashoffset:0}}
+.loader .side{position:absolute;top:50%;transform:translateY(-50%);font-size:var(--t-xs);font-weight:600;text-transform:uppercase;line-height:1.4}
+.loader .side.l{left:max(var(--pad),var(--gut))}
+.loader .side.r{right:max(var(--pad),var(--gutR));text-align:right}
+.loader .pct{position:absolute;bottom:calc(24px + env(safe-area-inset-bottom,0px));left:50%;transform:translateX(-50%);font-size:var(--t-xs);font-variant-numeric:tabular-nums;color:var(--grafito)}
+@media (max-width:700px){.loader .side{top:auto;bottom:calc(64px + env(safe-area-inset-bottom,0px));transform:none}}
+
+/* ===== Nav ===== */
+.nav{position:fixed;top:0;left:0;right:0;z-index:60;display:flex;align-items:center;justify-content:space-between;padding-top:calc(16px + env(safe-area-inset-top,0px));padding-bottom:16px;color:#ECEBE4;mix-blend-mode:difference}
+.nav .mark{display:flex;align-items:center;gap:10px;font-size:var(--t-xs);font-weight:600;text-transform:uppercase}
+.nav .mark svg{width:22px;height:auto}
+.nav .mark svg *{fill:none;stroke:currentColor;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.nav ul{display:flex;gap:clamp(14px,2.6vw,36px);list-style:none;margin:0;padding:0;align-items:center}
+.nav ul a{font-size:var(--t-xs);font-weight:600;text-transform:uppercase}
+.nav ul a.link{margin-left:clamp(0px,2vw,24px)}
+@media (max-width:700px){.nav ul li.opt{display:none}}
+
+/* ===== Hero ===== */
+.hero{position:relative;height:100svh;min-height:560px;max-height:1100px;overflow:hidden;background:var(--tinta);color:var(--piedra)}
+.hero .bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:grayscale(.35) contrast(1.05) brightness(.78);transform:scale(1.08);transition:transform 2200ms var(--ease-out)}
+.hero.in .bg{transform:scale(1)}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(18,20,25,.25) 0%,rgba(18,20,25,0) 35%,rgba(18,20,25,.55) 100%)}
+.wordmark{position:absolute;z-index:2;left:max(var(--pad),var(--gut));right:max(var(--pad),var(--gutR));top:calc(78px + env(safe-area-inset-top,0px))}
+.wm{font-family:var(--f-serif);font-weight:400;font-variation-settings:"opsz" 96;line-height:.8;letter-spacing:-.005em;white-space:nowrap;display:block;transform-origin:0 0;color:var(--piedra)}
+.wm .ln{display:inline-block;overflow:hidden;vertical-align:top;padding-top:.06em;padding-bottom:.02em}
+.wm .ch{display:inline-block;transform:translateY(105%);transition:transform 1100ms var(--ease-out);transition-delay:calc(450ms + var(--i) * 45ms)}
+.hero.in .wm .ch{transform:none}
+.steps{position:absolute;inset:0;z-index:3;display:grid;grid-template-columns:repeat(8,1fr);pointer-events:none}
+.steps i{background:var(--piedra);transform-origin:50% 0;transition:transform 950ms var(--ease-io);transition-delay:calc(var(--d) * 1ms)}
+.hero.in .steps i{transform:scaleY(0)}
+/* Seguro: si el navegador congela las transiciones (pestaña o iframe en segundo plano), el hero queda descubierto igual */
+.hero.settled .steps{display:none}
+.hero.settled .wm .ch,.hero.settled .foot p,.hero.settled .foot .link{transition:none;transform:none;opacity:1}
+.hero .foot{position:absolute;z-index:2;left:0;right:0;bottom:0;padding-bottom:calc(28px + env(safe-area-inset-bottom,0px));display:grid;grid-template-columns:repeat(8,1fr);align-items:end;gap:0 16px}
+.hero .foot p{grid-column:span 2;opacity:0;transform:translateY(10px);transition:opacity 700ms var(--ease-out),transform 700ms var(--ease-out);transition-delay:1100ms}
+.hero .foot p:nth-child(2){transition-delay:1180ms}
+.hero .foot .link{grid-column:8;justify-self:end;opacity:0;transition:opacity 700ms var(--ease-out) 1260ms}
+.hero.in .foot p,.hero.in .foot .link{opacity:1;transform:none}
+@media (max-width:700px){.hero .foot{grid-template-columns:1fr 1fr;gap:18px 16px}.hero .foot p{grid-column:span 1}.hero .foot .link{grid-column:1 / -1;justify-self:start}}
+
+/* ===== Manifiesto (tinta) ===== */
+.dark{background:var(--tinta);color:var(--piedra)}
+.manif{padding-block:clamp(72px,11vw,160px)}
+.manif .grid{display:grid;grid-template-columns:repeat(8,1fr);gap:32px 16px;align-items:start}
+.manif figure{grid-column:1 / span 3;margin:0;aspect-ratio:4/5;overflow:hidden}
+.manif figure img{width:100%;height:100%;object-fit:cover;filter:grayscale(.3) brightness(.85)}
+.manif .txt{grid-column:5 / span 4;display:grid;gap:clamp(36px,6vw,80px);min-width:0}
+.manif .txt .body{display:grid;gap:1.1em;max-width:58ch;color:var(--niebla);font-size:var(--t-s)}
+.manif .txt .body strong{color:var(--piedra);font-weight:500}
+.sr .w{opacity:.18;transition:opacity 250ms ease}
+.sr .w.on{opacity:1}
+@media (max-width:860px){.manif figure{grid-column:1 / span 5}.manif .txt{grid-column:1 / -1}}
+
+/* Revelado de imágenes */
+.js .rv{clip-path:inset(0 0 100% 0);transition:clip-path 1000ms var(--ease-out)}
+.js .rv.on{clip-path:inset(0 0 0 0)}
+.js .rv img{transform:scale(1.12);transition:transform 1600ms var(--ease-out)}
+.js .rv.on img{transform:none}
+
+/* ===== Proyectos ===== */
+.proj{padding-block:clamp(72px,10vw,150px)}
+.proj .grid{display:grid;grid-template-columns:repeat(8,1fr);gap:16px}
+.proj aside{grid-column:1 / span 3;position:sticky;top:96px;align-self:start;display:grid;gap:22px;min-width:0}
+.proj aside p{color:var(--grafito);font-size:var(--t-s);max-width:40ch}
+.proj .count{margin-top:clamp(40px,10vh,120px);display:grid;gap:6px}
+.proj .count .n{font-size:var(--t-l);font-weight:500;font-variant-numeric:tabular-nums;display:flex;overflow:hidden;height:1.25em;line-height:1.25}
+.proj .count .n b{font-weight:500;display:inline-block}
+.proj .count .n b.tick{animation:tick 260ms var(--ease-out)}
+@keyframes tick{from{transform:translateY(70%)}to{transform:none}}
+.cards{grid-column:4 / span 5;display:grid;gap:clamp(64px,9vw,120px);min-width:0}
+.card{display:grid;gap:18px}
+.card figure{margin:0;aspect-ratio:3/2;overflow:hidden;background:#d9d8d0}
+.card figure img{width:100%;height:100%;object-fit:cover}
+.card h3{margin-top:4px}
+.card .desc{color:var(--grafito);font-size:var(--t-s);max-width:62ch}
+.card dl{margin:0;display:grid;border-top:1px solid var(--linea)}
+.card dl div{display:grid;grid-template-columns:1fr 1fr;gap:16px;padding:12px 0;border-bottom:1px solid var(--linea);font-size:var(--t-xs);font-weight:600;text-transform:uppercase}
+.card dt::before{content:"";display:inline-block;width:5px;height:5px;border-radius:50%;background:var(--ocre);margin-right:10px;vertical-align:middle}
+.card dd{margin:0}
+.card .link{justify-self:start;margin-top:6px}
+@media (max-width:860px){.proj aside{grid-column:1 / -1;position:static}.proj .count{display:none}.cards{grid-column:1 / -1}}
+
+/* ===== Método ===== */
+.met{position:relative;color:var(--piedra);overflow:hidden;padding-block:clamp(80px,11vw,170px)}
+.met > img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:grayscale(.55) sepia(.15) brightness(.55)}
+.met .grid{position:relative;display:grid;grid-template-columns:repeat(8,1fr);gap:16px;align-items:start}
+.met .intro{grid-column:1 / span 3;display:grid;gap:22px;min-width:0}
+.met .intro p{font-size:var(--t-s);color:#D4D3CC;max-width:42ch}
+.met .steps-list{grid-column:5 / span 4;display:grid;grid-template-columns:1fr 1fr;gap:16px;list-style:none;margin:0;padding:0}
+.met li{background:var(--vidrio);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);padding:20px 18px 26px;display:grid;gap:22px;align-content:start;min-width:0}
+.met li:nth-child(2){margin-top:72px}
+.met li:nth-child(3){margin-top:-56px}
+.met li header{display:flex;justify-content:space-between;align-items:baseline;gap:12px;font-size:var(--t-s);font-weight:600;text-transform:uppercase}
+.met li header span{color:var(--ocre);font-family:var(--f-serif);font-size:1.1rem;font-weight:400}
+.met li p{font-size:var(--t-xs);line-height:1.55;color:#CFCEC7}
+@media (max-width:860px){.met .intro{grid-column:1 / -1}.met .steps-list{grid-column:1 / -1;margin-top:40px}}
+@media (max-width:560px){.met .steps-list{grid-template-columns:1fr}.met li:nth-child(n){margin-top:0}}
+
+/* ===== Clientes ===== */
+.cli{padding-block:clamp(72px,10vw,150px)}
+.cli .head{display:grid;gap:18px;max-width:60ch}
+.cli .head p{color:var(--grafito);font-size:var(--t-s)}
+.cli ol{list-style:none;margin:clamp(48px,7vw,96px) 0 0;padding:0;display:grid;grid-template-columns:repeat(8,1fr)}
+.fm-item{grid-column:4 / -1;position:relative;overflow:hidden;border-top:1px solid var(--linea);display:grid;grid-template-columns:3.2em 1fr;align-items:baseline}
+.fm-item:last-child{border-bottom:1px solid var(--linea)}
+.fm-item .no{font-size:var(--t-xs);color:var(--grafito);font-variant-numeric:tabular-nums}
+.fm-item .nm{font-size:clamp(1.25rem,2.8vw,2.3rem);font-weight:500;text-transform:uppercase;letter-spacing:-.04em;line-height:1.25;padding:6px 0}
+.fm-marquee{position:absolute;inset:0;overflow:hidden;background:var(--tinta);color:var(--piedra);transform:translateY(101%);pointer-events:none;transition:transform 450ms var(--ease-out)}
+.fm-marquee__inner{height:100%;transform:translateY(-101%);transition:transform 450ms var(--ease-out)}
+.fm-track{display:flex;width:max-content;height:100%;align-items:center;animation:mq 14s linear infinite}
+.fm-track span{font-size:clamp(1.25rem,2.8vw,2.3rem);font-weight:500;text-transform:uppercase;letter-spacing:-.04em;padding:0 .6em;white-space:nowrap;display:flex;align-items:center;gap:1.2em}
+.fm-track span::after{content:"";width:.28em;height:.28em;border-radius:50%;background:var(--ocre)}
+@keyframes mq{to{transform:translateX(-50%)}}
+@media (max-width:860px){.fm-item{grid-column:1 / -1}}
+
+/* ===== CTA ===== */
+.cta{position:relative;min-height:clamp(420px,70vh,720px);display:flex;align-items:flex-end;color:var(--piedra);overflow:hidden}
+.cta img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:grayscale(.4) brightness(.62)}
+.cta .inner{position:relative;width:100%;padding-bottom:clamp(32px,5vw,64px);display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap}
+.cta h2{max-width:22ch}
+
+/* ===== Footer ===== */
+.foot-s{padding-top:clamp(48px,6vw,80px);overflow:hidden}
+.foot-s .top{display:grid;grid-template-columns:repeat(8,1fr);gap:28px 16px}
+.foot-s .top .say{grid-column:1 / span 4;display:grid;gap:22px;align-content:start}
+.foot-s .top .say h2{font-size:var(--t-l)}
+.foot-s .top .c{grid-column:span 2;display:grid;gap:8px;align-content:start;font-size:var(--t-xs);font-weight:600;text-transform:uppercase}
+.foot-s .top .c b{font-weight:600;display:flex;gap:10px;align-items:center}
+.foot-s .top .c b::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--ocre)}
+.foot-s .top .c a,.foot-s .top .c span{color:var(--grafito)}
+.foot-s .menu{grid-column:1 / span 4;display:grid;gap:2px;margin-top:clamp(20px,5vw,60px);font-size:var(--t-m);font-weight:600;text-transform:uppercase}
+.foot-s .motto{grid-column:5 / -1;align-self:end;font-size:var(--t-xs);color:var(--grafito);text-transform:uppercase}
+.foot-s .motto em{font-family:var(--f-serif);font-style:italic;font-size:1.05rem;color:var(--tinta);text-transform:none;letter-spacing:0;display:block;margin-bottom:4px}
+.foot-s .wordmark{position:relative;left:auto;right:auto;top:auto;margin-top:clamp(48px,7vw,100px);color:var(--tinta)}
+.foot-s .wm{color:var(--tinta)}
+.foot-s .wm .ch{transform:none;transition:none}
+.foot-s .legal{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;padding-block:18px calc(18px + env(safe-area-inset-bottom,0px));font-size:var(--t-xs);color:var(--grafito);text-transform:uppercase;border-top:1px solid var(--linea)}
+@media (max-width:860px){.foot-s .top .say,.foot-s .menu,.foot-s .motto{grid-column:1 / -1}.foot-s .top .c{grid-column:span 4}}
+
+@media (prefers-reduced-motion:reduce){
+  .loader{display:none}
+  .wm .ch,.hero .bg,.steps i,.hero .foot p,.hero .foot .link{transition:none!important;transform:none!important;opacity:1!important}
+  .steps{display:none}
+  .js .rv,.js .rv img{clip-path:none;transform:none;transition:none}
+  .sr .w{opacity:1}
+  .fm-track{animation:none}
+}
+</style>
+</head>
+<body>
+
+<!-- Preloader: la lechuza de Minerva se dibuja a línea -->
+<div class="loader" id="loader" aria-hidden="true">
+  <span class="side l" data-scramble>Un estudio de diseño<br>con sede en Madrid</span>
+  <svg viewBox="0 0 120 200" id="owl">
+    <!-- rama -->
+    <path class="ghost" d="M6 191 C36 186 82 196 116 188"/>
+    <path style="--i:0" d="M6 191 C36 186 82 196 116 188"/>
+    <path style="--i:1" d="M18 189 c-2 -9 4 -15 11 -15 c0 9 -5 13 -11 15"/>
+    <path style="--i:2" d="M96 191 c3 -8 10 -11 16 -8 c-3 8 -9 10 -16 8"/>
+    <!-- cuerpo -->
+    <path style="--i:3" d="M38 20 L45 37 C35 45 30 61 32 82 C34 112 30 140 40 164 C46 179 53 185 60 185 C67 185 74 179 80 164 C90 140 86 112 88 82 C90 61 85 45 75 37 L82 20 C73 27 66 30 60 30 C54 30 47 27 38 20 Z"/>
+    <!-- disco facial -->
+    <path style="--i:4" d="M37 50 C43 40 54 41 60 50 C66 41 77 40 83 50"/>
+    <path style="--i:5" d="M37 50 C37 64 45 72 54 70 M83 50 C83 64 75 72 66 70"/>
+    <circle style="--i:6" cx="49" cy="55" r="8.5"/>
+    <circle style="--i:6" cx="71" cy="55" r="8.5"/>
+    <circle style="--i:7" cx="49.5" cy="55.5" r="2.6"/>
+    <circle style="--i:7" cx="70.5" cy="55.5" r="2.6"/>
+    <path style="--i:8" d="M57 64 L60 75 L63 64"/>
+    <!-- alas -->
+    <path style="--i:9" d="M35 86 C46 102 50 132 47 162 C44 152 40 138 38 120"/>
+    <path style="--i:9" d="M85 86 C74 102 70 132 73 162 C76 152 80 138 82 120"/>
+    <!-- plumaje -->
+    <path style="--i:10" d="M50 96 q3.3 4 6.6 0 q3.3 4 6.6 0 q3.3 4 6.6 0"/>
+    <path style="--i:11" d="M48 110 q3 4 6 0 q3 4 6 0 q3 4 6 0 q3 4 6 0"/>
+    <path style="--i:12" d="M50 124 q3.3 4 6.6 0 q3.3 4 6.6 0 q3.3 4 6.6 0"/>
+    <path style="--i:13" d="M53 138 q3.5 4 7 0 q3.5 4 7 0"/>
+    <!-- garras -->
+    <path style="--i:14" d="M51 185 l-4 6 M55 186 l0 6 M65 186 l0 6 M69 185 l4 6"/>
+  </svg>
+  <span class="side r" data-scramble>Identidad, sistema<br>y oficio editorial</span>
+  <span class="pct" id="pct">000</span>
+</div>
+
+<div class="grid-lines" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+
+<nav class="nav wrap" aria-label="Principal">
+  <a class="mark" href="#top" aria-label="Sapientiae, inicio">
+    <svg viewBox="28 16 64 176" aria-hidden="true"><path d="M38 20 L45 37 C35 45 30 61 32 82 C34 112 30 140 40 164 C46 179 53 185 60 185 C67 185 74 179 80 164 C90 140 86 112 88 82 C90 61 85 45 75 37 L82 20 C73 27 66 30 60 30 C54 30 47 27 38 20 Z"/><circle cx="49" cy="55" r="8.5"/><circle cx="71" cy="55" r="8.5"/></svg>
+    <span>Sapientiae</span>
+  </a>
+  <ul>
+    <li class="opt"><a href="#estudio">Estudio</a></li>
+    <li class="opt"><a href="#metodo">Método</a></li>
+    <li class="opt"><a href="#proyectos">Proyectos</a></li>
+    <li><a class="link" href="#contacto">Trabajemos <span class="arr">→</span></a></li>
+  </ul>
+</nav>
+
+<main id="top">
+  <!-- HERO -->
+  <section class="hero" id="hero">
+    <img class="bg" src="sapientiae/hero.jpg" alt="Pasillo de una estación con escaleras mecánicas en perspectiva simétrica" fetchpriority="high">
+    <div class="wordmark" data-fit><h1 class="wm" aria-label="Sapientiae"><span class="ln">SAPIENTIAE</span></h1></div>
+    <div class="foot wrap">
+      <p class="cap">Estudio de diseño en Madrid<br>que construye marcas pensadas<br>para durar décadas.</p>
+      <p class="cap">Con el rigor de un sistema<br>y la paciencia<br>de un oficio.</p>
+      <a class="link" href="#estudio">Explorar <span class="arr">↓</span></a>
+    </div>
+    <div class="steps" aria-hidden="true">
+      <i style="--d:300"></i><i style="--d:220"></i><i style="--d:140"></i><i style="--d:60"></i><i style="--d:0"></i><i style="--d:90"></i><i style="--d:180"></i><i style="--d:260"></i>
+    </div>
+  </section>
+
+  <!-- MANIFIESTO -->
+  <section class="dark manif" id="estudio">
+    <div class="wrap grid">
+      <figure class="rv"><img src="sapientiae/pensar.jpg" alt="Fachadas de edificios vistas desde abajo, convergiendo hacia el cielo" loading="lazy"></figure>
+      <div class="txt">
+        <h2 class="sr">Una marca que perdura no se decora. Se piensa antes de dibujarse.</h2>
+        <div class="body">
+          <p>Sapientiae nació como respuesta a un oficio que se volvió rápido y olvidable: <strong>marcas hechas para una temporada</strong> y sistemas que no resisten el segundo año.</p>
+          <p>Trabajamos al revés. Primero entendemos el negocio, su historia y su gente; después dibujamos. Cada identidad sale del estudio con sus reglas escritas, para que la marca siga siendo ella misma cuando ya no estemos cerca.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROYECTOS -->
+  <section class="proj" id="proyectos">
+    <div class="wrap grid">
+      <aside>
+        <h2>Marcas distintas, mismo criterio.</h2>
+        <p>Identidades construidas con el mismo método: investigación, sistema y oficio, sin importar el tamaño del cliente.</p>
+        <a class="link" href="#proyectos">Ver todos los proyectos <span class="arr">→</span></a>
+        <div class="count" aria-hidden="true">
+          <span class="eyebrow">En vista:</span>
+          <span class="n"><b id="cur">01</b>/06</span>
+        </div>
+      </aside>
+
+      <div class="cards">
+        <article class="card" data-i="01">
+          <figure class="rv"><img src="sapientiae/p2.jpg" alt="Revista abierta sobre una mesa de madera" loading="lazy"></figure>
+          <h3>Revista Ágora</h3>
+          <p class="desc">Rediseño integral de una revista trimestral de pensamiento: retícula de doce columnas, una familia tipográfica propia para titulares y un sistema de portadas que cambia cada número sin perder la identidad.</p>
+          <dl><div><dt>Disciplina</dt><dd>Dirección de arte editorial</dd></div><div><dt>Estado</dt><dd>Entregado, en circulación</dd></div><div><dt>Lugar · año</dt><dd>Madrid · 2026</dd></div></dl>
+          <a class="link" href="#proyectos">Ver proyecto completo <span class="arr">→</span></a>
+        </article>
+        <article class="card" data-i="02">
+          <figure class="rv"><img src="sapientiae/p1.jpg" alt="Objetos de diseño blancos: un libro, una caja y un ordenador" loading="lazy"></figure>
+          <h3>Atlas Tipográfico</h3>
+          <p class="desc">Identidad para una fundición tipográfica independiente. El logotipo se construye con las mismas reglas de espaciado que venden sus fuentes: la marca es, a la vez, una muestra del producto.</p>
+          <dl><div><dt>Disciplina</dt><dd>Identidad y tipografía</dd></div><div><dt>Estado</dt><dd>Entregado, en uso</dd></div><div><dt>Lugar · año</dt><dd>Barcelona · 2025</dd></div></dl>
+          <a class="link" href="#proyectos">Ver proyecto completo <span class="arr">→</span></a>
+        </article>
+        <article class="card" data-i="03">
+          <figure class="rv"><img src="sapientiae/p4.jpg" alt="Planos de arquitectura y un compás sobre una mesa" loading="lazy"></figure>
+          <h3>Vértice Arquitectos</h3>
+          <p class="desc">Marca y señalética para un estudio de arquitectura. Un único ángulo de 32° gobierna el símbolo, la retícula de las láminas y las flechas de orientación de sus obras.</p>
+          <dl><div><dt>Disciplina</dt><dd>Identidad y señalética</dd></div><div><dt>Estado</dt><dd>Entregado, en obra</dd></div><div><dt>Lugar · año</dt><dd>Málaga · 2025</dd></div></dl>
+          <a class="link" href="#proyectos">Ver proyecto completo <span class="arr">→</span></a>
+        </article>
+        <article class="card" data-i="04">
+          <figure class="rv"><img src="sapientiae/p5.jpg" alt="Cuaderno de cuero, especias y utensilios sobre madera oscura" loading="lazy"></figure>
+          <h3>Almazara Ciprés</h3>
+          <p class="desc">Packaging para un aceite de oliva de cosecha temprana. Etiquetas impresas con tipos móviles, numeradas a mano por lote, y una paleta tomada de la tierra del olivar jienense.</p>
+          <dl><div><dt>Disciplina</dt><dd>Packaging</dd></div><div><dt>Estado</dt><dd>Entregado, en tienda</dd></div><div><dt>Lugar · año</dt><dd>Jaén · 2024</dd></div></dl>
+          <a class="link" href="#proyectos">Ver proyecto completo <span class="arr">→</span></a>
+        </article>
+        <article class="card" data-i="05">
+          <figure class="rv"><img src="sapientiae/p3.jpg" alt="Papelería, cuadernos y muestras de color sobre una mesa" loading="lazy"></figure>
+          <h3>Fondo Lumen</h3>
+          <p class="desc">Sistema de identidad para un fondo de becas de investigación. Una marca sobria, pensada para convivir con los logotipos de universidades y para leerse igual en un diploma que en una pantalla.</p>
+          <dl><div><dt>Disciplina</dt><dd>Identidad y sistema digital</dd></div><div><dt>Estado</dt><dd>En desarrollo</dd></div><div><dt>Lugar · año</dt><dd>Madrid · 2026</dd></div></dl>
+          <a class="link" href="#proyectos">Ver proyecto completo <span class="arr">→</span></a>
+        </article>
+        <article class="card" data-i="06">
+          <figure class="rv"><img src="sapientiae/p6.jpg" alt="Accesorios de cuero, reloj y auriculares ordenados sobre fondo gris" loading="lazy"></figure>
+          <h3>Obrador Norte</h3>
+          <p class="desc">Marca, fotografía de producto y tienda online para un taller de marroquinería. Cada pieza lleva grabado el número del artesano que la cosió.</p>
+          <dl><div><dt>Disciplina</dt><dd>Identidad y e-commerce</dd></div><div><dt>Estado</dt><dd>Entregado, en uso</dd></div><div><dt>Lugar · año</dt><dd>Bilbao · 2024</dd></div></dl>
+          <a class="link" href="#proyectos">Ver proyecto completo <span class="arr">→</span></a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- MÉTODO -->
+  <section class="met" id="metodo">
+    <img src="sapientiae/metodo.jpg" alt="" loading="lazy">
+    <div class="wrap grid">
+      <div class="intro">
+        <h2>El método detrás de cada marca.</h2>
+        <p>Un proceso repetible, pensado para decidir con fundamento y producir con precisión, en cualquier escala.</p>
+        <a class="link" href="#metodo">Cómo trabajamos <span class="arr">→</span></a>
+      </div>
+      <ol class="steps-list">
+        <li><header>Investigación <span>I</span></header><p>Antes de dibujar, escuchamos. Entrevistas, archivo y competencia: el diagnóstico define el problema real.</p><p>Nada se diseña sin saber para quién y contra qué.</p></li>
+        <li><header>Sistema <span>II</span></header><p>Una marca es un conjunto de decisiones. Las escribimos: retícula, tipografía, color y tono.</p><p>Así se sostienen en manos de otros equipos.</p></li>
+        <li><header>Oficio <span>III</span></header><p>El detalle es la diferencia. Cuidamos la ejecución hasta el último pliego, píxel o etiqueta.</p><p>Revisamos cada pieza impresa a pie de máquina.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- CLIENTES -->
+  <section class="cli wrap">
+    <div class="head">
+      <h2>Quienes confían en el criterio.</h2>
+      <p>Instituciones, editoriales y empresas que entienden que una buena marca es una inversión que se cuida con el tiempo.</p>
+    </div>
+    <ol>
+      <li class="fm-item"><span class="no">01</span><span class="nm">Fundación Aletheia</span></li>
+      <li class="fm-item"><span class="no">02</span><span class="nm">Editorial Ortiz</span></li>
+      <li class="fm-item"><span class="no">03</span><span class="nm">Museo del Grabado</span></li>
+      <li class="fm-item"><span class="no">04</span><span class="nm">Bodega Cierzo</span></li>
+      <li class="fm-item"><span class="no">05</span><span class="nm">Almazara Ciprés</span></li>
+      <li class="fm-item"><span class="no">06</span><span class="nm">Colegio San Isidoro</span></li>
+      <li class="fm-item"><span class="no">07</span><span class="nm">Cooperativa Faro</span></li>
+      <li class="fm-item"><span class="no">08</span><span class="nm">Revista Ágora</span></li>
+      <li class="fm-item"><span class="no">09</span><span class="nm">Vértice Arquitectos</span></li>
+      <li class="fm-item"><span class="no">10</span><span class="nm">Librería Logos</span></li>
+    </ol>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta">
+    <img src="sapientiae/cta.jpg" alt="Edificio con fachada de listones visto desde abajo" loading="lazy">
+    <div class="wrap inner">
+      <h2>La forma sigue al pensamiento. Así trabajamos.</h2>
+      <a class="link" href="#contacto">Trabajemos juntos <span class="arr">→</span></a>
+    </div>
+  </section>
+</main>
+
+<footer class="foot-s" id="contacto">
+  <div class="wrap top">
+    <div class="say">
+      <h2>Las buenas marcas empiezan con una buena pregunta. Hablemos.</h2>
+      <a class="link" href="#contacto">Escríbenos <span class="arr">→</span></a>
+    </div>
+    <div class="c"><b>estudio@example.com</b><span>Respondemos en 48 horas</span></div>
+    <div class="c"><b>Madrid, España</b><span>Barrio de las Letras</span></div>
+    <nav class="menu" aria-label="Pie"><a href="#estudio">Estudio</a><a href="#metodo">Método</a><a href="#proyectos">Proyectos</a><a href="#contacto">Contacto</a></nav>
+    <p class="motto"><em>Sapientia aedificavit sibi domum.</em>La sabiduría edificó su casa · Proverbios 9:1</p>
+  </div>
+  <div class="wrap"><div class="wordmark" data-fit><span class="wm"><span class="ln">SAPIENTIAE</span></span></div></div>
+  <div class="wrap legal"><span>© 2026 Sapientiae Estudio · marca ficticia</span><span>Instagram · Behance · LinkedIn</span></div>
+</footer>
+
+<script>
+(function(){
+  const d=document, root=d.documentElement;
+  root.classList.add('js');
+  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Letras del logotipo
+  d.querySelectorAll('.wm .ln').forEach(ln=>{
+    const t=ln.textContent; ln.textContent='';
+    [...t].forEach((c,i)=>{const s=d.createElement('span');s.className='ch';s.style.setProperty('--i',i);s.textContent=c;ln.appendChild(s);});
+  });
+
+  // Ajustar el logotipo al ancho y estirarlo en vertical
+  const STRETCH=1.55;
+  function fit(){
+    d.querySelectorAll('[data-fit]').forEach(box=>{
+      const wm=box.querySelector('.wm');
+      wm.style.fontSize='100px'; wm.style.transform='none';
+      const w=wm.querySelector('.ln').getBoundingClientRect().width, W=box.clientWidth;
+      const fs=100*W/w; wm.style.fontSize=fs+'px';
+      wm.style.transform='scaleY('+STRETCH+')';
+      box.style.height=(wm.offsetHeight*STRETCH)+'px';
+    });
+  }
+  fit(); addEventListener('resize',fit); d.fonts&&d.fonts.ready.then(fit);
+
+  // Texto que se "descifra"
+  const GLYPHS='ABCDEFGHIJKLMNÑOPQRSTUVWXYZ0123456789#/+';
+  function scramble(el,dur){
+    const nodes=[];
+    el.childNodes.forEach(n=>{if(n.nodeType===3)nodes.push({n,t:n.textContent});});
+    const t0=performance.now();
+    (function step(now){
+      const p=Math.min(1,(now-t0)/dur);
+      nodes.forEach(o=>{
+        const keep=Math.floor(o.t.length*p);
+        o.n.textContent=o.t.slice(0,keep)+[...o.t.slice(keep)].map(c=>c===' '?' ':GLYPHS[Math.random()*GLYPHS.length|0]).join('');
+      });
+      if(p<1)requestAnimationFrame(step);
+    })(t0);
+  }
+
+  const hero=d.getElementById('hero'), loader=d.getElementById('loader');
+  function start(){hero.classList.add('in');setTimeout(()=>hero.classList.add('settled'),2600);}
+  if(reduce){loader.remove();start();}
+  else{
+    d.querySelectorAll('[data-scramble]').forEach(el=>scramble(el,1100));
+    const pct=d.getElementById('pct'), T=1900, t0=performance.now();
+    (function c(now){const p=Math.min(1,(now-t0)/T);pct.textContent=String(Math.round(p*100)).padStart(3,'0');if(p<1)requestAnimationFrame(c);})(t0);
+    let done=false;
+    const finish=()=>{if(done)return;done=true;loader.classList.add('done');setTimeout(start,120);setTimeout(()=>loader.remove(),700);};
+    setTimeout(finish,T+150);
+    loader.addEventListener('click',finish);
+    addEventListener('keydown',finish,{once:true});
+  }
+
+  // Revelado de imágenes al entrar en vista
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target);}}),{rootMargin:'0px 0px -12% 0px'});
+  d.querySelectorAll('.rv').forEach(el=>io.observe(el));
+
+  // Contador de proyecto en vista
+  const cur=d.getElementById('cur');
+  const io2=new IntersectionObserver(es=>es.forEach(e=>{
+    if(e.isIntersecting && cur.textContent!==e.target.dataset.i){
+      cur.textContent=e.target.dataset.i; cur.classList.remove('tick'); void cur.offsetWidth; cur.classList.add('tick');
+    }
+  }),{rootMargin:'-45% 0px -45% 0px'});
+  d.querySelectorAll('.card').forEach(el=>io2.observe(el));
+
+  // Scroll-reveal del titular del manifiesto
+  if(!reduce){
+    d.querySelectorAll('.sr').forEach(el=>{
+      const words=el.textContent.trim().split(/\s+/);
+      el.innerHTML=words.map(w=>'<span class="w">'+w+'</span>').join(' ');
+      const ws=[...el.querySelectorAll('.w')];
+      const on=()=>{const r=el.getBoundingClientRect(),vh=innerHeight;
+        const p=Math.min(1,Math.max(0,(vh*.85-r.top)/(r.height+vh*.35)));
+        const lit=Math.round(p*ws.length); ws.forEach((w,i)=>w.classList.toggle('on',i<lit));};
+      addEventListener('scroll',on,{passive:true}); on();
+    });
+  }
+
+  // Flowing menu en la lista de clientes
+  if(!reduce && matchMedia('(hover:hover) and (pointer:fine)').matches){
+    d.querySelectorAll('.fm-item').forEach(it=>{
+      const name=it.querySelector('.nm').textContent;
+      const mq=d.createElement('div'); mq.className='fm-marquee'; mq.setAttribute('aria-hidden','true');
+      mq.innerHTML='<div class="fm-marquee__inner"><div class="fm-track">'+('<span>'+name+'</span>').repeat(8)+'</div></div>';
+      it.appendChild(mq);
+      const inner=mq.firstChild;
+      const edge=e=>{const r=it.getBoundingClientRect();return (e.clientY-r.top)<r.height/2?'top':'bottom';};
+      it.addEventListener('mouseenter',e=>{
+        const top=edge(e)==='top';
+        mq.style.transition=inner.style.transition='none';
+        mq.style.transform='translateY('+(top?'-101%':'101%')+')';
+        inner.style.transform='translateY('+(top?'101%':'-101%')+')';
+        void mq.offsetWidth;
+        mq.style.transition=inner.style.transition='';
+        mq.style.transform=inner.style.transform='translateY(0)';
+      });
+      it.addEventListener('mouseleave',e=>{
+        const top=edge(e)==='top';
+        mq.style.transform='translateY('+(top?'-101%':'101%')+')';
+        inner.style.transform='translateY('+(top?'101%':'-101%')+')';
+      });
+    });
+  }
+})();
+</script>
+</body>
+</html>
