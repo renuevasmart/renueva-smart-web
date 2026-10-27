@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; form-action 'self' https://formsubmit.co; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com https://stats.g.doubleclick.net; media-src 'self'; connect-src 'self' https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com https://stats.g.doubleclick.net; frame-src 'self'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; form-action 'self' https://formsubmit.co; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.clarity.ms https://*.clarity.ms; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com https://stats.g.doubleclick.net https://*.clarity.ms https://c.bing.com; media-src 'self'; connect-src 'self' https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com https://stats.g.doubleclick.net https://*.clarity.ms https://c.bing.com; frame-src 'self'">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Contacto — Renueva Smart</title>
 <meta name="description" content="Escríbenos y cuéntanos sobre tu negocio. Te respondemos hoy mismo y te preparamos el antes/después de tu web, gratis.">
@@ -269,7 +269,7 @@
           ¡Gracias! Recibimos tu mensaje y te <strong>respondemos a la brevedad</strong>.
         </div>
 
-        <form id="formContacto" action="https://formsubmit.co/contacto@renuevasmart.com" method="POST">
+        <form id="formContacto" data-clarity-mask="true" action="https://formsubmit.co/contacto@renuevasmart.com" method="POST">
           <input type="hidden" name="_subject" value="Nuevo contacto desde Renueva Smart">
           <input type="hidden" name="_template" value="table">
           <input type="hidden" name="_captcha" value="false">

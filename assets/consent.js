@@ -5,6 +5,9 @@
    - Cualquier elemento con el atributo data-rs-cookies reabre el aviso ("Configurar cookies"). */
 (function () {
   var GA_MEASUREMENT_ID = 'G-GMLTHK21XM';
+  // Microsoft Clarity (mapas de calor y grabaciones). Vacío = no se carga.
+  // El enmascarado "Estricto" se configura en el panel de Clarity (Settings > Masking).
+  var CLARITY_PROJECT_ID = 'z48v59rtwe';
   var CONSENT_KEY = 'rs_consentimiento_cookies';
   var POLITICA_COOKIES = '/politica-cookies.html';
 
@@ -33,9 +36,22 @@
     script.async = true;
     script.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_MEASUREMENT_ID;
     document.head.appendChild(script);
+    cargarClarity();
+  }
+
+  function cargarClarity() {
+    if (!CLARITY_PROJECT_ID) return;
+    window.clarity = window.clarity || function () { (window.clarity.q = window.clarity.q || []).push(arguments); };
+    window.clarity('consentv2', { ad_Storage: 'denied', analytics_Storage: 'granted' });
+    var script = document.createElement('script');
+    script.async = true;
+    script.src = 'https://www.clarity.ms/tag/' + CLARITY_PROJECT_ID;
+    document.head.appendChild(script);
   }
 
   function borrarCookiesAnalitica() {
+    // Si Clarity llegó a cargarse en esta visita, se le retira el consentimiento.
+    if (window.clarity) window.clarity('consent', false);
     var host = location.hostname;
     var partes = host.split('.');
     var dominios = [host, '.' + host];
@@ -43,7 +59,8 @@
     var caducada = '=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/';
     document.cookie.split(';').forEach(function (c) {
       var nombre = c.split('=')[0].trim();
-      if (nombre === '_ga' || nombre === '_gid' || nombre.indexOf('_ga_') === 0) {
+      if (nombre === '_ga' || nombre === '_gid' || nombre.indexOf('_ga_') === 0 ||
+          nombre === '_clck' || nombre === '_clsk') {
         document.cookie = nombre + caducada;
         dominios.forEach(function (d) { document.cookie = nombre + caducada + '; domain=' + d; });
       }
@@ -110,7 +127,7 @@
     banner.setAttribute('aria-label', 'Aviso de cookies');
 
     banner.innerHTML =
-      '<p class="rs-cookie-texto">Usamos cookies de análisis para entender desde dónde nos visitan (por ejemplo, el país). ' +
+      '<p class="rs-cookie-texto">Usamos cookies de análisis para entender desde dónde nos visitan y cómo se usa la web, con los datos que escribes ocultos. ' +
       'Puedes aceptarlas o rechazarlas — no cambia nada más en la web. ' +
       '<a href="' + POLITICA_COOKIES + '">Más información sobre cookies</a>.</p>' +
       '<div class="rs-cookie-acciones">' +
