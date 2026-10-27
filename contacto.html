@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; form-action 'self' https://formsubmit.co; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.clarity.ms https://*.clarity.ms; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com https://stats.g.doubleclick.net https://*.clarity.ms https://c.bing.com; media-src 'self'; connect-src 'self' https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com https://stats.g.doubleclick.net https://*.clarity.ms https://c.bing.com; frame-src 'self'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; form-action 'self' https://formsubmit.co; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.clarity.ms https://*.clarity.ms https://connect.facebook.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com https://stats.g.doubleclick.net https://*.clarity.ms https://c.bing.com https://www.facebook.com; media-src 'self'; connect-src 'self' https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com https://stats.g.doubleclick.net https://*.clarity.ms https://c.bing.com https://www.facebook.com https://connect.facebook.net; frame-src 'self'">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Contacto — Renueva Smart</title>
 <meta name="description" content="Escríbenos y cuéntanos sobre tu negocio. Te respondemos hoy mismo y te preparamos el antes/después de tu web, gratis.">
@@ -424,6 +424,7 @@
         if (extra) texto += '\nOtros: ' + extra;
         texto += '\nMi WhatsApp: ' + telefono;
         window.open('https://wa.me/34602555026?text=' + encodeURIComponent(texto), '_blank', 'noopener');
+        if (window.rsEvento) window.rsEvento('Lead', { metodo: 'whatsapp' });
         document.getElementById('formGracias').classList.add('visible');
         document.getElementById('formContacto').style.display = 'none';
       }
@@ -432,6 +433,12 @@
     if (new URLSearchParams(window.location.search).get('enviado') === '1') {
       document.getElementById('formGracias').classList.add('visible');
       document.getElementById('formContacto').style.display = 'none';
+      // consent.js va con defer: rsEvento existe recién en DOMContentLoaded.
+      document.addEventListener('DOMContentLoaded', () => {
+        if (window.rsEvento) window.rsEvento('Lead', { metodo: 'email' });
+      });
+      // Sin el parámetro, recargar la página no cuenta un segundo contacto.
+      history.replaceState(null, '', location.pathname);
     }
   </script>
 </body>

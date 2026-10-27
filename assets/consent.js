@@ -1,13 +1,17 @@
-/* Renueva Smart — consentimiento de cookies + Google Analytics 4 (Consent Mode v2)
+/* Renueva Smart — consentimiento de cookies + Google Analytics 4 (Consent Mode v2),
+   Microsoft Clarity y Pixel de Meta.
    Compartido por todas las páginas públicas del sitio.
-   - Google Analytics (gtag.js) NO se descarga hasta que el visitante acepta.
-   - Si rechaza (o retira el consentimiento), se borran las cookies _ga* ya guardadas.
+   - Ninguna de las tres herramientas se descarga hasta que el visitante acepta.
+   - Si rechaza (o retira el consentimiento), se borran sus cookies ya guardadas.
+   - window.rsEvento('Lead' | 'Contact', datos) registra conversiones (ver más abajo).
    - Cualquier elemento con el atributo data-rs-cookies reabre el aviso ("Configurar cookies"). */
 (function () {
   var GA_MEASUREMENT_ID = 'G-GMLTHK21XM';
   // Microsoft Clarity (mapas de calor y grabaciones). Vacío = no se carga.
   // El enmascarado "Estricto" se configura en el panel de Clarity (Settings > Masking).
   var CLARITY_PROJECT_ID = 'z48v59rtwe';
+  // Pixel de Meta (anuncios de Facebook/Instagram). Vacío = no se carga.
+  var META_PIXEL_ID = '1156322673416457';
   var CONSENT_KEY = 'rs_consentimiento_cookies';
   var POLITICA_COOKIES = '/politica-cookies.html';
 
@@ -37,7 +41,47 @@
     script.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_MEASUREMENT_ID;
     document.head.appendChild(script);
     cargarClarity();
+    cargarPixelMeta();
   }
+
+  function cargarPixelMeta() {
+    if (!META_PIXEL_ID || window.fbq) return;
+    var fbq = window.fbq = window._fbq = function () {
+      if (fbq.callMethod) fbq.callMethod.apply(fbq, arguments); else fbq.queue.push(arguments);
+    };
+    fbq.push = fbq; fbq.loaded = true; fbq.version = '2.0'; fbq.queue = [];
+    var script = document.createElement('script');
+    script.async = true;
+    script.src = 'https://connect.facebook.net/en_US/fbevents.js';
+    document.head.appendChild(script);
+    fbq('init', META_PIXEL_ID);
+    fbq('track', 'PageView');
+  }
+
+  // Conversiones. Nombres de evento estándar de Meta; GA4 recibe su equivalente.
+  // Hasta que el visitante elige se guardan en cola; si rechaza, se descartan.
+  var EVENTOS_GA4 = { Lead: 'generate_lead', Contact: 'contact' };
+  var eventosPendientes = [];
+  var consentimiento = null;
+
+  function enviarEvento(nombre, datos) {
+    if (window.fbq) window.fbq('track', nombre, datos || {});
+    gtag('event', EVENTOS_GA4[nombre] || nombre, datos || {});
+  }
+
+  window.rsEvento = function (nombre, datos) {
+    if (consentimiento === 'aceptado') enviarEvento(nombre, datos);
+    else if (consentimiento === null) eventosPendientes.push([nombre, datos]);
+  };
+
+  // Clics en WhatsApp o en el correo, en cualquier página.
+  document.addEventListener('click', function (e) {
+    var enlace = e.target.closest ? e.target.closest('a[href]') : null;
+    if (!enlace) return;
+    var href = enlace.getAttribute('href');
+    if (/wa\.me\/|api\.whatsapp\.com/.test(href)) window.rsEvento('Contact', { canal: 'whatsapp' });
+    else if (href.indexOf('mailto:') === 0) window.rsEvento('Contact', { canal: 'email' });
+  });
 
   function cargarClarity() {
     if (!CLARITY_PROJECT_ID) return;
@@ -52,6 +96,7 @@
   function borrarCookiesAnalitica() {
     // Si Clarity llegó a cargarse en esta visita, se le retira el consentimiento.
     if (window.clarity) window.clarity('consent', false);
+    if (window.fbq) window.fbq('consent', 'revoke');
     var host = location.hostname;
     var partes = host.split('.');
     var dominios = [host, '.' + host];
@@ -60,7 +105,7 @@
     document.cookie.split(';').forEach(function (c) {
       var nombre = c.split('=')[0].trim();
       if (nombre === '_ga' || nombre === '_gid' || nombre.indexOf('_ga_') === 0 ||
-          nombre === '_clck' || nombre === '_clsk') {
+          nombre === '_clck' || nombre === '_clsk' || nombre === '_fbp' || nombre === '_fbc') {
         document.cookie = nombre + caducada;
         dominios.forEach(function (d) { document.cookie = nombre + caducada + '; domain=' + d; });
       }
@@ -75,8 +120,15 @@
       ad_personalization: otorgado ? 'granted' : 'denied',
       analytics_storage: otorgado ? 'granted' : 'denied'
     });
-    if (otorgado) cargarAnalitica();
-    else borrarCookiesAnalitica();
+    consentimiento = valor;
+    if (otorgado) {
+      cargarAnalitica();
+      if (window.fbq) window.fbq('consent', 'grant');
+      eventosPendientes.forEach(function (ev) { enviarEvento(ev[0], ev[1]); });
+    } else {
+      borrarCookiesAnalitica();
+    }
+    eventosPendientes = [];
   }
 
   function guardarYAplicar(valor) {
@@ -127,7 +179,8 @@
     banner.setAttribute('aria-label', 'Aviso de cookies');
 
     banner.innerHTML =
-      '<p class="rs-cookie-texto">Usamos cookies de análisis para entender desde dónde nos visitan y cómo se usa la web, con los datos que escribes ocultos. ' +
+      '<p class="rs-cookie-texto">Usamos cookies de análisis para entender desde dónde nos visitan y cómo se usa la web, con los datos que escribes ocultos, ' +
+      'y de Meta para saber si nuestros anuncios en Facebook e Instagram funcionan. ' +
       'Puedes aceptarlas o rechazarlas — no cambia nada más en la web. ' +
       '<a href="' + POLITICA_COOKIES + '">Más información sobre cookies</a>.</p>' +
       '<div class="rs-cookie-acciones">' +
